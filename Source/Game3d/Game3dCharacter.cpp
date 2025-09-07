@@ -10,6 +10,10 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "Public/HealthComponent.h"
+#include "Public/HealthBar.h"
+#include "Public/XpBar.h"
+#include "Public/XpComponent.h"
 #include "Game3d.h"
 
 AGame3dCharacter::AGame3dCharacter()
@@ -45,9 +49,46 @@ AGame3dCharacter::AGame3dCharacter()
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	FollowCamera->bUsePawnControlRotation = false;
-
+	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("HealthComponent"));
+	XpComponent = CreateDefaultSubobject<UXpComponent>(TEXT("XpComponent"));
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
+}
+
+void AGame3dCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+	SetCanBeDamaged(true);
+	if (HealthComponent)
+	{
+		// Suscripción a los eventos del componente
+		HealthComponent->OnLifeChanged.AddDynamic(this, &AGame3dCharacter::HandleLifeChanged);
+		HealthComponent->OnDeath.AddDynamic(this, &AGame3dCharacter::HandleDeath);
+	}
+	if (HealthBarWidgetClass)
+	{
+		HealthWidget = CreateWidget<UHealthBar>(GetWorld(), HealthBarWidgetClass);
+		if (HealthWidget)
+		{
+			HealthWidget->AddToViewport();
+		}
+	}
+	if (XpComponent)
+	{
+		// Suscripción a los eventos del componente
+		XpComponent->OnXpChanged.AddDynamic(this, &AGame3dCharacter::HandleXpChanged);
+		XpComponent->OnLevelChanged.AddDynamic(this, &AGame3dCharacter::HandleLevelChanged);
+	}
+	if (XpBarWidgetClass)
+	{
+		// Crear el widget
+		XpWidget = CreateWidget<UXpBar>(GetWorld(), XpBarWidgetClass);
+
+		if (XpWidget)
+		{
+			XpWidget->AddToViewport();
+		}
+	}
 }
 
 void AGame3dCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -130,4 +171,27 @@ void AGame3dCharacter::DoJumpEnd()
 {
 	// signal the character to stop jumping
 	StopJumping();
+}
+
+void AGame3dCharacter::HandleLifeChanged(float Health, float MaxHealth)
+{
+	if (HealthWidget)
+	{
+		HealthWidget->UpdateBar(Health, MaxHealth);
+	}
+}
+
+void AGame3dCharacter::HandleDeath()
+{
+	Destroy();
+}
+
+void AGame3dCharacter::HandleXpChanged(float Xp, float MaxXp)
+{
+	XpWidget->UpdateXpBar(Xp,MaxXp);
+}
+
+void AGame3dCharacter::HandleLevelChanged(int level)
+{
+	XpWidget->UpdateLevelText(level);
 }

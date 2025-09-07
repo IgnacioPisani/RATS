@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
+#include "Public/HealthBar.h"
+#include "Public/XpBar.h"
 #include "Game3dCharacter.generated.h"
 
 class USpringArmComponent;
@@ -55,6 +57,7 @@ public:
 	AGame3dCharacter();	
 
 protected:
+	virtual void BeginPlay() override;
 
 	/** Initialize input action bindings */
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
@@ -85,6 +88,36 @@ public:
 	UFUNCTION(BlueprintCallable, Category="Input")
 	virtual void DoJumpEnd();
 
+
+	UFUNCTION()
+	void HandleLifeChanged(float Health, float MaxHealth);
+
+	UFUNCTION()
+	void HandleDeath();
+
+	UFUNCTION()
+	void HandleXpChanged(float Xp, float MaxXp);
+
+	UFUNCTION()
+	void HandleLevelChanged(int level);
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	class UHealthComponent* HealthComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	class UXpComponent* XpComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
+	TSubclassOf<UHealthBar> HealthBarWidgetClass;
+
+	UPROPERTY()
+	UHealthBar* HealthWidget;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
+	TSubclassOf<UXpBar> XpBarWidgetClass;
+
+	UPROPERTY()
+	UXpBar* XpWidget;
 public:
 
 	/** Returns CameraBoom subobject **/
