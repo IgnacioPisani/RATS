@@ -15,6 +15,7 @@
 #include "Public/XpBar.h"
 #include "Public/XpComponent.h"
 #include "Game3d.h"
+#include "InventoryComponent.h"
 
 AGame3dCharacter::AGame3dCharacter()
 {
@@ -51,6 +52,7 @@ AGame3dCharacter::AGame3dCharacter()
 	FollowCamera->bUsePawnControlRotation = false;
 	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("HealthComponent"));
 	XpComponent = CreateDefaultSubobject<UXpComponent>(TEXT("XpComponent"));
+	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("InventoryComponent"));
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
 }
@@ -61,7 +63,7 @@ void AGame3dCharacter::BeginPlay()
 	SetCanBeDamaged(true);
 	if (HealthComponent)
 	{
-		// Suscripción a los eventos del componente
+		// Suscripciï¿½n a los eventos del componente
 		HealthComponent->OnLifeChanged.AddDynamic(this, &AGame3dCharacter::HandleLifeChanged);
 		HealthComponent->OnDeath.AddDynamic(this, &AGame3dCharacter::HandleDeath);
 	}
@@ -75,7 +77,7 @@ void AGame3dCharacter::BeginPlay()
 	}
 	if (XpComponent)
 	{
-		// Suscripción a los eventos del componente
+		// Suscripciï¿½n a los eventos del componente
 		XpComponent->OnXpChanged.AddDynamic(this, &AGame3dCharacter::HandleXpChanged);
 		XpComponent->OnLevelChanged.AddDynamic(this, &AGame3dCharacter::HandleLevelChanged);
 	}
