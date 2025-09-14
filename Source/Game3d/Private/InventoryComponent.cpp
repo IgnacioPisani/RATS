@@ -71,17 +71,10 @@ void UInventoryComponent::AddItem(FItemStruct ItemData)
 
 	if (!bAdded)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("No stackeable o item nuevo. Agregando al inventario al principio."));
-    
 		Items.Insert(ItemData, 0); // Inserta el item en la posición 0
 
 		// Log del item agregado
 		FItemStruct& NewItem = Items[0];
-		UE_LOG(LogTemp, Warning, TEXT("Item agregado al inicio: %s, Cantidad: %d, Stackable: %s"),
-			*NewItem.Name.ToString(),
-			NewItem.Quantity,
-			NewItem.bStackable ? TEXT("true") : TEXT("false"));
-
 		OnItemsChanged.Broadcast();
 	}
 }

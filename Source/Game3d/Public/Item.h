@@ -29,7 +29,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<UStaticMeshComponent> StaticMesh;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Inventory")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite,  meta=(ExposeOnSpawn="true"),Category="Inventory")
 	FItemStruct ItemData;
 
 	virtual FItemStruct GetItem_Implementation();
