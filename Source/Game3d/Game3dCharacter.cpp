@@ -205,21 +205,16 @@ void AGame3dCharacter::HandleLevelChanged(int level)
 void AGame3dCharacter::DoPickUp()
 {
 
-	// Configuración del trace
 	const float Radius = 120.f;
 	FVector Start = GetActorLocation();
 	Start.Z -= 65.f;
-	const FVector End = Start; // Sphere trace no necesita desplazamiento
+	const FVector End = Start; 
 
 	UE_LOG(LogTemp, Log, TEXT("Iniciando SphereTrace. Radio: %.1f | Posicion: %s"), 
 		   Radius, *Start.ToString());
-
 	FHitResult HitResult;
 	FCollisionQueryParams Params;
 	Params.AddIgnoredActor(this);
-
-	// Si querés ignorar el piso, podés usar tags
-	// Por ejemplo, buscar todos los actores con tag "Floor" y agregarlos
 	TArray<AActor*> FloorActors;
 	UGameplayStatics::GetAllActorsWithTag(GetWorld(), FName("Floor"), FloorActors);
 	Params.AddIgnoredActors(FloorActors);
