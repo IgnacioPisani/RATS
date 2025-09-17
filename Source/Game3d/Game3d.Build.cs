@@ -21,7 +21,7 @@ public class Game3d : ModuleRules
 			"Slate"
 		});
 
-		PrivateDependencyModuleNames.AddRange(new string[] { });
+		PrivateDependencyModuleNames.AddRange(new string[] { "AITestSuite", "AITestSuite" });
 
 		PublicIncludePaths.AddRange(new string[] {
 			"Game3d",

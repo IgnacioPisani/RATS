@@ -70,6 +70,8 @@ protected:
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
 
+	UPROPERTY(EditAnywhere, Category = "Input")
+	UInputAction* PickUpAction;
 public:
 
 	/** Handles move inputs from either controls or UI interfaces */
@@ -107,6 +109,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	class UXpComponent* XpComponent;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	class UInventoryComponent* InventoryComponent;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
 	TSubclassOf<UHealthBar> HealthBarWidgetClass;
 
@@ -125,5 +130,9 @@ public:
 
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+	
+		// Funcion blueprint-callable para realizar un salto extra
+    UFUNCTION(BlueprintCallable, Category = "Input")
+	virtual void DoPickUp();
 };
 

@@ -12,9 +12,12 @@
 #include "InputActionValue.h"
 #include "Public/HealthComponent.h"
 #include "Public/HealthBar.h"
+#include "Interactable.h"  
 #include "Public/XpBar.h"
 #include "Public/XpComponent.h"
 #include "Game3d.h"
+#include "InventoryComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 AGame3dCharacter::AGame3dCharacter()
 {
@@ -51,6 +54,7 @@ AGame3dCharacter::AGame3dCharacter()
 	FollowCamera->bUsePawnControlRotation = false;
 	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("HealthComponent"));
 	XpComponent = CreateDefaultSubobject<UXpComponent>(TEXT("XpComponent"));
+	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("InventoryComponent"));
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
 }
@@ -61,7 +65,7 @@ void AGame3dCharacter::BeginPlay()
 	SetCanBeDamaged(true);
 	if (HealthComponent)
 	{
-		// SuscripciÛn a los eventos del componente
+		// SuscripciÔøΩn a los eventos del componente
 		HealthComponent->OnLifeChanged.AddDynamic(this, &AGame3dCharacter::HandleLifeChanged);
 		HealthComponent->OnDeath.AddDynamic(this, &AGame3dCharacter::HandleDeath);
 	}
@@ -75,7 +79,7 @@ void AGame3dCharacter::BeginPlay()
 	}
 	if (XpComponent)
 	{
-		// SuscripciÛn a los eventos del componente
+		// SuscripciÔøΩn a los eventos del componente
 		XpComponent->OnXpChanged.AddDynamic(this, &AGame3dCharacter::HandleXpChanged);
 		XpComponent->OnLevelChanged.AddDynamic(this, &AGame3dCharacter::HandleLevelChanged);
 	}
@@ -106,6 +110,8 @@ void AGame3dCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 		// Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AGame3dCharacter::Look);
+		EnhancedInputComponent->BindAction(PickUpAction, ETriggerEvent::Started, this, &AGame3dCharacter::DoPickUp);
+
 	}
 	else
 	{
@@ -194,4 +200,78 @@ void AGame3dCharacter::HandleXpChanged(float Xp, float MaxXp)
 void AGame3dCharacter::HandleLevelChanged(int level)
 {
 	XpWidget->UpdateLevelText(level);
+}
+
+void AGame3dCharacter::DoPickUp()
+{
+
+	const float Radius = 120.f;
+	FVector Start = GetActorLocation();
+	Start.Z -= 65.f;
+	const FVector End = Start; 
+
+	UE_LOG(LogTemp, Log, TEXT("Iniciando SphereTrace. Radio: %.1f | Posicion: %s"), 
+		   Radius, *Start.ToString());
+	FHitResult HitResult;
+	FCollisionQueryParams Params;
+	Params.AddIgnoredActor(this);
+	TArray<AActor*> FloorActors;
+	UGameplayStatics::GetAllActorsWithTag(GetWorld(), FName("Floor"), FloorActors);
+	Params.AddIgnoredActors(FloorActors);
+
+	bool bHit = GetWorld()->SweepSingleByChannel(
+		HitResult,
+		Start,
+		End,
+		FQuat::Identity,
+		ECC_Visibility,
+		FCollisionShape::MakeSphere(Radius),
+		Params
+	);
+
+	UE_LOG(LogTemp, Log, TEXT("Resultado del trace -> bHit: %s"), bHit ? TEXT("TRUE") : TEXT("FALSE"));
+
+	if (bHit)
+	{
+		if (HitResult.GetActor())
+		{
+			AActor* HitActor = HitResult.GetActor();
+			UE_LOG(LogTemp, Log, TEXT("Actor impactado: %s"), *HitActor->GetName());
+
+			if (HitActor->GetClass()->ImplementsInterface(UInteractable::StaticClass()))
+			{
+				UE_LOG(LogTemp, Log, TEXT("El actor implementa la interfaz UInteractable"));
+
+				FItemStruct ItemData = IInteractable::Execute_GetItem(HitActor);
+
+				UE_LOG(LogTemp, Log, TEXT("ItemData recibido -> Name: %s, Cantidad: %d"),
+					   *ItemData.Name.ToString(), ItemData.Quantity);
+
+				if (InventoryComponent)
+				{
+					InventoryComponent->AddItem(ItemData);
+					UE_LOG(LogTemp, Log, TEXT("Item agregado al inventario"));
+				}
+				else
+				{
+					UE_LOG(LogTemp, Warning, TEXT("InventoryComponent es nullptr"));
+				}
+
+				HitActor->Destroy();
+				UE_LOG(LogTemp, Log, TEXT("Actor destruido tras recoger item"));
+			}
+			else
+			{
+				UE_LOG(LogTemp, Warning, TEXT("El actor no implementa UInteractable"));
+			}
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Trace detect√≥ impacto pero GetActor() es nullptr"));
+		}
+	}
+	else
+	{
+		UE_LOG(LogTemp, Log, TEXT("SphereTrace no encontr√≥ ning√∫n actor"));
+	}
 }
