@@ -179,6 +179,38 @@ void AGame3dCharacter::DoJumpEnd()
 	StopJumping();
 }
 
+void AGame3dCharacter::EquipItem(FItemStruct ItemData)
+{
+	if (!ItemData.Mesh)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("ItemData.Mesh es nullptr"));
+		return;
+	}
+
+	// Si ya hay una malla equipada, la destruimos
+	if (EquippedMesh)
+	{
+		EquippedMesh->DestroyComponent();
+		EquippedMesh = nullptr;
+		UE_LOG(LogTemp, Log, TEXT("Malla previa destruida"));
+	}
+
+	// Crear un componente de malla en runtime
+	EquippedMesh = NewObject<UStaticMeshComponent>(this);
+	if (EquippedMesh)
+	{
+		EquippedMesh->RegisterComponent();
+		EquippedMesh->SetStaticMesh(ItemData.Mesh);
+		EquippedMesh->AttachToComponent(
+			GetMesh(),
+			FAttachmentTransformRules::SnapToTargetNotIncludingScale,
+			TEXT("Socket_Weapon")  // tu socket en el esqueleto
+		);
+
+		UE_LOG(LogTemp, Log, TEXT("Malla adjuntada al socket WeaponSocket"));
+	}
+}
+
 void AGame3dCharacter::HandleLifeChanged(float Health, float MaxHealth)
 {
 	if (HealthWidget)
@@ -243,7 +275,7 @@ void AGame3dCharacter::DoPickUp()
 				UE_LOG(LogTemp, Log, TEXT("El actor implementa la interfaz UInteractable"));
 
 				FItemStruct ItemData = IInteractable::Execute_GetItem(HitActor);
-
+			
 				UE_LOG(LogTemp, Log, TEXT("ItemData recibido -> Name: %s, Cantidad: %d"),
 					   *ItemData.Name.ToString(), ItemData.Quantity);
 

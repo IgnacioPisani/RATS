@@ -47,6 +47,16 @@ void UInventoryComponent::RemoveItem(int Index)
 	}
 }
 
+FItemStruct UInventoryComponent::GetItemByIndex(int32 Index)
+{
+	if (Items.IsValidIndex(Index))
+	{
+		return Items[Index];
+	}
+
+	return FItemStruct();
+}
+
 void UInventoryComponent::AddItem(FItemStruct ItemData)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Agregando item: %s, Cantidad: %d"), *ItemData.Name.ToString(), ItemData.Quantity);
