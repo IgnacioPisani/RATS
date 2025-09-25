@@ -90,6 +90,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category="Input")
 	virtual void DoJumpEnd();
 
+	UFUNCTION(BlueprintCallable)
+	virtual void EquipItem(FItemStruct ItemData);
 
 	UFUNCTION()
 	void HandleLifeChanged(float Health, float MaxHealth);
@@ -123,6 +125,9 @@ public:
 
 	UPROPERTY()
 	UXpBar* XpWidget;
+
+	UPROPERTY()
+	UStaticMeshComponent* EquippedMesh = nullptr;
 public:
 
 	/** Returns CameraBoom subobject **/

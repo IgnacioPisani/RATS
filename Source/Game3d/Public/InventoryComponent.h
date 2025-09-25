@@ -36,5 +36,8 @@ public:
 	void RemoveItem(int Index);
 
 	UFUNCTION(BlueprintCallable, Category = "Inventory")	
+	FItemStruct GetItemByIndex(int Index);
+
+	UFUNCTION(BlueprintCallable, Category = "Inventory")	
 	void AddItem(FItemStruct ItemData);
 };
