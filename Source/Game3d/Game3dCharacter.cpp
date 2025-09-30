@@ -234,6 +234,19 @@ void AGame3dCharacter::HandleLevelChanged(int level)
 	XpWidget->UpdateLevelText(level);
 }
 
+float AGame3dCharacter::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent,
+	class AController* EventInstigator, AActor* DamageCauser)
+{
+	float ActualDamage = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+
+	if (ActualDamage > 0.f && HealthComponent)
+	{
+		HealthComponent->DecreaseHealth(ActualDamage);
+	}
+
+	return ActualDamage;
+}
+
 void AGame3dCharacter::DoPickUp()
 {
 
