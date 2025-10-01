@@ -18,7 +18,9 @@ public:
     UFUNCTION(BlueprintCallable)
     void UpdateBar(float Health, float MaxHealth);
 
+    UFUNCTION(BlueprintCallable)
+    void SetBarColor(const FLinearColor& NewColor);
 protected:
-    UPROPERTY(meta = (BindWidget))
+    UPROPERTY(meta = (BindWidget),BlueprintReadWrite)
     class UProgressBar* HealthProgressBar;
 };

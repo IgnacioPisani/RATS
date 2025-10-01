@@ -14,6 +14,14 @@
   <component name="ChangeListManager">
     <list default="true" id="700cebab-63ab-47f1-8bec-c545c4c447ad" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemies/BP_Enemy.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemies/BP_Enemy.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Input/IMC_Default.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Input/IMC_Default.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Variant_Combat/Input/IMC_Combat.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Variant_Combat/Input/IMC_Combat.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Widget/WBP_HealthBar.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Widget/WBP_HealthBar.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Lvl_ThirdPerson/9/FB/EQOGSFP2YYWFW02O9HK3NS.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Lvl_ThirdPerson/9/FB/EQOGSFP2YYWFW02O9HK3NS.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Private/HealthBar.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Private/HealthBar.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Public/HealthBar.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Public/HealthBar.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +36,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Core/Public/CoreGlobals.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/Pawn.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Private/Interactable.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Private/InventoryComponent.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Private/Item.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -39,6 +48,7 @@
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Public/ItemStruct.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Public/Slot.h" root0="FORCE_HIGHLIGHTING" />
   </component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 5
@@ -54,7 +64,7 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "enemies-2",
+    "git-widget-placeholder": "combat",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -190,12 +200,14 @@
       <workItem from="1757976894847" duration="2603000" />
       <workItem from="1758156594475" duration="3624000" />
       <workItem from="1759096049414" duration="2762000" />
+      <workItem from="1759271801286" duration="6688000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
