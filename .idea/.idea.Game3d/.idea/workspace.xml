@@ -14,14 +14,30 @@
   <component name="ChangeListManager">
     <list default="true" id="700cebab-63ab-47f1-8bec-c545c4c447ad" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemies/AN_Hit.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemies/BPI_Attack.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemies/BPI_HandleHit.uasset" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Enemies/BP_Enemy.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemies/BP_Enemy.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemies/BP_EnemyBase.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemies/BTDecorator_CanMove.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemies/BTDecorator_IsInRange.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemies/BTTask_Attack.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemies/BTTask_ClearFocus.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemies/BTTask_FocusTarget.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemies/BTTask_RandomPoint.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemies/BT_Enemy.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemies/BT_EnemyBlackboard.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemies/IA_Enemy.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/IA_Combat.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/IA_InteractInventory.uasset" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Input/IMC_Default.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Input/IMC_Default.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Variant_Combat/Input/IMC_Combat.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Variant_Combat/Input/IMC_Combat.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Widget/WBP_HealthBar.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Widget/WBP_HealthBar.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Lvl_ThirdPerson/9/FB/EQOGSFP2YYWFW02O9HK3NS.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Lvl_ThirdPerson/9/FB/EQOGSFP2YYWFW02O9HK3NS.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Private/HealthBar.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Private/HealthBar.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Public/HealthBar.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Public/HealthBar.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Variant_Combat/Anims/AM_ComboAttack.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Variant_Combat/Anims/AM_ComboAttack.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Lvl_ThirdPerson/D/0X/R9DYUAG7IIX67I6ZZ143CR.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Private/EnemyBase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Private/EnemyBase.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Public/EnemyBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Public/EnemyBase.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,11 +53,13 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Core/Public/CoreGlobals.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/Pawn.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/Game3d/Private/CharacterBase.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Private/Interactable.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Private/InventoryComponent.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Private/Item.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Private/ItemStruct.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Private/Slot.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/Game3d/Public/CharacterBase.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Public/Interactable.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Public/InventoryComponent.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Public/Item.h" root0="FORCE_HIGHLIGHTING" />
@@ -58,21 +76,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "C/C++ Project.Game3d.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "combat",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;C/C++ Project.Game3d.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;refactor&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="C/C++ Project.Game3d">
     <configuration name="Game3d" type="CppProject" factoryName="C++ Project">
       <configuration_1 setup="1">
@@ -201,6 +219,8 @@
       <workItem from="1758156594475" duration="3624000" />
       <workItem from="1759096049414" duration="2762000" />
       <workItem from="1759271801286" duration="6688000" />
+      <workItem from="1759692160712" duration="4511000" />
+      <workItem from="1759696908270" duration="547000" />
     </task>
     <servers />
   </component>
