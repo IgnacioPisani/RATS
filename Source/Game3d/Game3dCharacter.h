@@ -3,6 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "CharacterBase.h"
+#include "HandleHit.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
 #include "Public/HealthBar.h"
@@ -21,7 +23,7 @@ DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
  *  Implements a controllable orbiting camera
  */
 UCLASS(abstract)
-class AGame3dCharacter : public ACharacter
+class AGame3dCharacter : public ACharacterBase
 {
 	GENERATED_BODY()
 
@@ -92,27 +94,19 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	virtual void EquipItem(FItemStruct ItemData);
-
-	UFUNCTION()
-	void HandleLifeChanged(float Health, float MaxHealth);
-
-	UFUNCTION()
-	void HandleDeath();
-
+	
 	UFUNCTION()
 	void HandleXpChanged(float Xp, float MaxXp);
 
 	UFUNCTION()
 	void HandleLevelChanged(int level);
 
-	virtual float TakeDamage(float DamageAmount,
-						 struct FDamageEvent const& DamageEvent,
-						 class AController* EventInstigator,
-						 AActor* DamageCauser) override;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	class UHealthComponent* HealthComponent;
-
+	virtual void HandleLifeChanged(float Health, float MaxHealth) override;
+	
+	virtual void HandleDeath() override;
+	
+	virtual void HandleHit_Implementation() override;
+	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	class UXpComponent* XpComponent;
 
@@ -122,9 +116,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
 	TSubclassOf<UHealthBar> HealthBarWidgetClass;
 
-	UPROPERTY()
-	UHealthBar* HealthWidget;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
 	TSubclassOf<UXpBar> XpBarWidgetClass;
 
@@ -133,6 +124,10 @@ public:
 
 	UPROPERTY()
 	UStaticMeshComponent* EquippedMesh = nullptr;
+
+	// Para evitar golpear varias veces al mismo actor en un ataque
+	TArray<AActor*> HitActors;
+
 public:
 
 	/** Returns CameraBoom subobject **/
