@@ -41,6 +41,10 @@ protected:
 	UPROPERTY(EditAnywhere, Category="Input")
 	UInputAction* JumpAction;
 
+	/** Run Input Action */
+	UPROPERTY(EditAnywhere, Category="Input")
+	UInputAction* RunAction;
+	
 	/** Move Input Action */
 	UPROPERTY(EditAnywhere, Category="Input")
 	UInputAction* MoveAction;
@@ -95,6 +99,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	virtual void EquipItem(FItemStruct ItemData);
 	
+	
 	UFUNCTION()
 	void HandleXpChanged(float Xp, float MaxXp);
 
@@ -128,6 +133,14 @@ public:
 	// Para evitar golpear varias veces al mismo actor en un ataque
 	TArray<AActor*> HitActors;
 
+   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement")
+   float WalkSpeed = 500.f;
+   
+   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement")
+   float SprintSpeed = 800.f;
+   
+   bool bIsSprinting = false;
+
 public:
 
 	/** Returns CameraBoom subobject **/
@@ -139,5 +152,13 @@ public:
 		// Funcion blueprint-callable para realizar un salto extra
     UFUNCTION(BlueprintCallable, Category = "Input")
 	virtual void DoPickUp();
+
+    UFUNCTION(BlueprintCallable, Category = "Input")
+	virtual void DoStartSprint();
+   
+    UFUNCTION(BlueprintCallable, Category = "Input")
+	virtual void DoStopSprint();
+
+	
 };
 

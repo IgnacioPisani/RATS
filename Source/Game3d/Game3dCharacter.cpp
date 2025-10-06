@@ -61,6 +61,7 @@ void AGame3dCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	SetCanBeDamaged(true);
+	GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
 	if (HealthBarWidgetClass)
 	{
 		HealthBarWidget = CreateWidget<UHealthBar>(GetWorld(), HealthBarWidgetClass);
@@ -103,7 +104,9 @@ void AGame3dCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		// Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AGame3dCharacter::Look);
 		EnhancedInputComponent->BindAction(PickUpAction, ETriggerEvent::Started, this, &AGame3dCharacter::DoPickUp);
-
+		EnhancedInputComponent->BindAction(RunAction, ETriggerEvent::Started, this, &AGame3dCharacter::DoStartSprint);
+		EnhancedInputComponent->BindAction(RunAction, ETriggerEvent::Completed, this, &AGame3dCharacter::DoStopSprint);
+     
 	}
 	else
 	{
@@ -280,7 +283,6 @@ void AGame3dCharacter::HandleHit_Implementation()
 }
 
 
-
 void AGame3dCharacter::DoPickUp()
 {
 
@@ -353,4 +355,18 @@ void AGame3dCharacter::DoPickUp()
 	{
 		UE_LOG(LogTemp, Log, TEXT("SphereTrace no encontró ningún actor"));
 	}
+
+	
 }
+
+void AGame3dCharacter::DoStartSprint()
+{
+	GetCharacterMovement()->MaxWalkSpeed = 900.f; // o el valor que quieras
+}
+
+void AGame3dCharacter::DoStopSprint()
+{
+	GetCharacterMovement()->MaxWalkSpeed = 600.f; // velocidad normal
+}
+
+
