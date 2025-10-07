@@ -3,30 +3,19 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "CharacterBase.h"
-#include "HandleHit.h"
+#include "EnemyBase.h"
 #include "GameFramework/Character.h"
-#include "EnemyBase.generated.h"
+#include "EnemyMelee.generated.h"
 
 UCLASS()
-class GAME3D_API AEnemyBase : public ACharacterBase
+class GAME3D_API AEnemyMelee : public AEnemyBase
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this character's properties
-	AEnemyBase();
+	AEnemyMelee();
 
-	virtual void HandleLifeChanged(float Health, float MaxHealth) override;
-	
-	virtual void HandleDeath() override;
-	
-	virtual void HandleHit_Implementation() override;
-	
-	// Widget Component que contendrá el HealthBar
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="UI")
-	class UWidgetComponent* HealthBarWidgetComponent;
-	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -37,5 +26,6 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	
+
+	virtual void HandleHit_Implementation() override;
 };
