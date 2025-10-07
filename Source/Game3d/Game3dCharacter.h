@@ -159,6 +159,36 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Input")
 	virtual void DoStopSprint();
 
-	
+	// ---- Variables ----
+	int32 JumpCount = 0;
+	FTimerHandle SuspensionTimerHandle;
+	FVector SuspensionDirection;
+	bool bIsSuspending = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Jump|Suspension")
+	int32 MaxJumpCount = 2;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Jump|Suspension")
+	float SuspensionDuration = 0.5f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Jump|Suspension")
+	float SuspensionSpeed = 1000.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Jump|Suspension")
+	bool bUseInputDirection = true;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Jump|Suspension")
+	float NormalGravityScale = 1.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Jump|Suspension")
+	float EndLiftVelocityZ = -200.f;
+
+	// ---- Funciones ----
+	virtual void Jump() override;
+	virtual void Landed(const FHitResult& Hit) override;
+
+	void StartSuspension(const FVector& Direction);
+	void EndSuspension();
+
 };
 
