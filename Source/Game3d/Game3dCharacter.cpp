@@ -61,6 +61,7 @@ void AGame3dCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	SetCanBeDamaged(true);
+	GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
 	if (HealthBarWidgetClass)
 	{
 		HealthBarWidget = CreateWidget<UHealthBar>(GetWorld(), HealthBarWidgetClass);
@@ -103,7 +104,9 @@ void AGame3dCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		// Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AGame3dCharacter::Look);
 		EnhancedInputComponent->BindAction(PickUpAction, ETriggerEvent::Started, this, &AGame3dCharacter::DoPickUp);
-
+		EnhancedInputComponent->BindAction(RunAction, ETriggerEvent::Started, this, &AGame3dCharacter::DoStartSprint);
+		EnhancedInputComponent->BindAction(RunAction, ETriggerEvent::Completed, this, &AGame3dCharacter::DoStopSprint);
+     
 	}
 	else
 	{
@@ -280,7 +283,6 @@ void AGame3dCharacter::HandleHit_Implementation()
 }
 
 
-
 void AGame3dCharacter::DoPickUp()
 {
 
@@ -353,4 +355,95 @@ void AGame3dCharacter::DoPickUp()
 	{
 		UE_LOG(LogTemp, Log, TEXT("SphereTrace no encontró ningún actor"));
 	}
+
+	
+}
+
+void AGame3dCharacter::DoStartSprint()
+{
+	GetCharacterMovement()->MaxWalkSpeed = 900.f; // o el valor que quieras
+}
+
+void AGame3dCharacter::DoStopSprint()
+{
+	GetCharacterMovement()->MaxWalkSpeed = 600.f; // velocidad normal
+}
+
+
+void AGame3dCharacter::Jump()
+{
+	if (bIsSuspending) return;
+
+	JumpCount++;
+
+	if (JumpCount < MaxJumpCount)
+	{
+		Super::Jump();
+	}
+	else
+	{
+		FVector InputDir = GetLastMovementInputVector();
+		FVector Dir = FVector::ZeroVector;
+
+		if (bUseInputDirection && !InputDir.IsNearlyZero())
+			Dir = InputDir.GetSafeNormal();
+		else
+		{
+			Dir = GetActorForwardVector();
+			Dir.Z = 0.f;
+			Dir.Normalize();
+		}
+
+		StartSuspension(Dir);
+	}
+}
+
+void AGame3dCharacter::StartSuspension(const FVector& Direction)
+{
+	if (!GetCharacterMovement()) return;
+
+	bIsSuspending = true;
+	SuspensionDirection = Direction.GetSafeNormal();
+
+	GetCharacterMovement()->StopMovementImmediately();
+	GetCharacterMovement()->GravityScale = 0.f;
+	GetCharacterMovement()->SetMovementMode(MOVE_Flying);
+
+	FVector Vel = SuspensionDirection * SuspensionSpeed;
+	Vel.Z = 0.f;
+	GetCharacterMovement()->Velocity = Vel;
+
+	GetWorldTimerManager().SetTimer(SuspensionTimerHandle, this, &AGame3dCharacter::EndSuspension, SuspensionDuration, false);
+}
+
+void AGame3dCharacter::EndSuspension()
+{
+	if (!GetCharacterMovement()) return;
+
+	bIsSuspending = false;
+
+	// Restaurar gravedad normal
+	GetCharacterMovement()->GravityScale = NormalGravityScale;
+
+	// Cambiar a modo de caída
+	GetCharacterMovement()->SetMovementMode(MOVE_Falling);
+
+	// Mantener caída vertical suave en línea recta
+	FVector FallVelocity = FVector::ZeroVector;
+	FallVelocity.Z = -600.f; // caída natural, sin impulso brusco
+	GetCharacterMovement()->Velocity = FallVelocity;
+
+	// Resetear contador de salto
+	JumpCount = 0;
+}
+
+
+void AGame3dCharacter::Landed(const FHitResult& Hit)
+{
+	Super::Landed(Hit);
+	JumpCount = 0;
+	bIsSuspending = false;
+	GetWorldTimerManager().ClearTimer(SuspensionTimerHandle);
+	GetCharacterMovement()->GravityScale = NormalGravityScale;
+	GetCharacterMovement()->SetMovementMode(MOVE_Walking);
 }
