@@ -206,7 +206,7 @@ void AGame3dCharacter::EquipItem(FItemStruct ItemData)
 		EquippedMesh->AttachToComponent(
 			GetMesh(),
 			FAttachmentTransformRules::SnapToTargetNotIncludingScale,
-			TEXT("Socket_Weapon")  // tu socket en el esqueleto
+			TEXT("hand_rSocket")  // tu socket en el esqueleto
 		);
 
 		UE_LOG(LogTemp, Log, TEXT("Malla adjuntada al socket WeaponSocket"));
