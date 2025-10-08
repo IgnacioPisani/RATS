@@ -10,7 +10,6 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
-#include "Public/HealthComponent.h"
 #include "Public/HealthBar.h"
 #include "Interactable.h"  
 #include "Public/XpBar.h"
@@ -52,7 +51,6 @@ AGame3dCharacter::AGame3dCharacter()
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	FollowCamera->bUsePawnControlRotation = false;
-	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("HealthComponent"));
 	XpComponent = CreateDefaultSubobject<UXpComponent>(TEXT("XpComponent"));
 	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("InventoryComponent"));
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
@@ -63,18 +61,13 @@ void AGame3dCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	SetCanBeDamaged(true);
-	if (HealthComponent)
-	{
-		// Suscripci�n a los eventos del componente
-		HealthComponent->OnLifeChanged.AddDynamic(this, &AGame3dCharacter::HandleLifeChanged);
-		HealthComponent->OnDeath.AddDynamic(this, &AGame3dCharacter::HandleDeath);
-	}
+	GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
 	if (HealthBarWidgetClass)
 	{
-		HealthWidget = CreateWidget<UHealthBar>(GetWorld(), HealthBarWidgetClass);
-		if (HealthWidget)
+		HealthBarWidget = CreateWidget<UHealthBar>(GetWorld(), HealthBarWidgetClass);
+		if (HealthBarWidget)
 		{
-			HealthWidget->AddToViewport();
+			HealthBarWidget->AddToViewport();
 		}
 	}
 	if (XpComponent)
@@ -111,7 +104,9 @@ void AGame3dCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		// Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AGame3dCharacter::Look);
 		EnhancedInputComponent->BindAction(PickUpAction, ETriggerEvent::Started, this, &AGame3dCharacter::DoPickUp);
-
+		EnhancedInputComponent->BindAction(RunAction, ETriggerEvent::Started, this, &AGame3dCharacter::DoStartSprint);
+		EnhancedInputComponent->BindAction(RunAction, ETriggerEvent::Completed, this, &AGame3dCharacter::DoStopSprint);
+     
 	}
 	else
 	{
@@ -213,11 +208,9 @@ void AGame3dCharacter::EquipItem(FItemStruct ItemData)
 
 void AGame3dCharacter::HandleLifeChanged(float Health, float MaxHealth)
 {
-	if (HealthWidget)
-	{
-		HealthWidget->UpdateBar(Health, MaxHealth);
-	}
+	HealthBarWidget->UpdateBar(Health,MaxHealth);
 }
+
 
 void AGame3dCharacter::HandleDeath()
 {
@@ -234,18 +227,61 @@ void AGame3dCharacter::HandleLevelChanged(int level)
 	XpWidget->UpdateLevelText(level);
 }
 
-float AGame3dCharacter::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent,
-	class AController* EventInstigator, AActor* DamageCauser)
+void AGame3dCharacter::HandleHit_Implementation()
 {
-	float ActualDamage = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+	HitActors.Empty();
 
-	if (ActualDamage > 0.f && HealthComponent)
+	USkeletalMeshComponent* MeshComp = GetMesh();
+	if (!MeshComp) return;
+
+	FVector SocketLocation = MeshComp->GetSocketLocation(AttackSocketName);
+	FRotator SocketRotation = MeshComp->GetSocketRotation(AttackSocketName);
+	FVector ForwardVector = SocketRotation.Vector();
+	FVector End = SocketLocation + ForwardVector * AttackRange;
+
+	TArray<TEnumAsByte<EObjectTypeQuery>> ObjectTypes;
+	ObjectTypes.Add(UEngineTypes::ConvertToObjectType(ECollisionChannel::ECC_Pawn));
+
+	TArray<AActor*> ActorsToIgnore;
+	ActorsToIgnore.Add(this);
+
+	TArray<FHitResult> OutHits;
+
+	bool bHit = UKismetSystemLibrary::SphereTraceMultiForObjects(
+		GetWorld(),
+		SocketLocation,
+		End,
+		AttackRadius,
+		ObjectTypes,
+		false,
+		ActorsToIgnore,
+		EDrawDebugTrace::ForDuration, // cambiar a None cuando ya funcione
+		OutHits,
+		true
+	);
+
+	if (bHit)
 	{
-		HealthComponent->DecreaseHealth(ActualDamage);
-	}
+		for (const FHitResult& Hit : OutHits)
+		{
+			AActor* HitActor = Hit.GetActor();
+			if (!HitActor || HitActors.Contains(HitActor))
+				continue;
 
-	return ActualDamage;
+			HitActors.Add(HitActor);
+
+			// Aplica daño al actor golpeado
+			UGameplayStatics::ApplyDamage(
+				HitActor,          
+				AttackDamage,     
+				GetController(),   
+				this,               
+				nullptr            
+			);
+		}
+	}
 }
+
 
 void AGame3dCharacter::DoPickUp()
 {
@@ -319,4 +355,95 @@ void AGame3dCharacter::DoPickUp()
 	{
 		UE_LOG(LogTemp, Log, TEXT("SphereTrace no encontró ningún actor"));
 	}
+
+	
+}
+
+void AGame3dCharacter::DoStartSprint()
+{
+	GetCharacterMovement()->MaxWalkSpeed = 900.f; // o el valor que quieras
+}
+
+void AGame3dCharacter::DoStopSprint()
+{
+	GetCharacterMovement()->MaxWalkSpeed = 600.f; // velocidad normal
+}
+
+
+void AGame3dCharacter::Jump()
+{
+	if (bIsSuspending) return;
+
+	JumpCount++;
+
+	if (JumpCount < MaxJumpCount)
+	{
+		Super::Jump();
+	}
+	else
+	{
+		FVector InputDir = GetLastMovementInputVector();
+		FVector Dir = FVector::ZeroVector;
+
+		if (bUseInputDirection && !InputDir.IsNearlyZero())
+			Dir = InputDir.GetSafeNormal();
+		else
+		{
+			Dir = GetActorForwardVector();
+			Dir.Z = 0.f;
+			Dir.Normalize();
+		}
+
+		StartSuspension(Dir);
+	}
+}
+
+void AGame3dCharacter::StartSuspension(const FVector& Direction)
+{
+	if (!GetCharacterMovement()) return;
+
+	bIsSuspending = true;
+	SuspensionDirection = Direction.GetSafeNormal();
+
+	GetCharacterMovement()->StopMovementImmediately();
+	GetCharacterMovement()->GravityScale = 0.f;
+	GetCharacterMovement()->SetMovementMode(MOVE_Flying);
+
+	FVector Vel = SuspensionDirection * SuspensionSpeed;
+	Vel.Z = 0.f;
+	GetCharacterMovement()->Velocity = Vel;
+
+	GetWorldTimerManager().SetTimer(SuspensionTimerHandle, this, &AGame3dCharacter::EndSuspension, SuspensionDuration, false);
+}
+
+void AGame3dCharacter::EndSuspension()
+{
+	if (!GetCharacterMovement()) return;
+
+	bIsSuspending = false;
+
+	// Restaurar gravedad normal
+	GetCharacterMovement()->GravityScale = NormalGravityScale;
+
+	// Cambiar a modo de caída
+	GetCharacterMovement()->SetMovementMode(MOVE_Falling);
+
+	// Mantener caída vertical suave en línea recta
+	FVector FallVelocity = FVector::ZeroVector;
+	FallVelocity.Z = -600.f; // caída natural, sin impulso brusco
+	GetCharacterMovement()->Velocity = FallVelocity;
+
+	// Resetear contador de salto
+	JumpCount = 0;
+}
+
+
+void AGame3dCharacter::Landed(const FHitResult& Hit)
+{
+	Super::Landed(Hit);
+	JumpCount = 0;
+	bIsSuspending = false;
+	GetWorldTimerManager().ClearTimer(SuspensionTimerHandle);
+	GetCharacterMovement()->GravityScale = NormalGravityScale;
+	GetCharacterMovement()->SetMovementMode(MOVE_Walking);
 }
