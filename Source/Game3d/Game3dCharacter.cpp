@@ -28,6 +28,13 @@ AGame3dCharacter::AGame3dCharacter()
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
 
+	//Dash 
+	bHasDashed = false;
+	bIsDashing = false;
+
+	// bind the attack montage ended delegate
+	OnDashMontageEnded.BindUObject(this, &AGame3dCharacter::DashMontageEnded);
+
 	// Configure character movement
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 500.0f, 0.0f);
@@ -437,6 +444,37 @@ void AGame3dCharacter::EndSuspension()
 	JumpCount = 0;
 }
 
+void AGame3dCharacter::DoDash()
+{
+	// ignore the input if we've already dashed and have yet to reset
+	if (bHasDashed)
+		return;
+
+	// raise the dash flags
+	bIsDashing = true;
+	bHasDashed = true;
+
+	// disable gravity while dashing
+	GetCharacterMovement()->GravityScale = 0.0f;
+
+	// reset the character velocity so we don't carry momentum into the dash
+	GetCharacterMovement()->Velocity = FVector::ZeroVector;
+
+	// enable the jump trails
+	SetJumpTrailState(true);
+
+	// play the dash montage
+	if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
+	{
+		const float MontageLength = AnimInstance->Montage_Play(DashMontage, 1.0f, EMontagePlayReturnType::MontageLength, 0.0f, true);
+
+		// has the montage played successfully?
+		if (MontageLength > 0.0f)
+		{
+			AnimInstance->Montage_SetEndDelegate(OnDashMontageEnded, DashMontage);
+		}
+	}
+}
 
 void AGame3dCharacter::Landed(const FHitResult& Hit)
 {
@@ -446,4 +484,32 @@ void AGame3dCharacter::Landed(const FHitResult& Hit)
 	GetWorldTimerManager().ClearTimer(SuspensionTimerHandle);
 	GetCharacterMovement()->GravityScale = NormalGravityScale;
 	GetCharacterMovement()->SetMovementMode(MOVE_Walking);
+}
+
+void AGame3dCharacter::DashMontageEnded(UAnimMontage* Montage, bool bInterrupted)
+{
+	// if the montage was interrupted, end the dash
+	if (bInterrupted)
+	{
+		EndDash();
+	}
+}
+
+void AGame3dCharacter::EndDash()
+{
+	// restore gravity
+	GetCharacterMovement()->GravityScale = 2.5f;
+
+	// reset the dashing flag
+	bIsDashing = false;
+
+	// are we grounded after the dash?
+	if (GetCharacterMovement()->IsMovingOnGround())
+	{
+		// reset the dash usage flag, since we won't receive a landed event
+		bHasDashed = false;
+
+		// deactivate the jump trails
+		SetJumpTrailState(false);
+	}
 }

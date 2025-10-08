@@ -11,10 +11,12 @@
 #include "Public/XpBar.h"
 #include "Game3dCharacter.generated.h"
 
+
 class USpringArmComponent;
 class UCameraComponent;
 class UInputAction;
 struct FInputActionValue;
+class UAnimMontage;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
 
@@ -57,6 +59,10 @@ protected:
 	UPROPERTY(EditAnywhere, Category="Input")
 	UInputAction* MouseLookAction;
 
+	/** Dash Input Action */
+	UPROPERTY(EditAnywhere, Category = "Input")
+	UInputAction* DashAction;
+
 public:
 
 	/** Constructor */
@@ -76,6 +82,9 @@ protected:
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
 
+	/** Called for dash input */
+	void Dash();
+
 	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* PickUpAction;
 public:
@@ -87,6 +96,10 @@ public:
 	/** Handles look inputs from either controls or UI interfaces */
 	UFUNCTION(BlueprintCallable, Category="Input")
 	virtual void DoLook(float Yaw, float Pitch);
+
+	/** Handles dash inputs from either controls or UI interfaces */
+	UFUNCTION(BlueprintCallable, Category = "Input")
+	virtual void DoDash();
 
 	/** Handles jump pressed inputs from either controls or UI interfaces */
 	UFUNCTION(BlueprintCallable, Category="Input")
@@ -111,6 +124,10 @@ public:
 	virtual void HandleDeath() override;
 	
 	virtual void HandleHit_Implementation() override;
+
+	/** Called from a delegate when the dash montage ends */
+	void DashMontageEnded(UAnimMontage* Montage, bool bInterrupted);
+	FOnMontageEnded OnDashMontageEnded;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	class UXpComponent* XpComponent;
@@ -159,11 +176,26 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Input")
 	virtual void DoStopSprint();
 
+	/** Passes control to Blueprint to enable or disable jump trails */
+	UFUNCTION(BlueprintImplementableEvent, Category = "Platforming")
+	void SetJumpTrailState(bool bEnabled);
+
+
+	/** Ends the dash state */
+	void EndDash();
+
 	// ---- Variables ----
 	int32 JumpCount = 0;
 	FTimerHandle SuspensionTimerHandle;
 	FVector SuspensionDirection;
 	bool bIsSuspending = false;
+	uint8 bHasDashed : 1;
+	uint8 bIsDashing : 1;
+	
+	UPROPERTY(EditAnywhere, Category = "Dash")
+	UAnimMontage* DashMontage;
+
+
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Jump|Suspension")
 	int32 MaxJumpCount = 2;
@@ -191,4 +223,3 @@ public:
 	void EndSuspension();
 
 };
-
