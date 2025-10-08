@@ -376,74 +376,6 @@ void AGame3dCharacter::DoStopSprint()
 	GetCharacterMovement()->MaxWalkSpeed = 600.f; // velocidad normal
 }
 
-
-void AGame3dCharacter::Jump()
-{
-	if (bIsSuspending) return;
-
-	JumpCount++;
-
-	if (JumpCount < MaxJumpCount)
-	{
-		Super::Jump();
-	}
-	else
-	{
-		FVector InputDir = GetLastMovementInputVector();
-		FVector Dir = FVector::ZeroVector;
-
-		if (bUseInputDirection && !InputDir.IsNearlyZero())
-			Dir = InputDir.GetSafeNormal();
-		else
-		{
-			Dir = GetActorForwardVector();
-			Dir.Z = 0.f;
-			Dir.Normalize();
-		}
-
-		StartSuspension(Dir);
-	}
-}
-
-void AGame3dCharacter::StartSuspension(const FVector& Direction)
-{
-	if (!GetCharacterMovement()) return;
-
-	bIsSuspending = true;
-	SuspensionDirection = Direction.GetSafeNormal();
-
-	GetCharacterMovement()->StopMovementImmediately();
-	GetCharacterMovement()->GravityScale = 0.f;
-	GetCharacterMovement()->SetMovementMode(MOVE_Flying);
-
-	FVector Vel = SuspensionDirection * SuspensionSpeed;
-	Vel.Z = 0.f;
-	GetCharacterMovement()->Velocity = Vel;
-
-	GetWorldTimerManager().SetTimer(SuspensionTimerHandle, this, &AGame3dCharacter::EndSuspension, SuspensionDuration, false);
-}
-
-void AGame3dCharacter::EndSuspension()
-{
-	if (!GetCharacterMovement()) return;
-
-	bIsSuspending = false;
-
-	// Restaurar gravedad normal
-	GetCharacterMovement()->GravityScale = NormalGravityScale;
-
-	// Cambiar a modo de caída
-	GetCharacterMovement()->SetMovementMode(MOVE_Falling);
-
-	// Mantener caída vertical suave en línea recta
-	FVector FallVelocity = FVector::ZeroVector;
-	FallVelocity.Z = -600.f; // caída natural, sin impulso brusco
-	GetCharacterMovement()->Velocity = FallVelocity;
-
-	// Resetear contador de salto
-	JumpCount = 0;
-}
-
 void AGame3dCharacter::DoDash()
 {
 	// ignore the input if we've already dashed and have yet to reset
@@ -466,7 +398,7 @@ void AGame3dCharacter::DoDash()
 	// play the dash montage
 	if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
 	{
-		const float MontageLength = AnimInstance->Montage_Play(DashMontage, 1.0f, EMontagePlayReturnType::MontageLength, 0.0f, true);
+		const float MontageLength = AnimInstance->Montage_Play(DashMontage, 1.5f, EMontagePlayReturnType::MontageLength, 0.0f, true);
 
 		// has the montage played successfully?
 		if (MontageLength > 0.0f)
@@ -479,26 +411,23 @@ void AGame3dCharacter::DoDash()
 void AGame3dCharacter::Landed(const FHitResult& Hit)
 {
 	Super::Landed(Hit);
-	JumpCount = 0;
-	bIsSuspending = false;
-	GetWorldTimerManager().ClearTimer(SuspensionTimerHandle);
-	GetCharacterMovement()->GravityScale = NormalGravityScale;
-	GetCharacterMovement()->SetMovementMode(MOVE_Walking);
+	
+	bHasDashed = false;
+
+	// deactivate the jump trail
+	SetJumpTrailState(false);
 }
 
 void AGame3dCharacter::DashMontageEnded(UAnimMontage* Montage, bool bInterrupted)
 {
-	// if the montage was interrupted, end the dash
-	if (bInterrupted)
-	{
 		EndDash();
-	}
 }
 
 void AGame3dCharacter::EndDash()
 {
 	// restore gravity
 	GetCharacterMovement()->GravityScale = 2.5f;
+	GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, TEXT("Hola Kent"));
 
 	// reset the dashing flag
 	bIsDashing = false;

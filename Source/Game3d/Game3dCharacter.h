@@ -11,7 +11,6 @@
 #include "Public/XpBar.h"
 #include "Game3dCharacter.generated.h"
 
-
 class USpringArmComponent;
 class UCameraComponent;
 class UInputAction;
@@ -39,7 +38,7 @@ class AGame3dCharacter : public ACharacterBase
 	
 protected:
 
-	/** Jump Input Action */
+	/** Jump InputAction */
 	UPROPERTY(EditAnywhere, Category="Input")
 	UInputAction* JumpAction;
 
@@ -186,9 +185,6 @@ public:
 
 	// ---- Variables ----
 	int32 JumpCount = 0;
-	FTimerHandle SuspensionTimerHandle;
-	FVector SuspensionDirection;
-	bool bIsSuspending = false;
 	uint8 bHasDashed : 1;
 	uint8 bIsDashing : 1;
 	
@@ -216,10 +212,6 @@ public:
 	float EndLiftVelocityZ = -200.f;
 
 	// ---- Funciones ----
-	virtual void Jump() override;
 	virtual void Landed(const FHitResult& Hit) override;
-
-	void StartSuspension(const FVector& Direction);
-	void EndSuspension();
 
 };
