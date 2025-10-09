@@ -427,8 +427,6 @@ void AGame3dCharacter::EndDash()
 {
 	// restore gravity
 	GetCharacterMovement()->GravityScale = 2.5f;
-	GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, TEXT("Hola Kent"));
-
 	// reset the dashing flag
 	bIsDashing = false;
 
