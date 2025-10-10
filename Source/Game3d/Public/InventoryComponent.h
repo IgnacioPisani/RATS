@@ -35,9 +35,12 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Inventory")	
 	void RemoveItem(int Index);
 
-	UFUNCTION(BlueprintCallable, Category = "Inventory")	
-	FItemStruct GetItemByIndex(int Index);
+	UFUNCTION(BlueprintCallable, Category = "Inventory")   
+	bool GetItemByIndex(int32 Index, FItemStruct& OutItem);
 
-	UFUNCTION(BlueprintCallable, Category = "Inventory")	
+	UFUNCTION(BlueprintCallable, Category = "Inventory")    
 	void AddItem(FItemStruct ItemData);
+	
+	UFUNCTION(BlueprintCallable, Category = "Inventory")
+	TSubclassOf<class AActor> GetItemActorClass(int32 Index);
 };

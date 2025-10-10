@@ -108,8 +108,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category="Input")
 	virtual void DoJumpEnd();
 
-	UFUNCTION(BlueprintCallable)
-	virtual void EquipItem(FItemStruct ItemData);
+	UFUNCTION(BlueprintCallable, Category = "Inventory") // Es buena práctica añadir una categoría
+	virtual void EquipItem(int32 ItemIndex);
 	
 	
 	UFUNCTION()

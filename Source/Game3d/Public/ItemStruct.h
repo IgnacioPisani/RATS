@@ -29,4 +29,7 @@ struct FItemStruct
 	// Malla 3D asociada
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Item")
 	UStaticMesh* Mesh = nullptr;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Item")
+	TSubclassOf<class AActor> ActorClass;
 };

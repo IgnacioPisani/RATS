@@ -47,14 +47,15 @@ void UInventoryComponent::RemoveItem(int Index)
 	}
 }
 
-FItemStruct UInventoryComponent::GetItemByIndex(int32 Index)
+bool  UInventoryComponent::GetItemByIndex(int32 Index, FItemStruct& OutItem)
 {
 	if (Items.IsValidIndex(Index))
 	{
-		return Items[Index];
+		OutItem = Items[Index];
+		return true; 
 	}
 
-	return FItemStruct();
+	return false; 
 }
 
 void UInventoryComponent::AddItem(FItemStruct ItemData)
@@ -88,4 +89,11 @@ void UInventoryComponent::AddItem(FItemStruct ItemData)
 		OnItemsChanged.Broadcast();
 	}
 }
-
+TSubclassOf<class AActor> UInventoryComponent::GetItemActorClass(int32 Index)
+{
+	if (Items.IsValidIndex(Index))
+	{
+		return Items[Index].ActorClass; 
+	}
+	return nullptr;
+}

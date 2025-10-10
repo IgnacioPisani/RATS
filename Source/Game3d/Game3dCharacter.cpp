@@ -181,35 +181,52 @@ void AGame3dCharacter::DoJumpEnd()
 	StopJumping();
 }
 
-void AGame3dCharacter::EquipItem(FItemStruct ItemData)
+void AGame3dCharacter::EquipItem(int32 ItemIndex)
 {
+	// --- NUEVA LÓGICA ---
+	// 1. Primero, nos aseguramos de que el componente de inventario exista.
+	if (!InventoryComponent)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("EquipItem: InventoryComponent no es válido."));
+		return;
+	}
+
+	// 2. Creamos una variable para guardar los datos del objeto.
+	FItemStruct ItemData;
+
+	// 3. Le pedimos al componente que nos dé los datos del objeto usando el índice.
+	//    NOTA: Necesitas una función en tu componente que haga esto.
+	if (!InventoryComponent->GetItemByIndex(ItemIndex, ItemData)) 
+	{
+		UE_LOG(LogTemp, Warning, TEXT("EquipItem: El índice %d no es válido."), ItemIndex);
+		return;
+	}
+
+	// --- TU LÓGICA ORIGINAL (sin cambios) ---
+	// A partir de aquí, el resto del código es el que ya tenías.
+
 	if (!ItemData.Mesh)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("ItemData.Mesh es nullptr"));
 		return;
 	}
 
-	// Si ya hay una malla equipada, la destruimos
 	if (EquippedMesh)
 	{
 		EquippedMesh->DestroyComponent();
 		EquippedMesh = nullptr;
-		UE_LOG(LogTemp, Log, TEXT("Malla previa destruida"));
 	}
 
-	// Crear un componente de malla en runtime
 	EquippedMesh = NewObject<UStaticMeshComponent>(this);
 	if (EquippedMesh)
 	{
 		EquippedMesh->RegisterComponent();
 		EquippedMesh->SetStaticMesh(ItemData.Mesh);
 		EquippedMesh->AttachToComponent(
-			GetMesh(),
-			FAttachmentTransformRules::SnapToTargetNotIncludingScale,
-			TEXT("hand_rSocket")  // tu socket en el esqueleto
+		   GetMesh(),
+		   FAttachmentTransformRules::SnapToTargetNotIncludingScale,
+		   TEXT("hand_rSocket")
 		);
-
-		UE_LOG(LogTemp, Log, TEXT("Malla adjuntada al socket WeaponSocket"));
 	}
 }
 
