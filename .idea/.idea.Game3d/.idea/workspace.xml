@@ -14,10 +14,14 @@
   <component name="ChangeListManager">
     <list default="true" id="700cebab-63ab-47f1-8bec-c545c4c447ad" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Characters/Mannequins/Anims/Unarmed/ABP_Unarmed.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Characters/Mannequins/Anims/Unarmed/ABP_Unarmed.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemies/BP_EnemyMelee.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemies/BP_EnemyMelee.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Private/CharacterBase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Private/CharacterBase.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Private/EnemyBase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Private/EnemyBase.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Public/CharacterBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Public/CharacterBase.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Public/EnemyBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Public/EnemyBase.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Variant_Combat/AI/CombatEnemy.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Variant_Combat/AI/CombatEnemy.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,9 +47,12 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/Shared/EpicGames.Perforce/PerforceUtils.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Core/Public/Containers/Array.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Core/Public/CoreGlobals.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Classes/Animation/AnimInstance.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Classes/Components/SkeletalMeshComponent.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Classes/Engine/DamageEvents.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/Pawn.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Private/CharacterBase.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Private/Interactable.cpp" root0="FORCE_HIGHLIGHTING" />
