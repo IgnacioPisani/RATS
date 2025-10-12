@@ -34,6 +34,7 @@ AGame3dCharacter::AGame3dCharacter()
 
 	// bind the attack montage ended delegate
 	OnDashMontageEnded.BindUObject(this, &AGame3dCharacter::DashMontageEnded);
+	OnAttackMontageEnded.BindUObject(this, &AGame3dCharacter::AttackMontageEnded);
 
 	// Configure character movement
 	GetCharacterMovement()->bOrientRotationToMovement = true;
@@ -113,6 +114,9 @@ void AGame3dCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		EnhancedInputComponent->BindAction(PickUpAction, ETriggerEvent::Started, this, &AGame3dCharacter::DoPickUp);
 		EnhancedInputComponent->BindAction(RunAction, ETriggerEvent::Started, this, &AGame3dCharacter::DoStartSprint);
 		EnhancedInputComponent->BindAction(RunAction, ETriggerEvent::Completed, this, &AGame3dCharacter::DoStopSprint);
+
+		EnhancedInputComponent->BindAction(ComboAttackAction, ETriggerEvent::Started, this, &AGame3dCharacter::ComboAttackPressed);
+
      
 	}
 	else
@@ -438,5 +442,94 @@ void AGame3dCharacter::EndDash()
 
 		// deactivate the jump trails
 		SetJumpTrailState(false);
+	}
+}
+
+void AGame3dCharacter::ComboAttackPressed()
+{
+	// route the input
+	DoComboAttackStart();
+}
+
+void AGame3dCharacter::DoComboAttackStart()
+{
+	// are we already playing an attack animation?
+	if (bIsAttacking)
+	{
+		// cache the input time so we can check it later
+		CachedAttackInputTime = GetWorld()->GetTimeSeconds();
+
+		return;
+	}
+
+	// perform a combo attack
+	ComboAttack();
+}
+
+void AGame3dCharacter::DoComboAttackEnd()
+{
+	// stub
+}
+
+void AGame3dCharacter::DoAttackTrace(FName DamageSourceBone)
+{
+}
+
+void AGame3dCharacter::CheckChargedAttack()
+{
+}
+
+void AGame3dCharacter::ComboAttack()
+{
+	// raise the attacking flag
+	bIsAttacking = true;
+
+	// reset the combo count
+	ComboCount = 0;
+
+	// play the attack montage
+	if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
+	{
+		const float MontageLength = AnimInstance->Montage_Play(ComboAttackMontage, 1.0f, EMontagePlayReturnType::MontageLength, 0.0f, true);
+
+		// subscribe to montage completed and interrupted events
+		if (MontageLength > 0.0f)
+		{
+			// set the end delegate for the montage
+			AnimInstance->Montage_SetEndDelegate(OnAttackMontageEnded, ComboAttackMontage);
+		}
+	}
+}
+
+void AGame3dCharacter::AttackMontageEnded(UAnimMontage* Montage, bool bInterrupted)
+{
+	bIsAttacking = false;
+
+	if (GetWorld()->GetTimeSeconds() - CachedAttackInputTime <= ComboInputCacheTimeTolerance)
+	{
+		ComboAttack();
+	}
+}
+
+void AGame3dCharacter::CheckCombo()
+{
+	if (bIsAttacking)
+	{
+		if (GetWorld()->GetTimeSeconds() - CachedAttackInputTime <= ComboInputCacheTimeTolerance)
+		{
+			CachedAttackInputTime = 0.0f;
+			
+			++ComboCount;
+
+			if (ComboCount < ComboSectionNames.Num())
+			{
+				GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, FString::FromInt(ComboCount));
+
+				if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
+				{
+					AnimInstance->Montage_JumpToSection(ComboSectionNames[ComboCount], ComboAttackMontage);
+				}
+			}
+		}
 	}
 }

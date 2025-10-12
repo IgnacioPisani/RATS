@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "CharacterBase.h"
+#include "CombatAttacker.h"
 #include "HandleHit.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
@@ -24,7 +25,7 @@ DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
  *  Implements a controllable orbiting camera
  */
 UCLASS(abstract)
-class AGame3dCharacter : public ACharacterBase
+class AGame3dCharacter : public ACharacterBase, public ICombatAttacker
 {
 	GENERATED_BODY()
 
@@ -86,6 +87,8 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* PickUpAction;
+	
+	
 public:
 
 	/** Handles move inputs from either controls or UI interfaces */
@@ -157,8 +160,45 @@ public:
    
    bool bIsSprinting = false;
 
-public:
+	/** Combo Attack Input Action */
+	UPROPERTY(EditAnywhere, Category = "Input")
+	UInputAction* ComboAttackAction;
 
+	/** Combo attack montage */
+	UPROPERTY(EditAnywhere, Category = "Combat|Combo")
+	UAnimMontage* ComboAttackMontage;
+
+	/** Sections (stages) of the combo */
+	UPROPERTY(EditAnywhere, Category = "Combat|Combo")
+	TArray<FName> ComboSectionNames;
+
+	/** Combo input tolerance (time between hits) */
+	UPROPERTY(EditAnywhere, Category = "Combat|Combo", meta = (ClampMin = 0.1f, ClampMax = 2.0f, Units = "s"))
+	float ComboInputCacheTimeTolerance = 0.45f;
+
+	/** Cached time of last combo input */
+	float CachedAttackInputTime = 0.0f;
+
+	/** If true, currently attacking */
+	bool bIsAttacking = false;
+
+	/** Current combo index */
+	int32 ComboCount = 0;
+
+	void ComboAttackPressed();
+
+	/** Performs combo attack */
+	void ComboAttack();
+
+	/** Called when montage ends */
+	void AttackMontageEnded(UAnimMontage* Montage, bool bInterrupted);
+
+	/** Check combo continuation */
+	void CheckCombo();
+
+	FOnMontageEnded OnAttackMontageEnded;
+
+	
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 
@@ -175,10 +215,21 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Input")
 	virtual void DoStopSprint();
 
+	/** Handles combo attack pressed from either controls or UI interfaces */
+	UFUNCTION(BlueprintCallable, Category="Input")
+	virtual void DoComboAttackStart();
+
+	/** Handles combo attack released from either controls or UI interfaces */
+	UFUNCTION(BlueprintCallable, Category="Input")
+	virtual void DoComboAttackEnd();
+
 	/** Passes control to Blueprint to enable or disable jump trails */
 	UFUNCTION(BlueprintImplementableEvent, Category = "Platforming")
 	void SetJumpTrailState(bool bEnabled);
 
+	virtual void DoAttackTrace(FName DamageSourceBone) override;
+
+	virtual void CheckChargedAttack() override;
 
 	/** Ends the dash state */
 	void EndDash();
