@@ -28,8 +28,9 @@ float ACharacterBase::TakeDamage(float DamageAmount, FDamageEvent const& DamageE
 	if (HealthComponent)
 	{
 		HealthComponent->DecreaseHealth(DamageAmount);
-	}
+		TakeDamageEffects();
 
+	}
 	return DamageAmount;
 }
 
@@ -47,6 +48,12 @@ void ACharacterBase::HandleDeath()
 {
 	Destroy();
 }
+
+void ACharacterBase::TakeDamageEffects()
+{
+	
+}
+
 // Called every frame
 void ACharacterBase::Tick(float DeltaTime)
 {

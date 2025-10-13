@@ -2,10 +2,11 @@
 
 
 #include "EnemyBase.h"
-
+#include "Engine/DamageEvents.h"
 #include "HealthBar.h"
 #include "HealthComponent.h"
 #include "Components/WidgetComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 
 // Sets default values
@@ -52,6 +53,13 @@ void AEnemyBase::HandleHit_Implementation()
 
 }
 
+void AEnemyBase::TakeDamageEffects()
+{
+	Super::TakeDamageEffects();
+	GetMesh()->SetPhysicsBlendWeight(0.5f);
+	GetMesh()->SetBodySimulatePhysics(PelvisBoneName, false);
+}
+
 void AEnemyBase::HandleDeath()
 {
 	Destroy();
@@ -71,4 +79,34 @@ void AEnemyBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 }
+
+void AEnemyBase::ApplyDamage(float Damage, AActor* DamageCauser, const FVector& DamageLocation,
+	const FVector& DamageImpulse)
+{
+	// pass the damage event to the actor
+	FDamageEvent DamageEvent;
+	const float ActualDamage = TakeDamage(Damage, DamageEvent, nullptr, DamageCauser);
+
+	// only process knockback and effects if we received nonzero damage
+	if (ActualDamage > 0.0f)
+	{
+		// apply the knockback impulse
+		GetCharacterMovement()->AddImpulse(DamageImpulse, true);
+
+		// is the character ragdolling?
+		if (GetMesh()->IsSimulatingPhysics())
+		{
+			// apply an impulse to the ragdoll
+			GetMesh()->AddImpulseAtLocation(DamageImpulse * GetMesh()->GetMass(), DamageLocation);
+		}
+		ReceivedDamage(ActualDamage, DamageLocation, DamageImpulse.GetSafeNormal());
+
+	}
+
+}
+
+void AEnemyBase::ApplyHealing(float Healing, AActor* Healer)
+{
+}
+
 

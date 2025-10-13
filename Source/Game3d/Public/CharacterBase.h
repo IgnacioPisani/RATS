@@ -40,6 +40,10 @@ public:
 	UFUNCTION()
 	virtual void HandleDeath();
 
+	UFUNCTION()
+	virtual void TakeDamageEffects();
+
+
 	virtual void HandleHit_Implementation() override;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Stats")

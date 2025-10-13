@@ -4,12 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "CharacterBase.h"
+#include "CombatDamageable.h"
 #include "HandleHit.h"
 #include "GameFramework/Character.h"
 #include "EnemyBase.generated.h"
 
 UCLASS()
-class GAME3D_API AEnemyBase : public ACharacterBase
+class GAME3D_API AEnemyBase : public ACharacterBase, public ICombatDamageable
 {
 	GENERATED_BODY()
 
@@ -22,6 +23,11 @@ public:
 	virtual void HandleDeath() override;
 	
 	virtual void HandleHit_Implementation() override;
+
+	virtual void TakeDamageEffects() override;
+
+	UPROPERTY(EditAnywhere, Category="Damage")
+	FName PelvisBoneName;
 	
 	// Widget Component que contendrá el HealthBar
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="UI")
@@ -37,5 +43,11 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	
+
+	virtual void ApplyDamage(float Damage, AActor* DamageCauser, const FVector& DamageLocation, const FVector& DamageImpulse) override;
+	virtual void ApplyHealing(float Healing, AActor* Healer) override;
+
+	UFUNCTION(BlueprintImplementableEvent, Category="Combat")
+	void ReceivedDamage(float Damage, const FVector& ImpactPoint, const FVector& DamageDirection);
+
 };
