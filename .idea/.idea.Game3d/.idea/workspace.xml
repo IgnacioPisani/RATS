@@ -14,14 +14,7 @@
   <component name="ChangeListManager">
     <list default="true" id="700cebab-63ab-47f1-8bec-c545c4c447ad" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Enemies/BP_EnemyMelee.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemies/BP_EnemyMelee.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Private/CharacterBase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Private/CharacterBase.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Private/EnemyBase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Private/EnemyBase.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Public/CharacterBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Public/CharacterBase.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Public/EnemyBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Public/EnemyBase.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Variant_Combat/AI/CombatEnemy.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Variant_Combat/AI/CombatEnemy.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Map/BlockOut.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Map/BlockOut.umap" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +76,7 @@
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;combat-combo&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;blockout&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -228,6 +221,7 @@
       <workItem from="1759953806618" duration="4353000" />
       <workItem from="1760048916011" duration="849000" />
       <workItem from="1760050160865" duration="7455000" />
+      <workItem from="1760486153364" duration="33000" />
     </task>
     <servers />
   </component>
