@@ -426,7 +426,7 @@ void AGame3dCharacter::DashMontageEnded(UAnimMontage* Montage, bool bInterrupted
 void AGame3dCharacter::EndDash()
 {
 	// restore gravity
-	GetCharacterMovement()->GravityScale = 2.5f;
+	GetCharacterMovement()->GravityScale = NormalGravityScale;
 	// reset the dashing flag
 	bIsDashing = false;
 
