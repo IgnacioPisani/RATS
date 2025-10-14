@@ -14,6 +14,7 @@
 #include "Interactable.h"  
 #include "Public/XpBar.h"
 #include "Public/XpComponent.h"
+#include "Engine/DamageEvents.h"
 #include "Game3d.h"
 #include "InventoryComponent.h"
 #include "Kismet/GameplayStatics.h"
@@ -34,6 +35,7 @@ AGame3dCharacter::AGame3dCharacter()
 
 	// bind the attack montage ended delegate
 	OnDashMontageEnded.BindUObject(this, &AGame3dCharacter::DashMontageEnded);
+	OnAttackMontageEnded.BindUObject(this, &AGame3dCharacter::AttackMontageEnded);
 
 	// Configure character movement
 	GetCharacterMovement()->bOrientRotationToMovement = true;
@@ -113,6 +115,9 @@ void AGame3dCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		EnhancedInputComponent->BindAction(PickUpAction, ETriggerEvent::Started, this, &AGame3dCharacter::DoPickUp);
 		EnhancedInputComponent->BindAction(RunAction, ETriggerEvent::Started, this, &AGame3dCharacter::DoStartSprint);
 		EnhancedInputComponent->BindAction(RunAction, ETriggerEvent::Completed, this, &AGame3dCharacter::DoStopSprint);
+
+		EnhancedInputComponent->BindAction(ComboAttackAction, ETriggerEvent::Started, this, &AGame3dCharacter::ComboAttackPressed);
+
      
 	}
 	else
@@ -137,6 +142,35 @@ void AGame3dCharacter::Look(const FInputActionValue& Value)
 
 	// route the input
 	DoLook(LookAxisVector.X, LookAxisVector.Y);
+}
+
+void AGame3dCharacter::ApplyDamage(float Damage, AActor* DamageCauser, const FVector& DamageLocation,
+	const FVector& DamageImpulse)
+{
+	// pass the damage event to the actor
+	FDamageEvent DamageEvent;
+	const float ActualDamage = TakeDamage(Damage, DamageEvent, nullptr, DamageCauser);
+
+	// only process knockback and effects if we received nonzero damage
+	if (ActualDamage > 0.0f)
+	{
+		// apply the knockback impulse
+		GetCharacterMovement()->AddImpulse(DamageImpulse, true);
+
+		// is the character ragdolling?
+		if (GetMesh()->IsSimulatingPhysics())
+		{
+			// apply an impulse to the ragdoll
+			GetMesh()->AddImpulseAtLocation(DamageImpulse * GetMesh()->GetMass(), DamageLocation);
+		}
+
+		// pass control to BP to play effects, etc.
+		ReceivedDamage(ActualDamage, DamageLocation, DamageImpulse.GetSafeNormal());
+	}
+}
+
+void AGame3dCharacter::ApplyHealing(float Healing, AActor* Healer)
+{
 }
 
 void AGame3dCharacter::DoMove(float Right, float Forward)
@@ -232,61 +266,6 @@ void AGame3dCharacter::HandleXpChanged(float Xp, float MaxXp)
 void AGame3dCharacter::HandleLevelChanged(int level)
 {
 	XpWidget->UpdateLevelText(level);
-}
-
-void AGame3dCharacter::HandleHit_Implementation()
-{
-	HitActors.Empty();
-
-	USkeletalMeshComponent* MeshComp = GetMesh();
-	if (!MeshComp) return;
-
-	FVector SocketLocation = MeshComp->GetSocketLocation(AttackSocketName);
-	FRotator SocketRotation = MeshComp->GetSocketRotation(AttackSocketName);
-	FVector ForwardVector = SocketRotation.Vector();
-	FVector End = SocketLocation + ForwardVector * AttackRange;
-
-	TArray<TEnumAsByte<EObjectTypeQuery>> ObjectTypes;
-	ObjectTypes.Add(UEngineTypes::ConvertToObjectType(ECollisionChannel::ECC_Pawn));
-
-	TArray<AActor*> ActorsToIgnore;
-	ActorsToIgnore.Add(this);
-
-	TArray<FHitResult> OutHits;
-
-	bool bHit = UKismetSystemLibrary::SphereTraceMultiForObjects(
-		GetWorld(),
-		SocketLocation,
-		End,
-		AttackRadius,
-		ObjectTypes,
-		false,
-		ActorsToIgnore,
-		EDrawDebugTrace::ForDuration, // cambiar a None cuando ya funcione
-		OutHits,
-		true
-	);
-
-	if (bHit)
-	{
-		for (const FHitResult& Hit : OutHits)
-		{
-			AActor* HitActor = Hit.GetActor();
-			if (!HitActor || HitActors.Contains(HitActor))
-				continue;
-
-			HitActors.Add(HitActor);
-
-			// Aplica daño al actor golpeado
-			UGameplayStatics::ApplyDamage(
-				HitActor,          
-				AttackDamage,     
-				GetController(),   
-				this,               
-				nullptr            
-			);
-		}
-	}
 }
 
 
@@ -438,5 +417,138 @@ void AGame3dCharacter::EndDash()
 
 		// deactivate the jump trails
 		SetJumpTrailState(false);
+	}
+}
+
+void AGame3dCharacter::ComboAttackPressed()
+{
+	// route the input
+	DoComboAttackStart();
+}
+
+void AGame3dCharacter::DoComboAttackStart()
+{
+	// are we already playing an attack animation?
+	if (bIsAttacking)
+	{
+		// cache the input time so we can check it later
+		CachedAttackInputTime = GetWorld()->GetTimeSeconds();
+
+		return;
+	}
+
+	// perform a combo attack
+	ComboAttack();
+}
+
+void AGame3dCharacter::DoComboAttackEnd()
+{
+	// stub
+}
+
+void AGame3dCharacter::DoAttackTrace(FName DamageSourceBone)
+{
+	// sweep for objects in front of the character to be hit by the attack
+	TArray<FHitResult> OutHits;
+
+	// start at the provided socket location, sweep forward
+	const FVector TraceStart = GetMesh()->GetSocketLocation(DamageSourceBone);
+	const FVector TraceEnd = TraceStart + (GetActorForwardVector() * MeleeTraceDistance);
+
+	// check for pawn and world dynamic collision object types
+	FCollisionObjectQueryParams ObjectParams;
+	ObjectParams.AddObjectTypesToQuery(ECC_Pawn);
+	ObjectParams.AddObjectTypesToQuery(ECC_WorldDynamic);
+
+	// use a sphere shape for the sweep
+	FCollisionShape CollisionShape;
+	CollisionShape.SetSphere(MeleeTraceRadius);
+
+	// ignore self
+	FCollisionQueryParams QueryParams;
+	QueryParams.AddIgnoredActor(this);
+
+	if (GetWorld()->SweepMultiByObjectType(OutHits, TraceStart, TraceEnd, FQuat::Identity, ObjectParams, CollisionShape, QueryParams))
+	{
+
+		// iterate over each object hit
+		for (const FHitResult& CurrentHit : OutHits)
+		{
+			// check if we've hit a damageable actor
+			ICombatDamageable* Damageable = Cast<ICombatDamageable>(CurrentHit.GetActor());
+
+
+			if (Damageable)
+			{
+				FVector Direction = CurrentHit.GetActor()->GetActorLocation() - GetActorLocation();
+				Direction.Normalize();
+				// Invertimos la dirección para empujar al actor golpeado en sentido contrario (alejándolo del atacante)
+				const FVector Impulse = (Direction * MeleeKnockbackImpulse) + (FVector::UpVector * MeleeLaunchImpulse);
+				
+				// pass the damage event to the actor
+				Damageable->ApplyDamage(MeleeDamage, this, CurrentHit.ImpactPoint, Impulse);
+
+				// call the BP handler to play effects, etc.
+				DealtDamage(MeleeDamage, CurrentHit.ImpactPoint);
+			}
+		}
+	}
+}
+
+void AGame3dCharacter::CheckChargedAttack()
+{
+}
+
+void AGame3dCharacter::ComboAttack()
+{
+	// raise the attacking flag
+	bIsAttacking = true;
+
+	// reset the combo count
+	ComboCount = 0;
+
+	// play the attack montage
+	if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
+	{
+		const float MontageLength = AnimInstance->Montage_Play(ComboAttackMontage, 1.0f, EMontagePlayReturnType::MontageLength, 0.0f, true);
+
+		// subscribe to montage completed and interrupted events
+		if (MontageLength > 0.0f)
+		{
+			// set the end delegate for the montage
+			AnimInstance->Montage_SetEndDelegate(OnAttackMontageEnded, ComboAttackMontage);
+		}
+	}
+}
+
+void AGame3dCharacter::AttackMontageEnded(UAnimMontage* Montage, bool bInterrupted)
+{
+	bIsAttacking = false;
+
+	if (GetWorld()->GetTimeSeconds() - CachedAttackInputTime <= ComboInputCacheTimeTolerance)
+	{
+		ComboAttack();
+	}
+}
+
+void AGame3dCharacter::CheckCombo()
+{
+	if (bIsAttacking)
+	{
+		if (GetWorld()->GetTimeSeconds() - CachedAttackInputTime <= ComboInputCacheTimeTolerance)
+		{
+			CachedAttackInputTime = 0.0f;
+			
+			++ComboCount;
+
+			if (ComboCount < ComboSectionNames.Num())
+			{
+
+				if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
+				{
+					AnimInstance->Montage_JumpToSection(ComboSectionNames[ComboCount], ComboAttackMontage);
+				}
+			}
+		}
 	}
 }
