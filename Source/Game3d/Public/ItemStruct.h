@@ -6,13 +6,13 @@
 #include "ItemStruct.generated.h"
 
 USTRUCT(BlueprintType)
-struct FItemStruct
+struct  FItemStruct: public FTableRowBase
 {
 	GENERATED_BODY()
 
 	// Nombre visible del item
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Item")
-	FText Name;
+	FName Name;
 
 	// Indica si el item puede apilarse
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Item")

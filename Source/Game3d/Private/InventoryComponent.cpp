@@ -89,3 +89,85 @@ void UInventoryComponent::AddItem(FItemStruct ItemData)
 	}
 }
 
+bool UInventoryComponent::CraftItem(FName ItemNameToCraft)
+{
+	if (!CraftingDataTable)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("No hay DataTable de crafteo asignada."));
+		return false;
+	}
+
+	static const FString ContextString(TEXT("Crafting Lookup"));
+	const FItemStruct* RecipeRow = CraftingDataTable->FindRow<FItemStruct>(ItemNameToCraft, ContextString);
+
+	if (!RecipeRow)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("No se encontró la receta '%s' en la DataTable."), *ItemNameToCraft.ToString());
+		return false;
+	}
+
+	const FCraftingRecipe* Recipe = CraftingRecipes.FindByPredicate(
+		[&](const FCraftingRecipe& R) { return R.ResultItemName == ItemNameToCraft; });
+
+	if (!Recipe)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("No existe receta definida para %s"), *ItemNameToCraft.ToString());
+		return false;
+	}
+
+	// Verificar materiales
+	for (const TPair<FName, int32>& RequiredPair : Recipe->RequiredItems)
+	{
+		int32 TotalFound = 0;
+		for (const FItemStruct& Item : Items)
+		{
+			if (Item.Name == RequiredPair.Key)
+				TotalFound += Item.Quantity;
+		}
+
+		if (TotalFound < RequiredPair.Value)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("No hay suficientes %s. Necesitas %d y tienes %d"),
+				*RequiredPair.Key.ToString(), RequiredPair.Value, TotalFound);
+			return false;
+		}
+	}
+
+	// Quitar materiales usados
+	for (const TPair<FName, int32>& RequiredPair : Recipe->RequiredItems)
+	{
+		int32 Remaining = RequiredPair.Value;
+		for (FItemStruct& Item : Items)
+		{
+			if (Item.Name == RequiredPair.Key)
+			{
+				int32 Deduct = FMath::Min(Item.Quantity, Remaining);
+				Item.Quantity -= Deduct;
+				Remaining -= Deduct;
+				if (Remaining <= 0) break;
+			}
+		}
+	}
+
+	// Eliminar ítems con cantidad 0
+	Items.RemoveAll([&](const FItemStruct& I)
+	{
+		// Solo eliminar si es un material consumido y Quantity <= 0
+		return Recipe->RequiredItems.Contains(I.Name) && I.Quantity <= 0;
+	});
+	// Agregar el ítem crafteado al inventario
+	AddItem(*RecipeRow);
+
+	UE_LOG(LogTemp, Log, TEXT("¡Se creó correctamente el ítem: %s!"), *ItemNameToCraft.ToString());
+
+	return true;
+}
+
+
+const FItemStruct* UInventoryComponent::FindRecipe(FName ItemNameToCraft) const
+{
+	if (!CraftingDataTable) return nullptr;
+
+	static const FString ContextString(TEXT("Crafting Recipe Lookup"));
+	return CraftingDataTable->FindRow<FItemStruct>(ItemNameToCraft, ContextString);
+}

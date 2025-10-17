@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "CraftingRecipe.h"
 #include "ItemStruct.h"
 #include "Components/ActorComponent.h"
 #include "InventoryComponent.generated.h"
@@ -29,6 +30,10 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	// Lista de recetas disponibles
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Crafting")
+	TArray<FCraftingRecipe> CraftingRecipes;
+	
 	UPROPERTY(BlueprintAssignable, Category="Inventory")
 	FOnItemsChanged OnItemsChanged;
 	
@@ -38,6 +43,13 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Inventory")	
 	FItemStruct GetItemByIndex(int Index);
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Crafting")
+	UDataTable* CraftingDataTable;
+	
 	UFUNCTION(BlueprintCallable, Category = "Inventory")	
 	void AddItem(FItemStruct ItemData);
+
+	UFUNCTION(BlueprintCallable, Category = "Crafting")
+	bool CraftItem(FName ItemNameToCraft);
+	const FItemStruct* FindRecipe(FName ItemNameToCraft) const;
 };
