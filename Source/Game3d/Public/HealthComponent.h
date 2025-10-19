@@ -47,4 +47,10 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Health")
 	void DecreaseHealth(float DamagePoints);
+
+	UFUNCTION(BlueprintCallable, Category = "Health")
+	float GetCurrentHealth() const { return Health; }
+
+	UFUNCTION(BlueprintCallable, Category = "Health")
+	float GetMaxHealth() const { return MaxHealth; }
 };

@@ -43,6 +43,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Inventory")	
 	FItemStruct GetItemByIndex(int Index);
 
+	UFUNCTION(BlueprintCallable, Category = "Inventory")
+	int32 GetItemQuantityByName(FName ItemName) const;
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Crafting")
 	UDataTable* CraftingDataTable;
 	
@@ -52,4 +55,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Crafting")
 	bool CraftItem(FName ItemNameToCraft);
 	const FItemStruct* FindRecipe(FName ItemNameToCraft) const;
+
+	UFUNCTION(BlueprintCallable, Category = "Inventory")
+	bool ConsumeItem(FName ItemName, int32 Quantity);
 };

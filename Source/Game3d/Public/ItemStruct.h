@@ -29,4 +29,8 @@ struct  FItemStruct: public FTableRowBase
 	// Malla 3D asociada
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Item")
 	UStaticMesh* Mesh = nullptr;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Item")
+	int32 MaxQuantity = 99;
+
 };
