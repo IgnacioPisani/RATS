@@ -16,6 +16,7 @@
 #include "Public/XpComponent.h"
 #include "Engine/DamageEvents.h"
 #include "Game3d.h"
+#include "HealthComponent.h"
 #include "InventoryComponent.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -95,6 +96,15 @@ void AGame3dCharacter::BeginPlay()
 			XpWidget->AddToViewport();
 		}
 	}
+	if (MedkitHUDClass)
+	{
+		MedkitHUDInstance = CreateWidget<UUWMedkitHUD>(GetWorld(), MedkitHUDClass);
+		if (MedkitHUDInstance)
+		{
+			MedkitHUDInstance->AddToViewport();
+			MedkitHUDInstance->UpdateMedkitBars(0);
+		}
+	}
 }
 
 void AGame3dCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -118,7 +128,8 @@ void AGame3dCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 		EnhancedInputComponent->BindAction(ComboAttackAction, ETriggerEvent::Started, this, &AGame3dCharacter::ComboAttackPressed);
 
-     
+		EnhancedInputComponent->BindAction(UseMedkitAction, ETriggerEvent::Started, this, &AGame3dCharacter::DoUseMedkit);
+
 	}
 	else
 	{
@@ -244,6 +255,33 @@ void AGame3dCharacter::EquipItem(FItemStruct ItemData)
 		);
 
 		UE_LOG(LogTemp, Log, TEXT("Malla adjuntada al socket WeaponSocket"));
+	}
+}
+
+void AGame3dCharacter::DoUseMedkit()
+{
+	if (InventoryComponent && MedkitCount > 0 && HealthComponent)
+	{
+		// Verifica que no esté al máximo de vida
+		if (HealthComponent->GetCurrentHealth() < HealthComponent->GetMaxHealth())
+		{
+			// Consume un botiquín del inventario
+			InventoryComponent->ConsumeItem("Medkit", 1);
+			MedkitCount--;
+
+			// Cura al jugador
+			HealthComponent->IncreaseHealth(300);
+
+			// Actualiza el HUD
+			if (MedkitHUDInstance)
+			{
+				MedkitHUDInstance->UpdateMedkitBars(MedkitCount);
+			}
+		}
+		else
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, TEXT("Salud completa: no puedes usar un botiquín."));
+		}
 	}
 }
 
@@ -444,6 +482,35 @@ void AGame3dCharacter::DoComboAttackStart()
 void AGame3dCharacter::DoComboAttackEnd()
 {
 	// stub
+}
+
+void AGame3dCharacter::HandleCraftMedkit()
+{
+	if (!InventoryComponent)
+{
+	UE_LOG(LogTemp, Warning, TEXT("No hay InventoryComponent asignado al personaje."));
+	return;
+}
+
+	FName ItemToCraft = "Medkit";
+
+	bool bSuccess = InventoryComponent->CraftItem(ItemToCraft);
+
+	if (bSuccess)
+	{
+		UE_LOG(LogTemp, Log, TEXT("Crafteo exitoso de %s."), *ItemToCraft.ToString());
+
+		// ✅ Actualizar HUD
+		if (MedkitHUDInstance)
+		{
+			MedkitCount = InventoryComponent->GetItemQuantityByName(ItemToCraft);
+			MedkitHUDInstance->UpdateMedkitBars(MedkitCount);
+		}
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Error al craftear %s."), *ItemToCraft.ToString());
+	}
 }
 
 void AGame3dCharacter::DoAttackTrace(FName DamageSourceBone)
