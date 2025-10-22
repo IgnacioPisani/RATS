@@ -11,6 +11,7 @@
 #include "Logging/LogMacros.h"
 #include "Public/HealthBar.h"
 #include "Public/XpBar.h"
+#include "WidgetMedkit/UWMedkitHUD.h"
 #include "Game3dCharacter.generated.h"
 
 class USpringArmComponent;
@@ -63,6 +64,10 @@ protected:
 	/** Dash Input Action */
 	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* DashAction;
+
+	/** Dash Input Action */
+	UPROPERTY(EditAnywhere, Category = "Input")
+	UInputAction* UseMedkitAction;
 
 	/** Distance ahead of the character that melee attack sphere collision traces will extend */
 	UPROPERTY(EditAnywhere, Category="Melee Attack|Trace", meta = (ClampMin = 0, ClampMax = 500, Units="cm"))
@@ -140,7 +145,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	virtual void EquipItem(FItemStruct ItemData);
-	
+
+	UFUNCTION(BlueprintCallable, Category="Input")
+	virtual void DoUseMedkit();
 	
 	UFUNCTION()
 	void HandleXpChanged(float Xp, float MaxXp);
@@ -167,6 +174,15 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
 	TSubclassOf<UXpBar> XpBarWidgetClass;
 
+	
+	/** Clase del HUD de botiquines (Blueprint derivado de UWMedkitHUD) */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
+	TSubclassOf<UUWMedkitHUD> MedkitHUDClass;
+
+	/** Instancia actual del HUD mostrada en pantalla */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI")
+	UUWMedkitHUD* MedkitHUDInstance;
+
 	UPROPERTY()
 	UXpBar* XpWidget;
 
@@ -183,6 +199,8 @@ public:
    float SprintSpeed = 800.f;
    
    bool bIsSprinting = false;
+
+	int32 MedkitCount = 0;
 
 	/** Combo Attack Input Action */
 	UPROPERTY(EditAnywhere, Category = "Input")
@@ -251,6 +269,9 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, Category = "Platforming")
 	void SetJumpTrailState(bool bEnabled);
 
+	UFUNCTION(BlueprintCallable)
+	void HandleCraftMedkit();
+	
 	virtual void DoAttackTrace(FName DamageSourceBone) override;
 
 	virtual void CheckChargedAttack() override;
