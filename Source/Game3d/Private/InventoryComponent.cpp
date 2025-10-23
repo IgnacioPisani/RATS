@@ -180,8 +180,7 @@ bool UInventoryComponent::CraftItem(FName ItemNameToCraft)
 			}
 			else
 			{
-				// No stackeable y ya existe → no se puede agregar otro
-				bCanAdd = false;
+				return false;
 			}
 		}
 	}
