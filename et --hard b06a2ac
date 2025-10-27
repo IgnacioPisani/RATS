@@ -1,0 +1,69 @@
+[33m8544e17[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mIA_Sound[m[33m, [m[1;31morigin/IA_Sound[m[33m)[m Merge branch 'main' into IA_Sound
+[33mb06a2ac[m retoques de la IA_Sound
+[33m88f4852[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m Merge pull request #18 from IgnacioPisani/placeholdercharacter
+[33m2ae3b2a[m[33m ([m[1;31morigin/placeholdercharacter[m[33m)[m commit delete
+[33m8e32330[m commit
+[33mcf1737b[m Merge pull request #17 from IgnacioPisani/crafteo
+[33m80f0b8b[m[33m ([m[1;31morigin/crafteo[m[33m)[m SISTEMA DE CURAS
+[33m7b2491c[m ...
+[33m13fb970[m ...
+[33me3e38e4[m ..
+[33m7bea360[m Merge branch 'main' into IA_Sound
+[33mad598b4[m ..
+[33m40df63f[m commit crafteo
+[33ma942e00[m Update workspace.xml
+[33m07cc0c6[m Ultimos retoques
+[33m5f01130[m Merge pull request #16 from IgnacioPisani/LAN
+[33mc13df84[m[33m ([m[1;31morigin/LAN[m[33m)[m commit
+[33mcfcecfe[m commit
+[33md42d1a6[m ..
+[33md90d9ae[m Merge pull request #15 from IgnacioPisani/MainMenu
+[33m74c4e3c[m[33m ([m[1;31morigin/MainMenu[m[33m, [m[1;32mMainMenu[m[33m)[m Merge branch 'main' into MainMenu
+[33m8367307[m Merge pull request #14 from IgnacioPisani/Launchpad
+[33m08d92df[m Merge branch 'main' into MainMenu
+[33m9a6503b[m[33m ([m[1;31morigin/Launchpad[m[33m)[m commit launchpad
+[33m4758663[m Merge pull request #13 from IgnacioPisani/questsystem
+[33m6c12959[m[33m ([m[1;31morigin/questsystem[m[33m)[m commit quests
+[33m4f3ac44[m MainMenu
+[33m9d976e0[m commit delete quests
+[33ma5ec61d[m commit quest
+[33m60d3e8f[m Merge pull request #12 from IgnacioPisani/combat-combo
+[33m838ff01[m[33m ([m[1;31morigin/combat-combo[m[33m)[m commit
+[33m121747b[m commit
+[33m26b0b15[m Merge pull request #11 from IgnacioPisani/fix-shoot
+[33me48d678[m[33m ([m[1;31morigin/fix-shoot[m[33m)[m commit fix
+[33mc6812e4[m commit
+[33mbeab6b5[m[33m ([m[1;31morigin/Dash[m[33m, [m[1;32mDash[m[33m)[m Merge pull request #10 from IgnacioPisani/Dash
+[33m3cf9d8d[m Dash
+[33m0079659[m Merge branch 'main' into Dash
+[33m4d64da8[m ...
+[33ma8c9647[m Merge pull request #9 from IgnacioPisani/shoot
+[33m73fe943[m[33m ([m[1;31morigin/shoot[m[33m)[m push shoot
+[33m5dedf6f[m commit
+[33m64ec8cb[m implementacion De dash
+[33m48aeb2f[m commit
+[33mb56c660[m[33m ([m[1;31morigin/Disparo[m[33m)[m Merge pull request #8 from IgnacioPisani/mechanics
+[33m5b63a8a[m[33m ([m[1;31morigin/mechanics[m[33m)[m commit
+[33m901ab9a[m commit run
+[33m5abcbfb[m Merge pull request #7 from IgnacioPisani/refactor
+[33m3baa575[m[33m ([m[1;31morigin/refactor[m[33m)[m refactor clases + fix combat
+[33mbdca951[m Merge pull request #6 from IgnacioPisani/combat
+[33mad2daa7[m[33m ([m[1;31morigin/combat[m[33m)[m enemy base and combat
+[33m1f50334[m Merge pull request #5 from IgnacioPisani/enemies-2
+[33m6def75b[m[33m ([m[1;31morigin/enemies-2[m[33m, [m[1;32menemies-2[m[33m)[m commit
+[33me6a61f2[m commit enemies
+[33mc2ef328[m Merge pull request #4 from IgnacioPisani/weapons
+[33m38adbba[m[33m ([m[1;31morigin/weapons[m[33m, [m[1;32mweapons[m[33m)[m commit weapons equiped
+[33mc1af944[m Merge pull request #3 from IgnacioPisani/pickup-objects
+[33m0d1261f[m[33m ([m[1;31morigin/pickup-objects[m[33m, [m[1;32mpickup-objects[m[33m)[m commit
+[33m4bdcc25[m commit pickup
+[33m1a3c3bc[m commit inventory c++
+[33ma8045e7[m commit c++ inventory
+[33mf4a35cc[m Merge pull request #2 from IgnacioPisani/open-world
+[33m39d1446[m[33m ([m[1;31morigin/open-world[m[33m)[m commit
+[33m2ff650b[m inventario modularizado
+[33m600dafa[m[33m ([m[1;31morigin/PruebasIan[m[33m, [m[1;32mPruebasIan[m[33m)[m C++ EXPERIENCE AND HEALTH
+[33m89ff334[m Merge pull request #1 from IgnacioPisani/experience-level
+[33mb74e46f[m[33m ([m[1;31morigin/experience-level[m[33m)[m Experience component
+[33m4753f67[m commit add health component
+[33me945acd[m Initial commit
