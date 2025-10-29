@@ -14,10 +14,19 @@
   <component name="ChangeListManager">
     <list default="true" id="700cebab-63ab-47f1-8bec-c545c4c447ad" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/RadicalMike/Animations/AM_RobotCombo.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/RadicalMike/Animations/AM_RobotCombo.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Animations/ABP_Robot.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Animations/ABP_Robot.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemies/BP_EnemyMelee.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemies/BP_EnemyMelee.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemies/IA/IA_Enemy.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemies/IA/IA_Enemy.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Fab/Megascans/Surfaces/Bright_Desert_Sand_sjzkfega/Medium/sjzkfega_tier_2/Materials/MI_sjzkfega.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Fab/Megascans/Surfaces/Bright_Desert_Sand_sjzkfega/Medium/sjzkfega_tier_2/Textures/T_sjzkfega_2K_B.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Fab/Megascans/Surfaces/Bright_Desert_Sand_sjzkfega/Medium/sjzkfega_tier_2/Textures/T_sjzkfega_2K_N.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Fab/Megascans/Surfaces/Bright_Desert_Sand_sjzkfega/Medium/sjzkfega_tier_2/Textures/T_sjzkfega_2K_ORM.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/GenNoiseDesert.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Map/BlockOut.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Map/BlockOut.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/RadicalMike/Animations/Anim_ZMIKE_FireR.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/RadicalMike/Animations/Anim_ZMIKE_FireR.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Lvl_ThirdPerson/5/UD/O5JESEES4A28G0SBPR9TQ5.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Lvl_ThirdPerson/5/UD/O5JESEES4A28G0SBPR9TQ5.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Lvl_ThirdPerson/8/VS/XX060WNO6GEZU5BZQCLZPP.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Lvl_ThirdPerson/8/VS/XX060WNO6GEZU5BZQCLZPP.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game3d.uproject" beforeDir="false" afterPath="$PROJECT_DIR$/Game3d.uproject" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +99,7 @@
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;blockout&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -245,6 +254,7 @@
       <workItem from="1760886312829" duration="7833000" />
       <workItem from="1761250106067" duration="1597000" />
       <workItem from="1761252926045" duration="5469000" />
+      <workItem from="1761766669456" duration="997000" />
     </task>
     <servers />
   </component>
