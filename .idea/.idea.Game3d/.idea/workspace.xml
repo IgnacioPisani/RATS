@@ -15,8 +15,6 @@
     <list default="true" id="700cebab-63ab-47f1-8bec-c545c4c447ad" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/LO/TIETKPZ9AC8OSDNMKWZ126.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/LO/TIETKPZ9AC8OSDNMKWZ126.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/Y0/AOT8KHMTDXIN6HVEHMHDGG.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/Y0/AOT8KHMTDXIN6HVEHMHDGG.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/8/X2/JBWSR4BG8A7EO7OF5Q6ASW.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/8/X2/JBWSR4BG8A7EO7OF5Q6ASW.uasset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -250,7 +248,8 @@
       <workItem from="1761252926045" duration="5469000" />
       <workItem from="1761766669456" duration="997000" />
       <workItem from="1761826744681" duration="2466000" />
-      <workItem from="1761856956155" duration="941000" />
+      <workItem from="1761856956155" duration="959000" />
+      <workItem from="1761862181981" duration="761000" />
     </task>
     <servers />
   </component>
