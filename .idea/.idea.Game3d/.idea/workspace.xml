@@ -14,19 +14,13 @@
   <component name="ChangeListManager">
     <list default="true" id="700cebab-63ab-47f1-8bec-c545c4c447ad" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Animations/ABP_Robot.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Animations/ABP_Robot.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Enemies/BP_EnemyMelee.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemies/BP_EnemyMelee.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Enemies/IA/IA_Enemy.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemies/IA/IA_Enemy.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Fab/Megascans/Surfaces/Bright_Desert_Sand_sjzkfega/Medium/sjzkfega_tier_2/Materials/MI_sjzkfega.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Fab/Megascans/Surfaces/Bright_Desert_Sand_sjzkfega/Medium/sjzkfega_tier_2/Textures/T_sjzkfega_2K_B.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Fab/Megascans/Surfaces/Bright_Desert_Sand_sjzkfega/Medium/sjzkfega_tier_2/Textures/T_sjzkfega_2K_N.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Fab/Megascans/Surfaces/Bright_Desert_Sand_sjzkfega/Medium/sjzkfega_tier_2/Textures/T_sjzkfega_2K_ORM.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/GenNoiseDesert.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Map/BlockOut.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Map/BlockOut.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/RadicalMike/Animations/Anim_ZMIKE_FireR.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/RadicalMike/Animations/Anim_ZMIKE_FireR.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Variant_Platforming/Blueprints/BP_PlatformingCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Variant_Platforming/Blueprints/BP_PlatformingCharacter.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/0/WR/OIUQCJ3W0WD316J469NHTE.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/84/6RFDKQBR2PW9R9MYVT6CFK.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/LO/TIETKPZ9AC8OSDNMKWZ126.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/LO/TIETKPZ9AC8OSDNMKWZ126.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/B/IC/WTUKOZSIVEUK0BHFUUHJR5.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/13/QGZ385BWTUTYYLKSPT3PXK.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/13/QGZ385BWTUTYYLKSPT3PXK.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Lvl_ThirdPerson/5/UD/O5JESEES4A28G0SBPR9TQ5.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Lvl_ThirdPerson/5/UD/O5JESEES4A28G0SBPR9TQ5.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Lvl_ThirdPerson/8/VS/XX060WNO6GEZU5BZQCLZPP.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Lvl_ThirdPerson/8/VS/XX060WNO6GEZU5BZQCLZPP.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game3d.uproject" beforeDir="false" afterPath="$PROJECT_DIR$/Game3d.uproject" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,6 +58,10 @@
     <setting file="file://$PROJECT_DIR$/Intermediate/Build/Win64/UnrealEditor/Inc/Game3d/UHT/CraftingRecipe.gen.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Intermediate/Build/Win64/x64/UnrealEditor/Development/Game3d/Module.Game3d.2.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Intermediate/Build/Win64/x64/UnrealEditor/Development/Game3d/Module.Game3d.3.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Plugins/MultiplayerSessionOW/Source/MultiplayerSessionOW/Private/MultiplayerSessionsSubsystem.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Plugins/MultiplayerSessionOW/Source/MultiplayerSessionOW/Private/WidgetSessionSerch.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Plugins/MultiplayerSessionOW/Source/MultiplayerSessionOW/Public/MultiplayerSessionsSubsystem.h" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Plugins/MultiplayerSessionOW/Source/MultiplayerSessionOW/Public/WidgetSessionSerch.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Private/CharacterBase.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Private/CraftingRecipe.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Private/CraftingRecipeData.cpp" root0="FORCE_HIGHLIGHTING" />
