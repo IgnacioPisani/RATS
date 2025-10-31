@@ -34,6 +34,19 @@
 		{
 			"Name": "SteamSockets",
 			"Enabled": true
+		},
+		{
+			"Name": "GeneSplicer",
+			"Enabled": true
+		},
+		{
+			"Name": "FPSinViewport",
+			"Enabled": true,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/083a2295c86f4163b177217c9ce56feb"
+		},
+		{
+			"Name": "Landmass",
+			"Enabled": true
 		}
 	]
 }
