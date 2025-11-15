@@ -14,34 +14,9 @@
   <component name="ChangeListManager">
     <list default="true" id="700cebab-63ab-47f1-8bec-c545c4c447ad" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/Foliage1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CosasDePrueba/Foliage1.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/Foliage_01_FoliageType.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CosasDePrueba/Foliage_01_FoliageType.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/Foliage_03_FoliageType.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CosasDePrueba/Foliage_03_FoliageType.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/TorreElevador/BP_Elevador.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CosasDePrueba/TorreElevador/BP_Elevador.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/Tree_01_FoliageType.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CosasDePrueba/Tree_01_FoliageType.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/Tree_02_FoliageType.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CosasDePrueba/Tree_02_FoliageType.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/Tree_03_FoliageType.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CosasDePrueba/Tree_03_FoliageType.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Map/Blockout2.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Map/Blockout2.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Map/OpenWorldMapTest.umap" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Materials/PostProcess/M_PP_Cel_Inst.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Materials/PostProcess/M_PP_Cel_Inst.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Menus/MainMenu/WBP_MainMenu.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Menus/MainMenu/WBP_MainMenu.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/G9/TL9KZERCV9T2FWSRFF9XPB.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/G9/TL9KZERCV9T2FWSRFF9XPB.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/LO/TIETKPZ9AC8OSDNMKWZ126.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/LO/TIETKPZ9AC8OSDNMKWZ126.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/NO/PEM76A5F897CHFDED3KIWW.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/OpenWorldMapTest/0/9K/5ACRNEKVKFH0EZNGXZKKZW.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/OpenWorldMapTest/1/NF/CJ4C1NI9AMU84BL79WBMPY.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/OpenWorldMapTest/2/OD/C6PE7OC5X89PR40585XB28.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/OpenWorldMapTest/6/B1/IPNMXOC1YMG973R3LEMA35.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/OpenWorldMapTest/7/2A/STDWOAJ3TOICHUMBNW64E8.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/OpenWorldMapTest/7/6U/9M6EOQ50O5X0OQNNTSZQY0.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/OpenWorldMapTest/9/L1/E4L4JMABTIOCQ8BWEGEREK.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/OpenWorldMapTest/A/6D/QCUZUWXZGT0CHR74525FTX.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/OpenWorldMapTest/A/7J/QJYOEJP5XG9EIFK9IQY8X5.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/OpenWorldMapTest/A/F0/IO2T0YYH42YTQVO1YCK0ZY.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/OpenWorldMapTest/B/D8/VW5Y8OFSY25VPG4M5XMWOB.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/OpenWorldMapTest/E/BJ/ROOHP1QE6G2BQMVMCA0Y51.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalObjects__/Map/OpenWorldMapTest/E/PK/7RBXIDL5TT5YZOAHGHHGFT.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plugins/MultiplayerSessionOW/Content/WBP_MenuWidgetOW.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/MultiplayerSessionOW/Content/WBP_MenuWidgetOW.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game3d.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/Game3d.sln.DotSettings.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,7 +93,7 @@
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;blockout&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;camara-run&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -279,6 +254,8 @@
       <workItem from="1761862181981" duration="761000" />
       <workItem from="1761867668303" duration="196000" />
       <workItem from="1761938905284" duration="2032000" />
+      <workItem from="1763231803828" duration="1242000" />
+      <workItem from="1763234200197" duration="688000" />
     </task>
     <servers />
   </component>
