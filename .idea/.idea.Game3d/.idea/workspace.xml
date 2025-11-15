@@ -14,9 +14,7 @@
   <component name="ChangeListManager">
     <list default="true" id="700cebab-63ab-47f1-8bec-c545c4c447ad" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game3d.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/Game3d.sln.DotSettings.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/13/QGZ385BWTUTYYLKSPT3PXK.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/13/QGZ385BWTUTYYLKSPT3PXK.uasset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +52,7 @@
     <setting file="file://$PROJECT_DIR$/Intermediate/Build/Win64/UnrealEditor/Inc/Game3d/UHT/CraftingRecipe.gen.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Intermediate/Build/Win64/x64/UnrealEditor/Development/Game3d/Module.Game3d.2.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Intermediate/Build/Win64/x64/UnrealEditor/Development/Game3d/Module.Game3d.3.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Plugins/MultiplayerSessionOW/Source/MultiplayerSessionOW/Private/MultiplayerSessionsSubsystem.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Plugins/MultiplayerSessionOW/Source/MultiplayerSessionOW/Private/MultiplayerSessionsSubsystem.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/MultiplayerSessionOW/Source/MultiplayerSessionOW/Private/WidgetSessionSerch.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/MultiplayerSessionOW/Source/MultiplayerSessionOW/Public/MultiplayerSessionsSubsystem.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/MultiplayerSessionOW/Source/MultiplayerSessionOW/Public/WidgetSessionSerch.h" root0="FORCE_HIGHLIGHTING" />
@@ -93,7 +91,7 @@
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;camara-run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;blockout&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -254,8 +252,11 @@
       <workItem from="1761862181981" duration="761000" />
       <workItem from="1761867668303" duration="196000" />
       <workItem from="1761938905284" duration="2032000" />
-      <workItem from="1763231803828" duration="1242000" />
-      <workItem from="1763234200197" duration="688000" />
+      <workItem from="1762347395806" duration="728000" />
+      <workItem from="1762383417745" duration="939000" />
+      <workItem from="1762432883921" duration="2013000" />
+      <workItem from="1762472903149" duration="754000" />
+      <workItem from="1762805700435" duration="1339000" />
     </task>
     <servers />
   </component>
