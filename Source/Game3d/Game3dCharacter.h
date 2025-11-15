@@ -224,6 +224,10 @@ public:
 	/** If true, currently attacking */
 	bool bIsAttacking = false;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool bIsAiming = false;
+
+
 	/** Current combo index */
 	int32 ComboCount = 0;
 
@@ -237,6 +241,9 @@ public:
 
 	/** Check combo continuation */
 	void CheckCombo();
+
+	UFUNCTION(BlueprintCallable)
+	void ForceStopSprintIfRunning();
 
 	FOnMontageEnded OnAttackMontageEnded;
 
