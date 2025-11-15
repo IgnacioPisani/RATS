@@ -257,6 +257,15 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Input")
 	virtual void DoStopSprint();
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Camera")
+	float NormalArmLength = 400.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Camera")
+	float SprintArmLength = 550.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Camera")
+	float ArmInterpolationSpeed = 5.f; // Ajustable
+
 	/** Handles combo attack pressed from either controls or UI interfaces */
 	UFUNCTION(BlueprintCallable, Category="Input")
 	virtual void DoComboAttackStart();
@@ -265,6 +274,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category="Input")
 	virtual void DoComboAttackEnd();
 
+	void Tick(float DeltaTime);
+
+	
 	/** Passes control to Blueprint to enable or disable jump trails */
 	UFUNCTION(BlueprintImplementableEvent, Category = "Platforming")
 	void SetJumpTrailState(bool bEnabled);

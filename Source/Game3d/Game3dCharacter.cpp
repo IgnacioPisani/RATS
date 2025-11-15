@@ -385,11 +385,13 @@ void AGame3dCharacter::DoPickUp()
 
 void AGame3dCharacter::DoStartSprint()
 {
+	bIsSprinting = true;
 	GetCharacterMovement()->MaxWalkSpeed = 900.f; // o el valor que quieras
 }
 
 void AGame3dCharacter::DoStopSprint()
 {
+	bIsSprinting = false;
 	GetCharacterMovement()->MaxWalkSpeed = 500.f; // velocidad normal
 }
 
@@ -481,6 +483,27 @@ void AGame3dCharacter::DoComboAttackStart()
 void AGame3dCharacter::DoComboAttackEnd()
 {
 	// stub
+}
+
+void AGame3dCharacter::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	if (CameraBoom)
+	{
+		const float CurrentSpeed = GetVelocity().Size();
+		const bool bShouldSprintZoom = bIsSprinting && CurrentSpeed > 5.f;
+
+		float TargetLength = bShouldSprintZoom ? SprintArmLength : NormalArmLength;
+
+		float NewLength = FMath::FInterpTo(
+			CameraBoom->TargetArmLength,
+			TargetLength,
+			DeltaTime,
+			ArmInterpolationSpeed
+		);
+
+		CameraBoom->TargetArmLength = NewLength;
+	}
 }
 
 void AGame3dCharacter::HandleCraftMedkit()
