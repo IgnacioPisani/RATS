@@ -385,11 +385,15 @@ void AGame3dCharacter::DoPickUp()
 
 void AGame3dCharacter::DoStartSprint()
 {
+	if (!bIsAttacking && !bIsAiming){
+	bIsSprinting = true;
 	GetCharacterMovement()->MaxWalkSpeed = 900.f; // o el valor que quieras
+	}
 }
 
 void AGame3dCharacter::DoStopSprint()
 {
+	bIsSprinting = false;
 	GetCharacterMovement()->MaxWalkSpeed = 500.f; // velocidad normal
 }
 
@@ -427,12 +431,32 @@ void AGame3dCharacter::DoDash()
 
 void AGame3dCharacter::Landed(const FHitResult& Hit)
 {
-	Super::Landed(Hit);
-	
+    Super::Landed(Hit);
 	bHasDashed = false;
+    float FallVelocity = FMath::Abs(GetVelocity().Z);
 
-	// deactivate the jump trail
-	SetJumpTrailState(false);
+    float SafeFallSpeed = 900.f;
+
+    float LethalFallSpeed = 1600.f;
+
+    if (FallVelocity > SafeFallSpeed)
+    {
+        float Damage = FMath::GetMappedRangeValueClamped(
+            FVector2D(SafeFallSpeed, LethalFallSpeed),
+            FVector2D(5.f, 100.f),
+            FallVelocity
+        );
+
+        UGameplayStatics::ApplyDamage(
+            this,
+            Damage,
+            GetController(),
+            this,
+            nullptr
+        );
+
+        UE_LOG(LogTemp, Warning, TEXT("Fall damage: %f (speed: %f)"), Damage, FallVelocity);
+    }
 }
 
 void AGame3dCharacter::DashMontageEnded(UAnimMontage* Montage, bool bInterrupted)
@@ -481,6 +505,34 @@ void AGame3dCharacter::DoComboAttackStart()
 void AGame3dCharacter::DoComboAttackEnd()
 {
 	// stub
+}
+
+void AGame3dCharacter::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	// El spring arm NO se modifica si el personaje está apuntando
+	if (CameraBoom && !bIsAiming)
+	{
+		const float CurrentSpeed = GetVelocity().Size();
+
+		// NUEVO: el personaje solo sprinta si está corriendo Y está en el suelo
+		const bool bCanSprint =
+			bIsSprinting &&
+			CurrentSpeed > 5.f &&
+			GetCharacterMovement()->IsMovingOnGround();
+
+		float TargetLength = bCanSprint ? SprintArmLength : NormalArmLength;
+
+		float NewLength = FMath::FInterpTo(
+			CameraBoom->TargetArmLength,
+			TargetLength,
+			DeltaTime,
+			ArmInterpolationSpeed
+		);
+
+		CameraBoom->TargetArmLength = NewLength;
+	}
 }
 
 void AGame3dCharacter::HandleCraftMedkit()
@@ -617,5 +669,13 @@ void AGame3dCharacter::CheckCombo()
 				}
 			}
 		}
+	}
+}
+
+void AGame3dCharacter::ForceStopSprintIfRunning()
+{
+	if (bIsSprinting)
+	{
+		DoStopSprint();
 	}
 }

@@ -14,35 +14,12 @@
   <component name="ChangeListManager">
     <list default="true" id="700cebab-63ab-47f1-8bec-c545c4c447ad" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/MaterialDesert/M_materialDesert.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CosasDePrueba/MaterialDesert/M_materialDesert.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Fab/Rusty_Spaceship/rusty_spaceship/Materials/cockpit.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Fab/Rusty_Spaceship/rusty_spaceship/Materials/spaceship_racer.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Fab/Rusty_Spaceship/rusty_spaceship/StaticMeshes/rusty_spaceship.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Fab/Rusty_Spaceship/rusty_spaceship/Textures/rusty_spaceship_texture_0.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Fab/Rusty_Spaceship/rusty_spaceship/Textures/rusty_spaceship_texture_1.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Fab/Rusty_Spaceship/rusty_spaceship/Textures/rusty_spaceship_texture_2.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Fab/Rusty_Spaceship/rusty_spaceship/Textures/rusty_spaceship_texture_3.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Fab/Rusty_Spaceship/rusty_spaceship/Textures/rusty_spaceship_texture_4.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Fab/Rusty_Spaceship/rusty_spaceship/Textures/rusty_spaceship_texture_5.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Fab/Rusty_Spaceship/rusty_spaceship/Textures/rusty_spaceship_texture_6.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Fab/Rusty_Spaceship/rusty_spaceship/Textures/rusty_spaceship_texture_7.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Fab/Sandstone_Sphinx_Statue/sandstone_sphinx_statue/Materials/BMSudanSandstoneSphinx01.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Fab/Sandstone_Sphinx_Statue/sandstone_sphinx_statue/StaticMeshes/sandstone_sphinx_statue.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Fab/Sandstone_Sphinx_Statue/sandstone_sphinx_statue/Textures/sandstone_sphinx_statue_texture_0.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Fab/Zeus/zeus/Materials/Zeus_300k_ZR_Material_u1_v1.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Fab/Zeus/zeus/Materials/Zeus_300k_ZR_Material_u2_v1.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Fab/Zeus/zeus/Textures/zeus_texture_0.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Fab/Zeus/zeus/Textures/zeus_texture_1.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/1/M1/EFREESOUX0GA65GBCOW59R.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/1/M1/EFREESOUX0GA65GBCOW59R.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/IQ/TL2M5UB3WX5UHXJPM3RLDW.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/YR/S5BAPZWHXZ3U6YOXENT3XJ.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/AX/IXVR8A5DVVXDU63ORY4PNP.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/AX/IXVR8A5DVVXDU63ORY4PNP.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/LO/TIETKPZ9AC8OSDNMKWZ126.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/LO/TIETKPZ9AC8OSDNMKWZ126.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/6B/8HI4JR2TLZM7QYNXS3ODWV.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/6B/8HI4JR2TLZM7QYNXS3ODWV.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/UR/NKNJXBOC2HH167DRO0ISMV.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/UR/NKNJXBOC2HH167DRO0ISMV.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/5N/B3KDNXRMDWHBOHP467FPZS.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/5N/B3KDNXRMDWHBOHP467FPZS.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/YA/JZAUM2HGL5NJIE33GJAN7G.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/YA/JZAUM2HGL5NJIE33GJAN7G.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalObjects__/Map/Blockout2/D/5T/MH6O6IDMAVT4PKYBMW5JUS.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Animations/ABP_Robot.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Animations/ABP_Robot.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/0/BS/4F0RU2TIJP11CACPHPGVGB.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/0/BS/4F0RU2TIJP11CACPHPGVGB.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game3d.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/Game3d.sln.DotSettings.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +52,6 @@
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Classes/Animation/AnimInstance.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Classes/Components/SkeletalMeshComponent.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Classes/Engine/DamageEvents.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Classes/GameFramework/Character.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/Pawn.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/UMG/Private/UserWidget.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Intermediate/Build/Win64/UnrealEditor/Inc/Game3d/UHT/CraftingRecipe.gen.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -114,22 +90,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;C/C++ Project.Game3d.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;blockout&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;UnrealLinkOptionsId&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "C/C++ Project.Game3d.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "damagr",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "UnrealLinkOptionsId",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="C/C++ Project.Game3d">
     <configuration name="Game3d" type="CppProject" factoryName="C++ Project">
       <configuration_1 setup="1">
@@ -286,8 +262,7 @@
       <workItem from="1762432883921" duration="2013000" />
       <workItem from="1762472903149" duration="754000" />
       <workItem from="1762805700435" duration="1339000" />
-      <workItem from="1763228893879" duration="3124000" />
-      <workItem from="1763301633957" duration="1383000" />
+      <workItem from="1763236301062" duration="6559000" />
     </task>
     <servers />
   </component>
