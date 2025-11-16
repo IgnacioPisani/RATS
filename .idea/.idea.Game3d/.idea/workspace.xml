@@ -14,7 +14,35 @@
   <component name="ChangeListManager">
     <list default="true" id="700cebab-63ab-47f1-8bec-c545c4c447ad" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/13/QGZ385BWTUTYYLKSPT3PXK.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/13/QGZ385BWTUTYYLKSPT3PXK.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/MaterialDesert/M_materialDesert.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CosasDePrueba/MaterialDesert/M_materialDesert.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Fab/Rusty_Spaceship/rusty_spaceship/Materials/cockpit.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Fab/Rusty_Spaceship/rusty_spaceship/Materials/spaceship_racer.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Fab/Rusty_Spaceship/rusty_spaceship/StaticMeshes/rusty_spaceship.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Fab/Rusty_Spaceship/rusty_spaceship/Textures/rusty_spaceship_texture_0.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Fab/Rusty_Spaceship/rusty_spaceship/Textures/rusty_spaceship_texture_1.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Fab/Rusty_Spaceship/rusty_spaceship/Textures/rusty_spaceship_texture_2.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Fab/Rusty_Spaceship/rusty_spaceship/Textures/rusty_spaceship_texture_3.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Fab/Rusty_Spaceship/rusty_spaceship/Textures/rusty_spaceship_texture_4.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Fab/Rusty_Spaceship/rusty_spaceship/Textures/rusty_spaceship_texture_5.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Fab/Rusty_Spaceship/rusty_spaceship/Textures/rusty_spaceship_texture_6.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Fab/Rusty_Spaceship/rusty_spaceship/Textures/rusty_spaceship_texture_7.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Fab/Sandstone_Sphinx_Statue/sandstone_sphinx_statue/Materials/BMSudanSandstoneSphinx01.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Fab/Sandstone_Sphinx_Statue/sandstone_sphinx_statue/StaticMeshes/sandstone_sphinx_statue.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Fab/Sandstone_Sphinx_Statue/sandstone_sphinx_statue/Textures/sandstone_sphinx_statue_texture_0.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Fab/Zeus/zeus/Materials/Zeus_300k_ZR_Material_u1_v1.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Fab/Zeus/zeus/Materials/Zeus_300k_ZR_Material_u2_v1.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Fab/Zeus/zeus/Textures/zeus_texture_0.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Fab/Zeus/zeus/Textures/zeus_texture_1.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/1/M1/EFREESOUX0GA65GBCOW59R.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/1/M1/EFREESOUX0GA65GBCOW59R.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/IQ/TL2M5UB3WX5UHXJPM3RLDW.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/YR/S5BAPZWHXZ3U6YOXENT3XJ.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/AX/IXVR8A5DVVXDU63ORY4PNP.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/AX/IXVR8A5DVVXDU63ORY4PNP.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/LO/TIETKPZ9AC8OSDNMKWZ126.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/LO/TIETKPZ9AC8OSDNMKWZ126.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/6B/8HI4JR2TLZM7QYNXS3ODWV.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/6B/8HI4JR2TLZM7QYNXS3ODWV.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/UR/NKNJXBOC2HH167DRO0ISMV.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/UR/NKNJXBOC2HH167DRO0ISMV.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/5N/B3KDNXRMDWHBOHP467FPZS.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/5N/B3KDNXRMDWHBOHP467FPZS.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/YA/JZAUM2HGL5NJIE33GJAN7G.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/YA/JZAUM2HGL5NJIE33GJAN7G.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalObjects__/Map/Blockout2/D/5T/MH6O6IDMAVT4PKYBMW5JUS.uasset" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +75,7 @@
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Classes/Animation/AnimInstance.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Classes/Components/SkeletalMeshComponent.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Classes/Engine/DamageEvents.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Classes/GameFramework/Character.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/Pawn.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/UMG/Private/UserWidget.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Intermediate/Build/Win64/UnrealEditor/Inc/Game3d/UHT/CraftingRecipe.gen.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -257,6 +286,8 @@
       <workItem from="1762432883921" duration="2013000" />
       <workItem from="1762472903149" duration="754000" />
       <workItem from="1762805700435" duration="1339000" />
+      <workItem from="1763228893879" duration="3124000" />
+      <workItem from="1763301633957" duration="1383000" />
     </task>
     <servers />
   </component>
