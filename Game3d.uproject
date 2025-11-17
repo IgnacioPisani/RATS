@@ -37,7 +37,7 @@
 		},
 		{
 			"Name": "GeneSplicer",
-			"Enabled": true
+			"Enabled": false
 		},
 		{
 			"Name": "Landmass",
