@@ -435,27 +435,35 @@ void AGame3dCharacter::Landed(const FHitResult& Hit)
 	bHasDashed = false;
     float FallVelocity = FMath::Abs(GetVelocity().Z);
 
-    float SafeFallSpeed = 900.f;
+    float SafeFallSpeed = 1500.f;
 
-    float LethalFallSpeed = 1600.f;
+    float LethalFallSpeed = 2000.f;
 
     if (FallVelocity > SafeFallSpeed)
     {
-        float Damage = FMath::GetMappedRangeValueClamped(
-            FVector2D(SafeFallSpeed, LethalFallSpeed),
-            FVector2D(5.f, 100.f),
-            FallVelocity
-        );
+    	if (Hit.GetActor() && Hit.GetActor()->ActorHasTag("LaunchPad"))
+    	{
+    		UE_LOG(LogTemp, Warning, TEXT("Landed on LaunchPad → No fall damage"));
+    		return;
+    	}
+	    else
+	    {
+	    	float Damage = FMath::GetMappedRangeValueClamped(
+	 FVector2D(SafeFallSpeed, LethalFallSpeed),
+	 FVector2D(5.f, 100.f),
+	 FallVelocity
+ );
 
-        UGameplayStatics::ApplyDamage(
-            this,
-            Damage,
-            GetController(),
-            this,
-            nullptr
-        );
+	    	UGameplayStatics::ApplyDamage(
+				this,
+				Damage,
+				GetController(),
+				this,
+				nullptr
+			);
 
-        UE_LOG(LogTemp, Warning, TEXT("Fall damage: %f (speed: %f)"), Damage, FallVelocity);
+	    	UE_LOG(LogTemp, Warning, TEXT("Fall damage: %f (speed: %f)"), Damage, FallVelocity);
+	    }
     }
 }
 
