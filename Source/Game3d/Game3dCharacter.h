@@ -227,7 +227,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bIsAiming = false;
 
-
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Audio")
+	USoundBase* PickupSound;
+	
 	/** Current combo index */
 	int32 ComboCount = 0;
 
