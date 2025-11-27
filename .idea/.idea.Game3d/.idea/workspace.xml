@@ -14,10 +14,33 @@
   <component name="ChangeListManager">
     <list default="true" id="700cebab-63ab-47f1-8bec-c545c4c447ad" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Widget/MenuSettings/Linterna.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Widget/MenuSettings/SettingsMenu.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Audio/mus_edenslie_gameplay_base_desert.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Audio/mus_edenslie_gameplay_base_desert.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Audio/mus_edenslie_gameplay_base_desert_Cue.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Audio/mus_edenslie_gameplay_base_desert_Cue.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/Materials/M_Outline/Materials/M_Outline_Inst1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CosasDePrueba/Materials/M_Outline/Materials/M_Outline_Inst1.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemies/BP_EnemyMelee.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemies/BP_EnemyMelee.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MezcladorDeSonido/MISoundMix.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MezcladorDeSonido/MISoundMix.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MezcladorDeSonido/SC_Master.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MezcladorDeSonido/SC_Master.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MezcladorDeSonido/SC_Musica.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MezcladorDeSonido/SC_Musica.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MezcladorDeSonido/SC_SFX.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MezcladorDeSonido/SC_SFX.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Widget/MenuSettings/Assets/B_MASTER_Seleccionado.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Widget/MenuSettings/Assets/B_MUSIC_Seleccionado_1.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Widget/MenuSettings/Assets/B_SFX_Seleccionado.uasset" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Widget/MenuSettings/WBP_MenuSettings.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Widget/MenuSettings/WBP_MenuSettings.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Widget/PauseMenu/WBP_PauseMenu.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Widget/PauseMenu/WBP_PauseMenu.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Widget/WBP_HealthBar.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Widget/WBP_MedkitHUD.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Widget/WBP_XPBar.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Widget/WBP_XPBar.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/8K/EW9DKFMUSMFUV0MDFWVX3I.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/8K/EW9DKFMUSMFUV0MDFWVX3I.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/IH/WGZ7K9125N1NTUWMGA6YLG.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/IH/WGZ7K9125N1NTUWMGA6YLG.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/W2/22UZX3IPBHGQB9XHXE12GI.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/W2/22UZX3IPBHGQB9XHXE12GI.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/QS/Z84F0O9P0845X3PZ1QOOA9.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/QS/Z84F0O9P0845X3PZ1QOOA9.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/UR/NKNJXBOC2HH167DRO0ISMV.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/UR/NKNJXBOC2HH167DRO0ISMV.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/DQ/248870T9DMWT0UM9NEXNW5.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/DQ/248870T9DMWT0UM9NEXNW5.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/B/JD/04EXZV0SW428P0SZXLW5GD.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/D/T5/NCSYZUUXKTVXZLLHU3HC0T.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/D/T5/NCSYZUUXKTVXZLLHU3HC0T.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/D/V3/MGX9DQ97HW12M6ZAB08DIX.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/D/V3/MGX9DQ97HW12M6ZAB08DIX.uasset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -272,7 +295,7 @@
       <workItem from="1763815212341" duration="708000" />
       <workItem from="1764003021523" duration="1227000" />
       <workItem from="1764030668449" duration="4518000" />
-      <workItem from="1764251301596" duration="425000" />
+      <workItem from="1764251301596" duration="3694000" />
     </task>
     <servers />
   </component>
