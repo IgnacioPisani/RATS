@@ -354,6 +354,12 @@ void AGame3dCharacter::DoPickUp()
 
 				if (InventoryComponent)
 				{
+					
+					if (PickupSound)
+					{
+						UGameplayStatics::PlaySoundAtLocation(this, PickupSound, GetActorLocation());
+					}
+
 					InventoryComponent->AddItem(ItemData);
 					UE_LOG(LogTemp, Log, TEXT("Item agregado al inventario"));
 				}
