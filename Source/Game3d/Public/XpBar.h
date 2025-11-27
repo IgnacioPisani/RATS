@@ -7,9 +7,6 @@
 #include "XpBar.generated.h"
 class UProgressBar;
 class UTextBlock;
-/**
- * 
- */
 UCLASS()
 class GAME3D_API UXpBar : public UUserWidget
 {

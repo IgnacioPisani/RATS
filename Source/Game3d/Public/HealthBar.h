@@ -6,9 +6,6 @@
 #include "Blueprint/UserWidget.h"
 #include "HealthBar.generated.h"
 
-/**
- *
- */
 UCLASS()
 class GAME3D_API UHealthBar : public UUserWidget
 {
