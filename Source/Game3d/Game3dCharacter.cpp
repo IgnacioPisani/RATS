@@ -77,7 +77,7 @@ void AGame3dCharacter::BeginPlay()
 		HealthBarWidget = CreateWidget<UHealthBar>(GetWorld(), HealthBarWidgetClass);
 		if (HealthBarWidget)
 		{
-			HealthBarWidget->AddToViewport();
+			//HealthBarWidget->AddToViewport();
 		}
 	}
 	if (XpComponent)
@@ -93,7 +93,7 @@ void AGame3dCharacter::BeginPlay()
 
 		if (XpWidget)
 		{
-			XpWidget->AddToViewport();
+			//XpWidget->AddToViewport();
 		}
 	}
 	if (MedkitHUDClass)
@@ -101,7 +101,7 @@ void AGame3dCharacter::BeginPlay()
 		MedkitHUDInstance = CreateWidget<UUWMedkitHUD>(GetWorld(), MedkitHUDClass);
 		if (MedkitHUDInstance)
 		{
-			MedkitHUDInstance->AddToViewport();
+			//MedkitHUDInstance->AddToViewport();
 			MedkitHUDInstance->UpdateMedkitBars(0);
 		}
 	}
