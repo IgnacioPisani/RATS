@@ -14,14 +14,14 @@
   <component name="ChangeListManager">
     <list default="true" id="700cebab-63ab-47f1-8bec-c545c4c447ad" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/GameInstance/GI_EdensLie.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/GameInstance/GI_EdensLie.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/Foliage/Foliage1.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/Foliage/Foliage_01_FoliageType.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/Foliage/Foliage_03_FoliageType.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/Foliage/Tree_01_FoliageType.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/Foliage/Tree_02_FoliageType.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/Foliage/Tree_03_FoliageType.uasset" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Widget/Hud/WBP_HealthBar.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Widget/Hud/WBP_HealthBar.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Widget/Hud/WBP_MedkitHUD.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Widget/Hud/WBP_MedkitHUD.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Widget/WBP_XPBar.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Public/HealthBar.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Public/HealthBar.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Public/XpBar.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Public/XpBar.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Widget/Hud/WBP_Ui_PlayerStatus.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Widget/Hud/WBP_Ui_PlayerStatus.uasset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -276,7 +276,7 @@
       <workItem from="1763815212341" duration="708000" />
       <workItem from="1764003021523" duration="1227000" />
       <workItem from="1764030668449" duration="4518000" />
-      <workItem from="1764251301596" duration="7411000" />
+      <workItem from="1764251301596" duration="9035000" />
     </task>
     <servers />
   </component>
