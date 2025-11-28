@@ -14,17 +14,18 @@
   <component name="ChangeListManager">
     <list default="true" id="700cebab-63ab-47f1-8bec-c545c4c447ad" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemies/BP_EnemyMelee.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemies/BP_EnemyMelee.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/32/ZNGF3W9BPQS3DSH913LXJE.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/32/ZNGF3W9BPQS3DSH913LXJE.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/PQ/OA4BVAAEX0CQUNFQIQG49Y.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/PQ/OA4BVAAEX0CQUNFQIQG49Y.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/L4/699LI2PQJLVWXJ20PBES8B.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/D7/UXCWV9U78SQFSLB16YNG6J.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/QS/Z84F0O9P0845X3PZ1QOOA9.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/QS/Z84F0O9P0845X3PZ1QOOA9.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/UR/NKNJXBOC2HH167DRO0ISMV.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/UR/NKNJXBOC2HH167DRO0ISMV.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/DQ/248870T9DMWT0UM9NEXNW5.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/DQ/248870T9DMWT0UM9NEXNW5.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/D/7J/EXQLQKRXU2HY7EYV6VDLEZ.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/D/IW/8GLGWTK7VKH2UIATLKH1AM.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/D/T5/NCSYZUUXKTVXZLLHU3HC0T.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/D/T5/NCSYZUUXKTVXZLLHU3HC0T.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Widget/Hud/WBP_HealthBar.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Widget/Hud/WBP_HealthBar.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Widget/Hud/WBP_MedkitHUD.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Widget/Hud/WBP_MedkitHUD.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Widget/Hud/WBP_Ui_PlayerStatus.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Widget/Hud/WBP_Ui_PlayerStatus.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Widget/Hud/WBP_XpBar.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Widget/Hud/WBP_XpBar.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Widget/WBP_Mission.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Widget/WBP_Mission.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/1/LA/DJBAWSXX72J0WHIGRWQ94K.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/1/LA/DJBAWSXX72J0WHIGRWQ94K.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/1/SS/6S8LKAJ7NLPZI43SHYWSMS.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/D/8T/PW7JOFM4M1B6G0BJT99YB1.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game3d.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/Game3d.sln.DotSettings.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,9 +51,34 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Developer/Windows/LiveCodingServer/Private/External/LC_LiveModule.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/AutomationTool/Apple/Apple.Automation.csproj" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/AutomationTool/Apple/ApplePlatform.Automation.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/AutomationTool/Apple/ExportAppleBuild.Automation.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/AutomationTool/AutomationTool.csproj" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/AutomationTool/AutomationUtils/MacHostPlatform.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/AutomationTool/AutomationUtils/P4Utils.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/AutomationTool/Gauntlet/Gauntlet.Automation.csproj" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/AutomationTool/Gauntlet/SelfTest/TestData/LogParser/Win64FatalError.txt" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/AutomationTool/IOS/ExportOptions.plist.template" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/AutomationTool/IOS/IOS.Automation.csproj" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/AutomationTool/IOS/IOSPlatform.Automation.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/AutomationTool/Mac/Mac.Automation.csproj" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/AutomationTool/Mac/MacPlatform.Automation.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/AutomationTool/Scripts/BuildCMakeLib.Automation.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/AutomationTool/Scripts/GenerateDSYM.Automation.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/AutomationTool/Scripts/GeneratePlatformReport.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/AutomationTool/Scripts/IPhonePackager.Automation.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/AutomationTool/TVOS/TVOSPlatform.Automation.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/AutomationTool/Turnkey/TurnkeySettings.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/Shared/EpicGames.Core/CertificateUtils.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/Shared/EpicGames.Core/StringView.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/Shared/EpicGames.Perforce/PerforceChildProcess.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/Shared/EpicGames.Perforce/PerforceConnection.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/Shared/EpicGames.Perforce/PerforceUtils.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/Shared/EpicGames.Slack/SlackClient.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/UnrealBuildTool/Platform/IOS/IOSCodeSigning.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/UnrealBuildTool/System/LinkEnvironment.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Core/Public/Containers/Array.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Core/Public/CoreGlobals.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Core/Public/UObject/ScriptDelegates.h" root0="FORCE_HIGHLIGHTING" />
@@ -60,11 +86,12 @@
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Classes/Components/SkeletalMeshComponent.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Classes/Engine/DamageEvents.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Classes/GameFramework/Character.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/BlueprintGeneratedClass.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/Character.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/Pawn.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/UMG/Private/UserWidget.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Intermediate/Build/Win64/UnrealEditor/Inc/Game3d/UHT/CraftingRecipe.gen.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Intermediate/Build/Win64/x64/UnrealEditor/Development/Game3d/Module.Game3d.2.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Intermediate/Build/Win64/x64/UnrealEditor/Development/Game3d/Module.Game3d.2.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Intermediate/Build/Win64/x64/UnrealEditor/Development/Game3d/Module.Game3d.3.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/MultiplayerSessionOW/Source/MultiplayerSessionOW/Private/MultiplayerSessionsSubsystem.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/MultiplayerSessionOW/Source/MultiplayerSessionOW/Private/WidgetSessionSerch.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -99,22 +126,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;C/C++ Project.Game3d.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;pausa&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;UnrealLinkOptionsId&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "C/C++ Project.Game3d.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "fixes-video",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "UnrealLinkOptionsId",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="C/C++ Project.Game3d">
     <configuration name="Game3d" type="CppProject" factoryName="C++ Project">
       <configuration_1 setup="1">
@@ -282,6 +309,7 @@
       <workItem from="1764003021523" duration="1227000" />
       <workItem from="1764030668449" duration="4518000" />
       <workItem from="1764251301596" duration="11628000" />
+      <workItem from="1764292715356" duration="2142000" />
     </task>
     <servers />
   </component>
