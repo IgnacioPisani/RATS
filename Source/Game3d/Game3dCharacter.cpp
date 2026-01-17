@@ -498,8 +498,10 @@ void AGame3dCharacter::EndDash()
 
 void AGame3dCharacter::ComboAttackPressed()
 {
+	if(!bIsResting){
 	// route the input
 	DoComboAttackStart();
+	}
 }
 
 void AGame3dCharacter::DoComboAttackStart()

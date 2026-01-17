@@ -226,6 +226,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bIsAiming = false;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    bool bIsResting = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Audio")
 	USoundBase* PickupSound;
