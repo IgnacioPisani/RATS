@@ -29,6 +29,7 @@ float ACharacterBase::TakeDamage(float DamageAmount, FDamageEvent const& DamageE
 	{
 		HealthComponent->DecreaseHealth(DamageAmount);
 		TakeDamageEffects();
+		UE_LOG(LogTemp, Warning, TEXT("Danio"));
 
 	}
 	return DamageAmount;
