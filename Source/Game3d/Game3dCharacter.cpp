@@ -183,25 +183,43 @@ void AGame3dCharacter::ApplyDamage(float Damage, AActor* DamageCauser, const FVe
 void AGame3dCharacter::ApplyHealing(float Healing, AActor* Healer)
 {
 }
-
 void AGame3dCharacter::DoMove(float Right, float Forward)
 {
-	if (GetController() != nullptr)
+	if (!Controller)
 	{
-		// find out which way is forward
-		const FRotator Rotation = GetController()->GetControlRotation();
-		const FRotator YawRotation(0, Rotation.Yaw, 0);
-
-		// get forward vector
-		const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
-
-		// get right vector 
-		const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
-
-		// add movement 
-		AddMovementInput(ForwardDirection, Forward);
-		AddMovementInput(RightDirection, Right);
+		return;
 	}
+
+	// ==========================
+	// GUARDAR INPUT (PARA ANIMACIONES)
+	// ==========================
+	MoveLeftRightAxis = Right;
+	MoveUpDownAxis    = Forward;
+
+	// ==========================
+	// MODO ESCALAR
+	// ==========================
+	if (bIsClimbing)
+	{
+		AddMovementInput(GetActorUpVector(), Forward);
+		AddMovementInput(GetActorRightVector(), Right);
+		return;
+	}
+
+	// ==========================
+	// MODO NORMAL
+	// ==========================
+	const FRotator ControlRot = Controller->GetControlRotation();
+	const FRotator YawRot(0.f, ControlRot.Yaw, 0.f);
+
+	const FVector ForwardDir =
+		FRotationMatrix(YawRot).GetUnitAxis(EAxis::X);
+
+	const FVector RightDir =
+		FRotationMatrix(YawRot).GetUnitAxis(EAxis::Y);
+
+	AddMovementInput(ForwardDir, Forward);
+	AddMovementInput(RightDir, Right);
 }
 
 void AGame3dCharacter::DoLook(float Yaw, float Pitch)

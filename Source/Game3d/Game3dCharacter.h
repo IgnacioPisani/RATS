@@ -200,6 +200,10 @@ public:
    
    bool bIsSprinting = false;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement")
+	bool bIsClimbing = false;
+
+
 	int32 MedkitCount = 0;
 
 	/** Combo Attack Input Action */
@@ -330,6 +334,13 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Jump|Suspension")
 	float EndLiftVelocityZ = -200.f;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Climb|Input")
+	float MoveLeftRightAxis = 0.f;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Climb|Input")
+	float MoveUpDownAxis = 0.f;
+
 
 	// ---- Funciones ----
 	virtual void Landed(const FHitResult& Hit) override;
