@@ -118,6 +118,19 @@ void AGame3dCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 		// Moving
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AGame3dCharacter::Move);
+		EnhancedInputComponent->BindAction(
+	MoveAction,
+	ETriggerEvent::Completed,
+	this,
+	&AGame3dCharacter::StopMove
+);
+
+EnhancedInputComponent->BindAction(
+	MoveAction,
+	ETriggerEvent::Canceled,
+	this,
+	&AGame3dCharacter::StopMove
+);
 		EnhancedInputComponent->BindAction(MouseLookAction, ETriggerEvent::Triggered, this, &AGame3dCharacter::Look);
 
 		// Looking
@@ -145,7 +158,11 @@ void AGame3dCharacter::Move(const FInputActionValue& Value)
 	// route the input
 	DoMove(MovementVector.X, MovementVector.Y);
 }
-
+void AGame3dCharacter::StopMove(const FInputActionValue& Value)
+{
+	MoveLeftRightAxis = 0.f;
+	MoveUpDownAxis    = 0.f;
+}
 void AGame3dCharacter::Look(const FInputActionValue& Value)
 {
 	// input is a Vector2D
@@ -183,25 +200,57 @@ void AGame3dCharacter::ApplyDamage(float Damage, AActor* DamageCauser, const FVe
 void AGame3dCharacter::ApplyHealing(float Healing, AActor* Healer)
 {
 }
-
 void AGame3dCharacter::DoMove(float Right, float Forward)
 {
-	if (GetController() != nullptr)
+	if (!Controller)
 	{
-		// find out which way is forward
-		const FRotator Rotation = GetController()->GetControlRotation();
-		const FRotator YawRotation(0, Rotation.Yaw, 0);
-
-		// get forward vector
-		const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
-
-		// get right vector 
-		const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
-
-		// add movement 
-		AddMovementInput(ForwardDirection, Forward);
-		AddMovementInput(RightDirection, Right);
+		return;
 	}
+
+	// ==========================
+	// GUARDAR INPUT (PARA ANIMACIONES)
+	// ==========================
+	MoveLeftRightAxis = Right;
+	MoveUpDownAxis    = Forward;
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(
+			1,                      // Key fija (se pisa cada frame)
+			0.f,                    // 0 = un frame
+			FColor::Green,
+			FString::Printf(
+				TEXT("Climb Input | LR: %.2f  UD: %.2f"),
+				MoveLeftRightAxis,
+				MoveUpDownAxis
+			)
+		);
+	}
+
+
+	// ==========================
+	// MODO ESCALAR
+	// ==========================
+	if (bIsClimbing)
+	{
+		AddMovementInput(GetActorUpVector(), Forward);
+		AddMovementInput(GetActorRightVector(), Right);
+		return;
+	}
+
+	// ==========================
+	// MODO NORMAL
+	// ==========================
+	const FRotator ControlRot = Controller->GetControlRotation();
+	const FRotator YawRot(0.f, ControlRot.Yaw, 0.f);
+
+	const FVector ForwardDir =
+		FRotationMatrix(YawRot).GetUnitAxis(EAxis::X);
+
+	const FVector RightDir =
+		FRotationMatrix(YawRot).GetUnitAxis(EAxis::Y);
+
+	AddMovementInput(ForwardDir, Forward);
+	AddMovementInput(RightDir, Right);
 }
 
 void AGame3dCharacter::DoLook(float Yaw, float Pitch)
@@ -498,8 +547,10 @@ void AGame3dCharacter::EndDash()
 
 void AGame3dCharacter::ComboAttackPressed()
 {
+	if(!bIsResting){
 	// route the input
 	DoComboAttackStart();
+	}
 }
 
 void AGame3dCharacter::DoComboAttackStart()

@@ -103,6 +103,7 @@ protected:
 
 	/** Called for movement input */
 	void Move(const FInputActionValue& Value);
+	void StopMove(const FInputActionValue& Value);
 
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
@@ -200,6 +201,10 @@ public:
    
    bool bIsSprinting = false;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement")
+	bool bIsClimbing = false;
+
+
 	int32 MedkitCount = 0;
 
 	/** Combo Attack Input Action */
@@ -226,6 +231,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bIsAiming = false;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    bool bIsResting = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Audio")
 	USoundBase* PickupSound;
@@ -327,6 +335,13 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Jump|Suspension")
 	float EndLiftVelocityZ = -200.f;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Climb|Input")
+	float MoveLeftRightAxis = 0.f;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Climb|Input")
+	float MoveUpDownAxis = 0.f;
+
 
 	// ---- Funciones ----
 	virtual void Landed(const FHitResult& Hit) override;
