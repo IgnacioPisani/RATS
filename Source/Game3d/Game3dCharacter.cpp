@@ -522,6 +522,28 @@ void AGame3dCharacter::Landed(const FHitResult& Hit)
     }
 }
 
+void AGame3dCharacter::SetGameplayHUDVisible(bool bVisible)
+{
+	ESlateVisibility Visibility = bVisible
+		? ESlateVisibility::Visible
+		: ESlateVisibility::Hidden;
+
+	if (HealthBarWidget)
+	{
+		HealthBarWidget->SetVisibility(Visibility);
+	}
+
+	if (XpWidget)
+	{
+		XpWidget->SetVisibility(Visibility);
+	}
+
+	if (MedkitHUDInstance)
+	{
+		MedkitHUDInstance->SetVisibility(Visibility);
+	}
+}
+
 void AGame3dCharacter::DashMontageEnded(UAnimMontage* Montage, bool bInterrupted)
 {
 		EndDash();
@@ -576,12 +598,11 @@ void AGame3dCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	// El spring arm NO se modifica si el personaje está apuntando
-	if (CameraBoom && !bIsAiming)
+	// 🚫 NO tocar cámara si está en cinemática
+	if (CameraBoom && !bIsAiming && !bSpecialCinematicActive)
 	{
 		const float CurrentSpeed = GetVelocity().Size();
 
-		// NUEVO: el personaje solo sprinta si está corriendo Y está en el suelo
 		const bool bCanSprint =
 			bIsSprinting &&
 			CurrentSpeed > 5.f &&
@@ -598,8 +619,30 @@ void AGame3dCharacter::Tick(float DeltaTime)
 
 		CameraBoom->TargetArmLength = NewLength;
 	}
-}
 
+	if (bSpecialCinematicActive && CameraBoom)
+	{
+		FRotator CurrentRot = CameraBoom->GetComponentRotation();
+
+		FRotator NewRot = FMath::RInterpTo(
+			CurrentRot,
+			CinematicTargetRotation,
+			DeltaTime,
+			CinematicRotationInterpSpeed
+		);
+
+		CameraBoom->SetWorldRotation(NewRot);
+
+		float NewLength = FMath::FInterpTo(
+			CameraBoom->TargetArmLength,
+			CinematicTargetArmLength,
+			DeltaTime,
+			CinematicZoomInterpSpeed
+		);
+
+		CameraBoom->TargetArmLength = NewLength;
+	}
+}
 void AGame3dCharacter::HandleCraftMedkit()
 {
 	if (!InventoryComponent)
@@ -735,6 +778,59 @@ void AGame3dCharacter::CheckCombo()
 			}
 		}
 	}
+}
+void AGame3dCharacter::StartSpecialAttackCinematic(
+	float RotationInterpSpeed,
+	float TargetArmLength,
+	float ZoomInterpSpeed,
+	float TimeDilation
+)
+{
+	if (!CameraBoom) return;
+
+	bSpecialCinematicActive = true;
+
+	CinematicRotationInterpSpeed = RotationInterpSpeed;
+	CinematicZoomInterpSpeed = ZoomInterpSpeed;
+
+	CinematicTargetArmLength = TargetArmLength;
+	CinematicOriginalArmLength = CameraBoom->TargetArmLength;
+
+	// guardar time dilation original
+	CinematicOriginalTimeDilation =
+		UGameplayStatics::GetGlobalTimeDilation(GetWorld());
+
+	// aplicar slow motion
+	UGameplayStatics::SetGlobalTimeDilation(GetWorld(), TimeDilation);
+
+	// desactivar control del jugador sobre la cámara
+	CameraBoom->bUsePawnControlRotation = false;
+
+	// rotación detrás del personaje
+	CinematicTargetRotation = GetActorRotation();
+
+	// activar barras negras (Blueprint event)
+	ShowCinematicBars(true);
+	SetGameplayHUDVisible(false);
+}
+
+void AGame3dCharacter::StopSpecialAttackCinematic()
+{
+	bSpecialCinematicActive = false;
+
+	// restaurar control
+	CameraBoom->bUsePawnControlRotation = true;
+
+	// restaurar velocidad del tiempo
+	UGameplayStatics::SetGlobalTimeDilation(
+		GetWorld(),
+		CinematicOriginalTimeDilation
+	);
+
+	// ocultar barras negras
+	ShowCinematicBars(false);
+	SetGameplayHUDVisible(true);
+
 }
 
 void AGame3dCharacter::ForceStopSprintIfRunning()

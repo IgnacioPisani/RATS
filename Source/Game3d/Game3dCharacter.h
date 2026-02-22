@@ -342,8 +342,38 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "Climb|Input")
 	float MoveUpDownAxis = 0.f;
 
+	UFUNCTION(BlueprintCallable, Category="Cinematic")
+	void StartSpecialAttackCinematic(
+		float RotationInterpSpeed = 6.f,
+		float TargetArmLength = 200.f,
+		float ZoomInterpSpeed = 5.f,
+		float TimeDilation = 0.2f
+	);
+
+	UFUNCTION(BlueprintCallable, Category="Cinematic")
+	void StopSpecialAttackCinematic();
+
+
+
+protected:
+
+	bool bSpecialCinematicActive = false;
+
+	FRotator CinematicTargetRotation;
+
+	float CinematicRotationInterpSpeed;
+	float CinematicZoomInterpSpeed;
+
+	float CinematicTargetArmLength;
+	float CinematicOriginalArmLength;
+
+	float CinematicOriginalTimeDilation;
 
 	// ---- Funciones ----
 	virtual void Landed(const FHitResult& Hit) override;
 
+	UFUNCTION(BlueprintImplementableEvent, Category="Cinematic")
+	void ShowCinematicBars(bool bShow);
+
+	void SetGameplayHUDVisible(bool bVisible);
 };
