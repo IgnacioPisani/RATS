@@ -1,6 +1,9 @@
 #include "DestructibleItem.h"
 #include "BrokenItem.h"
+#include "Item.h"
 #include "Components/StaticMeshComponent.h"
+
+struct FItemStruct;
 
 ADestructibleItem::ADestructibleItem()
 {
@@ -35,7 +38,7 @@ void ADestructibleItem::BreakItem(const FVector& HitDirection)
 	{
 		Broken->ApplyBreakImpulse(HitDirection);
 	}
-
+	SpawnLoot();
 	Destroy();
 }
 
@@ -71,4 +74,20 @@ void ADestructibleItem::HandleDeath()
 void ADestructibleItem::ApplyHealing(float Healing, AActor* Healer)
 {
 	// No hace nada. Es un objeto rompible.
+}
+
+void ADestructibleItem::SpawnLoot()
+{
+	if (!ItemDataTable) return;
+
+	if (FMath::FRand() > DropChance)
+		return;
+
+	FItemStruct* ItemRow =
+		ItemDataTable->FindRow<FItemStruct>(ItemRowName, "");
+
+	if (!ItemRow) return;
+
+	// 👇 Esto llama a Blueprint
+	OnLootRolled(*ItemRow);
 }

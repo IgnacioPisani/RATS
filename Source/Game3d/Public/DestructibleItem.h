@@ -46,7 +46,19 @@ public:
 		float Healing,
 		AActor* Healer
 	) override;
+	void SpawnLoot();
 
+	UPROPERTY(EditAnywhere, Category="Loot")
+	float DropChance = 0.5f; // 50%
+	
+	UPROPERTY(EditAnywhere, Category="Loot")
+FName ItemRowName;
+
+UPROPERTY(EditAnywhere, Category="Loot")
+UDataTable* ItemDataTable;
+
+	UFUNCTION(BlueprintImplementableEvent, Category="Loot")
+	void OnLootRolled(const FItemStruct& ItemData);
 private:
 
 	void Break(const FVector& Impulse);
