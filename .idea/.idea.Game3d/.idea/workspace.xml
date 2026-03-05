@@ -12,16 +12,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="700cebab-63ab-47f1-8bec-c545c4c447ad" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Item/BP_BrokenItem.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Item/BP_BrokenItem.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Item/BP_DestructibleItem.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Item/BP_DestructibleItem.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Widget/Inventory/WBP_Slot.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Widget/Inventory/WBP_Slot.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Lvl_ThirdPerson/A/ML/EFK6BX0RX7KTYIEKJB52HE.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Lvl_ThirdPerson/A/ML/EFK6BX0RX7KTYIEKJB52HE.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Private/DestructibleItem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Private/DestructibleItem.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Public/DestructibleItem.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Public/DestructibleItem.h" afterDir="false" />
-    </list>
+    <list default="true" id="700cebab-63ab-47f1-8bec-c545c4c447ad" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -321,6 +312,7 @@
       <workItem from="1772395328475" duration="109000" />
       <workItem from="1772659531623" duration="288000" />
       <workItem from="1772660657801" duration="1358000" />
+      <workItem from="1772745296149" duration="257000" />
     </task>
     <servers />
   </component>

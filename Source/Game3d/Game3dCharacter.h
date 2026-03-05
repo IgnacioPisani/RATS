@@ -254,6 +254,8 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void ForceStopSprintIfRunning();
+	void CheckInteractable();
+	AActor* FindInteractableActor();
 
 	FOnMontageEnded OnAttackMontageEnded;
 
@@ -342,8 +344,15 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "Climb|Input")
 	float MoveUpDownAxis = 0.f;
 
-
+	UPROPERTY()
+	AActor* CurrentInteractableActor = nullptr;
 	// ---- Funciones ----
 	virtual void Landed(const FHitResult& Hit) override;
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void ShowInteractMessage(FName ItemName);
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void HideInteractMessage();
 
 };
