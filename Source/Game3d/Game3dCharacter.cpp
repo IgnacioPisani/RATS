@@ -355,87 +355,23 @@ void AGame3dCharacter::HandleLevelChanged(int level)
 	XpWidget->UpdateLevelText(level);
 }
 
-
 void AGame3dCharacter::DoPickUp()
 {
+	AActor* HitActor = FindInteractableActor();
 
-	const float Radius = 120.f;
-	FVector Start = GetActorLocation();
-	Start.Z -= 65.f;
-	const FVector End = Start; 
+	if (!HitActor) return;
 
-	UE_LOG(LogTemp, Log, TEXT("Iniciando SphereTrace. Radio: %.1f | Posicion: %s"), 
-		   Radius, *Start.ToString());
-	FHitResult HitResult;
-	FCollisionQueryParams Params;
-	Params.AddIgnoredActor(this);
-	TArray<AActor*> FloorActors;
-	UGameplayStatics::GetAllActorsWithTag(GetWorld(), FName("Floor"), FloorActors);
-	Params.AddIgnoredActors(FloorActors);
-
-	bool bHit = GetWorld()->SweepSingleByChannel(
-		HitResult,
-		Start,
-		End,
-		FQuat::Identity,
-		ECC_Visibility,
-		FCollisionShape::MakeSphere(Radius),
-		Params
-	);
-
-	UE_LOG(LogTemp, Log, TEXT("Resultado del trace -> bHit: %s"), bHit ? TEXT("TRUE") : TEXT("FALSE"));
-
-	if (bHit)
+	if (HitActor->GetClass()->ImplementsInterface(UInteractable::StaticClass()))
 	{
-		if (HitResult.GetActor())
+		FItemStruct ItemData = IInteractable::Execute_GetItem(HitActor);
+
+		if (InventoryComponent)
 		{
-			AActor* HitActor = HitResult.GetActor();
-			UE_LOG(LogTemp, Log, TEXT("Actor impactado: %s"), *HitActor->GetName());
-
-			if (HitActor->GetClass()->ImplementsInterface(UInteractable::StaticClass()))
-			{
-				UE_LOG(LogTemp, Log, TEXT("El actor implementa la interfaz UInteractable"));
-
-				FItemStruct ItemData = IInteractable::Execute_GetItem(HitActor);
-			
-				UE_LOG(LogTemp, Log, TEXT("ItemData recibido -> Name: %s, Cantidad: %d"),
-					   *ItemData.Name.ToString(), ItemData.Quantity);
-
-				if (InventoryComponent)
-				{
-					
-					if (PickupSound)
-					{
-						UGameplayStatics::PlaySoundAtLocation(this, PickupSound, GetActorLocation());
-					}
-
-					InventoryComponent->AddItem(ItemData);
-					UE_LOG(LogTemp, Log, TEXT("Item agregado al inventario"));
-				}
-				else
-				{
-					UE_LOG(LogTemp, Warning, TEXT("InventoryComponent es nullptr"));
-				}
-
-				HitActor->Destroy();
-				UE_LOG(LogTemp, Log, TEXT("Actor destruido tras recoger item"));
-			}
-			else
-			{
-				UE_LOG(LogTemp, Warning, TEXT("El actor no implementa UInteractable"));
-			}
+			InventoryComponent->AddItem(ItemData);
 		}
-		else
-		{
-			UE_LOG(LogTemp, Warning, TEXT("Trace detectó impacto pero GetActor() es nullptr"));
-		}
-	}
-	else
-	{
-		UE_LOG(LogTemp, Log, TEXT("SphereTrace no encontró ningún actor"));
-	}
 
-	
+		HitActor->Destroy();
+	}
 }
 
 void AGame3dCharacter::DoStartSprint()
@@ -598,6 +534,8 @@ void AGame3dCharacter::Tick(float DeltaTime)
 
 		CameraBoom->TargetArmLength = NewLength;
 	}
+	CheckInteractable();
+
 }
 
 void AGame3dCharacter::HandleCraftMedkit()
@@ -743,4 +681,62 @@ void AGame3dCharacter::ForceStopSprintIfRunning()
 	{
 		DoStopSprint();
 	}
+}
+
+void AGame3dCharacter::CheckInteractable()
+{
+	AActor* HitActor = FindInteractableActor();
+
+	if (HitActor && HitActor->GetClass()->ImplementsInterface(UInteractable::StaticClass()))
+	{
+		if (CurrentInteractableActor != HitActor)
+		{
+			CurrentInteractableActor = HitActor;
+
+			FItemStruct ItemData = IInteractable::Execute_GetItem(HitActor);
+
+			ShowInteractMessage(ItemData.Name);
+		}
+
+		return;
+	}
+
+	if (CurrentInteractableActor)
+	{
+		CurrentInteractableActor = nullptr;
+		HideInteractMessage();
+	}
+}
+
+AActor* AGame3dCharacter::FindInteractableActor()
+{
+	const float Radius = 120.f;
+
+	FVector Start = GetActorLocation();
+	Start.Z -= 65.f;
+
+	FHitResult HitResult;
+	FCollisionQueryParams Params;
+	Params.AddIgnoredActor(this);
+
+	TArray<AActor*> FloorActors;
+	UGameplayStatics::GetAllActorsWithTag(GetWorld(), FName("Floor"), FloorActors);
+	Params.AddIgnoredActors(FloorActors);
+
+	bool bHit = GetWorld()->SweepSingleByChannel(
+		HitResult,
+		Start,
+		Start,
+		FQuat::Identity,
+		ECC_Visibility,
+		FCollisionShape::MakeSphere(Radius),
+		Params
+	);
+
+	if (bHit)
+	{
+		return HitResult.GetActor();
+	}
+
+	return nullptr;
 }
