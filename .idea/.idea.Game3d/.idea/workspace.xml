@@ -14,8 +14,13 @@
   <component name="ChangeListManager">
     <list default="true" id="700cebab-63ab-47f1-8bec-c545c4c447ad" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Enemies/BP_EnemyMelee.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemies/BP_EnemyMelee.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemies/BP_EnemyDistance.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemies/BP_EnemyDistance.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Enemies/IA/BTTask_MoveRandomLocation.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemies/IA/BTTask_MoveRandomLocation.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemies/IA/BT_EnemyDistance.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemies/IA/BT_EnemyDistance.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/3/XO/8EVL8OCYV6KJQQYO94XLGY.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/3/XO/8EVL8OCYV6KJQQYO94XLGY.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/9/0J/FH861SK34888O5ZN3CKQIB.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Private/EnemyBase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Private/EnemyBase.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Private/EnemyDistance.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Private/EnemyDistance.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -319,6 +324,7 @@
       <workItem from="1772745296149" duration="257000" />
       <workItem from="1773874793883" duration="68000" />
       <workItem from="1773875343118" duration="2997000" />
+      <workItem from="1774016697295" duration="989000" />
     </task>
     <servers />
   </component>

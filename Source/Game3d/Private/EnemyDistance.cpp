@@ -5,6 +5,7 @@
 AEnemyDistance::AEnemyDistance()
 {
 	PrimaryActorTick.bCanEverTick = true;
+	
 }
 
 void AEnemyDistance::BeginPlay()
@@ -18,28 +19,6 @@ void AEnemyDistance::BeginPlay()
 void AEnemyDistance::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	APawn* PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
-	if (!PlayerPawn) return;
-
-	FVector ToPlayer = PlayerPawn->GetActorLocation() - GetActorLocation();
-	float Distance = ToPlayer.Size();
-
-	// 🧭 Mantener distancia (clave tipo DMC)
-	if (Distance > AttackRange)
-	{
-		AddMovementInput(ToPlayer.GetSafeNormal(), 1.0f);
-	}
-	else if (Distance < AttackRange * 0.6f)
-	{
-		AddMovementInput(-ToPlayer.GetSafeNormal(), 1.0f);
-	}
-	else
-	{
-		// 🔄 orbitar (mov lateral)
-		FVector Right = FVector::CrossProduct(ToPlayer.GetSafeNormal(), FVector::UpVector);
-		AddMovementInput(Right, 0.5f);
-	}
 }
 
 void AEnemyDistance::HandleHit_Implementation()
