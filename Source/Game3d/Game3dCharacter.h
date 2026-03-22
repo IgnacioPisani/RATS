@@ -269,8 +269,9 @@ public:
 		// Funcion blueprint-callable para realizar un salto extra
     UFUNCTION(BlueprintCallable, Category = "Input")
 	virtual void DoPickUp();
+	void AddItemToInventory(const FItemStruct& ItemData);
 
-    UFUNCTION(BlueprintCallable, Category = "Input")
+	UFUNCTION(BlueprintCallable, Category = "Input")
 	virtual void DoStartSprint();
    
     UFUNCTION(BlueprintCallable, Category = "Input")
