@@ -12,7 +12,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="700cebab-63ab-47f1-8bec-c545c4c447ad" name="Changes" comment="" />
+    <list default="true" id="700cebab-63ab-47f1-8bec-c545c4c447ad" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Widget/Hud/WBP_HealthBar.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Widget/Hud/WBP_HealthBar.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/1/M1/EFREESOUX0GA65GBCOW59R.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/1/M1/EFREESOUX0GA65GBCOW59R.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/8K/EW9DKFMUSMFUV0MDFWVX3I.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/8K/EW9DKFMUSMFUV0MDFWVX3I.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/8Z/MX3AKFE3WW92PYHXREHP3F.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/8Z/MX3AKFE3WW92PYHXREHP3F.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/3/HW/5L6LK3MIW477Q71UTGZVX6.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/MP/ZM0YKVGFIL26Y3ANEVWAJI.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/MP/ZM0YKVGFIL26Y3ANEVWAJI.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/LO/TIETKPZ9AC8OSDNMKWZ126.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/LO/TIETKPZ9AC8OSDNMKWZ126.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/9/PH/ZOWZUKLMMC40OBNNQCHT90.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/9/PH/ZOWZUKLMMC40OBNNQCHT90.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/4X/6DROY85H93VAH66C8IMIGA.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/4X/6DROY85H93VAH66C8IMIGA.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/B/L6/JQ06IUF420ZEVDV985O2PM.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/B/L6/JQ06IUF420ZEVDV985O2PM.uasset" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -128,7 +141,7 @@
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;minimap&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;MiniMapa&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -313,6 +326,14 @@
       <workItem from="1772659531623" duration="288000" />
       <workItem from="1772660657801" duration="1358000" />
       <workItem from="1772745296149" duration="257000" />
+      <workItem from="1773669525429" duration="1047000" />
+      <workItem from="1773693469668" duration="676000" />
+      <workItem from="1773696612099" duration="1465000" />
+      <workItem from="1773949096568" duration="862000" />
+      <workItem from="1774115389382" duration="1340000" />
+      <workItem from="1774284005558" duration="1571000" />
+      <workItem from="1774552090594" duration="1374000" />
+      <workItem from="1774647359975" duration="405000" />
     </task>
     <servers />
   </component>
