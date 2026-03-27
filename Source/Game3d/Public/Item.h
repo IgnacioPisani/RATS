@@ -33,4 +33,6 @@ public:
 	FItemStruct ItemData;
 
 	virtual FItemStruct GetItem_Implementation();
+	
+	virtual void Interact_Implementation(AActor* Interactor) override;
 };

@@ -12,7 +12,7 @@ struct  FItemStruct: public FTableRowBase
 
 	// Nombre visible del item
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Item")
-	FName Name;
+	FName Name = NAME_None;
 
 	// Indica si el item puede apilarse
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Item")

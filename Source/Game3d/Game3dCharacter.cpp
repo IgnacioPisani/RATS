@@ -358,19 +358,35 @@ void AGame3dCharacter::HandleLevelChanged(int level)
 void AGame3dCharacter::DoPickUp()
 {
 	AActor* HitActor = FindInteractableActor();
-
 	if (!HitActor) return;
 
 	if (HitActor->GetClass()->ImplementsInterface(UInteractable::StaticClass()))
 	{
 		FItemStruct ItemData = IInteractable::Execute_GetItem(HitActor);
 
-		if (InventoryComponent)
+		if (ItemData.Mesh)
 		{
-			InventoryComponent->AddItem(ItemData);
+			AddItemToInventory(ItemData);
+			HitActor->Destroy();
 		}
+		else
+		{
+			FItemStruct SpawnData = IInteractable::Execute_GetItemSpawn(HitActor);
+			IInteractable::Execute_Interact(HitActor, this);
+			if (SpawnData.Mesh)
+			{
+				AddItemToInventory(SpawnData);
+			}
 
-		HitActor->Destroy();
+		}
+	}
+}
+
+void AGame3dCharacter::AddItemToInventory(const FItemStruct& ItemData)
+{
+	if (InventoryComponent)
+	{
+		InventoryComponent->AddItem(ItemData);
 	}
 }
 
@@ -695,9 +711,11 @@ void AGame3dCharacter::CheckInteractable()
 
 			FItemStruct ItemData = IInteractable::Execute_GetItem(HitActor);
 
-			ShowInteractMessage(ItemData.Name);
+			if (ItemData.Name != NAME_None)
+			{
+				ShowInteractMessage(ItemData.Name);
+			}		
 		}
-
 		return;
 	}
 
