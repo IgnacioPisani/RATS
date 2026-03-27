@@ -1,7 +1,6 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 
 #include "Item.h"
+class UInventoryComponent;
 class UStaticMeshComponent;
 
 // Sets default values
@@ -39,3 +38,8 @@ FItemStruct AItem::GetItem_Implementation()
 	return ItemData;
 }
 
+// Item.h
+void AItem::Interact_Implementation(AActor* Interactor)
+{
+
+}

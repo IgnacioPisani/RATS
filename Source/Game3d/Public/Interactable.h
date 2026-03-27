@@ -25,4 +25,10 @@ class GAME3D_API IInteractable
 public:
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	FItemStruct GetItem();
+
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	FItemStruct GetItemSpawn();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void Interact(AActor* Interactor);
 };
