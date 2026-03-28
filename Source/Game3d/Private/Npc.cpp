@@ -3,6 +3,7 @@
 #include "TimerManager.h"
 #include "GameFramework/Actor.h"
 #include "DialogueLine.h" // o el nombre real donde está FDialogueLine
+#include "DialogueWidget.h"
 #include "Blueprint/UserWidget.h"
 
 ANpc::ANpc()
@@ -37,26 +38,75 @@ void ANpc::OnPlayerEnter(
 		StartDialogue();
 	}
 }
-
 void ANpc::StartDialogue()
 {
-	if (!DialogueTable || StartRow.IsNone()) return;
+	UE_LOG(LogTemp, Warning, TEXT("StartDialogue llamado"));
+
+	if (!DialogueTable)
+	{
+		UE_LOG(LogTemp, Error, TEXT("DialogueTable es NULL"));
+		return;
+	}
+
+	if (StartRow.IsNone())
+	{
+		UE_LOG(LogTemp, Error, TEXT("StartRow es NONE"));
+		return;
+	}
+
+	if (bIsInDialogue)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Ya estaba en dialogo"));
+		return;
+	}
 
 	bIsInDialogue = true;
 	CurrentRow = StartRow;
 
-	// Crear widget si no existe
-	if (DialogueWidgetClass && !DialogueWidget)
+	UE_LOG(LogTemp, Warning, TEXT("Dialogo iniciado. Row: %s"), *CurrentRow.ToString());
+
+	// Validar clase del widget
+	if (!DialogueWidgetClass)
 	{
-		DialogueWidget = CreateWidget<UUserWidget>(GetWorld(), DialogueWidgetClass);
-		if (DialogueWidget)
-		{
-			DialogueWidget->AddToViewport();
-		}
+		UE_LOG(LogTemp, Error, TEXT("DialogueWidgetClass es NULL"));
+		bIsInDialogue = false;
+		return;
 	}
 
+	// Crear widget si no existe
+	if (!DialogueWidget)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Creando DialogueWidget..."));
+
+		DialogueWidget = CreateWidget<UDialogueWidget>(GetWorld(), DialogueWidgetClass);
+
+		if (!DialogueWidget)
+		{
+			UE_LOG(LogTemp, Error, TEXT("Fallo al crear el DialogueWidget"));
+			bIsInDialogue = false;
+			return;
+		}
+
+		UE_LOG(LogTemp, Warning, TEXT("Widget creado correctamente"));
+		DialogueWidget->AddToViewport();
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Widget ya existia, reutilizando"));
+	}
+
+	// Seguridad extra
+	if (!DialogueWidget)
+	{
+		UE_LOG(LogTemp, Error, TEXT("DialogueWidget sigue siendo NULL despues de crearlo"));
+		bIsInDialogue = false;
+		return;
+	}
+
+	UE_LOG(LogTemp, Warning, TEXT("Llamando a ShowCurrentLine"));
 	ShowCurrentLine();
 }
+
 void ANpc::ShowCurrentLine()
 {
 	if (!DialogueTable) return;
@@ -65,13 +115,22 @@ void ANpc::ShowCurrentLine()
 
 	if (!Row)
 	{
+		UE_LOG(LogTemp, Warning, TEXT("Row no encontrada, terminando dialogo"));
 		EndDialogue();
 		bIsInDialogue = false;
 		return;
 	}
 
-	// Mostrar en UI (Blueprint)
-	DisplayDialogue(*Row);
+	// 👇 ACA ESTABA EL BUG
+	if (DialogueWidget)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Mostrando texto: %s"), *Row->Text.ToString());
+		DialogueWidget->StartDialogueLine(*Row);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("DialogueWidget es NULL"));
+	}
 
 	// Si termina acá
 	if (Row->bEndDialogue)

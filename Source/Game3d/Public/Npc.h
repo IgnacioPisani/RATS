@@ -6,6 +6,7 @@
 #include "Components/SphereComponent.h"
 #include "Npc.generated.h"
 
+class UDialogueWidget;
 struct FDialogueLine;
 
 UCLASS()
@@ -63,10 +64,9 @@ protected:
 	void EndDialogue();
 
 	// Widget class (set desde Blueprint)
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI")
-	TSubclassOf<UUserWidget> DialogueWidgetClass;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<UDialogueWidget> DialogueWidgetClass;
 
-	// Instancia del widget
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI")
-	UUserWidget* DialogueWidget;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UDialogueWidget* DialogueWidget;
 };
