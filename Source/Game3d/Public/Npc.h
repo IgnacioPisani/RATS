@@ -6,6 +6,7 @@
 #include "Components/SphereComponent.h"
 #include "Npc.generated.h"
 
+class AGame3dCharacter;
 class UDialogueWidget;
 struct FDialogueLine;
 
@@ -16,6 +17,7 @@ class GAME3D_API ANpc : public ACharacter
 
 public:
 	ANpc();
+	void HandleAdvanceInput();
 
 protected:
 	virtual void BeginPlay() override;
@@ -38,9 +40,14 @@ protected:
 	// ⏱ Timer
 	FTimerHandle DialogueTimer;
 
+	AGame3dCharacter* MyChar;
+
+
 	// 🔐 Estado
 	bool bIsInDialogue = false;
 
+	bool bHasSpoken = false;
+	
 	// 🧩 Funciones
 	UFUNCTION()
 	void OnPlayerEnter(
@@ -55,12 +62,13 @@ protected:
 	void StartDialogue();
 	void ShowCurrentLine();
 	void AdvanceDialogue();
+	 
 
 	// 🖥️ Mostrar en UI (lo implementás en BP si querés)
 	UFUNCTION(BlueprintImplementableEvent, Category="Dialogue")
 	void DisplayDialogue(const FDialogueLine& DialogueData);
 
-	UFUNCTION(BlueprintImplementableEvent, Category="Dialogue")
+	UFUNCTION()
 	void EndDialogue();
 
 	// Widget class (set desde Blueprint)

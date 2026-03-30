@@ -24,6 +24,13 @@ public:
 	// 🔹 Función principal
 	void StartDialogueLine(const FDialogueLine& Line);
 
+	void StopTyping();
+	
+	bool bIsTyping = false;
+
+	UFUNCTION(BlueprintCallable)
+	bool IsTyping() const { return bIsTyping; }
+
 protected:
 
 	virtual void NativeConstruct() override;
@@ -45,4 +52,5 @@ private:
 
 	// 🔹 Función interna
 	void TypeNextCharacter();
+	
 };

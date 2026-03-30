@@ -4,7 +4,9 @@
 #include "GameFramework/Actor.h"
 #include "DialogueLine.h" // o el nombre real donde está FDialogueLine
 #include "DialogueWidget.h"
+#include "Game3dCharacter.h"
 #include "Blueprint/UserWidget.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 ANpc::ANpc()
 {
@@ -23,6 +25,43 @@ void ANpc::BeginPlay()
 	InteractionSphere->OnComponentBeginOverlap.AddDynamic(this, &ANpc::OnPlayerEnter);
 }
 
+void ANpc::HandleAdvanceInput()
+{
+	// Seguridad
+	if (!DialogueWidget || !bIsInDialogue) return;
+
+	// Si está escribiendo → completar texto
+	if (DialogueWidget->IsTyping())
+	{
+		DialogueWidget->StopTyping();
+		return;
+	}
+
+	// Si ya terminó de escribir → avanzar
+
+	// Frenar timer automático (muy importante)
+	GetWorld()->GetTimerManager().ClearTimer(DialogueTimer);
+
+	// Buscar fila actual
+	FDialogueLine* Row = DialogueTable->FindRow<FDialogueLine>(CurrentRow, "");
+
+	if (!Row)
+	{
+		EndDialogue();
+		return;
+	}
+
+	// Si es final → cerrar
+	if (Row->bEndDialogue)
+	{
+		EndDialogue();
+		return;
+	}
+
+	// Avanzar
+	AdvanceDialogue();
+}
+
 void ANpc::OnPlayerEnter(
 	UPrimitiveComponent* OverlappedComponent,
 	AActor* OtherActor,
@@ -30,11 +69,25 @@ void ANpc::OnPlayerEnter(
 	int32 OtherBodyIndex,
 	bool bFromSweep,
 	const FHitResult& SweepResult)
-{
+{	if (bIsInDialogue || bHasSpoken) return;
+
 	if (bIsInDialogue) return;
 
 	if (OtherActor && OtherActor != this)
 	{
+		MyChar = Cast<AGame3dCharacter>(OtherActor);
+
+		if (MyChar)
+		{
+			MyChar->CurrentNpc = this;
+			MyChar->bIsInDialogue = true;
+
+			// 🔥 BLOQUEAR MOVIMIENTO
+			MyChar->GetCharacterMovement()->DisableMovement();
+
+			// 🔥 OPCIONAL: rotación
+			MyChar->GetCharacterMovement()->StopMovementImmediately();
+		}
 		StartDialogue();
 	}
 }
@@ -157,6 +210,40 @@ void ANpc::ShowCurrentLine()
 		Row->Duration,
 		false
 	);
+}
+
+void ANpc::EndDialogue()
+{
+	UE_LOG(LogTemp, Warning, TEXT("EndDialogue llamado"));
+
+	// Frenar timers
+	GetWorld()->GetTimerManager().ClearTimer(DialogueTimer);
+
+	// Frenar typing si el widget lo tiene
+	if (DialogueWidget)
+	{
+		DialogueWidget->StopTyping(); // 👈 lo agregamos ahora
+	}
+
+	// Remover widget
+	if (DialogueWidget && DialogueWidget->IsInViewport())
+	{
+		DialogueWidget->RemoveFromParent();
+	}
+	if (MyChar)
+	{
+		MyChar->CurrentNpc = nullptr;
+		MyChar->bIsInDialogue = false;
+		MyChar->GetCharacterMovement()->SetMovementMode(MOVE_Walking);
+
+
+	}
+	// Limpiar referencia
+	DialogueWidget = nullptr;
+
+	// Reset estado
+	bIsInDialogue = false;
+	bHasSpoken = true;
 }
 
 void ANpc::AdvanceDialogue()

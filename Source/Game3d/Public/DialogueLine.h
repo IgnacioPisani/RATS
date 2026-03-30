@@ -32,4 +32,6 @@ struct FDialogueLine : public FTableRowBase
 	// Si esta línea termina el diálogo
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Dialogue")
 	bool bEndDialogue = false;
+
+	
 };
