@@ -14,6 +14,7 @@
 #include "WidgetMedkit/UWMedkitHUD.h"
 #include "Game3dCharacter.generated.h"
 
+class ANpc;
 class USpringArmComponent;
 class UCameraComponent;
 class UInputAction;
@@ -68,6 +69,9 @@ protected:
 	/** Dash Input Action */
 	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* UseMedkitAction;
+
+	UPROPERTY(EditAnywhere, Category = "Input")
+	UInputAction* AdvanceDialogueAction;
 
 	/** Distance ahead of the character that melee attack sphere collision traces will extend */
 	UPROPERTY(EditAnywhere, Category="Melee Attack|Trace", meta = (ClampMin = 0, ClampMax = 500, Units="cm"))
@@ -139,6 +143,7 @@ public:
 	/** Handles jump pressed inputs from either controls or UI interfaces */
 	UFUNCTION(BlueprintCallable, Category="Input")
 	virtual void DoJumpStart();
+	void OnAdvanceDialogue();
 
 	/** Handles jump pressed inputs from either controls or UI interfaces */
 	UFUNCTION(BlueprintCallable, Category="Input")
@@ -234,6 +239,11 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
     bool bIsResting = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool bIsInDialogue = false;
+
+	ANpc* CurrentNpc;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Audio")
 	USoundBase* PickupSound;
