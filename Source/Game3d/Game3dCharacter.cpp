@@ -18,6 +18,7 @@
 #include "Game3d.h"
 #include "HealthComponent.h"
 #include "InventoryComponent.h"
+#include "Npc.h"
 #include "Kismet/GameplayStatics.h"
 
 AGame3dCharacter::AGame3dCharacter()
@@ -140,8 +141,9 @@ EnhancedInputComponent->BindAction(
 		EnhancedInputComponent->BindAction(RunAction, ETriggerEvent::Completed, this, &AGame3dCharacter::DoStopSprint);
 
 		EnhancedInputComponent->BindAction(ComboAttackAction, ETriggerEvent::Started, this, &AGame3dCharacter::ComboAttackPressed);
-
 		EnhancedInputComponent->BindAction(UseMedkitAction, ETriggerEvent::Started, this, &AGame3dCharacter::DoUseMedkit);
+
+		EnhancedInputComponent->BindAction(AdvanceDialogueAction, ETriggerEvent::Started, this, &AGame3dCharacter::OnAdvanceDialogue);
 
 	}
 	else
@@ -265,8 +267,19 @@ void AGame3dCharacter::DoLook(float Yaw, float Pitch)
 
 void AGame3dCharacter::DoJumpStart()
 {
-	// signal the character to jump
+	if (bIsInDialogue) return;
 	Jump();
+}
+
+void AGame3dCharacter::OnAdvanceDialogue()
+{
+	if (!bIsInDialogue) return;
+
+	// Llamar al NPC activo
+	if (CurrentNpc)
+	{
+		CurrentNpc->HandleAdvanceInput();
+	}
 }
 
 void AGame3dCharacter::DoJumpEnd()
