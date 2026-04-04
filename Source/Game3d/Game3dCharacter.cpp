@@ -45,8 +45,9 @@ AGame3dCharacter::AGame3dCharacter()
 
 	// Note: For faster iteration times these variables, and many more, can be tweaked in the Character Blueprint
 	// instead of recompiling to adjust them
-	GetCharacterMovement()->JumpZVelocity = 500.f;
-	GetCharacterMovement()->AirControl = 0.35f;
+	GetCharacterMovement()->JumpZVelocity = 800.f;
+	GetCharacterMovement()->AirControl = 0.65f;
+	GetCharacterMovement()->GravityScale = 2.0f;
 	GetCharacterMovement()->MaxWalkSpeed = 500.f;
 	GetCharacterMovement()->MinAnalogWalkSpeed = 20.f;
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
@@ -86,8 +87,8 @@ void AGame3dCharacter::BeginPlay()
 		// Suscripci�n a los eventos del componente
 		XpComponent->OnXpChanged.AddDynamic(this, &AGame3dCharacter::HandleXpChanged);
 		XpComponent->OnLevelChanged.AddDynamic(this, &AGame3dCharacter::HandleLevelChanged);
-	}
-	if (XpBarWidgetClass)
+	} 
+ 	if (XpBarWidgetClass)
 	{
 		// Crear el widget
 		XpWidget = CreateWidget<UXpBar>(GetWorld(), XpBarWidgetClass);
