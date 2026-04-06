@@ -14,9 +14,10 @@
   <component name="ChangeListManager">
     <list default="true" id="700cebab-63ab-47f1-8bec-c545c4c447ad" name="Changes" comment="Merge branch 'main' into MiniMapa&#10;&#10;# Conflicts:&#10;#&#9;.idea/.idea.Game3d/.idea/workspace.xml&#10;#&#9;Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ABP_Or10n.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ABP_Or10n.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Item/BP_Palestra.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Item/BP_Palestra.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Item/PlantaRondanteGrande.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Item/PlantaRondanteGrande.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Item/PlantaRondantev2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Item/PlantaRondantev2.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Niagara/NS_Dust.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Niagara/NS_Dust.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3d.Build.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3d.Build.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -106,6 +107,8 @@
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Private/ItemStruct.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Private/Mechanism.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Private/Slot.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/Game3d/Private/Tumbleweed.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/Game3d/Private/TumbleweedSpawner.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Private/WidgetLan/MenuLan.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Private/XpBar.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Public/BrokenItem.h" root0="FORCE_HIGHLIGHTING" />
@@ -120,6 +123,8 @@
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Public/ItemStruct.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Public/Mechanism.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Public/Slot.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/Game3d/Public/Tumbleweed.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/Game3d/Public/TumbleweedSpawner.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Public/WidgetLan/MenuLan.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Variant_Combat/Animation/AnimNotify_DoAttackTrace.h" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -333,7 +338,8 @@
       <workItem from="1774217815323" duration="693000" />
       <workItem from="1775326194118" duration="2130000" />
       <workItem from="1775408058425" duration="996000" />
-      <workItem from="1775425453826" duration="2020000" />
+      <workItem from="1775425453826" duration="6992000" />
+      <workItem from="1775515974279" duration="543000" />
     </task>
     <servers />
   </component>
