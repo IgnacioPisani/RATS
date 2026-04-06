@@ -58,7 +58,8 @@ AGame3dCharacter::AGame3dCharacter()
 	CameraBoom->SetupAttachment(RootComponent);
 	CameraBoom->TargetArmLength = 400.0f;
 	CameraBoom->bUsePawnControlRotation = true;
-
+	CameraBoom->bEnableCameraLag = true;
+	CameraBoom->CameraLagSpeed = 10.f; 
 	// Create a follow camera
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
@@ -486,6 +487,8 @@ void AGame3dCharacter::Landed(const FHitResult& Hit)
 	    	UE_LOG(LogTemp, Warning, TEXT("Fall damage: %f (speed: %f)"), Damage, FallVelocity);
 	    }
     }
+	GetCharacterMovement()->MaxWalkSpeed = 500.f; // velocidad normal
+
 }
 
 void AGame3dCharacter::DashMontageEnded(UAnimMontage* Montage, bool bInterrupted)
@@ -513,7 +516,8 @@ void AGame3dCharacter::EndDash()
 
 void AGame3dCharacter::ComboAttackPressed()
 {
-	if(!bIsResting){
+	if (bIsClimbing) return;
+	if(!bIsResting ){
 	// route the input
 	DoComboAttackStart();
 	}
@@ -599,6 +603,8 @@ void AGame3dCharacter::HandleCraftMedkit()
 
 void AGame3dCharacter::DoAttackTrace(FName DamageSourceBone)
 {
+	if (bIsClimbing) return; // 🔥 doble seguridad
+
 	// sweep for objects in front of the character to be hit by the attack
 	TArray<FHitResult> OutHits;
 
@@ -652,6 +658,7 @@ void AGame3dCharacter::CheckChargedAttack()
 
 void AGame3dCharacter::ComboAttack()
 {
+	if (bIsClimbing) return;
 
 	// raise the attacking flag
 	bIsAttacking = true;
