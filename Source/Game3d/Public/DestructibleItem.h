@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "CombatDamageable.h"
 #include "GameFramework/Actor.h"
+#include "NiagaraFunctionLibrary.h"
+#include "NiagaraSystem.h"
 #include "DestructibleItem.generated.h"
 
 UCLASS()
@@ -42,6 +44,9 @@ public:
 
 	virtual void HandleDeath() override;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Effects")
+	UNiagaraSystem* BreakEffect;
+	
 	virtual void ApplyHealing(
 		float Healing,
 		AActor* Healer
