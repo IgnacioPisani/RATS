@@ -48,7 +48,7 @@ AGame3dCharacter::AGame3dCharacter()
 	GetCharacterMovement()->JumpZVelocity = 800.f;
 	GetCharacterMovement()->AirControl = 0.65f;
 	GetCharacterMovement()->GravityScale = 2.0f;
-	GetCharacterMovement()->MaxWalkSpeed = 50.0f;
+	GetCharacterMovement()->MaxWalkSpeed = 50.f;
 	GetCharacterMovement()->MinAnalogWalkSpeed = 20.f;
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
 	GetCharacterMovement()->BrakingDecelerationFalling = 1500.0f;
