@@ -13,13 +13,60 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="700cebab-63ab-47f1-8bec-c545c4c447ad" name="Changes" comment="Merge branch 'main' into MiniMapa&#10;&#10;# Conflicts:&#10;#&#9;.idea/.idea.Game3d/.idea/workspace.xml&#10;#&#9;Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset">
-      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Enemies/BP_Npc.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemies/BP_Npc.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/8/4Y/4ANYVX2U554QNVC6D2VHGM.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/0R/VCF0SXB029QQK2EJ1LX1YK.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/D/2Y/18W9ZZ4C37AP9QBW16FNQW.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/13/QGZ385BWTUTYYLKSPT3PXK.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/13/QGZ385BWTUTYYLKSPT3PXK.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/EF/HMKY3NBKGJIGFW7ZQ1SFKN.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/BP_Bateria.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CosasDePrueba/BP_Bateria.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/EQ_PaneoTorre.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CosasDePrueba/EQ_PaneoTorre.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/Fab/Megascans/3D/Desert_Western_Cluster_Rock_Large__04_vidgcbgcb/Low/vidgcbgcb_tier_3/Materials/MI_vidgcbgcb.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/Fab/Megascans/3D/Desert_Western_Cluster_Rock_Large__04_vidgcbgcb/Low/vidgcbgcb_tier_3/StaticMeshes/vidgcbgcb_tier_3.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/Fab/Megascans/3D/Desert_Western_Cluster_Rock_Large__04_vidgcbgcb/Low/vidgcbgcb_tier_3/Textures/T_vidgcbgcb_1K_B.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/Fab/Megascans/3D/Desert_Western_Cluster_Rock_Large__04_vidgcbgcb/Low/vidgcbgcb_tier_3/Textures/T_vidgcbgcb_1K_N.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/Fab/Megascans/3D/Desert_Western_Cluster_Rock_Large__04_vidgcbgcb/Low/vidgcbgcb_tier_3/Textures/T_vidgcbgcb_1K_ORM.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/Fab/Megascans/Surfaces/Bright_Desert_Sand_sjzkfega/Low/sjzkfega_tier_3/Materials/MI_sjzkfega.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/Fab/Megascans/Surfaces/Bright_Desert_Sand_sjzkfega/Low/sjzkfega_tier_3/Textures/T_sjzkfega_1K_B.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/Fab/Megascans/Surfaces/Bright_Desert_Sand_sjzkfega/Low/sjzkfega_tier_3/Textures/T_sjzkfega_1K_N.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/Fab/Megascans/Surfaces/Bright_Desert_Sand_sjzkfega/Low/sjzkfega_tier_3/Textures/T_sjzkfega_1K_ORM.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/Fab/Megascans/Surfaces/Bright_Desert_Sand_sjzkfega/Medium/sjzkfega_tier_2/Materials/MI_sjzkfega.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/Fab/Megascans/Surfaces/Bright_Desert_Sand_sjzkfega/Medium/sjzkfega_tier_2/Textures/T_sjzkfega_2K_B.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/Fab/Megascans/Surfaces/Bright_Desert_Sand_sjzkfega/Medium/sjzkfega_tier_2/Textures/T_sjzkfega_2K_N.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/Fab/Megascans/Surfaces/Bright_Desert_Sand_sjzkfega/Medium/sjzkfega_tier_2/Textures/T_sjzkfega_2K_ORM.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/MisionPuertaBunker/BP_ActivadorEstatuas.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CosasDePrueba/MisionPuertaBunker/BP_ActivadorEstatuas.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/MisionPuertaBunker/BP_Estatuas.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CosasDePrueba/MisionPuertaBunker/BP_Estatuas.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/MisionPuertaBunker/BP_PuertaBunker.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CosasDePrueba/MisionPuertaBunker/BP_PuertaBunker.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/PuzzleCrater/BP_PiedraTorre.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CosasDePrueba/PuzzleCrater/BP_PiedraTorre.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/TorreElevador/BPI_ChecksJugador.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/TorreElevador/BP_Control.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CosasDePrueba/TorreElevador/BP_Control.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/TorreElevador/BP_Elevador.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CosasDePrueba/TorreElevador/BP_Elevador.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/TorreElevador/EQ_PaneoTorre.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Fab/Telescope/telescope/StaticMeshes/BP_telescope.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Fab/Telescope/telescope/StaticMeshes/BP_telescope.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Map/Blockout2.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Map/Blockout2.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/0/OY/IYCQHE2LEVLO32L455P6AB.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/0/OY/IYCQHE2LEVLO32L455P6AB.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/1/M1/EFREESOUX0GA65GBCOW59R.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/1/M1/EFREESOUX0GA65GBCOW59R.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/8K/EW9DKFMUSMFUV0MDFWVX3I.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/8K/EW9DKFMUSMFUV0MDFWVX3I.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/FE/PCVVSKVQEAPUTO3J89QT17.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/FE/PCVVSKVQEAPUTO3J89QT17.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/3/IM/V8GUSS9ALML53UH26JJZH0.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/3/IM/V8GUSS9ALML53UH26JJZH0.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/0F/F7XAXXZIE103BAVOJ6YY62.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/0F/F7XAXXZIE103BAVOJ6YY62.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/G9/TL9KZERCV9T2FWSRFF9XPB.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/G9/TL9KZERCV9T2FWSRFF9XPB.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/NI/DSE1TK3QVV9PW4Y6HZY2OH.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/NI/DSE1TK3QVV9PW4Y6HZY2OH.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/W2/22UZX3IPBHGQB9XHXE12GI.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/W2/22UZX3IPBHGQB9XHXE12GI.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/XM/KRKEE30D372A5IQ3XCGDZ5.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/LO/TIETKPZ9AC8OSDNMKWZ126.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/LO/TIETKPZ9AC8OSDNMKWZ126.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/M7/GDJINR4BMVEDCNTADVQV8T.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/M7/GDJINR4BMVEDCNTADVQV8T.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/QS/Z84F0O9P0845X3PZ1QOOA9.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/QS/Z84F0O9P0845X3PZ1QOOA9.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/UR/NKNJXBOC2HH167DRO0ISMV.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/UR/NKNJXBOC2HH167DRO0ISMV.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/WX/N8RG6UGUWK59VNL7O5I3LF.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/WX/N8RG6UGUWK59VNL7O5I3LF.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/7/B3/D9OXEYJ9FORQ48UQSFK6G0.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/7/B3/D9OXEYJ9FORQ48UQSFK6G0.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/7/KZ/76GUC257QCDIOI1JS0T67T.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/7/KZ/76GUC257QCDIOI1JS0T67T.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/8/3X/4FK1SPPODN6DPVLVDYMALZ.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/8/3X/4FK1SPPODN6DPVLVDYMALZ.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/8/S6/Y30W4TITH38SUPYMNPXX6M.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/8/S6/Y30W4TITH38SUPYMNPXX6M.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/8/XS/KHC9HCFB4VYX5Z2OTYJINM.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/8/XS/KHC9HCFB4VYX5Z2OTYJINM.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/9Z/9NU043GXS5LDI42CDD6L3V.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/9Z/9NU043GXS5LDI42CDD6L3V.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/DQ/248870T9DMWT0UM9NEXNW5.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/DQ/248870T9DMWT0UM9NEXNW5.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/B/XI/GMR55IQU9LNUEU2092H0XZ.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/B/XI/GMR55IQU9LNUEU2092H0XZ.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/D/SU/8SIKKWLA5ED0O7HWRW21MJ.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/D/V3/MGX9DQ97HW12M6ZAB08DIX.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/D/V3/MGX9DQ97HW12M6ZAB08DIX.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/D/WW/9QEYXD5CWAQWZN54N45VNE.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/YZ/WVCBZ1KDXF1U2RE84ZZQDB.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/YZ/WVCBZ1KDXF1U2RE84ZZQDB.uasset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +92,7 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Plugins/TextureGraph/Shaders/Mask/Blend/NormalBlendWithHeightMask.usf" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Developer/Windows/LiveCodingServer/Private/External/LC_LiveModule.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/AutomationTool/Apple/Apple.Automation.csproj" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/AutomationTool/Apple/ApplePlatform.Automation.cs" root0="FORCE_HIGHLIGHTING" />
@@ -86,6 +134,7 @@
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/BlueprintGeneratedClass.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/Character.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/Pawn.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/RenderCore/Public/ShaderMaterial.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/UMG/Private/UserWidget.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/UMG/Public/Components/TextBlock.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Intermediate/Build/Win64/UnrealEditor/Inc/Game3d/UHT/CraftingRecipe.gen.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -122,10 +171,14 @@
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Public/ItemStruct.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Public/Mechanism.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Public/Slot.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/Game3d/Public/TumbleweedSpawner.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Public/WidgetLan/MenuLan.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Variant_Combat/Animation/AnimNotify_DoAttackTrace.h" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="Toolset" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 5
@@ -339,6 +392,9 @@
       <workItem from="1775658497846" duration="1174000" />
       <workItem from="1775686662042" duration="367000" />
       <workItem from="1775750924024" duration="2324000" />
+      <workItem from="1775765615879" duration="715000" />
+      <workItem from="1775766471615" duration="328000" />
+      <workItem from="1775767005416" duration="2243000" />
     </task>
     <servers />
   </component>
