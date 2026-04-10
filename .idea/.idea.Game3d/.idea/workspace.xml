@@ -14,15 +14,29 @@
   <component name="ChangeListManager">
     <list default="true" id="700cebab-63ab-47f1-8bec-c545c4c447ad" name="Changes" comment="Merge branch 'main' into MiniMapa&#10;&#10;# Conflicts:&#10;#&#9;.idea/.idea.Game3d/.idea/workspace.xml&#10;#&#9;Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/Materials/M_Floor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CosasDePrueba/Materials/M_Floor.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/Materials/M_FloorLight.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CosasDePrueba/Materials/M_FloorLight.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/1/M1/EFREESOUX0GA65GBCOW59R.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/1/M1/EFREESOUX0GA65GBCOW59R.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/LO/TIETKPZ9AC8OSDNMKWZ126.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/LO/TIETKPZ9AC8OSDNMKWZ126.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/7/OE/55TAZTIVHYHV9V3ZRWA5TA.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/4X/6DROY85H93VAH66C8IMIGA.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/4X/6DROY85H93VAH66C8IMIGA.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/LI/LF1RFX59Z4ZAH9IS085RS5.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/LI/LF1RFX59Z4ZAH9IS085RS5.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/B/2E/B5XA4I5LZY31OTQACLRSJ4.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/C/0A/6V6G75VHIDYMTFSSLM0LL9.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/C/0A/6V6G75VHIDYMTFSSLM0LL9.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/DT_LootItems.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/DT_LootItems.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Item/BP_BrokenItem.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Item/BP_BrokenItem.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Item/BP_Chest.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Item/BP_Chest.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Item/BP_DestructibleItem.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Item/BP_DestructibleItem.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Item/Material_003.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Item/Material_003.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Item/Material_004.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Item/Material_004.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MixedVFX/Particles/Explosions/NS_ExplosionGroundBig.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MixedVFX/Particles/Explosions/NS_ExplosionGroundBig.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MixedVFX/Particles/Fires/NS_BigFire.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MixedVFX/Particles/Fires/NS_BigFire.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MixedVFX/Particles/Fires/NS_Campfire.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MixedVFX/Particles/Fires/NS_Campfire.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MixedVFX/Particles/Projectiles/NS_FireArrow.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MixedVFX/Particles/Projectiles/NS_FireArrow.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MixedVFX/Particles/Slashes/NS_FireSlash.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MixedVFX/Particles/Slashes/NS_FireSlash.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Realistic_Starter_VFX_Pack_Vol2/Materials/M_Smoke_A.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Realistic_Starter_VFX_Pack_Vol2/Materials/M_Smoke_A.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Realistic_Starter_VFX_Pack_Vol2/Materials/M_Smoke_C.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Realistic_Starter_VFX_Pack_Vol2/Materials/M_Smoke_C.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Realistic_Starter_VFX_Pack_Vol2/Materials/M_Smoke_Ground.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Realistic_Starter_VFX_Pack_Vol2/Materials/M_Smoke_Ground.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Realistic_Starter_VFX_Pack_Vol2/Materials/M_Smoke_Ground_B.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Realistic_Starter_VFX_Pack_Vol2/Materials/M_Smoke_Ground_B.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Realistic_Starter_VFX_Pack_Vol2/Materials/M_Smoke_Ground_C.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Realistic_Starter_VFX_Pack_Vol2/Materials/M_Smoke_Ground_C.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Realistic_Starter_VFX_Pack_Vol2/Materials/M_Smoke_Puff_A.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Realistic_Starter_VFX_Pack_Vol2/Materials/M_Smoke_Puff_A.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Lvl_ThirdPerson/0/WT/X6PYGG7C5RRTAXGKZVE223.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Lvl_ThirdPerson/0/WT/X6PYGG7C5RRTAXGKZVE223.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Lvl_ThirdPerson/7/QO/S2PBBNKCWV2ZA382DZ6VTE.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Lvl_ThirdPerson/7/QO/S2PBBNKCWV2ZA382DZ6VTE.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Lvl_ThirdPerson/9/OM/LEADGG3NDRAMBKYO5ZVGFW.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Lvl_ThirdPerson/A/ML/EFK6BX0RX7KTYIEKJB52HE.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Private/DestructibleItem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Private/DestructibleItem.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Public/DestructibleItem.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Public/DestructibleItem.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,22 +152,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;C/C++ Project.Game3d.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Fujo&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;UnrealLinkOptionsId&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "C/C++ Project.Game3d.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "avances",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "UnrealLinkOptionsId",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="C/C++ Project.Game3d">
     <configuration name="Game3d" type="CppProject" factoryName="C++ Project">
       <configuration_1 setup="1">
@@ -338,6 +352,7 @@
       <workItem from="1774217815323" duration="693000" />
       <workItem from="1775052785533" duration="2507000" />
       <workItem from="1775225912263" duration="1322000" />
+      <workItem from="1775776986195" duration="2647000" />
     </task>
     <servers />
   </component>
