@@ -23,6 +23,16 @@ void ADestructibleItem::BeginPlay()
 void ADestructibleItem::BreakItem(const FVector& HitDirection)
 {
 	if (!BrokenItemClass) return;
+	// 🔹 Spawn Niagara ANTES de destruir
+	if (BreakEffect)
+	{
+		UNiagaraFunctionLibrary::SpawnSystemAtLocation(
+			GetWorld(),
+			BreakEffect,
+			GetActorLocation(),
+			GetActorRotation()
+		);
+	}
 
 	FActorSpawnParameters Params;
 	Params.SpawnCollisionHandlingOverride =
