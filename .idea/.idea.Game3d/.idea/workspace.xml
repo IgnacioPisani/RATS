@@ -14,29 +14,67 @@
   <component name="ChangeListManager">
     <list default="true" id="700cebab-63ab-47f1-8bec-c545c4c447ad" name="Changes" comment="Merge branch 'main' into MiniMapa&#10;&#10;# Conflicts:&#10;#&#9;.idea/.idea.Game3d/.idea/workspace.xml&#10;#&#9;Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/DT_LootItems.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/DT_LootItems.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Item/BP_BrokenItem.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Item/BP_BrokenItem.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Item/BP_Chest.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Item/BP_Chest.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Item/BP_DestructibleItem.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Item/BP_DestructibleItem.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Item/Material_003.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Item/Material_003.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Item/Material_004.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Item/Material_004.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/MixedVFX/Particles/Explosions/NS_ExplosionGroundBig.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MixedVFX/Particles/Explosions/NS_ExplosionGroundBig.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/MixedVFX/Particles/Fires/NS_BigFire.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MixedVFX/Particles/Fires/NS_BigFire.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/MixedVFX/Particles/Fires/NS_Campfire.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MixedVFX/Particles/Fires/NS_Campfire.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/MixedVFX/Particles/Projectiles/NS_FireArrow.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MixedVFX/Particles/Projectiles/NS_FireArrow.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/MixedVFX/Particles/Slashes/NS_FireSlash.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MixedVFX/Particles/Slashes/NS_FireSlash.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Realistic_Starter_VFX_Pack_Vol2/Materials/M_Smoke_A.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Realistic_Starter_VFX_Pack_Vol2/Materials/M_Smoke_A.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Realistic_Starter_VFX_Pack_Vol2/Materials/M_Smoke_C.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Realistic_Starter_VFX_Pack_Vol2/Materials/M_Smoke_C.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Realistic_Starter_VFX_Pack_Vol2/Materials/M_Smoke_Ground.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Realistic_Starter_VFX_Pack_Vol2/Materials/M_Smoke_Ground.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Realistic_Starter_VFX_Pack_Vol2/Materials/M_Smoke_Ground_B.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Realistic_Starter_VFX_Pack_Vol2/Materials/M_Smoke_Ground_B.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Realistic_Starter_VFX_Pack_Vol2/Materials/M_Smoke_Ground_C.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Realistic_Starter_VFX_Pack_Vol2/Materials/M_Smoke_Ground_C.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Realistic_Starter_VFX_Pack_Vol2/Materials/M_Smoke_Puff_A.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Realistic_Starter_VFX_Pack_Vol2/Materials/M_Smoke_Puff_A.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Lvl_ThirdPerson/0/WT/X6PYGG7C5RRTAXGKZVE223.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Lvl_ThirdPerson/0/WT/X6PYGG7C5RRTAXGKZVE223.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Lvl_ThirdPerson/7/QO/S2PBBNKCWV2ZA382DZ6VTE.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Lvl_ThirdPerson/7/QO/S2PBBNKCWV2ZA382DZ6VTE.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Lvl_ThirdPerson/9/OM/LEADGG3NDRAMBKYO5ZVGFW.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Lvl_ThirdPerson/A/ML/EFK6BX0RX7KTYIEKJB52HE.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Private/DestructibleItem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Private/DestructibleItem.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Public/DestructibleItem.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Public/DestructibleItem.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/Foliage/Arbol1Chico_FoliageType.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/Foliage/Arbol2Chico_FoliageType.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/Foliage/Arbol2Grande_FoliageType.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/Foliage/cactus1_FoliageType.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/Materials/M_FloorLight.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CosasDePrueba/Materials/M_FloorLight.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/Materials/PostProcess/M_PP_Cel_InstCueva.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CosasDePrueba/Materials/PostProcess/M_PP_Cel_InstCueva.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/camps/Barrel_01_FoliageType.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/camps/Chest_01_FoliageType.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/camps/Tent_01_FoliageType.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/camps/Tent_02_FoliageType.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/camps/Tent_03_FoliageType.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/camps/Tent_04_FoliageType.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/camps/Torus_01_FoliageType.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Item/Arbol1Grande_FoliageType.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Polygon-MedievalCamp/Models/NewModels/Foliage_01.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Polygon-MedievalCamp/Models/NewModels/Foliage_02.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Polygon-MedievalCamp/Models/NewModels/Foliage_03.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Rocks/_934D2DFF.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Rocks/_934D2DFF.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Rocks/_AE6838FF.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Rocks/_AE6838FF.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Rocks/_B68A57FF.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Rocks/_B68A57FF.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Rocks/_CA8147FF.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Rocks/_CA8147FF.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/0/FF/SG1EPY5JSQJ6W6H8PMXSVH.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/0/FF/SG1EPY5JSQJ6W6H8PMXSVH.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/0/Q3/5C6OZJYFNI2Q41VCEXQQE8.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/0/Q3/5C6OZJYFNI2Q41VCEXQQE8.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/0/XR/9OL4VZC0YVNEJRLNQ58QC0.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/0/XR/9OL4VZC0YVNEJRLNQ58QC0.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/1/8D/SP0ZRNSL37UEHNBJ1MSHFK.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/1/M1/EFREESOUX0GA65GBCOW59R.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/1/M1/EFREESOUX0GA65GBCOW59R.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/32/ZNGF3W9BPQS3DSH913LXJE.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/32/ZNGF3W9BPQS3DSH913LXJE.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/8K/EW9DKFMUSMFUV0MDFWVX3I.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/8K/EW9DKFMUSMFUV0MDFWVX3I.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/IH/WGZ7K9125N1NTUWMGA6YLG.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/IH/WGZ7K9125N1NTUWMGA6YLG.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/EH/V3R6X39CT1LVO358TRNIE5.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/EH/V3R6X39CT1LVO358TRNIE5.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/NI/DSE1TK3QVV9PW4Y6HZY2OH.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/NI/DSE1TK3QVV9PW4Y6HZY2OH.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/PQ/OA4BVAAEX0CQUNFQIQG49Y.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/PQ/OA4BVAAEX0CQUNFQIQG49Y.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/VU/4QXP4V1J1DIBOJF2GGXAKJ.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/VU/4QXP4V1J1DIBOJF2GGXAKJ.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/W2/22UZX3IPBHGQB9XHXE12GI.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/W2/22UZX3IPBHGQB9XHXE12GI.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/GF/SZ1T5FJ4WGEG392JKRX1OL.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/GF/SZ1T5FJ4WGEG392JKRX1OL.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/LO/TIETKPZ9AC8OSDNMKWZ126.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/LO/TIETKPZ9AC8OSDNMKWZ126.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/V2/IBVUQ5H3DE3P8N37TSDBYC.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/DW/JM46A5IFRF1Q68W9Q3VXPF.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/DW/JM46A5IFRF1Q68W9Q3VXPF.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/LH/GRTMTHZGEPKNPNX44D52EV.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/QS/Z84F0O9P0845X3PZ1QOOA9.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/QS/Z84F0O9P0845X3PZ1QOOA9.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/UR/NKNJXBOC2HH167DRO0ISMV.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/UR/NKNJXBOC2HH167DRO0ISMV.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/WX/N8RG6UGUWK59VNL7O5I3LF.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/WX/N8RG6UGUWK59VNL7O5I3LF.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/7/B3/D9OXEYJ9FORQ48UQSFK6G0.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/7/B3/D9OXEYJ9FORQ48UQSFK6G0.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/9/KN/DKHT2WWRN4SBRES0C03OMR.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/9/UM/MXW31H1O7G6ESLKJ9UW3XB.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/9/UM/MXW31H1O7G6ESLKJ9UW3XB.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/4X/6DROY85H93VAH66C8IMIGA.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/98/1I2KOWKU36DVHI27CEG5J6.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/98/1I2KOWKU36DVHI27CEG5J6.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/9Z/9NU043GXS5LDI42CDD6L3V.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/9Z/9NU043GXS5LDI42CDD6L3V.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/DQ/248870T9DMWT0UM9NEXNW5.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/DQ/248870T9DMWT0UM9NEXNW5.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/LI/LF1RFX59Z4ZAH9IS085RS5.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/B/FC/5KJ5INGWN8N3A0AWMYPZU1.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/B/SZ/KFAAT90T0GDMIJ4L0G8L20.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/B/SZ/KFAAT90T0GDMIJ4L0G8L20.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/B/XI/GMR55IQU9LNUEU2092H0XZ.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/B/XI/GMR55IQU9LNUEU2092H0XZ.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/C/0A/6V6G75VHIDYMTFSSLM0LL9.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/C/5B/SIWICACR9SDTCVQ2COTN9A.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/C/5B/SIWICACR9SDTCVQ2COTN9A.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/C/87/H56CXNUSGEFXY7R9ETIWCY.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/C/LB/MYU474X4BT7WH1LXYHU0WC.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/C/LB/MYU474X4BT7WH1LXYHU0WC.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/D/T5/NCSYZUUXKTVXZLLHU3HC0T.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/D/T5/NCSYZUUXKTVXZLLHU3HC0T.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/D/V3/MGX9DQ97HW12M6ZAB08DIX.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/D/V3/MGX9DQ97HW12M6ZAB08DIX.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/KF/CESX4U39YE0GU764PY7VK5.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/KF/CESX4U39YE0GU764PY7VK5.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/YZ/WVCBZ1KDXF1U2RE84ZZQDB.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/YZ/WVCBZ1KDXF1U2RE84ZZQDB.uasset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,22 +190,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "C/C++ Project.Game3d.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "avances",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "UnrealLinkOptionsId",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;C/C++ Project.Game3d.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Fujo&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;UnrealLinkOptionsId&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="C/C++ Project.Game3d">
     <configuration name="Game3d" type="CppProject" factoryName="C++ Project">
       <configuration_1 setup="1">
@@ -353,6 +391,7 @@
       <workItem from="1775052785533" duration="2507000" />
       <workItem from="1775225912263" duration="1322000" />
       <workItem from="1775776986195" duration="2647000" />
+      <workItem from="1775917928325" duration="1994000" />
     </task>
     <servers />
   </component>
