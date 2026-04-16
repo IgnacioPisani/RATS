@@ -548,7 +548,7 @@ void AGame3dCharacter::EndDash()
 void AGame3dCharacter::ComboAttackPressed()
 {
 	if (bIsClimbing) return;
-	if(!bIsResting ){
+	if(!bIsResting and !bIsInDialogue ){
 	// route the input
 	DoComboAttackStart();
 	}
