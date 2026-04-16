@@ -42,9 +42,14 @@ class AGame3dCharacter : public ACharacterBase, public ICombatAttacker, public I
 	
 protected:
 
+	float GravedadOriginal;
+
 	/** Jump InputAction */
 	UPROPERTY(EditAnywhere, Category="Input")
 	UInputAction* JumpAction;
+	
+	// Sensor del punto más alto del salto
+	virtual void NotifyJumpApex() override;
 
 	/** Run Input Action */
 	UPROPERTY(EditAnywhere, Category="Input")
@@ -95,7 +100,10 @@ protected:
 public:
 
 	/** Constructor */
-	AGame3dCharacter();	
+	AGame3dCharacter();
+
+	UPROPERTY(EditAnywhere, Category = "Fisicas")
+	float GravedadFlotante = 4.0f;
 
 protected:
 	virtual void BeginPlay() override;
