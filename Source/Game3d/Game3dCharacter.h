@@ -42,8 +42,6 @@ class AGame3dCharacter : public ACharacterBase, public ICombatAttacker, public I
 	
 protected:
 
-	float GravedadOriginal;
-
 	/** Jump InputAction */
 	UPROPERTY(EditAnywhere, Category="Input")
 	UInputAction* JumpAction;
@@ -101,9 +99,6 @@ public:
 
 	/** Constructor */
 	AGame3dCharacter();
-
-	UPROPERTY(EditAnywhere, Category = "Fisicas")
-	float GravedadFlotante = 4.0f;
 
 protected:
 	virtual void BeginPlay() override;
@@ -333,11 +328,18 @@ public:
 	int32 JumpCount = 0;
 	uint8 bHasDashed : 1;
 	uint8 bIsDashing : 1;
+
+
+	// La gravedad pesada de tu juego
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gravedad")
+	float GravedadNormal = 5.0f;
+
+	// La gravedad más suave para caer lento después del salto
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gravedad")
+	float GravedadCaidaLenta = 3.5f;
 	
 	UPROPERTY(EditAnywhere, Category = "Dash")
 	UAnimMontage* DashMontage;
-
-
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Jump|Suspension")
 	int32 MaxJumpCount = 2;
@@ -350,10 +352,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Jump|Suspension")
 	bool bUseInputDirection = true;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Jump|Suspension")
-	float NormalGravityScale = 1.0f;
-
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Jump|Suspension")
 	float EndLiftVelocityZ = -200.f;
 

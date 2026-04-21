@@ -82,8 +82,6 @@ void AGame3dCharacter::BeginPlay()
 	
 	GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
 	
-	GravedadOriginal = GetCharacterMovement()->GravityScale;
-	
 	if (HealthBarWidgetClass)
 	{
 		HealthBarWidget = CreateWidget<UHealthBar>(GetWorld(), HealthBarWidgetClass);
@@ -303,7 +301,7 @@ void AGame3dCharacter::NotifyJumpApex()
 {
 	Super::NotifyJumpApex();
 	
-	GetCharacterMovement()->GravityScale = GravedadFlotante;
+	GetCharacterMovement()->GravityScale = GravedadCaidaLenta;
 }
 
 void AGame3dCharacter::EquipItem(FItemStruct ItemData)
@@ -472,10 +470,10 @@ void AGame3dCharacter::Landed(const FHitResult& Hit)
     Super::Landed(Hit);
 	
 	bHasDashed = false;
+	
+	GetCharacterMovement()->GravityScale = GravedadNormal;
 
 	GetCharacterMovement()->MaxWalkSpeed = 500.f; // velocidad normal
-
-	GetCharacterMovement()->GravityScale = GravedadOriginal;
 	
     float FallVelocity = FMath::Abs(GetVelocity().Z);
 
@@ -525,15 +523,11 @@ void AGame3dCharacter::EndDash()
 {
 	bIsDashing = false;
 
-	GetCharacterMovement()->GravityScale = GravedadOriginal;
+	GetCharacterMovement()->GravityScale = GravedadNormal;
 	
 	if (GetCharacterMovement()->IsFalling() && GetCharacterMovement()->Velocity.Z <= 0.0f)
 	{
 		GetCharacterMovement()->GravityScale = 0.5f; 
-	}
-	else
-	{
-		GetCharacterMovement()->GravityScale = NormalGravityScale; 
 	}
 	
 	if (GetCharacterMovement()->IsMovingOnGround())
