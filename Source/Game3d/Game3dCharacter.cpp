@@ -75,6 +75,7 @@ void AGame3dCharacter::BeginPlay()
 	Super::BeginPlay();
 	SetCanBeDamaged(true);
 	GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
+	if (!IsLocallyControlled()) return;
 	if (HealthBarWidgetClass)
 	{
 		HealthBarWidget = CreateWidget<UHealthBar>(GetWorld(), HealthBarWidgetClass);
@@ -334,7 +335,7 @@ void AGame3dCharacter::DoUseMedkit()
 			MedkitCount--;
 
 			// Cura al jugador
-			HealthComponent->IncreaseHealth(300);
+			HealthComponent->UpdateHealth(300);
 
 			// Actualiza el HUD
 			if (MedkitHUDInstance)
@@ -351,7 +352,10 @@ void AGame3dCharacter::DoUseMedkit()
 
 void AGame3dCharacter::HandleLifeChanged(float Health, float MaxHealth)
 {
-	HealthBarWidget->UpdateBar(Health,MaxHealth);
+	if (IsLocallyControlled() && HealthBarWidget)
+	{
+		HealthBarWidget->UpdateBar(Health,MaxHealth);
+	}
 }
 
 

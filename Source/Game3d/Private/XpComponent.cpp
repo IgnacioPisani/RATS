@@ -1,53 +1,90 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "XpComponent.h"
+#include "Net/UnrealNetwork.h"
 
-// Sets default values for this component's properties
 UXpComponent::UXpComponent()
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
-	 Xp=0;	
-	 MaxXp = 100;
-	 Level = 1;
+
+	SetIsReplicatedByDefault(true);
+
+	Xp = 0.f;
+	MaxXp = 100.f;
+	Level = 1;
 }
 
-
-// Called when the game starts
 void UXpComponent::BeginPlay()
 {
 	Super::BeginPlay();
-
-	// ...
-	
 }
 
-
-// Called every frame
 void UXpComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	// ...
 }
 
-void UXpComponent::IncreaseLevel(float AddedLevel)
-{
-	Level = AddedLevel + Level;
-	MaxXp = MaxXp + 150.f;
-	Xp = 0.f;
-	OnLevelChanged.Broadcast(Level);
-	OnXpChanged.Broadcast(Xp, MaxXp);
-}
+// ==========================
+// 🔥 SERVER LOGIC
+// ==========================
 
 void UXpComponent::IncreaseXp(float XpPoints)
 {
-	Xp = XpPoints + Xp;
+	if (!GetOwner()->HasAuthority()) return;
+
+	Xp += XpPoints;
+
+	// Clamp opcional
+	Xp = FMath::Clamp(Xp, 0.f, MaxXp);
+
+	// 🔥 EVENTO SERVER (útil si sos listen server)
 	OnXpChanged.Broadcast(Xp, MaxXp);
-	if (Xp >= MaxXp) {
+
+	if (Xp >= MaxXp)
+	{
 		IncreaseLevel(1);
 	}
 }
 
+void UXpComponent::IncreaseLevel(int AddedLevel)
+{
+	if (!GetOwner()->HasAuthority()) return;
+
+	Level += AddedLevel;
+	MaxXp += 150.f;
+	Xp = 0.f;
+
+	// 🔥 EVENTOS SERVER
+	OnLevelChanged.Broadcast(Level);
+	OnXpChanged.Broadcast(Xp, MaxXp);
+}
+
+// ==========================
+// 🔥 CLIENT SYNC (CLAVE)
+// ==========================
+
+void UXpComponent::OnRep_Xp()
+{
+	OnXpChanged.Broadcast(Xp, MaxXp);
+}
+
+void UXpComponent::OnRep_Level()
+{
+	OnLevelChanged.Broadcast(Level);
+}
+
+void UXpComponent::OnRep_MaxXp()
+{
+	OnXpChanged.Broadcast(Xp, MaxXp);
+}
+
+// ==========================
+// 🔥 REPLICATION
+// ==========================
+
+void UXpComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(UXpComponent, Xp);
+	DOREPLIFETIME(UXpComponent, MaxXp);
+	DOREPLIFETIME(UXpComponent, Level);
+}

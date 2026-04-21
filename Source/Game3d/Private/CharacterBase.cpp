@@ -10,7 +10,6 @@ ACharacterBase::ACharacterBase()
 {
 	PrimaryActorTick.bCanEverTick = true;
 	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("HealthComponent"));
-
 }
 
 void ACharacterBase::BeginPlay()
@@ -27,7 +26,7 @@ float ACharacterBase::TakeDamage(float DamageAmount, FDamageEvent const& DamageE
 {
 	if (HealthComponent)
 	{
-		HealthComponent->DecreaseHealth(DamageAmount);
+		HealthComponent->UpdateHealth(DamageAmount);
 		TakeDamageEffects();
 		UE_LOG(LogTemp, Warning, TEXT("Danio"));
 

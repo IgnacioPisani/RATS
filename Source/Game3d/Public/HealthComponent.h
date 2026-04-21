@@ -16,14 +16,21 @@ class GAME3D_API UHealthComponent : public UActorComponent
 public:
 	// Sets default values for this component's properties
 	UHealthComponent();
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health")
-	float Health;
+	
+	UPROPERTY(ReplicatedUsing = OnRep_Health)
+	float Health = 50.f;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health")
-	float MaxHealth;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float MaxHealth = 100.f;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health")
-	float MinHealth;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	float MinHealth = 0.f;
+
+	UFUNCTION()
+	void OnRep_Health();
+	
+	UFUNCTION(BlueprintCallable)
+	void UpdateHealth(float HealthPoints);
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Health")
 	bool bIsDeath;
@@ -41,12 +48,6 @@ protected:
 public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
-	UFUNCTION(BlueprintCallable, Category = "Health")
-	void IncreaseHealth(float HealthPoints);
-
-	UFUNCTION(BlueprintCallable, Category = "Health")
-	void DecreaseHealth(float DamagePoints);
 
 	UFUNCTION(BlueprintCallable, Category = "Health")
 	float GetCurrentHealth() const { return Health; }
