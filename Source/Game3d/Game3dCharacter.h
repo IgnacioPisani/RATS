@@ -45,6 +45,9 @@ protected:
 	/** Jump InputAction */
 	UPROPERTY(EditAnywhere, Category="Input")
 	UInputAction* JumpAction;
+	
+	// Sensor del punto más alto del salto
+	virtual void NotifyJumpApex() override;
 
 	/** Run Input Action */
 	UPROPERTY(EditAnywhere, Category="Input")
@@ -95,7 +98,7 @@ protected:
 public:
 
 	/** Constructor */
-	AGame3dCharacter();	
+	AGame3dCharacter();
 
 protected:
 	virtual void BeginPlay() override;
@@ -325,11 +328,18 @@ public:
 	int32 JumpCount = 0;
 	uint8 bHasDashed : 1;
 	uint8 bIsDashing : 1;
+
+
+	// La gravedad pesada de tu juego
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gravedad")
+	float GravedadNormal = 5.0f;
+
+	// La gravedad más suave para caer lento después del salto
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gravedad")
+	float GravedadCaidaLenta = 3.5f;
 	
 	UPROPERTY(EditAnywhere, Category = "Dash")
 	UAnimMontage* DashMontage;
-
-
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Jump|Suspension")
 	int32 MaxJumpCount = 2;
@@ -342,10 +352,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Jump|Suspension")
 	bool bUseInputDirection = true;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Jump|Suspension")
-	float NormalGravityScale = 1.0f;
-
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Jump|Suspension")
 	float EndLiftVelocityZ = -200.f;
 
