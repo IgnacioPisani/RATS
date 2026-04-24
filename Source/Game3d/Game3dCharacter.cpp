@@ -503,7 +503,8 @@ void AGame3dCharacter::DashMontageEnded(UAnimMontage* Montage, bool bInterrupted
 void AGame3dCharacter::EndDash()
 {
 	// restore gravity
-	GetCharacterMovement()->GravityScale = NormalGravityScale;
+	GetCharacterMovement()->GravityScale = GravedadNormal;
+	
 	// reset the dashing flag
 	bIsDashing = false;
 
@@ -525,6 +526,16 @@ void AGame3dCharacter::ComboAttackPressed()
 	// route the input
 	DoComboAttackStart();
 	}
+}
+
+void AGame3dCharacter::NotifyJumpApex()
+{
+	// Esto es obligatorio para no romper la lógica base del salto de Unreal
+	Super::NotifyJumpApex(); 
+
+	// Acá adentro va tu lógica. 
+	// Por ejemplo, si querías que el personaje caiga más rápido después del salto:
+	// GetCharacterMovement()->GravityScale = 5.0f; 
 }
 
 void AGame3dCharacter::DoComboAttackStart()
