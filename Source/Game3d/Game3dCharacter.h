@@ -329,7 +329,6 @@ public:
 	uint8 bHasDashed : 1;
 	uint8 bIsDashing : 1;
 
-
 	// La gravedad pesada de tu juego
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gravedad")
 	float GravedadNormal = 5.0f;
