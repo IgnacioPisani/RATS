@@ -15,47 +15,94 @@ class GAME3D_API UInventoryComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
-public:	
-	// Sets default values for this component's properties
+public:
 	UInventoryComponent();
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Inventory")
+	// -------------------------------------------------------
+	// Replicated inventory array.
+	// OnRep_Items is called automatically on every client
+	// whenever the server modifies this array.
+	// -------------------------------------------------------
+	UPROPERTY(ReplicatedUsing = OnRep_Items, EditAnywhere, BlueprintReadWrite, Category = "Inventory")
 	TArray<FItemStruct> Items;
 
+	// Called on clients when Items replicates down from the server.
+	UFUNCTION()
+	void OnRep_Items();
+
+	// Required for Unreal's replication system to know which properties to replicate.
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+
 protected:
-	// Called when the game starts
 	virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
+public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-	// Lista de recetas disponibles
+	// -------------------------------------------------------
+	// Crafting data
+	// -------------------------------------------------------
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Crafting")
 	TArray<FCraftingRecipe> CraftingRecipes;
-	
-	UPROPERTY(BlueprintAssignable, Category="Inventory")
-	FOnItemsChanged OnItemsChanged;
-	
-	UFUNCTION(BlueprintCallable, Category = "Inventory")	
-	void RemoveItem(int Index);
 
-	UFUNCTION(BlueprintCallable, Category = "Inventory")	
-	FItemStruct GetItemByIndex(int Index);
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Crafting")
+	UDataTable* CraftingDataTable;
+
+	// Delegate – broadcast locally on server AND on clients (via OnRep_Items).
+	UPROPERTY(BlueprintAssignable, Category = "Inventory")
+	FOnItemsChanged OnItemsChanged;
+
+	// -------------------------------------------------------
+	// Blueprint-callable helpers (read-only – safe to call anywhere)
+	// -------------------------------------------------------
+	UFUNCTION(BlueprintCallable, Category = "Inventory")
+	FItemStruct GetItemByIndex(int32 Index);
 
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
 	int32 GetItemQuantityByName(FName ItemName) const;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Crafting")
-	UDataTable* CraftingDataTable;
-	
-	UFUNCTION(BlueprintCallable, Category = "Inventory")	
+	const FItemStruct* FindRecipe(FName ItemNameToCraft) const;
+
+	// -------------------------------------------------------
+	// Mutating actions: call the Server_ RPC from a client.
+	// The server validates authority and runs the real logic.
+	// -------------------------------------------------------
+
+	/** Client-facing call. Internally routes to the Server RPC. */
+	UFUNCTION(BlueprintCallable, Category = "Inventory")
 	void AddItem(FItemStruct ItemData);
+
+	UFUNCTION(BlueprintCallable, Category = "Inventory")
+	void RemoveItem(int32 Index);
 
 	UFUNCTION(BlueprintCallable, Category = "Crafting")
 	bool CraftItem(FName ItemNameToCraft);
-	const FItemStruct* FindRecipe(FName ItemNameToCraft) const;
 
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
 	bool ConsumeItem(FName ItemName, int32 Quantity);
+
+private:
+	// -------------------------------------------------------
+	// Server RPCs  (Reliable = guaranteed delivery)
+	// -------------------------------------------------------
+	UFUNCTION(Server, Reliable, WithValidation)
+	void Server_AddItem(FItemStruct ItemData);
+
+	UFUNCTION(Server, Reliable, WithValidation)
+	void Server_RemoveItem(int32 Index);
+
+	UFUNCTION(Server, Reliable, WithValidation)
+	void Server_CraftItem(FName ItemNameToCraft);
+
+	UFUNCTION(Server, Reliable, WithValidation)
+	void Server_ConsumeItem(FName ItemName, int32 Quantity);
+
+	// -------------------------------------------------------
+	// Internal implementations – only called on the server
+	// (HasAuthority() == true).
+	// -------------------------------------------------------
+	void Internal_AddItem(FItemStruct ItemData);
+	void Internal_RemoveItem(int32 Index);
+	bool Internal_CraftItem(FName ItemNameToCraft);
+	bool Internal_ConsumeItem(FName ItemName, int32 Quantity);
 };

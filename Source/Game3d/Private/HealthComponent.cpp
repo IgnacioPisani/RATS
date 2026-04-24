@@ -3,12 +3,15 @@
 
 #include "HealthComponent.h"
 
+#include "Net/UnrealNetwork.h"
+
 // Sets default values for this component's properties
 UHealthComponent::UHealthComponent()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
+	SetIsReplicatedByDefault(true);
 	Health = 100.f;
 	MaxHealth = 100.f;
 	MinHealth = 0.f;
@@ -35,18 +38,30 @@ void UHealthComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 	// ...
 }
 
-void UHealthComponent::IncreaseHealth(float HealthPoints)
+void UHealthComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
-	Health = FMath::Clamp(Health + HealthPoints, MinHealth, MaxHealth);
-	OnLifeChanged.Broadcast(Health, MaxHealth);
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(UHealthComponent, Health);
 }
 
-void UHealthComponent::DecreaseHealth(float DamagePoints)
+
+void UHealthComponent::UpdateHealth(float HealthPoints)
 {
-	Health = FMath::Clamp(Health - DamagePoints, MinHealth, MaxHealth);
+	if (!GetOwner()->HasAuthority()) return;
+
+	Health = FMath::Clamp(Health + HealthPoints, MinHealth, MaxHealth);
+
 	OnLifeChanged.Broadcast(Health, MaxHealth);
-	if (Health == MinHealth && !bIsDeath) {
-		bIsDeath = true;
+
+	if (Health <= 0.f)
+	{
 		OnDeath.Broadcast();
 	}
+}
+
+
+void UHealthComponent::OnRep_Health()
+{
+	OnLifeChanged.Broadcast(Health, MaxHealth);
 }

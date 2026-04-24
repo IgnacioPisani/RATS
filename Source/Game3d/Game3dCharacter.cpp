@@ -31,9 +31,6 @@ AGame3dCharacter::AGame3dCharacter()
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
 
-	//salto
-	GetCharacterMovement()->bNotifyApex = true;
-
 	//Dash 
 	bHasDashed = false;
 	bIsDashing = false;
@@ -71,17 +68,14 @@ AGame3dCharacter::AGame3dCharacter()
 	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("InventoryComponent"));
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
-	
 }
 
 void AGame3dCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
 	SetCanBeDamaged(true);
-	
 	GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
-	
+	if (!IsLocallyControlled()) return;
 	if (HealthBarWidgetClass)
 	{
 		HealthBarWidget = CreateWidget<UHealthBar>(GetWorld(), HealthBarWidgetClass);
@@ -297,13 +291,6 @@ void AGame3dCharacter::DoJumpEnd()
 	StopJumping();
 }
 
-void AGame3dCharacter::NotifyJumpApex()
-{
-	Super::NotifyJumpApex();
-	
-	GetCharacterMovement()->GravityScale = GravedadCaidaLenta;
-}
-
 void AGame3dCharacter::EquipItem(FItemStruct ItemData)
 {
 	if (!ItemData.Mesh)
@@ -348,7 +335,7 @@ void AGame3dCharacter::DoUseMedkit()
 			MedkitCount--;
 
 			// Cura al jugador
-			HealthComponent->IncreaseHealth(300);
+			HealthComponent->UpdateHealth(300);
 
 			// Actualiza el HUD
 			if (MedkitHUDInstance)
@@ -365,7 +352,10 @@ void AGame3dCharacter::DoUseMedkit()
 
 void AGame3dCharacter::HandleLifeChanged(float Health, float MaxHealth)
 {
-	HealthBarWidget->UpdateBar(Health,MaxHealth);
+	if (IsLocallyControlled() && HealthBarWidget)
+	{
+		HealthBarWidget->UpdateBar(Health,MaxHealth);
+	}
 }
 
 
@@ -468,21 +458,12 @@ void AGame3dCharacter::DoDash()
 void AGame3dCharacter::Landed(const FHitResult& Hit)
 {
     Super::Landed(Hit);
-	
 	bHasDashed = false;
-	
-	GetCharacterMovement()->GravityScale = GravedadNormal;
-
-	GetCharacterMovement()->MaxWalkSpeed = 500.f; // velocidad normal
-	
     float FallVelocity = FMath::Abs(GetVelocity().Z);
 
     float SafeFallSpeed = 1500.f;
 
     float LethalFallSpeed = 2000.f;
-
-	bHasDashed = false;
-	
 
     if (FallVelocity > SafeFallSpeed)
     {
@@ -510,9 +491,9 @@ void AGame3dCharacter::Landed(const FHitResult& Hit)
 	    	UE_LOG(LogTemp, Warning, TEXT("Fall damage: %f (speed: %f)"), Damage, FallVelocity);
 	    }
     }
+	GetCharacterMovement()->MaxWalkSpeed = 500.f; // velocidad normal
 
 }
-
 
 void AGame3dCharacter::DashMontageEnded(UAnimMontage* Montage, bool bInterrupted)
 {
@@ -521,22 +502,20 @@ void AGame3dCharacter::DashMontageEnded(UAnimMontage* Montage, bool bInterrupted
 
 void AGame3dCharacter::EndDash()
 {
+	// restore gravity
+	GetCharacterMovement()->GravityScale = NormalGravityScale;
+	// reset the dashing flag
 	bIsDashing = false;
 
-	GetCharacterMovement()->GravityScale = GravedadNormal;
-	
-	if (GetCharacterMovement()->IsFalling() && GetCharacterMovement()->Velocity.Z <= 0.0f)
-	{
-		GetCharacterMovement()->GravityScale = 0.5f; 
-	}
-	
+	// are we grounded after the dash?
 	if (GetCharacterMovement()->IsMovingOnGround())
 	{
-	
+		// reset the dash usage flag, since we won't receive a landed event
 		bHasDashed = false;
+
+		// deactivate the jump trails
+		SetJumpTrailState(false);
 	}
-	
-	SetJumpTrailState(false);
 }
 
 void AGame3dCharacter::ComboAttackPressed()
