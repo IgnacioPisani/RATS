@@ -14,6 +14,7 @@
 #include "WidgetMedkit/UWMedkitHUD.h"
 #include "Game3dCharacter.generated.h"
 
+class UMiniMapWidget;
 class ANpc;
 class USpringArmComponent;
 class UCameraComponent;
@@ -196,21 +197,22 @@ public:
 	UXpBar* XpWidget;
 
 	UPROPERTY()
+	UMiniMapWidget* MiniMapWidget;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
+	TSubclassOf<UMiniMapWidget> MinimapWidgetClass;
+
+	UPROPERTY()
 	UStaticMeshComponent* EquippedMesh = nullptr;
 
 	// Para evitar golpear varias veces al mismo actor en un ataque
 	TArray<AActor*> HitActors;
 
-   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement")
-   float WalkSpeed = 500.f;
-   
-   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement")
-   float SprintSpeed = 800.f;
-   
-   bool bIsSprinting = false;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement")
-	bool bIsClimbing = false;
+	float WalkSpeed = 500.f;
+   
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement")
+	float SprintSpeed = 800.f;
 
 
 	int32 MedkitCount = 0;
@@ -235,13 +237,6 @@ public:
 	float CachedAttackInputTime = 0.0f;
 
 	/** If true, currently attacking */
-	bool bIsAttacking = false;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool bIsAiming = false;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    bool bIsResting = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bIsInDialogue = false;
@@ -327,7 +322,6 @@ public:
 	// ---- Variables ----
 	int32 JumpCount = 0;
 	uint8 bHasDashed : 1;
-	uint8 bIsDashing : 1;
 
 	// La gravedad pesada de tu juego
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gravedad")
@@ -372,4 +366,47 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void HideInteractMessage();
 
+	UPROPERTY(Replicated,BlueprintReadOnly)
+	bool bIsSprinting = false;
+
+	UPROPERTY(Replicated,BlueprintReadOnly)
+	bool bIsClimbing = false;
+
+	UPROPERTY(Replicated,BlueprintReadOnly)
+	uint8 bIsDashing : 1;
+
+	UPROPERTY(Replicated,BlueprintReadOnly)
+	bool bIsAiming = false;
+
+	UPROPERTY(Replicated,BlueprintReadOnly)
+	bool bIsResting = false;
+
+	UPROPERTY(Replicated,BlueprintReadOnly)
+	bool bIsAttacking = false;
+
+	UFUNCTION(BlueprintCallable)
+	void SetClimbing(bool bNewClimbing);
+
+	UFUNCTION(Server, Reliable)
+	void Server_SetClimbing(bool bNewClimbing);
+
+	
+	UFUNCTION(BlueprintCallable)
+	void SetAiming(bool bNewAiming);
+
+	UFUNCTION(Server, Reliable)
+	void Server_SetAiming(bool bNewAiming);
+	
+	UFUNCTION(BlueprintCallable)
+	void SetResting(bool bNewResting);
+
+	UFUNCTION(Server, Reliable)
+	void Server_SetResting(bool bNewResting);
+
+	UFUNCTION()
+	void OnRep_IsResting();
+	
+	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
+
+	
 };

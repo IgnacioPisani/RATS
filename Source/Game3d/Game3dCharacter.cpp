@@ -13,6 +13,7 @@
 #include "Public/HealthBar.h"
 #include "Interactable.h"  
 #include "Public/XpBar.h"
+#include "Public/MiniMapWidget.h"
 #include "Public/XpComponent.h"
 #include "Engine/DamageEvents.h"
 #include "Game3d.h"
@@ -20,6 +21,7 @@
 #include "InventoryComponent.h"
 #include "Npc.h"
 #include "Kismet/GameplayStatics.h"
+#include "Net/UnrealNetwork.h"
 
 AGame3dCharacter::AGame3dCharacter()
 {
@@ -98,6 +100,16 @@ void AGame3dCharacter::BeginPlay()
 		if (XpWidget)
 		{
 			XpWidget->AddToViewport();
+		}
+	}
+	if (MinimapWidgetClass)
+	{
+		// Crear el widget
+		MiniMapWidget = CreateWidget<UMiniMapWidget>(GetWorld(), MinimapWidgetClass);
+
+		if (MiniMapWidget)
+		{
+			MiniMapWidget->AddToViewport();
 		}
 	}
 	if (MedkitHUDClass)
@@ -495,6 +507,24 @@ void AGame3dCharacter::Landed(const FHitResult& Hit)
 
 }
 
+
+void AGame3dCharacter::OnRep_IsResting()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Resting state changed: %s"), bIsResting ? TEXT("TRUE") : TEXT("FALSE"));
+
+}
+
+void AGame3dCharacter::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(AGame3dCharacter, bIsSprinting);
+	DOREPLIFETIME(AGame3dCharacter, bIsAttacking);
+	DOREPLIFETIME(AGame3dCharacter, bIsAiming);
+	DOREPLIFETIME(AGame3dCharacter, bIsClimbing);
+	DOREPLIFETIME(AGame3dCharacter, bIsDashing);
+	DOREPLIFETIME(AGame3dCharacter, bIsResting);
+}
+
 void AGame3dCharacter::DashMontageEnded(UAnimMontage* Montage, bool bInterrupted)
 {
 		EndDash();
@@ -793,4 +823,58 @@ AActor* AGame3dCharacter::FindInteractableActor()
 	}
 
 	return nullptr;
+}
+
+void AGame3dCharacter::SetClimbing(bool bNewClimbing)
+{
+	if (HasAuthority())
+	{
+		bIsClimbing = bNewClimbing;
+	}
+	else
+	{
+		Server_SetClimbing(bNewClimbing);
+	}
+}
+
+void AGame3dCharacter::SetAiming(bool bNewAiming)
+{
+	if (HasAuthority())
+	{
+		bIsAiming = bNewAiming;
+	}
+	else
+	{
+		Server_SetAiming(bNewAiming);
+	}}
+
+void AGame3dCharacter::Server_SetClimbing_Implementation(bool bNewClimbing)
+{
+	bIsClimbing = bNewClimbing;
+}
+
+
+void AGame3dCharacter::Server_SetAiming_Implementation(bool bNewAiming)
+{
+	bIsAiming = bNewAiming;
+
+}
+
+void AGame3dCharacter::SetResting(bool bNewResting)
+{
+	if (HasAuthority())
+	{
+		bIsResting = bNewResting;
+		OnRep_IsResting(); // para que el server también ejecute lógica visual
+	}
+	else
+	{
+		Server_SetResting(bNewResting);
+	}
+}
+
+void AGame3dCharacter::Server_SetResting_Implementation(bool bNewResting)
+{
+	bIsResting = bNewResting;
+	OnRep_IsResting();
 }
