@@ -405,6 +405,9 @@ public:
 
 	UFUNCTION()
 	void OnRep_IsResting();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void BP_OnRestingChanged(bool bNewResting);
 	
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
 

@@ -507,13 +507,6 @@ void AGame3dCharacter::Landed(const FHitResult& Hit)
 
 }
 
-
-void AGame3dCharacter::OnRep_IsResting()
-{
-	UE_LOG(LogTemp, Warning, TEXT("Resting state changed: %s"), bIsResting ? TEXT("TRUE") : TEXT("FALSE"));
-
-}
-
 void AGame3dCharacter::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
@@ -877,4 +870,9 @@ void AGame3dCharacter::Server_SetResting_Implementation(bool bNewResting)
 {
 	bIsResting = bNewResting;
 	OnRep_IsResting();
+}
+
+void AGame3dCharacter::OnRep_IsResting()
+{
+	UE_LOG(LogTemp, Warning, TEXT("CLIENT: OnRep_IsResting %s"), bIsResting ? TEXT("TRUE") : TEXT("FALSE"));
 }
