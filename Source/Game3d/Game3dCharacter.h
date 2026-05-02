@@ -143,6 +143,7 @@ public:
 	/** Handles dash inputs from either controls or UI interfaces */
 	UFUNCTION(BlueprintCallable, Category = "Input")
 	virtual void DoDash();
+	void PlayDashFXLocal();
 
 	/** Handles jump pressed inputs from either controls or UI interfaces */
 	UFUNCTION(BlueprintCallable, Category="Input")
@@ -253,7 +254,19 @@ public:
 
 	/** Performs combo attack */
 	void ComboAttack();
+	UFUNCTION(NetMulticast, Reliable)
+	void Multicast_PlayComboAttack();
 
+	UFUNCTION(Server, Reliable)
+	void Server_JumpToComboSection(int32 SectionIndex);
+	void Server_JumpToComboSection_Implementation(int32 SectionIndex);
+
+	UFUNCTION(NetMulticast, Reliable)
+	void Multicast_JumpToComboSection(int32 SectionIndex);
+	void Multicast_JumpToComboSection_Implementation(int32 SectionIndex);
+
+	UFUNCTION(Server, Reliable)
+	void Server_ComboAttack();
 	/** Called when montage ends */
 	void AttackMontageEnded(UAnimMontage* Montage, bool bInterrupted);
 
@@ -367,9 +380,6 @@ public:
 	void HideInteractMessage();
 
 	UPROPERTY(Replicated,BlueprintReadOnly)
-	bool bIsSprinting = false;
-
-	UPROPERTY(Replicated,BlueprintReadOnly)
 	bool bIsClimbing = false;
 
 	UPROPERTY(Replicated,BlueprintReadOnly)
@@ -406,8 +416,25 @@ public:
 	UFUNCTION()
 	void OnRep_IsResting();
 
+	// AGame3dCharacter.h - agregar:
+
+	UPROPERTY(ReplicatedUsing = OnRep_IsSprinting)
+	bool bIsSprinting = false;
+
+	UFUNCTION()
+	void OnRep_IsSprinting();
+
 	UFUNCTION(BlueprintImplementableEvent)
 	void BP_OnRestingChanged(bool bNewResting);
+
+	UFUNCTION(Server, Reliable)
+	void Server_SetSprinting(bool bNewSprinting);
+
+	UFUNCTION(Server, Reliable)
+	void Server_DoDash();
+
+	UFUNCTION(NetMulticast, Reliable)
+	void Multicast_PlayDashFX();
 	
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
 
