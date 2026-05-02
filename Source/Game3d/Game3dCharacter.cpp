@@ -22,7 +22,7 @@
 #include "Npc.h"
 #include "Kismet/GameplayStatics.h"
 #include "Net/UnrealNetwork.h"
-
+#include "GameFramework/PlayerState.h"
 AGame3dCharacter::AGame3dCharacter()
 {
 	// Set size for collision capsule
@@ -549,15 +549,7 @@ void AGame3dCharacter::NotifyJumpApex()
 	// GetCharacterMovement()->GravityScale = 5.0f; 
 }
 
-void AGame3dCharacter::DoComboAttackStart()
-{
-	if (bIsAttacking)
-	{
-		CachedAttackInputTime = GetWorld()->GetTimeSeconds();
-		return;
-	}
-	Server_ComboAttack(); // ← nuevo, va al servidor primero
-}
+
 
 void AGame3dCharacter::Server_ComboAttack_Implementation()
 {
@@ -566,6 +558,11 @@ void AGame3dCharacter::Server_ComboAttack_Implementation()
 
 void AGame3dCharacter::CheckCombo()
 {
+	// Solo el servidor maneja la lógica del combo
+	if (!HasAuthority()) return;
+
+	UE_LOG(LogTemp, Warning, TEXT("=== CheckCombo en SERVIDOR ==="));
+
 	if (bIsAttacking)
 	{
 		if (GetWorld()->GetTimeSeconds() - CachedAttackInputTime <= ComboInputCacheTimeTolerance)
@@ -573,12 +570,48 @@ void AGame3dCharacter::CheckCombo()
 			CachedAttackInputTime = 0.0f;
 			++ComboCount;
 
+			UE_LOG(LogTemp, Warning, TEXT("✅ Combo avanza a sección %d de %d"),
+				ComboCount, ComboSectionNames.Num());
+
 			if (ComboCount < ComboSectionNames.Num())
 			{
-				Server_JumpToComboSection(ComboCount); // ← nuevo
+				Server_JumpToComboSection(ComboCount);
 			}
 		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("❌ Combo NO avanza - TimeDiff muy alto"));
+		}
 	}
+}
+
+void AGame3dCharacter::DoComboAttackStart()
+{
+	if (bIsAttacking)
+	{
+		CachedAttackInputTime = GetWorld()->GetTimeSeconds();
+		Server_SetCachedAttackInputTime(CachedAttackInputTime); // ← esto debe estar
+		return;
+	}
+	Server_ComboAttack();
+}
+
+void AGame3dCharacter::Server_SetCachedAttackInputTime_Implementation(float Time)
+{
+	// Restar el ping aproximado para compensar la latencia
+	float Ping = 0.f;
+	if (APlayerController* PC = Cast<APlayerController>(GetController()))
+	{
+		if (APlayerState* PS = PC->GetPlayerState<APlayerState>())
+		{
+			Ping = PS->GetPingInMilliseconds() / 1000.f; // convertir a segundos
+		}
+	}
+
+	// Setear el tiempo como si hubiera llegado antes (compensando latencia)
+	CachedAttackInputTime = GetWorld()->GetTimeSeconds() - Ping;
+
+	UE_LOG(LogTemp, Warning, TEXT("CachedAttackInputTime seteado | Ping: %.3f seg"), Ping);
 }
 
 void AGame3dCharacter::Server_JumpToComboSection_Implementation(int32 SectionIndex)
@@ -596,16 +629,26 @@ void AGame3dCharacter::Multicast_JumpToComboSection_Implementation(int32 Section
 
 void AGame3dCharacter::AttackMontageEnded(UAnimMontage* Montage, bool bInterrupted)
 {
-	UE_LOG(LogTemp, Warning, TEXT("AttackMontageEnded en %s | TimeDiff: %f | Tolerance: %f"),
-		HasAuthority() ? TEXT("SERVIDOR") : TEXT("CLIENTE"),
-		GetWorld()->GetTimeSeconds() - CachedAttackInputTime,
-		ComboInputCacheTimeTolerance);
+	if (!HasAuthority()) return;
 
-	bIsAttacking = false;
+	UE_LOG(LogTemp, Warning, TEXT("AttackMontageEnded | bInterrupted: %s | ComboCount: %d | TimeDiff: %f"),
+		bInterrupted ? TEXT("TRUE") : TEXT("FALSE"),
+		ComboCount,
+		GetWorld()->GetTimeSeconds() - CachedAttackInputTime);
 
-	if (GetWorld()->GetTimeSeconds() - CachedAttackInputTime <= ComboInputCacheTimeTolerance)
+	const bool bShouldContinueCombo = 
+		GetWorld()->GetTimeSeconds() - CachedAttackInputTime <= ComboInputCacheTimeTolerance;
+
+	if (bShouldContinueCombo)
 	{
-		Server_ComboAttack();
+		UE_LOG(LogTemp, Warning, TEXT("→ Continúa combo"));
+		ComboAttack();
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("→ Fin de combo, reseteando"));
+		bIsAttacking = false;
+		ComboCount = 0; // ← asegurate que esto esté
 	}
 }
 
@@ -736,20 +779,27 @@ void AGame3dCharacter::ComboAttack()
 	Multicast_PlayComboAttack();
 }
 
-// Nuevo Multicast
 void AGame3dCharacter::Multicast_PlayComboAttack_Implementation()
 {
 	if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
 	{
+		// Limpiar delegate anterior
+		FOnMontageEnded EmptyDelegate;
+		AnimInstance->Montage_SetEndDelegate(EmptyDelegate, ComboAttackMontage);
+
 		const float MontageLength = AnimInstance->Montage_Play(
 			ComboAttackMontage, 1.0f,
 			EMontagePlayReturnType::MontageLength, 0.0f, true
 		);
 		if (MontageLength > 0.0f)
-			AnimInstance->Montage_SetEndDelegate(OnAttackMontageEnded, ComboAttackMontage);
+		{
+			if (HasAuthority())
+			{
+				AnimInstance->Montage_SetEndDelegate(OnAttackMontageEnded, ComboAttackMontage);
+			}
+		}
 	}
 }
-
 
 void AGame3dCharacter::ForceStopSprintIfRunning()
 {

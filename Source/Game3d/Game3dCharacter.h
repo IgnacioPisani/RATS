@@ -232,7 +232,7 @@ public:
 
 	/** Combo input tolerance (time between hits) */
 	UPROPERTY(EditAnywhere, Category = "Combat|Combo", meta = (ClampMin = 0.1f, ClampMax = 2.0f, Units = "s"))
-	float ComboInputCacheTimeTolerance = 0.45f;
+	float ComboInputCacheTimeTolerance = 0.6f;
 
 	/** Cached time of last combo input */
 	float CachedAttackInputTime = 0.0f;
@@ -310,7 +310,8 @@ public:
 	/** Handles combo attack pressed from either controls or UI interfaces */
 	UFUNCTION(BlueprintCallable, Category="Input")
 	virtual void DoComboAttackStart();
-
+	UFUNCTION(Server, Reliable)
+	void Server_SetCachedAttackInputTime(float Time);
 	/** Handles combo attack released from either controls or UI interfaces */
 	UFUNCTION(BlueprintCallable, Category="Input")
 	virtual void DoComboAttackEnd();
