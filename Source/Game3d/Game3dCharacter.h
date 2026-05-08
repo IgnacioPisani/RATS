@@ -7,6 +7,7 @@
 #include "CombatAttacker.h"
 #include "CombatDamageable.h"
 #include "HandleHit.h"
+#include "UpdateMission.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
 #include "Public/HealthBar.h"
@@ -14,6 +15,7 @@
 #include "WidgetMedkit/UWMedkitHUD.h"
 #include "Game3dCharacter.generated.h"
 
+class UMissionWidget;
 class UMiniMapWidget;
 class ANpc;
 class USpringArmComponent;
@@ -29,7 +31,7 @@ DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
  *  Implements a controllable orbiting camera
  */
 UCLASS(abstract)
-class AGame3dCharacter : public ACharacterBase, public ICombatAttacker, public ICombatDamageable
+class AGame3dCharacter : public ACharacterBase, public ICombatAttacker, public ICombatDamageable, public IUpdateMission
 {
 	GENERATED_BODY()
 
@@ -202,6 +204,13 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
 	TSubclassOf<UMiniMapWidget> MinimapWidgetClass;
+
+	UPROPERTY()
+	UMissionWidget* MissionWidget;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
+	TSubclassOf<UMissionWidget> MissionWidgetClass;
+
 
 	UPROPERTY()
 	UStaticMeshComponent* EquippedMesh = nullptr;
@@ -472,6 +481,10 @@ public:
 
 	UPROPERTY(BlueprintReadOnly)
 	float AimYaw;
+
+	UFUNCTION()
+	virtual void UpdateMission_Implementation(const FString& CurrentMission) override;
+
 
 private:
 	UFUNCTION(NetMulticast, Reliable)

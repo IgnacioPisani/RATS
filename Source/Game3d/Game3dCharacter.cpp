@@ -19,6 +19,7 @@
 #include "Game3d.h"
 #include "HealthComponent.h"
 #include "InventoryComponent.h"
+#include "MissionWidget.h"
 #include "Npc.h"
 #include "Kismet/GameplayStatics.h"
 #include "Net/UnrealNetwork.h"
@@ -124,6 +125,16 @@ void AGame3dCharacter::BeginPlay()
 		if (MiniMapWidget)
 		{
 			MiniMapWidget->AddToViewport();
+		}
+	}
+	if (MissionWidgetClass)
+	{
+		// Crear el widget
+		MissionWidget = CreateWidget<UMissionWidget>(GetWorld(), MissionWidgetClass);
+
+		if (MissionWidget)
+		{
+			MissionWidget->AddToViewport();
 		}
 	}
 	if (MedkitHUDClass)
@@ -574,6 +585,27 @@ void AGame3dCharacter::IdleTick()
 	if (IdleElapsedTime >= IdleTimeToRest && !bIsResting)
 	{
 		SetResting(true);
+	}
+}
+
+void AGame3dCharacter::UpdateMission_Implementation(const FString& CurrentMission)
+{
+	IUpdateMission::UpdateMission_Implementation(CurrentMission);
+	GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Cyan,
+FString::Printf(TEXT("[UpdateMission] Recibida misión: %s"), *CurrentMission));
+
+
+	if (MissionWidget)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Green,
+			TEXT("[UpdateMission] Actualizando MissionWidget"));
+
+		MissionWidget->SetMissionText(CurrentMission);
+	}
+	else
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red,
+			TEXT("[UpdateMission] MissionWidget es nullptr"));
 	}
 }
 
