@@ -439,5 +439,38 @@ public:
 	
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
 
-	
+	void StartIdleCheck();
+    
+    protected:
+        /** Tiempo sin moverse para entrar en resting */
+        UPROPERTY(EditDefaultsOnly, Category = "Resting")
+        float IdleTimeToRest = 10.f;
+    
+    private:
+        /** Handle del timer de idle */
+        FTimerHandle IdleTimerHandle;
+    
+        /** Acumula tiempo quieto */
+        float IdleElapsedTime = 0.f;
+    
+        /** Tick de chequeo (cada 0.1s para no sobrecargar) */
+        void IdleTick();
+
+	// ─── Resting Montages ─────────────────────────────────────────
+public:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Resting|Montages")
+	UAnimMontage* RestingEnterMontage;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Resting|Montages")
+	UAnimMontage* RestingExitMontage;
+
+private:
+	UFUNCTION(NetMulticast, Reliable)
+	void Multicast_PlayRestingEnter();
+
+	UFUNCTION(NetMulticast, Reliable)
+	void Multicast_PlayRestingExit();
+
+	UFUNCTION()
+	void OnAnyKeyPressed();
 };

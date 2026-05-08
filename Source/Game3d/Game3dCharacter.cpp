@@ -61,7 +61,8 @@ AGame3dCharacter::AGame3dCharacter()
 	CameraBoom->TargetArmLength = 400.0f;
 	CameraBoom->bUsePawnControlRotation = true;
 	CameraBoom->bEnableCameraLag = true;
-	CameraBoom->CameraLagSpeed = 10.f; 
+	CameraBoom->CameraLagSpeed = 10.f;
+	
 	// Create a follow camera
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
@@ -77,7 +78,20 @@ void AGame3dCharacter::BeginPlay()
 	Super::BeginPlay();
 	SetCanBeDamaged(true);
 	GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
+	if (HasAuthority())
+	{
+		StartIdleCheck();
+	}
 	if (!IsLocallyControlled()) return;
+	if (APlayerController* PC = Cast<APlayerController>(GetController()))
+	{
+		PC->InputComponent->BindKey(
+			EKeys::AnyKey,
+			IE_Pressed,
+			this,
+			&AGame3dCharacter::OnAnyKeyPressed
+		);
+	}
 	if (HealthBarWidgetClass)
 	{
 		HealthBarWidget = CreateWidget<UHealthBar>(GetWorld(), HealthBarWidgetClass);
@@ -506,6 +520,62 @@ void AGame3dCharacter::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty
 	DOREPLIFETIME(AGame3dCharacter, bIsResting);
 }
 
+void AGame3dCharacter::StartIdleCheck()
+{
+	IdleElapsedTime = 0.f;
+	GetWorldTimerManager().SetTimer(
+		IdleTimerHandle,
+		this,
+		&AGame3dCharacter::IdleTick,
+		0.1f,   // cada 100ms
+		true    // looping
+	);
+}
+
+void AGame3dCharacter::IdleTick()
+{
+	// Solo corre en servidor
+	if (!HasAuthority()) return;
+
+	const float Speed = GetVelocity().Length();
+
+	if (Speed > 0.1f)
+	{
+		// Se está moviendo — resetear contador y salir de resting
+		IdleElapsedTime = 0.f;
+
+		if (bIsResting)
+		{
+			SetResting(false);
+		}
+		return;
+	}
+
+	// Quieto — acumular tiempo
+	IdleElapsedTime += 0.1f;
+
+	if (IdleElapsedTime >= IdleTimeToRest && !bIsResting)
+	{
+		SetResting(true);
+	}
+}
+
+void AGame3dCharacter::OnAnyKeyPressed()
+{
+	if (!bIsResting) return;
+
+	// Cliente pide al servidor salir del resting
+	if (HasAuthority())
+	{
+		SetResting(false);
+	}
+	else
+	{
+		Server_SetResting(false);
+	}
+}
+
+
 void AGame3dCharacter::DashMontageEnded(UAnimMontage* Montage, bool bInterrupted)
 {
 		EndDash();
@@ -909,7 +979,20 @@ void AGame3dCharacter::SetResting(bool bNewResting)
 	if (HasAuthority())
 	{
 		bIsResting = bNewResting;
-		OnRep_IsResting(); // El servidor llama manual porque OnRep no se dispara en autoridad
+		OnRep_IsResting();
+
+		if (bNewResting)
+		{
+			Multicast_PlayRestingEnter();
+			// Bloquear movimiento
+			GetCharacterMovement()->DisableMovement();
+		}
+		else
+		{
+			Multicast_PlayRestingExit();
+			// NO restaurar movimiento acá todavía
+			// Se restaura cuando termina el exit montage
+		}
 	}
 	else
 	{
@@ -917,11 +1000,56 @@ void AGame3dCharacter::SetResting(bool bNewResting)
 	}
 }
 
+void AGame3dCharacter::Multicast_PlayRestingEnter_Implementation()
+{
+	if (!RestingEnterMontage) return;
+
+	if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
+	{
+		AnimInstance->Montage_Play(RestingEnterMontage, 1.0f);
+	}
+}
+
+void AGame3dCharacter::Multicast_PlayRestingExit_Implementation()
+{
+	if (!RestingExitMontage) return;
+
+	if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
+	{
+		AnimInstance->Montage_Play(RestingExitMontage, 1.0f);
+	}
+
+	if (HasAuthority())
+	{
+		FTimerHandle RestoreMovementHandle;
+		GetWorldTimerManager().SetTimer(
+			RestoreMovementHandle,
+			[this]()
+			{
+				GetCharacterMovement()->SetMovementMode(MOVE_Walking);
+			},
+			1.0f,  // delay en segundos, ajustá según la duración del montaje
+			false  // no loop
+		);
+	}
+}
+
 void AGame3dCharacter::Server_SetResting_Implementation(bool bNewResting)
 {
 	bIsResting = bNewResting;
 	OnRep_IsResting();
+
+	if (bNewResting)
+	{
+		Multicast_PlayRestingEnter();
+		GetCharacterMovement()->DisableMovement();
+	}
+	else
+	{
+		Multicast_PlayRestingExit();
+	}
 }
+
 
 void AGame3dCharacter::OnRep_IsResting()
 {

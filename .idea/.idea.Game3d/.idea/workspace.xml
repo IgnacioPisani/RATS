@@ -14,6 +14,8 @@
   <component name="ChangeListManager">
     <list default="true" id="700cebab-63ab-47f1-8bec-c545c4c447ad" name="Changes" comment="Merge branch 'main' into MiniMapa&#10;&#10;# Conflicts:&#10;#&#9;.idea/.idea.Game3d/.idea/workspace.xml&#10;#&#9;Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ABP_Or10n.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ABP_Or10n.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.h" afterDir="false" />
     </list>
@@ -84,9 +86,6 @@
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/Pawn.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/UMG/Private/UserWidget.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/UMG/Public/Components/TextBlock.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Intermediate/Build/Win64/UnrealEditor/Inc/Game3d/UHT/CraftingRecipe.gen.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Intermediate/Build/Win64/x64/UnrealEditor/Development/Game3d/Module.Game3d.2.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Intermediate/Build/Win64/x64/UnrealEditor/Development/Game3d/Module.Game3d.3.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/MultiplayerSessionOW/Source/MultiplayerSessionOW/Private/MultiplayerSessionsSubsystem.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/MultiplayerSessionOW/Source/MultiplayerSessionOW/Private/WidgetSessionSerch.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/MultiplayerSessionOW/Source/MultiplayerSessionOW/Public/MultiplayerSessionsSubsystem.h" root0="FORCE_HIGHLIGHTING" />
@@ -126,6 +125,9 @@
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Variant_Combat/Animation/AnimNotify_DoAttackTrace.h" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="Toolset" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 5
@@ -346,6 +348,10 @@
       <workItem from="1777219851516" duration="6830000" />
       <workItem from="1777683629930" duration="6206000" />
       <workItem from="1777690135570" duration="2237000" />
+      <workItem from="1778196080613" duration="944000" />
+      <workItem from="1778201648250" duration="142000" />
+      <workItem from="1778201810695" duration="74000" />
+      <workItem from="1778201928365" duration="4216000" />
     </task>
     <servers />
   </component>
