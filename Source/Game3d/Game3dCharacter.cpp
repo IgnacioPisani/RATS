@@ -1044,6 +1044,8 @@ void AGame3dCharacter::Multicast_PlayRestingExit_Implementation()
 			[this]()
 			{
 				GetCharacterMovement()->SetMovementMode(MOVE_Walking);
+				bIsExitingRest = false;
+
 			},
 			MontageDuration + 0.2f, // delay extra post animación
 			false
