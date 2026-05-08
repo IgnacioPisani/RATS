@@ -386,7 +386,7 @@ public:
 	UPROPERTY(Replicated,BlueprintReadOnly)
 	uint8 bIsDashing : 1;
 
-	UPROPERTY(Replicated,BlueprintReadOnly)
+	UPROPERTY(ReplicatedUsing=OnRep_IsAiming, BlueprintReadOnly)
 	bool bIsAiming = false;
 
 	UPROPERTY(Replicated,BlueprintReadOnly)
@@ -425,6 +425,9 @@ public:
 	UFUNCTION()
 	void OnRep_IsSprinting();
 
+	UFUNCTION()
+	void OnRep_IsAiming();
+	
 	UFUNCTION(BlueprintImplementableEvent)
 	void BP_OnRestingChanged(bool bNewResting);
 
@@ -463,6 +466,12 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Resting|Montages")
 	UAnimMontage* RestingExitMontage;
+
+	UPROPERTY(BlueprintReadOnly)
+	float AimPitch;
+
+	UPROPERTY(BlueprintReadOnly)
+	float AimYaw;
 
 private:
 	UFUNCTION(NetMulticast, Reliable)

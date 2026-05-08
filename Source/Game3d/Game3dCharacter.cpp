@@ -514,10 +514,29 @@ void AGame3dCharacter::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	DOREPLIFETIME(AGame3dCharacter, bIsSprinting);
 	DOREPLIFETIME(AGame3dCharacter, bIsAttacking);
-	DOREPLIFETIME(AGame3dCharacter, bIsAiming);
+	DOREPLIFETIME_CONDITION_NOTIFY(
+		AGame3dCharacter,
+		bIsAiming,
+		COND_None,
+		REPNOTIFY_Always
+	);
 	DOREPLIFETIME(AGame3dCharacter, bIsClimbing);
 	DOREPLIFETIME(AGame3dCharacter, bIsDashing);
 	DOREPLIFETIME(AGame3dCharacter, bIsResting);
+}
+
+void AGame3dCharacter::OnRep_IsAiming()
+{
+	if (bIsAiming)
+	{
+		bUseControllerRotationYaw = true;
+		GetCharacterMovement()->bOrientRotationToMovement = false;
+	}
+	else
+	{
+		bUseControllerRotationYaw = false;
+		GetCharacterMovement()->bOrientRotationToMovement = true;
+	}
 }
 
 void AGame3dCharacter::StartIdleCheck()
@@ -731,7 +750,17 @@ void AGame3dCharacter::DoComboAttackEnd()
 void AGame3dCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	FRotator AimRotation = GetBaseAimRotation();
 
+	float Pitch = AimRotation.Pitch;
+
+	if (Pitch > 90.f)
+	{
+		Pitch -= 360.f;
+	}
+
+	AimPitch = Pitch;
+	AimYaw = AimRotation.Yaw;
 	// El spring arm NO se modifica si el personaje está apuntando
 	if (CameraBoom && !bIsAiming)
 	{
@@ -973,6 +1002,7 @@ void AGame3dCharacter::Server_SetAiming_Implementation(bool bNewAiming)
 {
 	bIsAiming = bNewAiming;
 
+	OnRep_IsAiming();
 }
 
 void AGame3dCharacter::SetResting(bool bNewResting)
