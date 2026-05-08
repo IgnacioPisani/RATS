@@ -473,4 +473,6 @@ private:
 
 	UFUNCTION()
 	void OnAnyKeyPressed();
+
+	bool bIsExitingRest = false;
 };

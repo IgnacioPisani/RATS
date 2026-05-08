@@ -544,10 +544,8 @@ void AGame3dCharacter::IdleTick()
 		// Se está moviendo — resetear contador y salir de resting
 		IdleElapsedTime = 0.f;
 
-		if (bIsResting)
-		{
+		if (bIsResting && !bIsExitingRest)
 			SetResting(false);
-		}
 		return;
 	}
 
@@ -562,18 +560,21 @@ void AGame3dCharacter::IdleTick()
 
 void AGame3dCharacter::OnAnyKeyPressed()
 {
-	if (!bIsResting) return;
+	// FIX: verificar que somos el controlador local antes de procesar
+	if (!IsLocallyControlled()) return;
+	if (!bIsResting || bIsExitingRest) return;
 
-	// Cliente pide al servidor salir del resting
+	bIsExitingRest = true; // guard inmediato en cliente
+
+	// FIX: siempre ir por Server_SetResting para que el servidor
+	// sea el único que cambia el estado — evita divergencia
+ 
 	if (HasAuthority())
-	{
 		SetResting(false);
-	}
 	else
-	{
 		Server_SetResting(false);
-	}
 }
+
 
 
 void AGame3dCharacter::DashMontageEnded(UAnimMontage* Montage, bool bInterrupted)
@@ -978,24 +979,36 @@ void AGame3dCharacter::SetResting(bool bNewResting)
 {
 	if (HasAuthority())
 	{
+		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::White,
+			FString::Printf(TEXT("[SetResting] bNewResting = %s"),
+				bNewResting ? TEXT("TRUE") : TEXT("FALSE")));
+		IdleElapsedTime = 0.f;
+
 		bIsResting = bNewResting;
 		OnRep_IsResting();
 
 		if (bNewResting)
 		{
+			GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Orange,
+				TEXT("[SetResting] Entrando al rest → DisableMovement"));
+
 			Multicast_PlayRestingEnter();
-			// Bloquear movimiento
 			GetCharacterMovement()->DisableMovement();
 		}
 		else
 		{
+			GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Cyan,
+				TEXT("[SetResting] Saliendo del rest → PlayRestingExit"));
+
 			Multicast_PlayRestingExit();
-			// NO restaurar movimiento acá todavía
-			// Se restaura cuando termina el exit montage
 		}
 	}
 	else
 	{
+		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Yellow,
+			FString::Printf(TEXT("[SetResting] Cliente enviando RPC → bNewResting = %s"),
+				bNewResting ? TEXT("TRUE") : TEXT("FALSE")));
+
 		Server_SetResting(bNewResting);
 	}
 }
@@ -1017,25 +1030,30 @@ void AGame3dCharacter::Multicast_PlayRestingExit_Implementation()
 	if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
 	{
 		AnimInstance->Montage_Play(RestingExitMontage, 1.0f);
-	}
 
-	if (HasAuthority())
-	{
-		FTimerHandle RestoreMovementHandle;
+		// bloquear movimiento mientras sale de resting
+		GetCharacterMovement()->DisableMovement();
+
+		// duración del montage
+		const float MontageDuration = RestingExitMontage->GetPlayLength();
+
+		FTimerHandle TimerHandle;
+
 		GetWorldTimerManager().SetTimer(
-			RestoreMovementHandle,
+			TimerHandle,
 			[this]()
 			{
 				GetCharacterMovement()->SetMovementMode(MOVE_Walking);
 			},
-			1.0f,  // delay en segundos, ajustá según la duración del montaje
-			false  // no loop
+			MontageDuration + 0.2f, // delay extra post animación
+			false
 		);
 	}
 }
 
 void AGame3dCharacter::Server_SetResting_Implementation(bool bNewResting)
 {
+	IdleElapsedTime = 0.f;
 	bIsResting = bNewResting;
 	OnRep_IsResting();
 
@@ -1053,6 +1071,7 @@ void AGame3dCharacter::Server_SetResting_Implementation(bool bNewResting)
 
 void AGame3dCharacter::OnRep_IsResting()
 {
+	
 	UE_LOG(LogTemp, Warning, TEXT("OnRep_IsResting en %s: %s"), 
 		IsLocallyControlled() ? TEXT("LOCAL") : TEXT("REMOTO"),
 		bIsResting ? TEXT("TRUE") : TEXT("FALSE"));}
