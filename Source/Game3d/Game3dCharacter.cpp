@@ -83,6 +83,16 @@ void AGame3dCharacter::BeginPlay()
 	{
 		StartIdleCheck();
 	}
+	if (MissionWidgetClass)
+	{
+		// Crear el widget
+		MissionWidget = CreateWidget<UMissionWidget>(GetWorld(), MissionWidgetClass);
+
+		if (MissionWidget)
+		{
+			MissionWidget->AddToViewport();
+		}
+	}
 	if (!IsLocallyControlled()) return;
 	if (APlayerController* PC = Cast<APlayerController>(GetController()))
 	{
@@ -127,16 +137,7 @@ void AGame3dCharacter::BeginPlay()
 			MiniMapWidget->AddToViewport();
 		}
 	}
-	if (MissionWidgetClass)
-	{
-		// Crear el widget
-		MissionWidget = CreateWidget<UMissionWidget>(GetWorld(), MissionWidgetClass);
 
-		if (MissionWidget)
-		{
-			MissionWidget->AddToViewport();
-		}
-	}
 	if (MedkitHUDClass)
 	{
 		MedkitHUDInstance = CreateWidget<UUWMedkitHUD>(GetWorld(), MedkitHUDClass);
@@ -590,7 +591,6 @@ void AGame3dCharacter::IdleTick()
 
 void AGame3dCharacter::UpdateMission_Implementation(const FString& CurrentMission)
 {
-	IUpdateMission::UpdateMission_Implementation(CurrentMission);
 	GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Cyan,
 FString::Printf(TEXT("[UpdateMission] Recibida misión: %s"), *CurrentMission));
 

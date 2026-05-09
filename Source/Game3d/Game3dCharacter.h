@@ -482,9 +482,7 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 	float AimYaw;
 
-	UFUNCTION()
-	virtual void UpdateMission_Implementation(const FString& CurrentMission) override;
-
+  void UpdateMission_Implementation(const FString& CurrentMission) override;
 
 private:
 	UFUNCTION(NetMulticast, Reliable)

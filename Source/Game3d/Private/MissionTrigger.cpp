@@ -34,26 +34,39 @@ void AMissionTrigger::Tick(float DeltaTime)
 
 void AMissionTrigger::NotifyActorBeginOverlap(AActor* OtherActor)
 {
-	
 	Super::NotifyActorBeginOverlap(OtherActor);
+
+	GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::White,
+		TEXT("Overlap detectado"));
 
 	if (!OtherActor)
 	{
-		return;
-	}
-	
-	if (!OtherActor->GetClass()->ImplementsInterface(UUpdateMission::StaticClass()))
-	{
+		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red,
+			TEXT("OtherActor null"));
 		return;
 	}
 
+	if (!OtherActor->GetClass()->ImplementsInterface(UUpdateMission::StaticClass()))
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red,
+			TEXT("NO implementa interfaz"));
+		return;
+	}
+
+	GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Green,
+		TEXT("Implementa interfaz"));
+
 	if (bHasTriggered)
 	{
+		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Yellow,
+			TEXT("Ya triggeredo"));
 		return;
 	}
 
 	bHasTriggered = true;
 
+	GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Cyan,
+		TEXT("Ejecutando interfaz"));
 
 	IUpdateMission::Execute_UpdateMission(OtherActor, NewMissionToSet);
 

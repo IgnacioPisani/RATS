@@ -14,11 +14,16 @@
   <component name="ChangeListManager">
     <list default="true" id="700cebab-63ab-47f1-8bec-c545c4c447ad" name="Changes" comment="Merge branch 'main' into MiniMapa&#10;&#10;# Conflicts:&#10;#&#9;.idea/.idea.Game3d/.idea/workspace.xml&#10;#&#9;Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Quest/BP_MissionTrigger.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Interfaces/BPI_UpdateMission.uasset" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Widget/WBP_Mission.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Widget/WBP_Mission.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/0/0V/UWIG3KM0LJ2HWDZWRQ87WH.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/93/TTHRQUL5GIZ54IEL75VFXY.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/8/3X/4FK1SPPODN6DPVLVDYMALZ.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/B/KF/ZUJ1ENEIVP3963C23GQYYA.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/D/BZ/8GZTEQEBRWBR0N93JPWX7O.uasset" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Private/MissionTrigger.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Private/MissionTrigger.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -366,6 +371,9 @@
       <workItem from="1778201928365" duration="7784000" />
       <workItem from="1778248667017" duration="391000" />
       <workItem from="1778249329628" duration="13336000" />
+      <workItem from="1778342612393" duration="3062000" />
+      <workItem from="1778350178441" duration="175000" />
+      <workItem from="1778350434318" duration="2040000" />
     </task>
     <servers />
   </component>
