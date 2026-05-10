@@ -31,7 +31,7 @@ DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
  *  Implements a controllable orbiting camera
  */
 UCLASS(abstract)
-class AGame3dCharacter : public ACharacterBase, public ICombatAttacker, public ICombatDamageable, public IUpdateMission
+class AGame3dCharacter : public ACharacterBase, public ICombatAttacker, public ICombatDamageable
 {
 	GENERATED_BODY()
 
@@ -482,7 +482,10 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 	float AimYaw;
 
-  void UpdateMission_Implementation(const FString& CurrentMission) override;
+
+	UFUNCTION()
+	void HandleMissionUpdated(const FString& NewMission);
+	
 
 private:
 	UFUNCTION(NetMulticast, Reliable)

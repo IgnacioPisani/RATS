@@ -3,9 +3,12 @@
 
 #include "MissionTrigger.h"
 
+#include "MissionGameState.h"
 #include "UpdateMission.h"
+#include "XpComponent.h"
 #include "Components/BoxComponent.h"
 
+class AMissionGameState;
 // Sets default values
 AMissionTrigger::AMissionTrigger()
 {
@@ -36,38 +39,32 @@ void AMissionTrigger::NotifyActorBeginOverlap(AActor* OtherActor)
 {
 	Super::NotifyActorBeginOverlap(OtherActor);
 
-	GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::White,
-		TEXT("Overlap detectado"));
 
 	if (!OtherActor)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red,
-			TEXT("OtherActor null"));
 		return;
 	}
 
-	if (!OtherActor->GetClass()->ImplementsInterface(UUpdateMission::StaticClass()))
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red,
-			TEXT("NO implementa interfaz"));
-		return;
-	}
+	UXpComponent* XPComp =
+	OtherActor->FindComponentByClass<UXpComponent>();
 
-	GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Green,
-		TEXT("Implementa interfaz"));
+	if (!XPComp) return;
 
 	if (bHasTriggered)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Yellow,
-			TEXT("Ya triggeredo"));
 		return;
 	}
-
+	
 	bHasTriggered = true;
 
-	GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Cyan,
-		TEXT("Ejecutando interfaz"));
 
-	IUpdateMission::Execute_UpdateMission(OtherActor, NewMissionToSet);
+	AMissionGameState* GS =
+		GetWorld()->GetGameState<AMissionGameState>();
 
+	if (!GS) return;
+
+	if (!GS->GetClass()->ImplementsInterface(UUpdateMission::StaticClass()))
+		return;
+
+	IUpdateMission::Execute_UpdateMission(GS, NewMissionToSet);
 }

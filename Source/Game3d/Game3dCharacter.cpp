@@ -19,11 +19,14 @@
 #include "Game3d.h"
 #include "HealthComponent.h"
 #include "InventoryComponent.h"
+#include "MissionGameState.h"
 #include "MissionWidget.h"
 #include "Npc.h"
 #include "Kismet/GameplayStatics.h"
 #include "Net/UnrealNetwork.h"
 #include "GameFramework/PlayerState.h"
+class AMissionGameState;
+
 AGame3dCharacter::AGame3dCharacter()
 {
 	// Set size for collision capsule
@@ -83,6 +86,16 @@ void AGame3dCharacter::BeginPlay()
 	{
 		StartIdleCheck();
 	}
+	if (!IsLocallyControlled()) return;
+	if (APlayerController* PC = Cast<APlayerController>(GetController()))
+	{
+		PC->InputComponent->BindKey(
+			EKeys::AnyKey,
+			IE_Pressed,
+			this,
+			&AGame3dCharacter::OnAnyKeyPressed
+		);
+	}
 	if (MissionWidgetClass)
 	{
 		// Crear el widget
@@ -93,15 +106,17 @@ void AGame3dCharacter::BeginPlay()
 			MissionWidget->AddToViewport();
 		}
 	}
-	if (!IsLocallyControlled()) return;
-	if (APlayerController* PC = Cast<APlayerController>(GetController()))
+	AMissionGameState* GS =
+	GetWorld()->GetGameState<AMissionGameState>();
+
+	if (GS)
 	{
-		PC->InputComponent->BindKey(
-			EKeys::AnyKey,
-			IE_Pressed,
+		GS->OnMissionUpdated.AddDynamic(
 			this,
-			&AGame3dCharacter::OnAnyKeyPressed
+			&AGame3dCharacter::HandleMissionUpdated
 		);
+
+		HandleMissionUpdated(GS->GetCurrentMission());
 	}
 	if (HealthBarWidgetClass)
 	{
@@ -535,6 +550,7 @@ void AGame3dCharacter::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty
 	DOREPLIFETIME(AGame3dCharacter, bIsClimbing);
 	DOREPLIFETIME(AGame3dCharacter, bIsDashing);
 	DOREPLIFETIME(AGame3dCharacter, bIsResting);
+
 }
 
 void AGame3dCharacter::OnRep_IsAiming()
@@ -589,23 +605,13 @@ void AGame3dCharacter::IdleTick()
 	}
 }
 
-void AGame3dCharacter::UpdateMission_Implementation(const FString& CurrentMission)
+
+
+void AGame3dCharacter::HandleMissionUpdated(const FString& NewMission)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Cyan,
-FString::Printf(TEXT("[UpdateMission] Recibida misión: %s"), *CurrentMission));
-
-
 	if (MissionWidget)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Green,
-			TEXT("[UpdateMission] Actualizando MissionWidget"));
-
-		MissionWidget->SetMissionText(CurrentMission);
-	}
-	else
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red,
-			TEXT("[UpdateMission] MissionWidget es nullptr"));
+		MissionWidget->SetMissionText(NewMission);
 	}
 }
 
