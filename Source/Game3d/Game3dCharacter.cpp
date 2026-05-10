@@ -661,12 +661,21 @@ void AGame3dCharacter::EndDash()
 void AGame3dCharacter::ComboAttackPressed()
 {
 	if (bIsClimbing) return;
-	if(!bIsResting and !bIsInDialogue ){
-	// route the input
-	DoComboAttackStart();
+	if (!bIsResting && !bIsInDialogue && !bIsAiming)
+	{
+		// Reducir velocidad durante el ataque
+		if (HasAuthority())
+		{
+			GetCharacterMovement()->MaxWalkSpeed = 100.f;
+		}
+		else
+		{
+			Server_SetAttackWalkSpeed();
+		}
+
+		DoComboAttackStart();
 	}
 }
-
 void AGame3dCharacter::NotifyJumpApex()
 {
 	// Esto es obligatorio para no romper la lógica base del salto de Unreal
@@ -777,6 +786,8 @@ void AGame3dCharacter::AttackMontageEnded(UAnimMontage* Montage, bool bInterrupt
 		UE_LOG(LogTemp, Warning, TEXT("→ Fin de combo, reseteando"));
 		bIsAttacking = false;
 		ComboCount = 0; // ← asegurate que esto esté
+		GetCharacterMovement()->MaxWalkSpeed = bIsSprinting ? SprintSpeed : WalkSpeed;
+
 	}
 }
 
@@ -915,6 +926,11 @@ void AGame3dCharacter::ComboAttack()
 	bIsAttacking = true;
 	ComboCount = 0;
 	Multicast_PlayComboAttack();
+}
+
+void AGame3dCharacter::Server_SetAttackWalkSpeed_Implementation()
+{
+	GetCharacterMovement()->MaxWalkSpeed = 100.f;
 }
 
 void AGame3dCharacter::Multicast_PlayComboAttack_Implementation()

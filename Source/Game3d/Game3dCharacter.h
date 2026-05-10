@@ -265,7 +265,10 @@ public:
 	void ComboAttack();
 	UFUNCTION(NetMulticast, Reliable)
 	void Multicast_PlayComboAttack();
-
+	
+	UFUNCTION(Server, Reliable)
+	void Server_SetAttackWalkSpeed();
+	
 	UFUNCTION(Server, Reliable)
 	void Server_JumpToComboSection(int32 SectionIndex);
 	void Server_JumpToComboSection_Implementation(int32 SectionIndex);
