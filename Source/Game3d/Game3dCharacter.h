@@ -7,6 +7,7 @@
 #include "CombatAttacker.h"
 #include "CombatDamageable.h"
 #include "HandleHit.h"
+#include "UpdateMission.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
 #include "Public/HealthBar.h"
@@ -14,6 +15,8 @@
 #include "WidgetMedkit/UWMedkitHUD.h"
 #include "Game3dCharacter.generated.h"
 
+class UMissionWidget;
+class UMiniMapWidget;
 class ANpc;
 class USpringArmComponent;
 class UCameraComponent;
@@ -142,6 +145,7 @@ public:
 	/** Handles dash inputs from either controls or UI interfaces */
 	UFUNCTION(BlueprintCallable, Category = "Input")
 	virtual void DoDash();
+	void PlayDashFXLocal();
 
 	/** Handles jump pressed inputs from either controls or UI interfaces */
 	UFUNCTION(BlueprintCallable, Category="Input")
@@ -196,21 +200,29 @@ public:
 	UXpBar* XpWidget;
 
 	UPROPERTY()
+	UMiniMapWidget* MiniMapWidget;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
+	TSubclassOf<UMiniMapWidget> MinimapWidgetClass;
+
+	UPROPERTY()
+	UMissionWidget* MissionWidget;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
+	TSubclassOf<UMissionWidget> MissionWidgetClass;
+
+
+	UPROPERTY()
 	UStaticMeshComponent* EquippedMesh = nullptr;
 
 	// Para evitar golpear varias veces al mismo actor en un ataque
 	TArray<AActor*> HitActors;
 
-   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement")
-   float WalkSpeed = 500.f;
-   
-   UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement")
-   float SprintSpeed = 800.f;
-   
-   bool bIsSprinting = false;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement")
-	bool bIsClimbing = false;
+	float WalkSpeed = 500.f;
+   
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement")
+	float SprintSpeed = 800.f;
 
 
 	int32 MedkitCount = 0;
@@ -229,19 +241,12 @@ public:
 
 	/** Combo input tolerance (time between hits) */
 	UPROPERTY(EditAnywhere, Category = "Combat|Combo", meta = (ClampMin = 0.1f, ClampMax = 2.0f, Units = "s"))
-	float ComboInputCacheTimeTolerance = 0.45f;
+	float ComboInputCacheTimeTolerance = 0.6f;
 
 	/** Cached time of last combo input */
 	float CachedAttackInputTime = 0.0f;
 
 	/** If true, currently attacking */
-	bool bIsAttacking = false;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool bIsAiming = false;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    bool bIsResting = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bIsInDialogue = false;
@@ -258,7 +263,22 @@ public:
 
 	/** Performs combo attack */
 	void ComboAttack();
+	UFUNCTION(NetMulticast, Reliable)
+	void Multicast_PlayComboAttack();
+	
+	UFUNCTION(Server, Reliable)
+	void Server_SetAttackWalkSpeed();
+	
+	UFUNCTION(Server, Reliable)
+	void Server_JumpToComboSection(int32 SectionIndex);
+	void Server_JumpToComboSection_Implementation(int32 SectionIndex);
 
+	UFUNCTION(NetMulticast, Reliable)
+	void Multicast_JumpToComboSection(int32 SectionIndex);
+	void Multicast_JumpToComboSection_Implementation(int32 SectionIndex);
+
+	UFUNCTION(Server, Reliable)
+	void Server_ComboAttack();
 	/** Called when montage ends */
 	void AttackMontageEnded(UAnimMontage* Montage, bool bInterrupted);
 
@@ -302,7 +322,8 @@ public:
 	/** Handles combo attack pressed from either controls or UI interfaces */
 	UFUNCTION(BlueprintCallable, Category="Input")
 	virtual void DoComboAttackStart();
-
+	UFUNCTION(Server, Reliable)
+	void Server_SetCachedAttackInputTime(float Time);
 	/** Handles combo attack released from either controls or UI interfaces */
 	UFUNCTION(BlueprintCallable, Category="Input")
 	virtual void DoComboAttackEnd();
@@ -327,7 +348,6 @@ public:
 	// ---- Variables ----
 	int32 JumpCount = 0;
 	uint8 bHasDashed : 1;
-	uint8 bIsDashing : 1;
 
 	// La gravedad pesada de tu juego
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gravedad")
@@ -372,4 +392,113 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void HideInteractMessage();
 
+	UPROPERTY(Replicated,BlueprintReadOnly)
+	bool bIsClimbing = false;
+
+	UPROPERTY(Replicated,BlueprintReadOnly)
+	uint8 bIsDashing : 1;
+
+	UPROPERTY(ReplicatedUsing=OnRep_IsAiming, BlueprintReadOnly)
+	bool bIsAiming = false;
+
+	UPROPERTY(Replicated,BlueprintReadOnly)
+	bool bIsResting = false;
+
+	UPROPERTY(Replicated,BlueprintReadOnly)
+	bool bIsAttacking = false;
+
+	UFUNCTION(BlueprintCallable)
+	void SetClimbing(bool bNewClimbing);
+
+	UFUNCTION(Server, Reliable)
+	void Server_SetClimbing(bool bNewClimbing);
+
+	
+	UFUNCTION(BlueprintCallable)
+	void SetAiming(bool bNewAiming);
+
+	UFUNCTION(Server, Reliable)
+	void Server_SetAiming(bool bNewAiming);
+	
+	UFUNCTION(BlueprintCallable)
+	void SetResting(bool bNewResting);
+
+	UFUNCTION(Server, Reliable)
+	void Server_SetResting(bool bNewResting);
+
+	UFUNCTION()
+	void OnRep_IsResting();
+
+	// AGame3dCharacter.h - agregar:
+
+	UPROPERTY(ReplicatedUsing = OnRep_IsSprinting)
+	bool bIsSprinting = false;
+
+	UFUNCTION()
+	void OnRep_IsSprinting();
+
+	UFUNCTION()
+	void OnRep_IsAiming();
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void BP_OnRestingChanged(bool bNewResting);
+
+	UFUNCTION(Server, Reliable)
+	void Server_SetSprinting(bool bNewSprinting);
+
+	UFUNCTION(Server, Reliable)
+	void Server_DoDash();
+
+	UFUNCTION(NetMulticast, Reliable)
+	void Multicast_PlayDashFX();
+	
+	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
+
+	void StartIdleCheck();
+    
+    protected:
+        /** Tiempo sin moverse para entrar en resting */
+        UPROPERTY(EditDefaultsOnly, Category = "Resting")
+        float IdleTimeToRest = 10.f;
+    
+    private:
+        /** Handle del timer de idle */
+        FTimerHandle IdleTimerHandle;
+    
+        /** Acumula tiempo quieto */
+        float IdleElapsedTime = 0.f;
+    
+        /** Tick de chequeo (cada 0.1s para no sobrecargar) */
+        void IdleTick();
+
+	// ─── Resting Montages ─────────────────────────────────────────
+public:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Resting|Montages")
+	UAnimMontage* RestingEnterMontage;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Resting|Montages")
+	UAnimMontage* RestingExitMontage;
+
+	UPROPERTY(BlueprintReadOnly)
+	float AimPitch;
+
+	UPROPERTY(BlueprintReadOnly)
+	float AimYaw;
+
+
+	UFUNCTION()
+	void HandleMissionUpdated(const FString& NewMission);
+	
+
+private:
+	UFUNCTION(NetMulticast, Reliable)
+	void Multicast_PlayRestingEnter();
+
+	UFUNCTION(NetMulticast, Reliable)
+	void Multicast_PlayRestingExit();
+
+	UFUNCTION()
+	void OnAnyKeyPressed();
+
+	bool bIsExitingRest = false;
 };
