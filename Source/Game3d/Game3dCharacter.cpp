@@ -13,13 +13,19 @@
 #include "Public/HealthBar.h"
 #include "Interactable.h"  
 #include "Public/XpBar.h"
+#include "Public/MiniMapWidget.h"
 #include "Public/XpComponent.h"
 #include "Engine/DamageEvents.h"
 #include "Game3d.h"
 #include "HealthComponent.h"
 #include "InventoryComponent.h"
+#include "MissionGameState.h"
+#include "MissionWidget.h"
 #include "Npc.h"
 #include "Kismet/GameplayStatics.h"
+#include "Net/UnrealNetwork.h"
+#include "GameFramework/PlayerState.h"
+class AMissionGameState;
 
 AGame3dCharacter::AGame3dCharacter()
 {
@@ -59,7 +65,8 @@ AGame3dCharacter::AGame3dCharacter()
 	CameraBoom->TargetArmLength = 400.0f;
 	CameraBoom->bUsePawnControlRotation = true;
 	CameraBoom->bEnableCameraLag = true;
-	CameraBoom->CameraLagSpeed = 10.f; 
+	CameraBoom->CameraLagSpeed = 10.f;
+	
 	// Create a follow camera
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
@@ -75,7 +82,42 @@ void AGame3dCharacter::BeginPlay()
 	Super::BeginPlay();
 	SetCanBeDamaged(true);
 	GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
+	if (HasAuthority())
+	{
+		StartIdleCheck();
+	}
 	if (!IsLocallyControlled()) return;
+	if (APlayerController* PC = Cast<APlayerController>(GetController()))
+	{
+		PC->InputComponent->BindKey(
+			EKeys::AnyKey,
+			IE_Pressed,
+			this,
+			&AGame3dCharacter::OnAnyKeyPressed
+		);
+	}
+	if (MissionWidgetClass)
+	{
+		// Crear el widget
+		MissionWidget = CreateWidget<UMissionWidget>(GetWorld(), MissionWidgetClass);
+
+		if (MissionWidget)
+		{
+			MissionWidget->AddToViewport();
+		}
+	}
+	AMissionGameState* GS =
+	GetWorld()->GetGameState<AMissionGameState>();
+
+	if (GS)
+	{
+		GS->OnMissionUpdated.AddDynamic(
+			this,
+			&AGame3dCharacter::HandleMissionUpdated
+		);
+
+		HandleMissionUpdated(GS->GetCurrentMission());
+	}
 	if (HealthBarWidgetClass)
 	{
 		HealthBarWidget = CreateWidget<UHealthBar>(GetWorld(), HealthBarWidgetClass);
@@ -100,6 +142,17 @@ void AGame3dCharacter::BeginPlay()
 			XpWidget->AddToViewport();
 		}
 	}
+	if (MinimapWidgetClass)
+	{
+		// Crear el widget
+		MiniMapWidget = CreateWidget<UMiniMapWidget>(GetWorld(), MinimapWidgetClass);
+
+		if (MiniMapWidget)
+		{
+			MiniMapWidget->AddToViewport();
+		}
+	}
+
 	if (MedkitHUDClass)
 	{
 		MedkitHUDInstance = CreateWidget<UUWMedkitHUD>(GetWorld(), MedkitHUDClass);
@@ -409,52 +462,40 @@ void AGame3dCharacter::AddItemToInventory(const FItemStruct& ItemData)
 	}
 }
 
-void AGame3dCharacter::DoStartSprint()
-{
-	if (!bIsAttacking && !bIsAiming){
-	bIsSprinting = true;
-	GetCharacterMovement()->MaxWalkSpeed = 900.f; // o el valor que quieras
-	}
-}
-
-void AGame3dCharacter::DoStopSprint()
-{
-	bIsSprinting = false;
-	GetCharacterMovement()->MaxWalkSpeed = 500.f; // velocidad normal
-}
-
 void AGame3dCharacter::DoDash()
 {
-	// ignore the input if we've already dashed and have yet to reset
-	if (bHasDashed)
-		return;
+	if (bHasDashed) return;
+	// El cliente SOLO pide al servidor, nada más
+	Server_DoDash();
+}
 
-	// raise the dash flags
+void AGame3dCharacter::Server_DoDash_Implementation()
+{
+	if (bHasDashed) return;
+
 	bIsDashing = true;
 	bHasDashed = true;
 
-	// disable gravity while dashing
 	GetCharacterMovement()->GravityScale = 0.0f;
-
-	// reset the character velocity so we don't carry momentum into the dash
 	GetCharacterMovement()->Velocity = FVector::ZeroVector;
+	LaunchCharacter(GetActorForwardVector() * 1200.f, true, true);
 
-	// enable the jump trails
-	SetJumpTrailState(true);
-
-	// play the dash montage
-	if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
-	{
-		const float MontageLength = AnimInstance->Montage_Play(DashMontage, 1.5f, EMontagePlayReturnType::MontageLength, 0.0f, true);
-
-		// has the montage played successfully?
-		if (MontageLength > 0.0f)
-		{
-			AnimInstance->Montage_SetEndDelegate(OnDashMontageEnded, DashMontage);
-		}
-	}
+	// El servidor llama multicast → llega a TODOS correctamente
+	Multicast_PlayDashFX();
 }
 
+void AGame3dCharacter::Multicast_PlayDashFX_Implementation()
+{
+	// Sin ningún IsLocallyControlled() check, todos reproducen igual
+	SetJumpTrailState(true);
+
+	if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
+	{
+		const float MontageLength = AnimInstance->Montage_Play(DashMontage, 1.5f);
+		if (MontageLength > 0.0f)
+			AnimInstance->Montage_SetEndDelegate(OnDashMontageEnded, DashMontage);
+	}
+}
 void AGame3dCharacter::Landed(const FHitResult& Hit)
 {
     Super::Landed(Hit);
@@ -495,6 +536,104 @@ void AGame3dCharacter::Landed(const FHitResult& Hit)
 
 }
 
+void AGame3dCharacter::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(AGame3dCharacter, bIsSprinting);
+	DOREPLIFETIME(AGame3dCharacter, bIsAttacking);
+	DOREPLIFETIME_CONDITION_NOTIFY(
+		AGame3dCharacter,
+		bIsAiming,
+		COND_None,
+		REPNOTIFY_Always
+	);
+	DOREPLIFETIME(AGame3dCharacter, bIsClimbing);
+	DOREPLIFETIME(AGame3dCharacter, bIsDashing);
+	DOREPLIFETIME(AGame3dCharacter, bIsResting);
+
+}
+
+void AGame3dCharacter::OnRep_IsAiming()
+{
+	if (bIsAiming)
+	{
+		bUseControllerRotationYaw = true;
+		GetCharacterMovement()->bOrientRotationToMovement = false;
+	}
+	else
+	{
+		bUseControllerRotationYaw = false;
+		GetCharacterMovement()->bOrientRotationToMovement = true;
+	}
+}
+
+void AGame3dCharacter::StartIdleCheck()
+{
+	IdleElapsedTime = 0.f;
+	GetWorldTimerManager().SetTimer(
+		IdleTimerHandle,
+		this,
+		&AGame3dCharacter::IdleTick,
+		0.1f,   // cada 100ms
+		true    // looping
+	);
+}
+
+void AGame3dCharacter::IdleTick()
+{
+	// Solo corre en servidor
+	if (!HasAuthority()) return;
+
+	const float Speed = GetVelocity().Length();
+
+	if (Speed > 0.1f)
+	{
+		// Se está moviendo — resetear contador y salir de resting
+		IdleElapsedTime = 0.f;
+
+		if (bIsResting && !bIsExitingRest)
+			SetResting(false);
+		return;
+	}
+
+	// Quieto — acumular tiempo
+	IdleElapsedTime += 0.1f;
+
+	if (IdleElapsedTime >= IdleTimeToRest && !bIsResting)
+	{
+		SetResting(true);
+	}
+}
+
+
+
+void AGame3dCharacter::HandleMissionUpdated(const FString& NewMission)
+{
+	if (MissionWidget)
+	{
+		MissionWidget->SetMissionText(NewMission);
+	}
+}
+
+void AGame3dCharacter::OnAnyKeyPressed()
+{
+	// FIX: verificar que somos el controlador local antes de procesar
+	if (!IsLocallyControlled()) return;
+	if (!bIsResting || bIsExitingRest) return;
+
+	bIsExitingRest = true; // guard inmediato en cliente
+
+	// FIX: siempre ir por Server_SetResting para que el servidor
+	// sea el único que cambia el estado — evita divergencia
+ 
+	if (HasAuthority())
+		SetResting(false);
+	else
+		Server_SetResting(false);
+}
+
+
+
 void AGame3dCharacter::DashMontageEnded(UAnimMontage* Montage, bool bInterrupted)
 {
 		EndDash();
@@ -522,12 +661,21 @@ void AGame3dCharacter::EndDash()
 void AGame3dCharacter::ComboAttackPressed()
 {
 	if (bIsClimbing) return;
-	if(!bIsResting and !bIsInDialogue ){
-	// route the input
-	DoComboAttackStart();
+	if (!bIsResting && !bIsInDialogue && !bIsAiming)
+	{
+		// Reducir velocidad durante el ataque
+		if (HasAuthority())
+		{
+			GetCharacterMovement()->MaxWalkSpeed = 100.f;
+		}
+		else
+		{
+			Server_SetAttackWalkSpeed();
+		}
+
+		DoComboAttackStart();
 	}
 }
-
 void AGame3dCharacter::NotifyJumpApex()
 {
 	// Esto es obligatorio para no romper la lógica base del salto de Unreal
@@ -538,18 +686,109 @@ void AGame3dCharacter::NotifyJumpApex()
 	// GetCharacterMovement()->GravityScale = 5.0f; 
 }
 
-void AGame3dCharacter::DoComboAttackStart()
+
+
+void AGame3dCharacter::Server_ComboAttack_Implementation()
 {
-	// are we already playing an attack animation?
+	ComboAttack(); // servidor ejecuta y llama Multicast
+}
+
+void AGame3dCharacter::CheckCombo()
+{
+	// Solo el servidor maneja la lógica del combo
+	if (!HasAuthority()) return;
+
+	UE_LOG(LogTemp, Warning, TEXT("=== CheckCombo en SERVIDOR ==="));
+
 	if (bIsAttacking)
 	{
-		// cache the input time so we can check it later
-		CachedAttackInputTime = GetWorld()->GetTimeSeconds();
+		if (GetWorld()->GetTimeSeconds() - CachedAttackInputTime <= ComboInputCacheTimeTolerance)
+		{
+			CachedAttackInputTime = 0.0f;
+			++ComboCount;
 
+			UE_LOG(LogTemp, Warning, TEXT("✅ Combo avanza a sección %d de %d"),
+				ComboCount, ComboSectionNames.Num());
+
+			if (ComboCount < ComboSectionNames.Num())
+			{
+				Server_JumpToComboSection(ComboCount);
+			}
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("❌ Combo NO avanza - TimeDiff muy alto"));
+		}
+	}
+}
+
+void AGame3dCharacter::DoComboAttackStart()
+{
+	if (bIsAttacking)
+	{
+		CachedAttackInputTime = GetWorld()->GetTimeSeconds();
+		Server_SetCachedAttackInputTime(CachedAttackInputTime); // ← esto debe estar
 		return;
 	}
-	// perform a combo attack
-	ComboAttack();
+	Server_ComboAttack();
+}
+
+void AGame3dCharacter::Server_SetCachedAttackInputTime_Implementation(float Time)
+{
+	// Restar el ping aproximado para compensar la latencia
+	float Ping = 0.f;
+	if (APlayerController* PC = Cast<APlayerController>(GetController()))
+	{
+		if (APlayerState* PS = PC->GetPlayerState<APlayerState>())
+		{
+			Ping = PS->GetPingInMilliseconds() / 1000.f; // convertir a segundos
+		}
+	}
+
+	// Setear el tiempo como si hubiera llegado antes (compensando latencia)
+	CachedAttackInputTime = GetWorld()->GetTimeSeconds() - Ping;
+
+	UE_LOG(LogTemp, Warning, TEXT("CachedAttackInputTime seteado | Ping: %.3f seg"), Ping);
+}
+
+void AGame3dCharacter::Server_JumpToComboSection_Implementation(int32 SectionIndex)
+{
+	Multicast_JumpToComboSection(SectionIndex);
+}
+
+void AGame3dCharacter::Multicast_JumpToComboSection_Implementation(int32 SectionIndex)
+{
+	if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
+	{
+		AnimInstance->Montage_JumpToSection(ComboSectionNames[SectionIndex], ComboAttackMontage);
+	}
+}
+
+void AGame3dCharacter::AttackMontageEnded(UAnimMontage* Montage, bool bInterrupted)
+{
+	if (!HasAuthority()) return;
+
+	UE_LOG(LogTemp, Warning, TEXT("AttackMontageEnded | bInterrupted: %s | ComboCount: %d | TimeDiff: %f"),
+		bInterrupted ? TEXT("TRUE") : TEXT("FALSE"),
+		ComboCount,
+		GetWorld()->GetTimeSeconds() - CachedAttackInputTime);
+
+	const bool bShouldContinueCombo = 
+		GetWorld()->GetTimeSeconds() - CachedAttackInputTime <= ComboInputCacheTimeTolerance;
+
+	if (bShouldContinueCombo)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("→ Continúa combo"));
+		ComboAttack();
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("→ Fin de combo, reseteando"));
+		bIsAttacking = false;
+		ComboCount = 0; // ← asegurate que esto esté
+		GetCharacterMovement()->MaxWalkSpeed = bIsSprinting ? SprintSpeed : WalkSpeed;
+
+	}
 }
 
 void AGame3dCharacter::DoComboAttackEnd()
@@ -560,7 +799,17 @@ void AGame3dCharacter::DoComboAttackEnd()
 void AGame3dCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	FRotator AimRotation = GetBaseAimRotation();
 
+	float Pitch = AimRotation.Pitch;
+
+	if (Pitch > 90.f)
+	{
+		Pitch -= 360.f;
+	}
+
+	AimPitch = Pitch;
+	AimYaw = AimRotation.Yaw;
 	// El spring arm NO se modifica si el personaje está apuntando
 	if (CameraBoom && !bIsAiming)
 	{
@@ -674,54 +923,33 @@ void AGame3dCharacter::CheckChargedAttack()
 void AGame3dCharacter::ComboAttack()
 {
 	if (bIsClimbing) return;
-
-	// raise the attacking flag
 	bIsAttacking = true;
-
-	// reset the combo count
 	ComboCount = 0;
+	Multicast_PlayComboAttack();
+}
 
-	// play the attack montage
+void AGame3dCharacter::Server_SetAttackWalkSpeed_Implementation()
+{
+	GetCharacterMovement()->MaxWalkSpeed = 100.f;
+}
+
+void AGame3dCharacter::Multicast_PlayComboAttack_Implementation()
+{
 	if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
 	{
-		const float MontageLength = AnimInstance->Montage_Play(ComboAttackMontage, 1.0f, EMontagePlayReturnType::MontageLength, 0.0f, true);
+		// Limpiar delegate anterior
+		FOnMontageEnded EmptyDelegate;
+		AnimInstance->Montage_SetEndDelegate(EmptyDelegate, ComboAttackMontage);
 
-		// subscribe to montage completed and interrupted events
+		const float MontageLength = AnimInstance->Montage_Play(
+			ComboAttackMontage, 1.0f,
+			EMontagePlayReturnType::MontageLength, 0.0f, true
+		);
 		if (MontageLength > 0.0f)
 		{
-			// set the end delegate for the montage
-			AnimInstance->Montage_SetEndDelegate(OnAttackMontageEnded, ComboAttackMontage);
-		}
-	}
-}
-
-void AGame3dCharacter::AttackMontageEnded(UAnimMontage* Montage, bool bInterrupted)
-{
-	bIsAttacking = false;
-
-	if (GetWorld()->GetTimeSeconds() - CachedAttackInputTime <= ComboInputCacheTimeTolerance)
-	{
-		ComboAttack();
-	}
-}
-
-void AGame3dCharacter::CheckCombo()
-{
-	if (bIsAttacking)
-	{
-		if (GetWorld()->GetTimeSeconds() - CachedAttackInputTime <= ComboInputCacheTimeTolerance)
-		{
-			CachedAttackInputTime = 0.0f;
-			
-			++ComboCount;
-
-			if (ComboCount < ComboSectionNames.Num())
+			if (HasAuthority())
 			{
-
-				if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
-				{
-					AnimInstance->Montage_JumpToSection(ComboSectionNames[ComboCount], ComboAttackMontage);
-				}
+				AnimInstance->Montage_SetEndDelegate(OnAttackMontageEnded, ComboAttackMontage);
 			}
 		}
 	}
@@ -793,4 +1021,172 @@ AActor* AGame3dCharacter::FindInteractableActor()
 	}
 
 	return nullptr;
+}
+
+void AGame3dCharacter::SetClimbing(bool bNewClimbing)
+{
+	if (HasAuthority())
+	{
+		bIsClimbing = bNewClimbing;
+	}
+	else
+	{
+		Server_SetClimbing(bNewClimbing);
+	}
+}
+
+void AGame3dCharacter::SetAiming(bool bNewAiming)
+{
+	if (HasAuthority())
+	{
+		bIsAiming = bNewAiming;
+	}
+	else
+	{
+		Server_SetAiming(bNewAiming);
+	}}
+
+void AGame3dCharacter::Server_SetClimbing_Implementation(bool bNewClimbing)
+{
+	bIsClimbing = bNewClimbing;
+}
+
+
+void AGame3dCharacter::Server_SetAiming_Implementation(bool bNewAiming)
+{
+	bIsAiming = bNewAiming;
+
+	OnRep_IsAiming();
+}
+
+void AGame3dCharacter::SetResting(bool bNewResting)
+{
+	if (HasAuthority())
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::White,
+			FString::Printf(TEXT("[SetResting] bNewResting = %s"),
+				bNewResting ? TEXT("TRUE") : TEXT("FALSE")));
+		IdleElapsedTime = 0.f;
+
+		bIsResting = bNewResting;
+		OnRep_IsResting();
+
+		if (bNewResting)
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Orange,
+				TEXT("[SetResting] Entrando al rest → DisableMovement"));
+
+			Multicast_PlayRestingEnter();
+			GetCharacterMovement()->DisableMovement();
+		}
+		else
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Cyan,
+				TEXT("[SetResting] Saliendo del rest → PlayRestingExit"));
+
+			Multicast_PlayRestingExit();
+		}
+	}
+	else
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Yellow,
+			FString::Printf(TEXT("[SetResting] Cliente enviando RPC → bNewResting = %s"),
+				bNewResting ? TEXT("TRUE") : TEXT("FALSE")));
+
+		Server_SetResting(bNewResting);
+	}
+}
+
+void AGame3dCharacter::Multicast_PlayRestingEnter_Implementation()
+{
+	if (!RestingEnterMontage) return;
+
+	if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
+	{
+		AnimInstance->Montage_Play(RestingEnterMontage, 1.0f);
+	}
+}
+
+void AGame3dCharacter::Multicast_PlayRestingExit_Implementation()
+{
+	if (!RestingExitMontage) return;
+
+	if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
+	{
+		AnimInstance->Montage_Play(RestingExitMontage, 1.0f);
+
+		// bloquear movimiento mientras sale de resting
+		GetCharacterMovement()->DisableMovement();
+
+		// duración del montage
+		const float MontageDuration = RestingExitMontage->GetPlayLength();
+
+		FTimerHandle TimerHandle;
+
+		GetWorldTimerManager().SetTimer(
+			TimerHandle,
+			[this]()
+			{
+				GetCharacterMovement()->SetMovementMode(MOVE_Walking);
+				bIsExitingRest = false;
+
+			},
+			MontageDuration + 0.2f, // delay extra post animación
+			false
+		);
+	}
+}
+
+void AGame3dCharacter::Server_SetResting_Implementation(bool bNewResting)
+{
+	IdleElapsedTime = 0.f;
+	bIsResting = bNewResting;
+	OnRep_IsResting();
+
+	if (bNewResting)
+	{
+		Multicast_PlayRestingEnter();
+		GetCharacterMovement()->DisableMovement();
+	}
+	else
+	{
+		Multicast_PlayRestingExit();
+	}
+}
+
+
+void AGame3dCharacter::OnRep_IsResting()
+{
+	
+	UE_LOG(LogTemp, Warning, TEXT("OnRep_IsResting en %s: %s"), 
+		IsLocallyControlled() ? TEXT("LOCAL") : TEXT("REMOTO"),
+		bIsResting ? TEXT("TRUE") : TEXT("FALSE"));}
+
+// AGame3dCharacter.cpp
+
+void AGame3dCharacter::DoStartSprint()
+{
+	if (!bIsAttacking && !bIsAiming)
+	{
+		Server_SetSprinting(true);
+	}
+}
+
+void AGame3dCharacter::DoStopSprint()
+{
+	Server_SetSprinting(false);
+}
+
+void AGame3dCharacter::Server_SetSprinting_Implementation(bool bNewSprinting)
+{
+	bIsSprinting = bNewSprinting;
+	// Aplica velocidad en el servidor
+	GetCharacterMovement()->MaxWalkSpeed = bIsSprinting ? SprintSpeed : WalkSpeed;
+	// bIsSprinting replicado dispara OnRep en los clientes
+}
+
+void AGame3dCharacter::OnRep_IsSprinting()
+{
+	// Se ejecuta en cada cliente cuando recibe el valor replicado
+	GetCharacterMovement()->MaxWalkSpeed = bIsSprinting ? SprintSpeed : WalkSpeed;
 }
