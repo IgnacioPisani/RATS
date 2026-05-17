@@ -22,15 +22,30 @@ void ACharacterBase::BeginPlay()
 	}
 }
 
-float ACharacterBase::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+float ACharacterBase::TakeDamage(
+	float DamageAmount,
+	FDamageEvent const& DamageEvent,
+	AController* EventInstigator,
+	AActor* DamageCauser)
 {
 	if (HealthComponent)
 	{
-		HealthComponent->UpdateHealth(DamageAmount);
+		HealthComponent->UpdateHealth(-DamageAmount);
 		TakeDamageEffects();
+
 		UE_LOG(LogTemp, Warning, TEXT("Danio"));
 
+		if (GEngine)
+		{
+			GEngine->AddOnScreenDebugMessage(
+				-1,
+				2.f,
+				FColor::Red,
+				FString::Printf(TEXT("Damage received: %f"), DamageAmount)
+			);
+		}
 	}
+
 	return DamageAmount;
 }
 

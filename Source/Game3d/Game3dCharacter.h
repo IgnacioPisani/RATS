@@ -88,8 +88,12 @@ protected:
 	float MeleeTraceRadius = 75.0f;
 
 	/** Amount of damage a melee attack will deal */
-	UPROPERTY(EditAnywhere, Category="Melee Attack|Damage", meta = (ClampMin = 0, ClampMax = 100))
-	float MeleeDamage = 4.0f;
+	UPROPERTY(EditAnywhere, Category="Attack|Damage", meta = (ClampMin = 0, ClampMax = 100))
+	float MeleeDamage = 45.0f;
+
+	/** Amount of damage a melee attack will deal */
+	UPROPERTY(EditAnywhere, Category="Attack|Damage", meta = (ClampMin = 0, ClampMax = 100), BlueprintReadWrite)
+	float DistanceDamage = 45.0f;
 
 	/** Knockback horizontal */
 	UPROPERTY(EditAnywhere, Category="Melee Attack|Damage", meta = (ClampMin = 0, ClampMax = 1000, Units = "cm/s"))
@@ -351,7 +355,7 @@ public:
 
 	// La gravedad pesada de tu juego
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gravedad")
-	float GravedadNormal = 5.0f;
+	float GravedadNormal = 2.0f;
 
 	// La gravedad más suave para caer lento después del salto
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gravedad")
@@ -374,6 +378,19 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Jump|Suspension")
 	float EndLiftVelocityZ = -200.f;
+
+	// Fall Damage
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Fall Damage", meta = (ClampMin = "0.0", ClampMax = "5000.0", UIMin = "0.0", UIMax = "5000.0"))
+	float SafeFallSpeed = 1600.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Fall Damage", meta = (ClampMin = "0.0", ClampMax = "5000.0", UIMin = "0.0", UIMax = "5000.0"))
+	float LethalFallSpeed = 3000.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Fall Damage", meta = (ClampMin = "0.0", ClampMax = "1000.0", UIMin = "0.0", UIMax = "200.0"))
+	float MinFallDamage = 10.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Fall Damage", meta = (ClampMin = "0.0", ClampMax = "1000.0", UIMin = "0.0", UIMax = "200.0"))
+	float MaxFallDamage = 100.f;
 
 	UPROPERTY(BlueprintReadOnly, Category = "Climb|Input")
 	float MoveLeftRightAxis = 0.f;
