@@ -583,7 +583,7 @@ void AGame3dCharacter::IdleTick()
 
 	const float Speed = GetVelocity().Length();
 
-	if (Speed > 0.1f)
+	if (Speed > 0.1f || bIsAttacking || bIsAiming || bIsInDialogue)
 	{
 		// Se está moviendo — resetear contador y salir de resting
 		IdleElapsedTime = 0.f;
@@ -592,16 +592,6 @@ void AGame3dCharacter::IdleTick()
 			SetResting(false);
 		return;
 	}
-
-	if (bIsAiming)
-	{
-		IdleElapsedTime = 0.f;
-
-		if (bIsResting && !bIsExitingRest)
-			SetResting(false);
-		return;
-	}
-	
 	// Quieto — acumular tiempo
 	IdleElapsedTime += 0.1f;
 
