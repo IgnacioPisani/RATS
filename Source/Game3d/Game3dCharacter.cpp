@@ -33,6 +33,7 @@ AGame3dCharacter::AGame3dCharacter()
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 		
 	// Don't rotate when the controller rotates. Let that just affect the camera.
+	// Don't rotate when the controller rotates. Let that just affect the camera.
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
@@ -496,43 +497,39 @@ void AGame3dCharacter::Multicast_PlayDashFX_Implementation()
 			AnimInstance->Montage_SetEndDelegate(OnDashMontageEnded, DashMontage);
 	}
 }
+
 void AGame3dCharacter::Landed(const FHitResult& Hit)
 {
     Super::Landed(Hit);
 	bHasDashed = false;
     float FallVelocity = FMath::Abs(GetVelocity().Z);
 
-    float SafeFallSpeed = 1500.f;
+	if (FallVelocity > SafeFallSpeed)
+	{
+		if (Hit.GetActor() && Hit.GetActor()->ActorHasTag("LaunchPad"))
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Landed on LaunchPad → No fall damage"));
+			return;
+		}
 
-    float LethalFallSpeed = 2000.f;
 
-    if (FallVelocity > SafeFallSpeed)
-    {
-    	if (Hit.GetActor() && Hit.GetActor()->ActorHasTag("LaunchPad"))
-    	{
-    		UE_LOG(LogTemp, Warning, TEXT("Landed on LaunchPad → No fall damage"));
-    		return;
-    	}
-	    else
-	    {
-	    	float Damage = FMath::GetMappedRangeValueClamped(
-	 FVector2D(SafeFallSpeed, LethalFallSpeed),
-	 FVector2D(5.f, 100.f),
-	 FallVelocity
- );
+		float Damage = FMath::GetMappedRangeValueClamped(
+			FVector2D(SafeFallSpeed, LethalFallSpeed),
+			FVector2D(MinFallDamage, MaxFallDamage),
+			FallVelocity
+		);
 
-	    	UGameplayStatics::ApplyDamage(
-				this,
-				Damage,
-				GetController(),
-				this,
-				nullptr
-			);
+		UGameplayStatics::ApplyDamage(
+			this,
+			Damage,
+			GetController(),
+			this,
+			nullptr
+		);
 
-	    	UE_LOG(LogTemp, Warning, TEXT("Fall damage: %f (speed: %f)"), Damage, FallVelocity);
-	    }
-    }
-	GetCharacterMovement()->MaxWalkSpeed = 500.f; // velocidad normal
+		UE_LOG(LogTemp, Warning, TEXT("Fall damage: %f (speed: %f)"), Damage, FallVelocity);
+	}
+	GetCharacterMovement()->MaxWalkSpeed = 500.f; 
 
 }
 
@@ -586,7 +583,7 @@ void AGame3dCharacter::IdleTick()
 
 	const float Speed = GetVelocity().Length();
 
-	if (Speed > 0.1f)
+	if (Speed > 0.1f || bIsAttacking || bIsAiming || bIsInDialogue)
 	{
 		// Se está moviendo — resetear contador y salir de resting
 		IdleElapsedTime = 0.f;
@@ -595,7 +592,6 @@ void AGame3dCharacter::IdleTick()
 			SetResting(false);
 		return;
 	}
-
 	// Quieto — acumular tiempo
 	IdleElapsedTime += 0.1f;
 
