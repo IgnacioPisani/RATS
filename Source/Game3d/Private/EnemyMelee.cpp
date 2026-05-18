@@ -62,7 +62,7 @@ void AEnemyMelee::HandleHit_Implementation()
 		ObjectTypes,
 		false,
 		ActorsToIgnore,
-		EDrawDebugTrace::ForDuration, // Cambiar a None en producción
+		EDrawDebugTrace::None, // Cambiar a None en producción
 		OutHit,
 		true
 	);
