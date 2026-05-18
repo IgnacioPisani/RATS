@@ -14,7 +14,11 @@
   <component name="ChangeListManager">
     <list default="true" id="700cebab-63ab-47f1-8bec-c545c4c447ad" name="Changes" comment="Merge branch 'main' into MiniMapa&#10;&#10;# Conflicts:&#10;#&#9;.idea/.idea.Game3d/.idea/workspace.xml&#10;#&#9;Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Enemies/BP_EnemyMelee.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemies/BP_EnemyMelee.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/1/TF/CZI4TGDQHWPPASP68X7CWC.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/1/TF/CZI4TGDQHWPPASP68X7CWC.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/H7/2YUJNC5KEPR4PCW84J7UZE.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/GJ/IMYWMDPDJ0GR261W2JOY9A.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/B/8D/CUIN2W5SYCHJ0QMIGI5H3C.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/B/B6/PLGARWLN7ANJKZ2SZBIR2O.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/B/B6/PLGARWLN7ANJKZ2SZBIR2O.uasset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -158,7 +162,7 @@
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;luz&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Fujo&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -377,6 +381,8 @@
       <workItem from="1778539412087" duration="616000" />
       <workItem from="1778794139569" duration="9156000" />
       <workItem from="1779038288493" duration="3615000" />
+      <workItem from="1779054438799" duration="1968000" />
+      <workItem from="1779066256223" duration="383000" />
     </task>
     <servers />
   </component>
