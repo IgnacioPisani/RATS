@@ -21,6 +21,7 @@
 #include "InventoryComponent.h"
 #include "MissionGameState.h"
 #include "MissionWidget.h"
+#include "MotionLinesWidget.h"
 #include "Npc.h"
 #include "Kismet/GameplayStatics.h"
 #include "Net/UnrealNetwork.h"
@@ -125,6 +126,15 @@ void AGame3dCharacter::BeginPlay()
 		if (HealthBarWidget)
 		{
 			HealthBarWidget->AddToViewport();
+		}
+	}
+	if (MotionLinesWidgetClass)
+	{
+		MotionLinesWidget = CreateWidget<UMotionLinesWidget>(GetWorld(), MotionLinesWidgetClass);
+		if (MotionLinesWidget)
+		{
+			MotionLinesWidget->AddToViewport();
+			MotionLinesWidget->SetVisibility(ESlateVisibility::Hidden);
 		}
 	}
 	if (XpComponent)
@@ -462,7 +472,10 @@ void AGame3dCharacter::Server_DoDash_Implementation()
 
 	bIsDashing = true;
 	bHasDashed = true;
-
+	if (MotionLinesWidget)
+	{
+		MotionLinesWidget->SetVisibility(bIsDashing?ESlateVisibility::Visible:ESlateVisibility::Hidden);
+	}
 	GetCharacterMovement()->GravityScale = 0.0f;
 	GetCharacterMovement()->Velocity = FVector::ZeroVector;
 	LaunchCharacter(GetActorForwardVector() * 1200.f, true, true);
@@ -628,7 +641,10 @@ void AGame3dCharacter::EndDash()
 	
 	// reset the dashing flag
 	bIsDashing = false;
-
+	if (MotionLinesWidget)
+	{
+		MotionLinesWidget->SetVisibility(bIsDashing?ESlateVisibility::Visible:ESlateVisibility::Hidden);
+	}
 	// are we grounded after the dash?
 	if (GetCharacterMovement()->IsMovingOnGround())
 	{
@@ -1161,6 +1177,10 @@ void AGame3dCharacter::DoStopSprint()
 
 void AGame3dCharacter::Server_SetSprinting_Implementation(bool bNewSprinting)
 {
+	if (MotionLinesWidget)
+	{
+		MotionLinesWidget->SetVisibility(bNewSprinting?ESlateVisibility::Visible:ESlateVisibility::Hidden);
+	}
 	bIsSprinting = bNewSprinting;
 	// Aplica velocidad en el servidor
 	GetCharacterMovement()->MaxWalkSpeed = bIsSprinting ? SprintSpeed : WalkSpeed;
