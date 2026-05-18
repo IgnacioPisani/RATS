@@ -15,6 +15,7 @@
 #include "WidgetMedkit/UWMedkitHUD.h"
 #include "Game3dCharacter.generated.h"
 
+class UMotionLinesWidget;
 class UMissionWidget;
 class UMiniMapWidget;
 class ANpc;
@@ -215,6 +216,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
 	TSubclassOf<UMissionWidget> MissionWidgetClass;
 
+	UPROPERTY()
+	UMotionLinesWidget* MotionLinesWidget;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
+	TSubclassOf<UMotionLinesWidget> MotionLinesWidgetClass;
 
 	UPROPERTY()
 	UStaticMeshComponent* EquippedMesh = nullptr;
