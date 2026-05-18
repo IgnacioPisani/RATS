@@ -271,20 +271,6 @@ void AGame3dCharacter::DoMove(float Right, float Forward)
 	// ==========================
 	MoveLeftRightAxis = Right;
 	MoveUpDownAxis    = Forward;
-	if (GEngine)
-	{
-		GEngine->AddOnScreenDebugMessage(
-			1,                      // Key fija (se pisa cada frame)
-			0.f,                    // 0 = un frame
-			FColor::Green,
-			FString::Printf(
-				TEXT("Climb Input | LR: %.2f  UD: %.2f"),
-				MoveLeftRightAxis,
-				MoveUpDownAxis
-			)
-		);
-	}
-
 
 	// ==========================
 	// MODO ESCALAR
