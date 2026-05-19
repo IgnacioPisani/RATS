@@ -234,7 +234,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement")
 	float SprintSpeed = 800.f;
 
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement")
+	float DashSpeed = 1200.f;
+	
 	int32 MedkitCount = 0;
 
 	/** Combo Attack Input Action */
