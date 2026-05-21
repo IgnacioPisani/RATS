@@ -32,18 +32,6 @@ float ACharacterBase::TakeDamage(
 	{
 		HealthComponent->UpdateHealth(-DamageAmount);
 		TakeDamageEffects();
-
-		UE_LOG(LogTemp, Warning, TEXT("Danio"));
-
-		if (GEngine)
-		{
-			GEngine->AddOnScreenDebugMessage(
-				-1,
-				2.f,
-				FColor::Red,
-				FString::Printf(TEXT("Damage received: %f"), DamageAmount)
-			);
-		}
 	}
 
 	return DamageAmount;
