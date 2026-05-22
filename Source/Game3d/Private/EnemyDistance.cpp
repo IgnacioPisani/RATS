@@ -266,23 +266,42 @@ void AEnemyDistance::FaceTarget(float DeltaTime)
 void AEnemyDistance::TryFire()
 {
     if (FireCooldown > 0.f) return;
-    if (!ProjectileClass)
-    {
-        UE_LOG(LogTemp, Warning, TEXT("AEnemyDistance: ProjectileClass no asignado en BP."));
-        return;
-    }
+    if (!ProjectileClass) return;
     if (!TargetActor || !CanSeeTarget()) return;
+
+    // ── Reproducir montage de ataque ─────────────────────────────
+    if (AttackMontage)
+    {
+        UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+        if (AnimInstance)
+        {
+            AnimInstance->Montage_Play(AttackMontage);
+            UE_LOG(LogTemp, Warning, TEXT("Montage reproducido"));
+        }
+        else
+        {
+            UE_LOG(LogTemp, Warning, TEXT("AnimInstance es null"));
+        }
+    }
+    else
+    {
+        UE_LOG(LogTemp, Warning, TEXT("AttackMontage no asignado en BP"));
+    }
+    
+    // ... resto del código
+
+
+
 
     USkeletalMeshComponent* MeshComp = GetMesh();
     if (!MeshComp) return;
 
-    FVector   Origin   = MeshComp->DoesSocketExist(MuzzleSocketName)
-                            ? MeshComp->GetSocketLocation(MuzzleSocketName)
-                            : GetActorLocation();
+    FVector Origin = MeshComp->DoesSocketExist(MuzzleSocketName)
+                        ? MeshComp->GetSocketLocation(MuzzleSocketName)
+                        : GetActorLocation();
 
-    // Apuntar directamente al objetivo (con leve predicción)
-    FVector   TargetLoc = TargetActor->GetActorLocation();
-    FRotator  ShootRot  = (TargetLoc - Origin).Rotation();
+    FVector  TargetLoc = TargetActor->GetActorLocation();
+    FRotator ShootRot  = (TargetLoc - Origin).Rotation();
 
     SpawnProjectile(Origin, ShootRot);
     FireCooldown = FireRate;

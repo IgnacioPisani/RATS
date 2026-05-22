@@ -67,6 +67,8 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Flight")
     float FlySpeed = 600.f;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
+    TObjectPtr<UAnimMontage> AttackMontage;
     // ─────────────────────────────────────────
     //  Parámetros de combate
     // ─────────────────────────────────────────
