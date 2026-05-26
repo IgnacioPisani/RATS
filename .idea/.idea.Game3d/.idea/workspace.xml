@@ -14,12 +14,6 @@
   <component name="ChangeListManager">
     <list default="true" id="700cebab-63ab-47f1-8bec-c545c4c447ad" name="Changes" comment="Merge branch 'main' into MiniMapa&#10;&#10;# Conflicts:&#10;#&#9;.idea/.idea.Game3d/.idea/workspace.xml&#10;#&#9;Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Enemies/BP_EnemyDistance.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemies/BP_EnemyDistance.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Enemies/Render.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Enemies/SK_Render.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemies/SK_Render.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/C/ZZ/GNDRLZ466SPMG05KY08556.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/C/ZZ/GNDRLZ466SPMG05KY08556.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Private/EnemyDistance.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Private/EnemyDistance.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Public/EnemyDistance.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Public/EnemyDistance.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -391,6 +385,7 @@
       <workItem from="1779324918861" duration="204000" />
       <workItem from="1779325207050" duration="7973000" />
       <workItem from="1779478223072" duration="2371000" />
+      <workItem from="1779485867186" duration="972000" />
     </task>
     <servers />
   </component>
