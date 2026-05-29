@@ -15,6 +15,7 @@
 #include "WidgetMedkit/UWMedkitHUD.h"
 #include "Game3dCharacter.generated.h"
 
+class UNiagaraSystem;
 class UMotionLinesWidget;
 class UMissionWidget;
 class UMiniMapWidget;
@@ -514,7 +515,79 @@ public:
 	UFUNCTION()
 	void HandleMissionUpdated(const FString& NewMission);
 	
+// ============================================================
+//  AGREGA ESTO EN Game3dCharacter.h
+//  Dentro de la clase AGame3dCharacter
+// ============================================================
 
+// ── Includes nuevos (arriba del .h, junto a los demás) ──────
+// #include "Engine/HitResult.h"         // ya suele estar incluido
+// #include "GameFramework/ProjectileMovementComponent.h"  // en BP_Bullet
+
+// ============================================================
+//  SECCIÓN: DISPARO (Fire System)
+// ============================================================
+
+// ---------- Input ----------
+UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+TObjectPtr<UInputAction> FireAction;
+
+// ---------- Assets asignados en BP ----------
+/** Montage que se reproduce al disparar */
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|Fire")
+TObjectPtr<UAnimMontage> FireMontage;
+
+/** Sonido 2D al disparar */
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|Fire")
+TObjectPtr<USoundBase> FireSound;
+
+/** Sistema de partículas que se spawnea en el socket "gun" */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|Fire")
+	TObjectPtr<UNiagaraSystem> MuzzleParticle;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|Fire")
+	TObjectPtr<UNiagaraSystem> ImpactParticle;
+
+/** Clase del proyectil a spawnear */
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|Fire")
+TSubclassOf<AActor> BulletClass;
+
+
+/** Delay entre disparos (Do Once cooldown) */
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|Fire")
+float FireCooldown = 0.5f;
+
+// ---------- Estado interno ----------
+bool bCanFire = true;
+FTimerHandle FireCooldownTimer;
+
+// ---------- Funciones públicas ----------
+public:
+
+/** Llamado por el input IA_Fire */
+void Fire();
+
+// ---------- RPCs ----------
+protected:
+
+/** Cliente → Servidor: solicita el disparo */
+UFUNCTION(Server, Reliable)
+void Server_Fire(FVector TraceStart, FVector TraceEnd);
+void Server_Fire_Implementation(FVector TraceStart, FVector TraceEnd);
+
+/** Servidor → Todos: reproduce efectos visuales / audio */
+UFUNCTION(NetMulticast, Unreliable)
+void Multicast_FireFX(FVector MuzzleLocation, FVector ImpactPoint, bool bHit);
+void Multicast_FireFX_Implementation(FVector MuzzleLocation, FVector ImpactPoint, bool bHit);
+
+// ---------- Helpers privados ----------
+private:
+
+/** Construye el rayo desde el centro del viewport */
+void GetFireTraceVectors(FVector& OutStart, FVector& OutEnd) const;
+
+/** Lógica de daño + spawn proyectil — solo en servidor */
+void ProcessFireOnServer(const FVector& TraceStart, const FVector& TraceEnd);
 private:
 	UFUNCTION(NetMulticast, Reliable)
 	void Multicast_PlayRestingEnter();

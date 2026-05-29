@@ -22,10 +22,13 @@
 #include "MissionGameState.h"
 #include "MissionWidget.h"
 #include "MotionLinesWidget.h"
+#include "NiagaraFunctionLibrary.h"
 #include "Npc.h"
 #include "Kismet/GameplayStatics.h"
 #include "Net/UnrealNetwork.h"
 #include "GameFramework/PlayerState.h"
+#include "GameFramework/ProjectileMovementComponent.h"
+class UProjectileMovementComponent;
 class AMissionGameState;
 
 AGame3dCharacter::AGame3dCharacter()
@@ -206,7 +209,7 @@ EnhancedInputComponent->BindAction(
 		EnhancedInputComponent->BindAction(PickUpAction, ETriggerEvent::Started, this, &AGame3dCharacter::DoPickUp);
 		EnhancedInputComponent->BindAction(RunAction, ETriggerEvent::Started, this, &AGame3dCharacter::DoStartSprint);
 		EnhancedInputComponent->BindAction(RunAction, ETriggerEvent::Completed, this, &AGame3dCharacter::DoStopSprint);
-
+		EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Started,this, &AGame3dCharacter::Fire);
 		EnhancedInputComponent->BindAction(ComboAttackAction, ETriggerEvent::Started, this, &AGame3dCharacter::ComboAttackPressed);
 		EnhancedInputComponent->BindAction(UseMedkitAction, ETriggerEvent::Started, this, &AGame3dCharacter::DoUseMedkit);
 
@@ -1192,3 +1195,230 @@ void AGame3dCharacter::OnRep_IsSprinting()
 	// Se ejecuta en cada cliente cuando recibe el valor replicado
 	GetCharacterMovement()->MaxWalkSpeed = bIsSprinting ? SprintSpeed : WalkSpeed;
 }
+ 
+ void AGame3dCharacter::Fire()
+ {
+     // Respetar el mismo guard que el BP: Do Once (cooldown) + bIsAiming
+     if (!bCanFire || !bIsAiming) return;
+  
+     // Activar cooldown (simula el Do Once + Delay 0.5 del BP)
+     bCanFire = false;
+     GetWorldTimerManager().SetTimer(
+         FireCooldownTimer,
+         [this]() { bCanFire = true; },
+         FireCooldown,
+         false
+     );
+  
+     // Calcular el rayo desde el centro de la pantalla
+     FVector TraceStart, TraceEnd;
+     GetFireTraceVectors(TraceStart, TraceEnd);
+  
+     // Pedirle al servidor que procese el disparo
+     Server_Fire(TraceStart, TraceEnd);
+ }
+  
+  
+ // ------------------------------------------------------------
+ //  GetFireTraceVectors()
+ //  Replica el nodo "Deproject Screen to World" del BP:
+ //  toma el centro exacto del viewport y lo convierte a rayo 3D.
+ // ------------------------------------------------------------
+ void AGame3dCharacter::GetFireTraceVectors(FVector& OutStart, FVector& OutEnd) const
+ {
+     APlayerController* PC = Cast<APlayerController>(GetController());
+     if (!PC)
+     {
+         OutStart = GetActorLocation();
+         OutEnd   = GetActorLocation() + GetActorForwardVector() * 3000.f;
+         return;
+     }
+  
+     // Tamaño del viewport (equivale a "Get Viewport Size" del BP)
+     int32 ViewX, ViewY;
+     PC->GetViewportSize(ViewX, ViewY);
+  
+     // Centro exacto (equiv. a Make Int Vector2 / 2)
+     const FVector2D ScreenCenter(ViewX * 0.5f, ViewY * 0.5f);
+  
+     // Deproject (equiv. al nodo "Deproject Screen to World")
+     FVector WorldLocation, WorldDirection;
+     if (PC->DeprojectScreenPositionToWorld(
+             ScreenCenter.X, ScreenCenter.Y,
+             WorldLocation, WorldDirection))
+     {
+         OutStart = WorldLocation;
+         OutEnd   = WorldLocation + WorldDirection * 3000.f; // 3000 = distancia del BP
+     }
+     else
+     {
+         OutStart = GetActorLocation();
+         OutEnd   = GetActorLocation() + GetActorForwardVector() * 3000.f;
+     }
+ }
+  
+  
+ // ------------------------------------------------------------
+ //  Server_Fire_Implementation()
+ //  Corre SOLO en el servidor.
+ //  Replica: Line Trace → Spawn Bullet → Apply Damage → FX multicast
+ // ------------------------------------------------------------
+ void AGame3dCharacter::Server_Fire_Implementation(FVector TraceStart, FVector TraceEnd)
+ {
+     ProcessFireOnServer(TraceStart, TraceEnd);
+ }
+  
+  
+ void AGame3dCharacter::ProcessFireOnServer(const FVector& TraceStart, const FVector& TraceEnd)
+ {
+     // ── 1. Line Trace (equiv. "Line Trace By Channel" del BP) ──
+     FHitResult HitResult;
+     FCollisionQueryParams QueryParams;
+     QueryParams.AddIgnoredActor(this);
+  
+     const bool bHit = GetWorld()->LineTraceSingleByChannel(
+         HitResult,
+         TraceStart,
+         TraceEnd,
+         ECC_Visibility,   // "ProjectileTrace" en BP → Visibility es lo habitual
+         QueryParams
+     );
+  
+     const FVector ImpactPoint = bHit ? HitResult.ImpactPoint : TraceEnd;
+  
+     // ── 2. Spawn proyectil en la posición del personaje ─────────
+     if (BulletClass)
+     {
+         FActorSpawnParameters SpawnParams;
+         SpawnParams.Owner      = this;
+         SpawnParams.Instigator = GetInstigator();
+  
+         // Orientar la bala hacia el punto de impacto
+     	const FVector GunSocketLocation = GetMesh()->GetSocketLocation(TEXT("gun"));
+     	const FVector BulletDirection = (ImpactPoint - GunSocketLocation).GetSafeNormal();
+     	const FRotator BulletRotation = BulletDirection.Rotation();
+  
+         AActor* SpawnedBullet = GetWorld()->SpawnActor<AActor>(
+             BulletClass,
+             GetMesh()->GetSocketLocation(TEXT("gun")), // spawnear desde el cañón
+             BulletRotation,
+             SpawnParams
+         );
+  
+         // ── FIX: setear velocidad al ProjectileMovementComponent ──
+         // Sin esto el componente arranca con Velocity = 0 aunque tenga
+         // InitialSpeed configurado, porque SpawnActor no llama BeginPlay
+         // con la rotación correcta a tiempo en todos los casos.
+         if (SpawnedBullet)
+         {
+             if (UProjectileMovementComponent* ProjMove =
+                 SpawnedBullet->FindComponentByClass<UProjectileMovementComponent>())
+             {
+                 // Respetar la InitialSpeed definida en el BP del proyectil
+                 const float Speed = ProjMove->InitialSpeed > 0.f
+                     ? ProjMove->InitialSpeed
+                     : 3000.f; // fallback por si InitialSpeed es 0
+  
+                 ProjMove->Velocity = BulletDirection * Speed;
+  
+                 // Asegurarse de que el componente esté activo
+                 ProjMove->Activate();
+             }
+         }
+     }
+  
+     // ── 3. Apply Damage + Does Object Implement Interface ───────
+     if (bHit && HitResult.GetActor())
+     {
+         AActor* HitActor = HitResult.GetActor();
+  
+         // "Does Object Implement Interface → BP_DestroyTag" del BP
+         // Si el actor tiene la interfaz ICombatDamageable la usamos,
+         // si no, caemos al UGameplayStatics::ApplyDamage genérico.
+         ICombatDamageable* Damageable = Cast<ICombatDamageable>(HitActor);
+         if (Damageable)
+         {
+             // Daño escalado por distancia (variable DistanceDamage del BP)
+             const float Distance = FVector::Dist(GetActorLocation(), ImpactPoint);
+             const float ScaledDamage = DistanceDamage * FMath::Max(1.f, Distance / 100.f);
+  
+             Damageable->ApplyDamage(
+                 DistanceDamage,
+                 this,
+                 ImpactPoint,
+                 FVector::ZeroVector
+             );
+         }
+         else
+         {
+             // Fallback genérico (equivale al nodo "Apply Damage" final del BP)
+             UGameplayStatics::ApplyDamage(
+                 HitActor,
+                 DistanceDamage,
+                 GetController(),
+                 this,
+                 nullptr
+             );
+         }
+     }
+  
+     // ── 4. Notificar FX a todos los clientes ────────────────────
+     const FVector MuzzleLocation = GetMesh()->GetSocketLocation(TEXT("gun"));
+     Multicast_FireFX(MuzzleLocation, ImpactPoint, bHit);
+ }
+  
+  
+ // ------------------------------------------------------------
+ //  Multicast_FireFX_Implementation()
+ //  Corre en TODOS (servidor + clientes).
+ //  Reproduce: montaje, sonido, muzzle flash, partícula de impacto.
+ // ------------------------------------------------------------
+ void AGame3dCharacter::Multicast_FireFX_Implementation(
+     FVector MuzzleLocation, FVector ImpactPoint, bool bHit)
+ {
+     // ── Montage (equiv. "Play Montage" del BP con Fire_Montage) ──
+     if (FireMontage)
+     {
+         if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
+         {
+             AnimInstance->Montage_Play(FireMontage, 1.0f);
+         }
+     }
+  
+     // ── Sonido 2D (equiv. "Play Sound 2D" del BP) ────────────────
+     // Solo el cliente local reproduce el sonido 2D para no doblarlo
+     if (FireSound && IsLocallyControlled())
+     {
+         UGameplayStatics::PlaySound2D(this, FireSound);
+     }
+  
+     // ── Muzzle Flash en socket "gun" ─────────────────────────────
+     // Equiv. "Spawn Emitter Attached" con Attach Point Name = gun
+	// Muzzle flash — reemplaza el SpawnEmitterAttached:
+	if (MuzzleParticle)
+	{
+		UNiagaraFunctionLibrary::SpawnSystemAttached(
+			MuzzleParticle,
+			GetMesh(),
+			TEXT("gun"),
+			FVector::ZeroVector,
+			FRotator::ZeroRotator,
+			EAttachLocation::SnapToTargetIncludingScale,
+			true  // Auto Destroy
+		);
+	}
+
+	// Impacto — reemplaza el SpawnEmitterAtLocation:
+	if (bHit && ImpactParticle)
+	{
+		UNiagaraFunctionLibrary::SpawnSystemAtLocation(
+			GetWorld(),
+			ImpactParticle,
+			ImpactPoint,
+			FRotator::ZeroRotator,
+			FVector(1.0f),
+			true,  // Auto Destroy
+			true   // Auto Activate
+		);
+	}
+ }
