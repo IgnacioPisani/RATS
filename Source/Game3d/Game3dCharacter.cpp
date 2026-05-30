@@ -269,7 +269,149 @@ void AGame3dCharacter::Server_UseSpecialAbility_Implementation()
 
 void AGame3dCharacter::ExecuteSpecialAbility()
 {
-	// TODO: lógica de la habilidad acá
+    // Calcular cuántos ticks caben en la duración
+    SpecialAbilityTickCount = 0;
+    SpecialAbilityMaxTicks  = FMath::FloorToInt(
+        SpecialAbilityDuration / SpecialAbilityTickInterval);
+ 
+    // Timer de daño — se repite cada TickInterval
+    GetWorldTimerManager().SetTimer(
+        SpecialAbilityDamageTimer,
+        this,
+        &AGame3dCharacter::SpecialAbilityTick,
+        SpecialAbilityTickInterval,
+        true   // looping
+    );
+ 
+    // Timer de fin — para la duración total
+    GetWorldTimerManager().SetTimer(
+        SpecialAbilityEndTimer,
+        this,
+        &AGame3dCharacter::SpecialAbilityEnd,
+        SpecialAbilityDuration,
+        false
+    );
+#if WITH_EDITOR
+	DrawDebugSphere(
+		GetWorld(),
+		GetActorLocation(),
+		SpecialAbilityRadius,
+		32,           // segmentos
+		FColor::Cyan,
+		false,        // no persistente
+		SpecialAbilityDuration + 0.5f  // dura lo mismo que la habilidad
+	);
+#endif
+    // FX y animación a todos los clientes
+    Multicast_SpecialAbilityFX(GetActorLocation());
+}
+ 
+// ── SpecialAbilityTick — daño en área cada interval ─────────
+void AGame3dCharacter::SpecialAbilityTick()
+{
+    if (!HasAuthority()) return;
+ 
+    SpecialAbilityTickCount++;
+ 
+    const FVector Origin = GetActorLocation();
+ 
+    // Sweep de todos los pawns en el radio
+    TArray<FHitResult> HitResults;
+    FCollisionQueryParams QueryParams;
+    QueryParams.AddIgnoredActor(this);
+ 
+    GetWorld()->SweepMultiByObjectType(
+        HitResults,
+        Origin,
+        Origin,
+        FQuat::Identity,
+        FCollisionObjectQueryParams(ECC_Pawn),
+        FCollisionShape::MakeSphere(SpecialAbilityRadius),
+        QueryParams
+    );
+ 
+    for (const FHitResult& Hit : HitResults)
+    {
+        AActor* HitActor = Hit.GetActor();
+        if (!HitActor) continue;
+ 
+        // Knockback radial suave hacia afuera
+        const FVector Direction = (HitActor->GetActorLocation() - Origin).GetSafeNormal();
+    	const FVector Impulse = Direction * SpecialAbilityKnockbackForce 
+							  + FVector::UpVector * SpecialAbilityLaunchForce; 
+        ICombatDamageable* Damageable = Cast<ICombatDamageable>(HitActor);
+        if (Damageable)
+        {
+            Damageable->ApplyDamage(
+                SpecialAbilityDamagePerTick,
+                this,
+                Hit.ImpactPoint,
+                Impulse
+            );
+        }
+        else
+        {
+            UGameplayStatics::ApplyDamage(
+                HitActor,
+                SpecialAbilityDamagePerTick,
+                GetController(),
+                this,
+                nullptr
+            );
+        }
+    }
+}
+ 
+// ── SpecialAbilityEnd — limpiar timers y notificar clientes ──
+void AGame3dCharacter::SpecialAbilityEnd()
+{
+    if (!HasAuthority()) return;
+ 
+    GetWorldTimerManager().ClearTimer(SpecialAbilityDamageTimer);
+    GetWorldTimerManager().ClearTimer(SpecialAbilityEndTimer);
+ 
+    Multicast_SpecialAbilityEnd();
+}
+ 
+// ── Multicast FX — Niagara + sonido + montaje ────────────────
+void AGame3dCharacter::Multicast_SpecialAbilityFX_Implementation(FVector Location)
+{
+    // Niagara en el epicentro (el personaje)
+    if (SpecialAbilityFX)
+    {
+        UNiagaraFunctionLibrary::SpawnSystemAtLocation(
+            GetWorld(),
+            SpecialAbilityFX,
+            Location,
+            FRotator::ZeroRotator,
+            FVector(1.f),
+            true,  // Auto Destroy
+            true   // Auto Activate
+        );
+    }
+ 
+    // Sonido
+    if (SpecialAbilitySound)
+    {
+        UGameplayStatics::PlaySoundAtLocation(this, SpecialAbilitySound, Location);
+    }
+ 
+    // Montaje de la animación
+    if (SpecialAbilityMontage)
+    {
+        if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
+        {
+            AnimInstance->Montage_Play(SpecialAbilityMontage, 1.0f);
+        }
+    }
+}
+ 
+// ── Multicast End — podés parar partículas o hacer FX de fin ─
+void AGame3dCharacter::Multicast_SpecialAbilityEnd_Implementation()
+{
+    // Aquí podés parar el Niagara si es persistente,
+    // o spawnear un FX de "onda final", etc.
+    // Por ahora es un stub listo para expandir.
 }
 void AGame3dCharacter::Move(const FInputActionValue& Value)
 {

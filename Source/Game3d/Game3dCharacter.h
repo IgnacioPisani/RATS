@@ -627,11 +627,52 @@ private:
 	void OnAnyKeyPressed();
 
 	bool bIsExitingRest = false;
+
+	FTimerHandle SpecialAbilityDamageTimer;
+	FTimerHandle SpecialAbilityEndTimer;
+	int32        SpecialAbilityTickCount  = 0;
+	int32        SpecialAbilityMaxTicks   = 0;
+ 
+	void SpecialAbilityTick();   // se llama cada TickInterval
+	void SpecialAbilityEnd();    // se llama al terminar la duración
+ 
+	UFUNCTION(NetMulticast, Unreliable)
+	void Multicast_SpecialAbilityFX(FVector Location);
+	void Multicast_SpecialAbilityFX_Implementation(FVector Location);
+ 
+	UFUNCTION(NetMulticast, Unreliable)
+	void Multicast_SpecialAbilityEnd();
+	void Multicast_SpecialAbilityEnd_Implementation();
 public:
 	void UseSpecialAbility();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|SpecialAbility")
+	float SpecialAbilityKnockbackForce = 30000.f;  // fuerza horizontal
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|SpecialAbility")
+	float SpecialAbilityLaunchForce = 10000.f;     // fuerza vertical (hacia arriba)
 	UFUNCTION(Server, Reliable)
 	void Server_UseSpecialAbility();
 	void Server_UseSpecialAbility_Implementation();
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|SpecialAbility")
+	TObjectPtr<UNiagaraSystem> SpecialAbilityFX;
+ 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|SpecialAbility")
+	TObjectPtr<USoundBase> SpecialAbilitySound;
+ 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|SpecialAbility")
+	TObjectPtr<UAnimMontage> SpecialAbilityMontage;
+ 
+	// ── Configuración del área ───────────────────────────────────
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|SpecialAbility")
+	float SpecialAbilityRadius = 400.f;
+ 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|SpecialAbility")
+	float SpecialAbilityDamagePerTick = 15.f;   // daño cada tick (cada 0.5s → 4 ticks en 2s)
+ 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|SpecialAbility")
+	float SpecialAbilityDuration = 2.f;
+ 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|SpecialAbility")
+	float SpecialAbilityTickInterval = 0.5f;    // cada cuántos segundos hace daño
+ 
 };
