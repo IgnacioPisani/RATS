@@ -13,6 +13,7 @@
 #include "Public/HealthBar.h"
 #include "Interactable.h"  
 #include "Public/XpBar.h"
+#include "Public/SpecialAbilityHUD.h"
 #include "Public/MiniMapWidget.h"
 #include "Public/XpComponent.h"
 #include "Engine/DamageEvents.h"
@@ -111,6 +112,17 @@ void AGame3dCharacter::BeginPlay()
 			MissionWidget->AddToViewport();
 		}
 	}
+	 
+	if (SpecialAbilityHUDClass)
+	{
+		SpecialAbilityHUDInstance = CreateWidget<USpecialAbilityHUD>(GetWorld(), SpecialAbilityHUDClass);
+ 
+		if (SpecialAbilityHUDInstance)
+		{
+			SpecialAbilityHUDInstance->AddToViewport();
+			SpecialAbilityHUDInstance->SetOwnerCharacter(this);
+		}
+	}
 	AMissionGameState* GS =
 	GetWorld()->GetGameState<AMissionGameState>();
 
@@ -186,7 +198,9 @@ void AGame3dCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		// Jumping
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &ACharacter::Jump);
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
-
+		// En SetupPlayerInputComponent agregar:
+		EnhancedInputComponent->BindAction(SpecialAbilityAction, ETriggerEvent::Started,
+			this, &AGame3dCharacter::UseSpecialAbility);
 		// Moving
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AGame3dCharacter::Move);
 		EnhancedInputComponent->BindAction(
@@ -222,6 +236,41 @@ EnhancedInputComponent->BindAction(
 	}
 }
 
+void AGame3dCharacter::UseSpecialAbility()
+{
+	// Guards
+	if (!bCanUseSpecialAbility) return;
+	if (bIsInDialogue || bIsClimbing || bIsAttacking) return;
+
+	// Activar cooldown
+	bCanUseSpecialAbility = false;
+	GetWorldTimerManager().SetTimer(
+		SpecialAbilityCooldownTimer,
+		[this]() { bCanUseSpecialAbility = true; },
+		SpecialAbilityCooldown,
+		false
+	);
+
+	// TODO: implementar habilidad
+	if (HasAuthority())
+	{
+		ExecuteSpecialAbility();
+	}
+	else
+	{
+		Server_UseSpecialAbility();
+	}
+}
+
+void AGame3dCharacter::Server_UseSpecialAbility_Implementation()
+{
+	ExecuteSpecialAbility();
+}
+
+void AGame3dCharacter::ExecuteSpecialAbility()
+{
+	// TODO: lógica de la habilidad acá
+}
 void AGame3dCharacter::Move(const FInputActionValue& Value)
 {
 	// input is a Vector2D
@@ -549,6 +598,7 @@ void AGame3dCharacter::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty
 	DOREPLIFETIME(AGame3dCharacter, bIsClimbing);
 	DOREPLIFETIME(AGame3dCharacter, bIsDashing);
 	DOREPLIFETIME(AGame3dCharacter, bIsResting);
+	DOREPLIFETIME(AGame3dCharacter, bCanUseSpecialAbility);
 
 }
 
@@ -1195,7 +1245,11 @@ void AGame3dCharacter::OnRep_IsSprinting()
 	// Se ejecuta en cada cliente cuando recibe el valor replicado
 	GetCharacterMovement()->MaxWalkSpeed = bIsSprinting ? SprintSpeed : WalkSpeed;
 }
- 
+
+void AGame3dCharacter::OnRep_CanUseSpecialAbility()
+{
+}
+
  void AGame3dCharacter::Fire()
  {
      // Respetar el mismo guard que el BP: Do Once (cooldown) + bIsAiming

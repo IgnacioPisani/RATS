@@ -15,6 +15,7 @@
 #include "WidgetMedkit/UWMedkitHUD.h"
 #include "Game3dCharacter.generated.h"
 
+class USpecialAbilityHUD;
 class UNiagaraSystem;
 class UMotionLinesWidget;
 class UMissionWidget;
@@ -116,7 +117,7 @@ protected:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 protected:
-
+	void ExecuteSpecialAbility();
 	/** Called for movement input */
 	void Move(const FInputActionValue& Value);
 	void StopMove(const FInputActionValue& Value);
@@ -202,6 +203,12 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI")
 	UUWMedkitHUD* MedkitHUDInstance;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HUD")
+	TSubclassOf<USpecialAbilityHUD> SpecialAbilityHUDClass;
+ 
+	UPROPERTY()
+	USpecialAbilityHUD* SpecialAbilityHUDInstance;
+	
 	UPROPERTY()
 	UXpBar* XpWidget;
 
@@ -564,6 +571,27 @@ FTimerHandle FireCooldownTimer;
 // ---------- Funciones públicas ----------
 public:
 
+	// Input
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+	TObjectPtr<UInputAction> SpecialAbilityAction;
+
+	// Cooldown
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|SpecialAbility")
+	float SpecialAbilityCooldown = 15.f;
+
+	// Para el HUD
+	UFUNCTION(BlueprintCallable, Category = "Combat|SpecialAbility")
+	float GetSpecialAbilityCooldownRemaining() const
+	{
+		if (bCanUseSpecialAbility) return 0.f;
+		return GetWorldTimerManager().GetTimerRemaining(SpecialAbilityCooldownTimer);
+	}
+	UPROPERTY(ReplicatedUsing = OnRep_CanUseSpecialAbility)
+	bool bCanUseSpecialAbility = true;
+	UFUNCTION()
+	void OnRep_CanUseSpecialAbility();
+private:
+	FTimerHandle SpecialAbilityCooldownTimer;	
 /** Llamado por el input IA_Fire */
 void Fire();
 
@@ -599,4 +627,11 @@ private:
 	void OnAnyKeyPressed();
 
 	bool bIsExitingRest = false;
+public:
+	void UseSpecialAbility();
+
+	UFUNCTION(Server, Reliable)
+	void Server_UseSpecialAbility();
+	void Server_UseSpecialAbility_Implementation();
+
 };
