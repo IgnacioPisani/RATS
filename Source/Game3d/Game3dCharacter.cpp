@@ -482,8 +482,15 @@ void AGame3dCharacter::DoMove(float Right, float Forward)
 	// ==========================
 	if (bIsClimbing)
 	{
+		// Cliente mueve localmente para que se sienta responsivo
 		AddMovementInput(GetActorUpVector(), Forward);
 		AddMovementInput(GetActorRightVector(), Right);
+
+		// Servidor también necesita ejecutarlo
+		if (!HasAuthority())
+		{
+			Server_ClimbingMove(Right, Forward);
+		}
 		return;
 	}
 
@@ -742,6 +749,8 @@ void AGame3dCharacter::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty
 	DOREPLIFETIME(AGame3dCharacter, bIsDashing);
 	DOREPLIFETIME(AGame3dCharacter, bIsResting);
 	DOREPLIFETIME(AGame3dCharacter, bCanUseSpecialAbility);
+	DOREPLIFETIME(AGame3dCharacter, MoveLeftRightAxis);
+	DOREPLIFETIME(AGame3dCharacter, MoveUpDownAxis);
 
 }
 
@@ -870,6 +879,13 @@ void AGame3dCharacter::ComboAttackPressed()
 		DoComboAttackStart();
 	}
 }
+
+void AGame3dCharacter::Server_ClimbingMove_Implementation(float Right, float Forward)
+{
+	AddMovementInput(GetActorUpVector(), Forward);
+	AddMovementInput(GetActorRightVector(), Right);
+}
+
 void AGame3dCharacter::NotifyJumpApex()
 {
 	// Esto es obligatorio para no romper la lógica base del salto de Unreal
@@ -1661,68 +1677,82 @@ bool AGame3dCharacter::ClimbingLineTrace(FHitResult& OutHit)
 	return bHit;
 }
 
-void AGame3dCharacter::TryStartClimbing()
-{
-    UE_LOG(LogTemp, Warning, TEXT("[TryStartClimbing] bIsClimbing: %s"),
-        bIsClimbing ? TEXT("TRUE") : TEXT("FALSE"));
-
-    if (bIsClimbing)
-    {
-        UE_LOG(LogTemp, Warning, TEXT("[TryStartClimbing] Ya escalando → StopClimbing"));
-        StopClimbing();
-        return;
-    }
-
-    FHitResult HitResult;
-    bool bHit = ClimbingLineTrace(HitResult);
-
-    if (bHit)
-    {
-        UE_LOG(LogTemp, Warning, TEXT("[TryStartClimbing] Pared detectada → iniciando escalada"));
-
-        SetClimbing(true);
-
-        if (ClimbingIdleMontage)
-        {
-            if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
-            {
-                AnimInstance->Montage_Play(ClimbingIdleMontage, 1.0f);
-                UE_LOG(LogTemp, Warning, TEXT("[TryStartClimbing] Montage reproducido"));
-            }
-        }
-        else
-        {
-            UE_LOG(LogTemp, Warning, TEXT("[TryStartClimbing] ClimbingIdleMontage es NULL"));
-        }
-
-        GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Flying);
-        UE_LOG(LogTemp, Warning, TEXT("[TryStartClimbing] MovementMode → Flying"));
-
-        GetCharacterMovement()->bOrientRotationToMovement = false;
-
-        FRotator NewRot = UKismetMathLibrary::MakeRotFromX(HitResult.ImpactNormal);
-        NewRot.Yaw += 180.f;
-        UE_LOG(LogTemp, Warning, TEXT("[TryStartClimbing] Nueva rotación: %s"), *NewRot.ToString());
-
-        SetActorRotation(NewRot, ETeleportType::None);
-    }
-    else
-    {
-        UE_LOG(LogTemp, Warning, TEXT("[TryStartClimbing] Sin pared → Jump()"));
-        Jump();
-    }
-}
 
 
 void AGame3dCharacter::StopClimbing()
 {
-    UE_LOG(LogTemp, Warning, TEXT("[StopClimbing] Deteniendo escalada"));
+	if (HasAuthority())
+	{
+		StopClimbingOnServer();
+	}
+	else
+	{
+		Server_StopClimbing();
+	}
+}
 
-    GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Falling);
-    UE_LOG(LogTemp, Warning, TEXT("[StopClimbing] MovementMode → Falling"));
+void AGame3dCharacter::Server_StopClimbing_Implementation()
+{
+	StopClimbingOnServer();
+}
 
-    GetCharacterMovement()->bOrientRotationToMovement = true;
+void AGame3dCharacter::StopClimbingOnServer()
+{
+	bIsClimbing = false;
+	GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Falling);
+	GetCharacterMovement()->bOrientRotationToMovement = true;
+}
 
-    SetClimbing(false);
-    UE_LOG(LogTemp, Warning, TEXT("[StopClimbing] bIsClimbing → false"));
+void AGame3dCharacter::TryStartClimbing()
+{
+	if (bIsClimbing)
+	{
+		StopClimbing();
+		return;
+	}
+
+	FHitResult HitResult;
+	bool bHit = ClimbingLineTrace(HitResult);
+
+	if (bHit)
+	{
+		FRotator NewRot = UKismetMathLibrary::MakeRotFromX(HitResult.ImpactNormal);
+		NewRot.Yaw += 180.f;
+
+		if (HasAuthority())
+		{
+			StartClimbingOnServer(NewRot);
+		}
+		else
+		{
+			Server_StartClimbing(NewRot);
+		}
+	}
+	else
+	{
+		Jump();
+	}
+}
+
+void AGame3dCharacter::Server_StartClimbing_Implementation(FRotator WallRotation)
+{
+	StartClimbingOnServer(WallRotation);
+}
+
+void AGame3dCharacter::StartClimbingOnServer(FRotator WallRotation)
+{
+	bIsClimbing = true;
+	GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Flying);
+	GetCharacterMovement()->bOrientRotationToMovement = false;
+	SetActorRotation(WallRotation, ETeleportType::None);
+	Multicast_PlayClimbingMontage();
+}
+
+void AGame3dCharacter::Multicast_PlayClimbingMontage_Implementation()
+{
+	if (ClimbingIdleMontage)
+	{
+		if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
+			AnimInstance->Montage_Play(ClimbingIdleMontage, 1.0f);
+	}
 }

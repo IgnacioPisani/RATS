@@ -47,7 +47,9 @@ class AGame3dCharacter : public ACharacterBase, public ICombatAttacker, public I
 	UCameraComponent* FollowCamera;
 	
 protected:
-
+    UFUNCTION(Server, Reliable)
+    void Server_ClimbingMove(float Right, float Forward);
+	
 	/** Jump InputAction */
 	UPROPERTY(EditAnywhere, Category="Input")
 	UInputAction* JumpAction;
@@ -410,10 +412,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Fall Damage", meta = (ClampMin = "0.0", ClampMax = "1000.0", UIMin = "0.0", UIMax = "200.0"))
 	float MaxFallDamage = 100.f;
 
-	UPROPERTY(BlueprintReadOnly, Category = "Climb|Input")
+	UPROPERTY(Replicated, BlueprintReadOnly, Category = "Movement")
 	float MoveLeftRightAxis = 0.f;
 
-	UPROPERTY(BlueprintReadOnly, Category = "Climb|Input")
+	UPROPERTY(Replicated, BlueprintReadOnly, Category = "Movement")
 	float MoveUpDownAxis = 0.f;
 
 	UPROPERTY()
@@ -689,5 +691,19 @@ public:
 	void StopClimbing();
  
 	bool ClimbingLineTrace(FHitResult& OutHit);
+
+	// Server RPCs
+	UFUNCTION(Server, Reliable)
+	void Server_StartClimbing(FRotator WallRotation);
+
+	UFUNCTION(Server, Reliable)
+	void Server_StopClimbing();
+
+	UFUNCTION(NetMulticast, Reliable)
+	void Multicast_PlayClimbingMontage();
+
+	// Helpers
+	void StartClimbingOnServer(FRotator WallRotation);
+	void StopClimbingOnServer();
  
 };
