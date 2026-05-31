@@ -51,7 +51,9 @@ protected:
 	/** Jump InputAction */
 	UPROPERTY(EditAnywhere, Category="Input")
 	UInputAction* JumpAction;
-	
+
+	UPROPERTY(EditAnywhere, Category="Input")
+	UInputAction* ClimbAction;
 	// Sensor del punto más alto del salto
 	virtual void NotifyJumpApex() override;
 
@@ -674,5 +676,18 @@ public:
  
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|SpecialAbility")
 	float SpecialAbilityTickInterval = 0.5f;    // cada cuántos segundos hace daño
+	
+ 
+	UPROPERTY(EditDefaultsOnly, Category = "Climbing")
+	UAnimMontage* ClimbingIdleMontage;   // climbing_idle_3
+ 
+	// ---------- Funciones ----------
+ 
+	 void TryStartClimbing();
+ 
+	UFUNCTION(BlueprintCallable, Category = "Climbing")
+	void StopClimbing();
+ 
+	bool ClimbingLineTrace(FHitResult& OutHit);
  
 };

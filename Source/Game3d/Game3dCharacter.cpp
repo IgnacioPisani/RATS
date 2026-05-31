@@ -29,6 +29,7 @@
 #include "Net/UnrealNetwork.h"
 #include "GameFramework/PlayerState.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "Kismet/KismetMathLibrary.h"
 class UProjectileMovementComponent;
 class AMissionGameState;
 
@@ -197,7 +198,9 @@ void AGame3dCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		
 		// Jumping
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &ACharacter::Jump);
+
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
+		EnhancedInputComponent->BindAction(ClimbAction, ETriggerEvent::Triggered, this, &AGame3dCharacter::TryStartClimbing);
 		// En SetupPlayerInputComponent agregar:
 		EnhancedInputComponent->BindAction(SpecialAbilityAction, ETriggerEvent::Started,
 			this, &AGame3dCharacter::UseSpecialAbility);
@@ -1024,7 +1027,22 @@ void AGame3dCharacter::Tick(float DeltaTime)
 		CameraBoom->TargetArmLength = NewLength;
 	}
 	CheckInteractable();
+	if (bIsClimbing)
+	{
+		FHitResult HitResult;
+		bool bHit = ClimbingLineTrace(HitResult);
 
+		if (bHit)
+		{
+			FRotator NewRot = UKismetMathLibrary::MakeRotFromX(HitResult.ImpactNormal);
+			NewRot.Yaw += 180.f;
+			SetActorRotation(NewRot, ETeleportType::None);
+		}
+		else
+		{
+			StopClimbing();
+		}
+	}
 }
 
 void AGame3dCharacter::HandleCraftMedkit()
@@ -1616,3 +1634,95 @@ void AGame3dCharacter::OnRep_CanUseSpecialAbility()
 		);
 	}
  }
+
+
+bool AGame3dCharacter::ClimbingLineTrace(FHitResult& OutHit)
+{
+	FVector Start   = GetActorLocation();
+	FVector Forward = UKismetMathLibrary::GetForwardVector(GetActorRotation());
+	FVector End     = Start + (Forward * 100.f);
+
+	FCollisionQueryParams Params;
+	Params.AddIgnoredActor(this);
+
+	// Probá primero con Visibility para confirmar que la pared existe
+	bool bHit = GetWorld()->LineTraceSingleByChannel(
+		OutHit, Start, End,
+		ECC_GameTraceChannel3,   // ← temporal, para debuggear
+		Params
+	);
+
+	UE_LOG(LogTemp, Warning, TEXT("[CLT] Hit: %s | Actor: %s"),
+		bHit ? TEXT("SI") : TEXT("NO"),
+		*GetNameSafe(OutHit.GetActor()));
+
+	DrawDebugLine(GetWorld(), Start, End, bHit ? FColor::Green : FColor::Red, false, 2.f, 0, 2.f);
+
+	return bHit;
+}
+
+void AGame3dCharacter::TryStartClimbing()
+{
+    UE_LOG(LogTemp, Warning, TEXT("[TryStartClimbing] bIsClimbing: %s"),
+        bIsClimbing ? TEXT("TRUE") : TEXT("FALSE"));
+
+    if (bIsClimbing)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("[TryStartClimbing] Ya escalando → StopClimbing"));
+        StopClimbing();
+        return;
+    }
+
+    FHitResult HitResult;
+    bool bHit = ClimbingLineTrace(HitResult);
+
+    if (bHit)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("[TryStartClimbing] Pared detectada → iniciando escalada"));
+
+        SetClimbing(true);
+
+        if (ClimbingIdleMontage)
+        {
+            if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
+            {
+                AnimInstance->Montage_Play(ClimbingIdleMontage, 1.0f);
+                UE_LOG(LogTemp, Warning, TEXT("[TryStartClimbing] Montage reproducido"));
+            }
+        }
+        else
+        {
+            UE_LOG(LogTemp, Warning, TEXT("[TryStartClimbing] ClimbingIdleMontage es NULL"));
+        }
+
+        GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Flying);
+        UE_LOG(LogTemp, Warning, TEXT("[TryStartClimbing] MovementMode → Flying"));
+
+        GetCharacterMovement()->bOrientRotationToMovement = false;
+
+        FRotator NewRot = UKismetMathLibrary::MakeRotFromX(HitResult.ImpactNormal);
+        NewRot.Yaw += 180.f;
+        UE_LOG(LogTemp, Warning, TEXT("[TryStartClimbing] Nueva rotación: %s"), *NewRot.ToString());
+
+        SetActorRotation(NewRot, ETeleportType::None);
+    }
+    else
+    {
+        UE_LOG(LogTemp, Warning, TEXT("[TryStartClimbing] Sin pared → Jump()"));
+        Jump();
+    }
+}
+
+
+void AGame3dCharacter::StopClimbing()
+{
+    UE_LOG(LogTemp, Warning, TEXT("[StopClimbing] Deteniendo escalada"));
+
+    GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Falling);
+    UE_LOG(LogTemp, Warning, TEXT("[StopClimbing] MovementMode → Falling"));
+
+    GetCharacterMovement()->bOrientRotationToMovement = true;
+
+    SetClimbing(false);
+    UE_LOG(LogTemp, Warning, TEXT("[StopClimbing] bIsClimbing → false"));
+}
