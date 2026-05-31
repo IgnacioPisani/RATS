@@ -418,6 +418,9 @@ public:
 	UPROPERTY(Replicated, BlueprintReadOnly, Category = "Movement")
 	float MoveUpDownAxis = 0.f;
 
+	UFUNCTION(Server, Unreliable)
+	void Server_UpdateMoveAxis(float Right, float Forward);
+	
 	UPROPERTY()
 	AActor* CurrentInteractableActor = nullptr;
 	// ---- Funciones ----

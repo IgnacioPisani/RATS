@@ -477,6 +477,12 @@ void AGame3dCharacter::DoMove(float Right, float Forward)
 	MoveLeftRightAxis = Right;
 	MoveUpDownAxis    = Forward;
 
+	// Replicar ejes al servidor para que todos los clientes los vean
+	if (!HasAuthority())
+	{
+		Server_UpdateMoveAxis(Right, Forward);
+	}
+
 	// ==========================
 	// MODO ESCALAR
 	// ==========================
@@ -697,6 +703,12 @@ void AGame3dCharacter::Multicast_PlayDashFX_Implementation()
 		if (MontageLength > 0.0f)
 			AnimInstance->Montage_SetEndDelegate(OnDashMontageEnded, DashMontage);
 	}
+}
+
+void AGame3dCharacter::Server_UpdateMoveAxis_Implementation(float Right, float Forward)
+{
+	MoveLeftRightAxis = Right;
+	MoveUpDownAxis    = Forward;
 }
 
 void AGame3dCharacter::Landed(const FHitResult& Hit)
