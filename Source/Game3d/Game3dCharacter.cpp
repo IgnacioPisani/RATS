@@ -291,17 +291,7 @@ void AGame3dCharacter::ExecuteSpecialAbility()
         SpecialAbilityDuration,
         false
     );
-#if WITH_EDITOR
-	DrawDebugSphere(
-		GetWorld(),
-		GetActorLocation(),
-		SpecialAbilityRadius,
-		32,           // segmentos
-		FColor::Cyan,
-		false,        // no persistente
-		SpecialAbilityDuration + 0.5f  // dura lo mismo que la habilidad
-	);
-#endif
+
     // FX y animación a todos los clientes
     Multicast_SpecialAbilityFX(GetActorLocation());
 }
@@ -318,8 +308,16 @@ void AGame3dCharacter::SpecialAbilityTick()
     // Sweep de todos los pawns en el radio
     TArray<FHitResult> HitResults;
     FCollisionQueryParams QueryParams;
-    QueryParams.AddIgnoredActor(this);
- 
+	QueryParams.AddIgnoredActor(this);
+
+	// Ignorar a todos los otros jugadores
+	TArray<AActor*> AllCharacters;
+	UGameplayStatics::GetAllActorsOfClass(
+		GetWorld(),
+		AGame3dCharacter::StaticClass(),
+		AllCharacters
+	);
+	QueryParams.AddIgnoredActors(AllCharacters);
     GetWorld()->SweepMultiByObjectType(
         HitResults,
         Origin,
