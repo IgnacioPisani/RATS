@@ -13,6 +13,7 @@
 #include "Public/HealthBar.h"
 #include "Interactable.h"  
 #include "Public/XpBar.h"
+#include "Public/SpecialAbilityHUD.h"
 #include "Public/MiniMapWidget.h"
 #include "Public/XpComponent.h"
 #include "Engine/DamageEvents.h"
@@ -22,10 +23,14 @@
 #include "MissionGameState.h"
 #include "MissionWidget.h"
 #include "MotionLinesWidget.h"
+#include "NiagaraFunctionLibrary.h"
 #include "Npc.h"
 #include "Kismet/GameplayStatics.h"
 #include "Net/UnrealNetwork.h"
 #include "GameFramework/PlayerState.h"
+#include "GameFramework/ProjectileMovementComponent.h"
+#include "Kismet/KismetMathLibrary.h"
+class UProjectileMovementComponent;
 class AMissionGameState;
 
 AGame3dCharacter::AGame3dCharacter()
@@ -108,6 +113,17 @@ void AGame3dCharacter::BeginPlay()
 			MissionWidget->AddToViewport();
 		}
 	}
+	 
+	if (SpecialAbilityHUDClass)
+	{
+		SpecialAbilityHUDInstance = CreateWidget<USpecialAbilityHUD>(GetWorld(), SpecialAbilityHUDClass);
+ 
+		if (SpecialAbilityHUDInstance)
+		{
+			SpecialAbilityHUDInstance->AddToViewport();
+			SpecialAbilityHUDInstance->SetOwnerCharacter(this);
+		}
+	}
 	AMissionGameState* GS =
 	GetWorld()->GetGameState<AMissionGameState>();
 
@@ -182,8 +198,12 @@ void AGame3dCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		
 		// Jumping
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &ACharacter::Jump);
-		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
 
+		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
+		EnhancedInputComponent->BindAction(ClimbAction, ETriggerEvent::Triggered, this, &AGame3dCharacter::TryStartClimbing);
+		// En SetupPlayerInputComponent agregar:
+		EnhancedInputComponent->BindAction(SpecialAbilityAction, ETriggerEvent::Started,
+			this, &AGame3dCharacter::UseSpecialAbility);
 		// Moving
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AGame3dCharacter::Move);
 		EnhancedInputComponent->BindAction(
@@ -206,7 +226,7 @@ EnhancedInputComponent->BindAction(
 		EnhancedInputComponent->BindAction(PickUpAction, ETriggerEvent::Started, this, &AGame3dCharacter::DoPickUp);
 		EnhancedInputComponent->BindAction(RunAction, ETriggerEvent::Started, this, &AGame3dCharacter::DoStartSprint);
 		EnhancedInputComponent->BindAction(RunAction, ETriggerEvent::Completed, this, &AGame3dCharacter::DoStopSprint);
-
+		EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Started,this, &AGame3dCharacter::Fire);
 		EnhancedInputComponent->BindAction(ComboAttackAction, ETriggerEvent::Started, this, &AGame3dCharacter::ComboAttackPressed);
 		EnhancedInputComponent->BindAction(UseMedkitAction, ETriggerEvent::Started, this, &AGame3dCharacter::DoUseMedkit);
 
@@ -219,6 +239,181 @@ EnhancedInputComponent->BindAction(
 	}
 }
 
+void AGame3dCharacter::UseSpecialAbility()
+{
+	// Guards
+	if (!bCanUseSpecialAbility) return;
+	if (bIsInDialogue || bIsClimbing || bIsAttacking) return;
+
+	// Activar cooldown
+	bCanUseSpecialAbility = false;
+	GetWorldTimerManager().SetTimer(
+		SpecialAbilityCooldownTimer,
+		[this]() { bCanUseSpecialAbility = true; },
+		SpecialAbilityCooldown,
+		false
+	);
+
+	// TODO: implementar habilidad
+	if (HasAuthority())
+	{
+		ExecuteSpecialAbility();
+	}
+	else
+	{
+		Server_UseSpecialAbility();
+	}
+}
+
+void AGame3dCharacter::Server_UseSpecialAbility_Implementation()
+{
+	ExecuteSpecialAbility();
+}
+
+void AGame3dCharacter::ExecuteSpecialAbility()
+{
+    // Calcular cuántos ticks caben en la duración
+    SpecialAbilityTickCount = 0;
+    SpecialAbilityMaxTicks  = FMath::FloorToInt(
+        SpecialAbilityDuration / SpecialAbilityTickInterval);
+ 
+    // Timer de daño — se repite cada TickInterval
+    GetWorldTimerManager().SetTimer(
+        SpecialAbilityDamageTimer,
+        this,
+        &AGame3dCharacter::SpecialAbilityTick,
+        SpecialAbilityTickInterval,
+        true   // looping
+    );
+ 
+    // Timer de fin — para la duración total
+    GetWorldTimerManager().SetTimer(
+        SpecialAbilityEndTimer,
+        this,
+        &AGame3dCharacter::SpecialAbilityEnd,
+        SpecialAbilityDuration,
+        false
+    );
+
+    // FX y animación a todos los clientes
+    Multicast_SpecialAbilityFX(GetActorLocation());
+}
+ 
+// ── SpecialAbilityTick — daño en área cada interval ─────────
+void AGame3dCharacter::SpecialAbilityTick()
+{
+    if (!HasAuthority()) return;
+ 
+    SpecialAbilityTickCount++;
+ 
+    const FVector Origin = GetActorLocation();
+ 
+    // Sweep de todos los pawns en el radio
+    TArray<FHitResult> HitResults;
+    FCollisionQueryParams QueryParams;
+	QueryParams.AddIgnoredActor(this);
+
+	// Ignorar a todos los otros jugadores
+	TArray<AActor*> AllCharacters;
+	UGameplayStatics::GetAllActorsOfClass(
+		GetWorld(),
+		AGame3dCharacter::StaticClass(),
+		AllCharacters
+	);
+	QueryParams.AddIgnoredActors(AllCharacters);
+    GetWorld()->SweepMultiByObjectType(
+        HitResults,
+        Origin,
+        Origin,
+        FQuat::Identity,
+        FCollisionObjectQueryParams(ECC_Pawn),
+        FCollisionShape::MakeSphere(SpecialAbilityRadius),
+        QueryParams
+    );
+ 
+    for (const FHitResult& Hit : HitResults)
+    {
+        AActor* HitActor = Hit.GetActor();
+        if (!HitActor) continue;
+ 
+        // Knockback radial suave hacia afuera
+        const FVector Direction = (HitActor->GetActorLocation() - Origin).GetSafeNormal();
+    	const FVector Impulse = Direction * SpecialAbilityKnockbackForce 
+							  + FVector::UpVector * SpecialAbilityLaunchForce; 
+        ICombatDamageable* Damageable = Cast<ICombatDamageable>(HitActor);
+        if (Damageable)
+        {
+            Damageable->ApplyDamage(
+                SpecialAbilityDamagePerTick,
+                this,
+                Hit.ImpactPoint,
+                Impulse
+            );
+        }
+        else
+        {
+            UGameplayStatics::ApplyDamage(
+                HitActor,
+                SpecialAbilityDamagePerTick,
+                GetController(),
+                this,
+                nullptr
+            );
+        }
+    }
+}
+ 
+// ── SpecialAbilityEnd — limpiar timers y notificar clientes ──
+void AGame3dCharacter::SpecialAbilityEnd()
+{
+    if (!HasAuthority()) return;
+ 
+    GetWorldTimerManager().ClearTimer(SpecialAbilityDamageTimer);
+    GetWorldTimerManager().ClearTimer(SpecialAbilityEndTimer);
+ 
+    Multicast_SpecialAbilityEnd();
+}
+ 
+// ── Multicast FX — Niagara + sonido + montaje ────────────────
+void AGame3dCharacter::Multicast_SpecialAbilityFX_Implementation(FVector Location)
+{
+    // Niagara en el epicentro (el personaje)
+    if (SpecialAbilityFX)
+    {
+        UNiagaraFunctionLibrary::SpawnSystemAtLocation(
+            GetWorld(),
+            SpecialAbilityFX,
+            Location,
+            FRotator::ZeroRotator,
+            FVector(1.f),
+            true,  // Auto Destroy
+            true   // Auto Activate
+        );
+    }
+ 
+    // Sonido
+    if (SpecialAbilitySound)
+    {
+        UGameplayStatics::PlaySoundAtLocation(this, SpecialAbilitySound, Location);
+    }
+ 
+    // Montaje de la animación
+    if (SpecialAbilityMontage)
+    {
+        if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
+        {
+            AnimInstance->Montage_Play(SpecialAbilityMontage, 1.0f);
+        }
+    }
+}
+ 
+// ── Multicast End — podés parar partículas o hacer FX de fin ─
+void AGame3dCharacter::Multicast_SpecialAbilityEnd_Implementation()
+{
+    // Aquí podés parar el Niagara si es persistente,
+    // o spawnear un FX de "onda final", etc.
+    // Por ahora es un stub listo para expandir.
+}
 void AGame3dCharacter::Move(const FInputActionValue& Value)
 {
 	// input is a Vector2D
@@ -282,13 +477,26 @@ void AGame3dCharacter::DoMove(float Right, float Forward)
 	MoveLeftRightAxis = Right;
 	MoveUpDownAxis    = Forward;
 
+	// Replicar ejes al servidor para que todos los clientes los vean
+	if (!HasAuthority())
+	{
+		Server_UpdateMoveAxis(Right, Forward);
+	}
+
 	// ==========================
 	// MODO ESCALAR
 	// ==========================
 	if (bIsClimbing)
 	{
+		// Cliente mueve localmente para que se sienta responsivo
 		AddMovementInput(GetActorUpVector(), Forward);
 		AddMovementInput(GetActorRightVector(), Right);
+
+		// Servidor también necesita ejecutarlo
+		if (!HasAuthority())
+		{
+			Server_ClimbingMove(Right, Forward);
+		}
 		return;
 	}
 
@@ -497,6 +705,12 @@ void AGame3dCharacter::Multicast_PlayDashFX_Implementation()
 	}
 }
 
+void AGame3dCharacter::Server_UpdateMoveAxis_Implementation(float Right, float Forward)
+{
+	MoveLeftRightAxis = Right;
+	MoveUpDownAxis    = Forward;
+}
+
 void AGame3dCharacter::Landed(const FHitResult& Hit)
 {
     Super::Landed(Hit);
@@ -546,6 +760,9 @@ void AGame3dCharacter::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty
 	DOREPLIFETIME(AGame3dCharacter, bIsClimbing);
 	DOREPLIFETIME(AGame3dCharacter, bIsDashing);
 	DOREPLIFETIME(AGame3dCharacter, bIsResting);
+	DOREPLIFETIME(AGame3dCharacter, bCanUseSpecialAbility);
+	DOREPLIFETIME(AGame3dCharacter, MoveLeftRightAxis);
+	DOREPLIFETIME(AGame3dCharacter, MoveUpDownAxis);
 
 }
 
@@ -674,6 +891,13 @@ void AGame3dCharacter::ComboAttackPressed()
 		DoComboAttackStart();
 	}
 }
+
+void AGame3dCharacter::Server_ClimbingMove_Implementation(float Right, float Forward)
+{
+	AddMovementInput(GetActorUpVector(), Forward);
+	AddMovementInput(GetActorRightVector(), Right);
+}
+
 void AGame3dCharacter::NotifyJumpApex()
 {
 	// Esto es obligatorio para no romper la lógica base del salto de Unreal
@@ -831,7 +1055,22 @@ void AGame3dCharacter::Tick(float DeltaTime)
 		CameraBoom->TargetArmLength = NewLength;
 	}
 	CheckInteractable();
+	if (bIsClimbing)
+	{
+		FHitResult HitResult;
+		bool bHit = ClimbingLineTrace(HitResult);
 
+		if (bHit)
+		{
+			FRotator NewRot = UKismetMathLibrary::MakeRotFromX(HitResult.ImpactNormal);
+			NewRot.Yaw += 180.f;
+			SetActorRotation(NewRot, ETeleportType::None);
+		}
+		else
+		{
+			StopClimbing();
+		}
+	}
 }
 
 void AGame3dCharacter::HandleCraftMedkit()
@@ -1191,4 +1430,341 @@ void AGame3dCharacter::OnRep_IsSprinting()
 {
 	// Se ejecuta en cada cliente cuando recibe el valor replicado
 	GetCharacterMovement()->MaxWalkSpeed = bIsSprinting ? SprintSpeed : WalkSpeed;
+}
+
+void AGame3dCharacter::OnRep_CanUseSpecialAbility()
+{
+}
+
+ void AGame3dCharacter::Fire()
+ {
+     // Respetar el mismo guard que el BP: Do Once (cooldown) + bIsAiming
+     if (!bCanFire || !bIsAiming) return;
+  
+     // Activar cooldown (simula el Do Once + Delay 0.5 del BP)
+     bCanFire = false;
+     GetWorldTimerManager().SetTimer(
+         FireCooldownTimer,
+         [this]() { bCanFire = true; },
+         FireCooldown,
+         false
+     );
+  
+     // Calcular el rayo desde el centro de la pantalla
+     FVector TraceStart, TraceEnd;
+     GetFireTraceVectors(TraceStart, TraceEnd);
+  
+     // Pedirle al servidor que procese el disparo
+     Server_Fire(TraceStart, TraceEnd);
+ }
+  
+  
+ // ------------------------------------------------------------
+ //  GetFireTraceVectors()
+ //  Replica el nodo "Deproject Screen to World" del BP:
+ //  toma el centro exacto del viewport y lo convierte a rayo 3D.
+ // ------------------------------------------------------------
+ void AGame3dCharacter::GetFireTraceVectors(FVector& OutStart, FVector& OutEnd) const
+ {
+     APlayerController* PC = Cast<APlayerController>(GetController());
+     if (!PC)
+     {
+         OutStart = GetActorLocation();
+         OutEnd   = GetActorLocation() + GetActorForwardVector() * 3000.f;
+         return;
+     }
+  
+     // Tamaño del viewport (equivale a "Get Viewport Size" del BP)
+     int32 ViewX, ViewY;
+     PC->GetViewportSize(ViewX, ViewY);
+  
+     // Centro exacto (equiv. a Make Int Vector2 / 2)
+     const FVector2D ScreenCenter(ViewX * 0.5f, ViewY * 0.5f);
+  
+     // Deproject (equiv. al nodo "Deproject Screen to World")
+     FVector WorldLocation, WorldDirection;
+     if (PC->DeprojectScreenPositionToWorld(
+             ScreenCenter.X, ScreenCenter.Y,
+             WorldLocation, WorldDirection))
+     {
+         OutStart = WorldLocation;
+         OutEnd   = WorldLocation + WorldDirection * 3000.f; // 3000 = distancia del BP
+     }
+     else
+     {
+         OutStart = GetActorLocation();
+         OutEnd   = GetActorLocation() + GetActorForwardVector() * 3000.f;
+     }
+ }
+  
+  
+ // ------------------------------------------------------------
+ //  Server_Fire_Implementation()
+ //  Corre SOLO en el servidor.
+ //  Replica: Line Trace → Spawn Bullet → Apply Damage → FX multicast
+ // ------------------------------------------------------------
+ void AGame3dCharacter::Server_Fire_Implementation(FVector TraceStart, FVector TraceEnd)
+ {
+     ProcessFireOnServer(TraceStart, TraceEnd);
+ }
+  
+  
+ void AGame3dCharacter::ProcessFireOnServer(const FVector& TraceStart, const FVector& TraceEnd)
+ {
+     // ── 1. Line Trace (equiv. "Line Trace By Channel" del BP) ──
+     FHitResult HitResult;
+     FCollisionQueryParams QueryParams;
+     QueryParams.AddIgnoredActor(this);
+  
+     const bool bHit = GetWorld()->LineTraceSingleByChannel(
+         HitResult,
+         TraceStart,
+         TraceEnd,
+         ECC_Visibility,   // "ProjectileTrace" en BP → Visibility es lo habitual
+         QueryParams
+     );
+  
+     const FVector ImpactPoint = bHit ? HitResult.ImpactPoint : TraceEnd;
+  
+     // ── 2. Spawn proyectil en la posición del personaje ─────────
+     if (BulletClass)
+     {
+         FActorSpawnParameters SpawnParams;
+         SpawnParams.Owner      = this;
+         SpawnParams.Instigator = GetInstigator();
+  
+         // Orientar la bala hacia el punto de impacto
+     	const FVector GunSocketLocation = GetMesh()->GetSocketLocation(TEXT("gun"));
+     	const FVector BulletDirection = (ImpactPoint - GunSocketLocation).GetSafeNormal();
+     	const FRotator BulletRotation = BulletDirection.Rotation();
+  
+         AActor* SpawnedBullet = GetWorld()->SpawnActor<AActor>(
+             BulletClass,
+             GetMesh()->GetSocketLocation(TEXT("gun")), // spawnear desde el cañón
+             BulletRotation,
+             SpawnParams
+         );
+  
+         // ── FIX: setear velocidad al ProjectileMovementComponent ──
+         // Sin esto el componente arranca con Velocity = 0 aunque tenga
+         // InitialSpeed configurado, porque SpawnActor no llama BeginPlay
+         // con la rotación correcta a tiempo en todos los casos.
+         if (SpawnedBullet)
+         {
+             if (UProjectileMovementComponent* ProjMove =
+                 SpawnedBullet->FindComponentByClass<UProjectileMovementComponent>())
+             {
+                 // Respetar la InitialSpeed definida en el BP del proyectil
+                 const float Speed = ProjMove->InitialSpeed > 0.f
+                     ? ProjMove->InitialSpeed
+                     : 3000.f; // fallback por si InitialSpeed es 0
+  
+                 ProjMove->Velocity = BulletDirection * Speed;
+  
+                 // Asegurarse de que el componente esté activo
+                 ProjMove->Activate();
+             }
+         }
+     }
+  
+     // ── 3. Apply Damage + Does Object Implement Interface ───────
+     if (bHit && HitResult.GetActor())
+     {
+         AActor* HitActor = HitResult.GetActor();
+  
+         // "Does Object Implement Interface → BP_DestroyTag" del BP
+         // Si el actor tiene la interfaz ICombatDamageable la usamos,
+         // si no, caemos al UGameplayStatics::ApplyDamage genérico.
+         ICombatDamageable* Damageable = Cast<ICombatDamageable>(HitActor);
+         if (Damageable)
+         {
+             // Daño escalado por distancia (variable DistanceDamage del BP)
+             const float Distance = FVector::Dist(GetActorLocation(), ImpactPoint);
+             const float ScaledDamage = DistanceDamage * FMath::Max(1.f, Distance / 100.f);
+  
+             Damageable->ApplyDamage(
+                 DistanceDamage,
+                 this,
+                 ImpactPoint,
+                 FVector::ZeroVector
+             );
+         }
+         else
+         {
+             // Fallback genérico (equivale al nodo "Apply Damage" final del BP)
+             UGameplayStatics::ApplyDamage(
+                 HitActor,
+                 DistanceDamage,
+                 GetController(),
+                 this,
+                 nullptr
+             );
+         }
+     }
+  
+     // ── 4. Notificar FX a todos los clientes ────────────────────
+     const FVector MuzzleLocation = GetMesh()->GetSocketLocation(TEXT("gun"));
+     Multicast_FireFX(MuzzleLocation, ImpactPoint, bHit);
+ }
+  
+  
+ // ------------------------------------------------------------
+ //  Multicast_FireFX_Implementation()
+ //  Corre en TODOS (servidor + clientes).
+ //  Reproduce: montaje, sonido, muzzle flash, partícula de impacto.
+ // ------------------------------------------------------------
+ void AGame3dCharacter::Multicast_FireFX_Implementation(
+     FVector MuzzleLocation, FVector ImpactPoint, bool bHit)
+ {
+     // ── Montage (equiv. "Play Montage" del BP con Fire_Montage) ──
+     if (FireMontage)
+     {
+         if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
+         {
+             AnimInstance->Montage_Play(FireMontage, 1.0f);
+         }
+     }
+  
+     // ── Sonido 2D (equiv. "Play Sound 2D" del BP) ────────────────
+     // Solo el cliente local reproduce el sonido 2D para no doblarlo
+     if (FireSound && IsLocallyControlled())
+     {
+         UGameplayStatics::PlaySound2D(this, FireSound);
+     }
+  
+     // ── Muzzle Flash en socket "gun" ─────────────────────────────
+     // Equiv. "Spawn Emitter Attached" con Attach Point Name = gun
+	// Muzzle flash — reemplaza el SpawnEmitterAttached:
+	if (MuzzleParticle)
+	{
+		UNiagaraFunctionLibrary::SpawnSystemAttached(
+			MuzzleParticle,
+			GetMesh(),
+			TEXT("gun"),
+			FVector::ZeroVector,
+			FRotator::ZeroRotator,
+			EAttachLocation::SnapToTargetIncludingScale,
+			true  // Auto Destroy
+		);
+	}
+
+	// Impacto — reemplaza el SpawnEmitterAtLocation:
+	if (bHit && ImpactParticle)
+	{
+		UNiagaraFunctionLibrary::SpawnSystemAtLocation(
+			GetWorld(),
+			ImpactParticle,
+			ImpactPoint,
+			FRotator::ZeroRotator,
+			FVector(1.0f),
+			true,  // Auto Destroy
+			true   // Auto Activate
+		);
+	}
+ }
+
+
+bool AGame3dCharacter::ClimbingLineTrace(FHitResult& OutHit)
+{
+	FVector Start   = GetActorLocation();
+	FVector Forward = UKismetMathLibrary::GetForwardVector(GetActorRotation());
+	FVector End     = Start + (Forward * 100.f);
+
+	FCollisionQueryParams Params;
+	Params.AddIgnoredActor(this);
+
+	// Probá primero con Visibility para confirmar que la pared existe
+	bool bHit = GetWorld()->LineTraceSingleByChannel(
+		OutHit, Start, End,
+		ECC_GameTraceChannel3,   // ← temporal, para debuggear
+		Params
+	);
+
+	UE_LOG(LogTemp, Warning, TEXT("[CLT] Hit: %s | Actor: %s"),
+		bHit ? TEXT("SI") : TEXT("NO"),
+		*GetNameSafe(OutHit.GetActor()));
+
+	DrawDebugLine(GetWorld(), Start, End, bHit ? FColor::Green : FColor::Red, false, 2.f, 0, 2.f);
+
+	return bHit;
+}
+
+
+
+void AGame3dCharacter::StopClimbing()
+{
+	if (HasAuthority())
+	{
+		StopClimbingOnServer();
+	}
+	else
+	{
+		Server_StopClimbing();
+	}
+}
+
+void AGame3dCharacter::Server_StopClimbing_Implementation()
+{
+	StopClimbingOnServer();
+}
+
+void AGame3dCharacter::StopClimbingOnServer()
+{
+	bIsClimbing = false;
+	GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Falling);
+	GetCharacterMovement()->bOrientRotationToMovement = true;
+}
+
+void AGame3dCharacter::TryStartClimbing()
+{
+	if (bIsClimbing)
+	{
+		StopClimbing();
+		return;
+	}
+
+	FHitResult HitResult;
+	bool bHit = ClimbingLineTrace(HitResult);
+
+	if (bHit)
+	{
+		FRotator NewRot = UKismetMathLibrary::MakeRotFromX(HitResult.ImpactNormal);
+		NewRot.Yaw += 180.f;
+
+		if (HasAuthority())
+		{
+			StartClimbingOnServer(NewRot);
+		}
+		else
+		{
+			Server_StartClimbing(NewRot);
+		}
+	}
+	else
+	{
+		Jump();
+	}
+}
+
+void AGame3dCharacter::Server_StartClimbing_Implementation(FRotator WallRotation)
+{
+	StartClimbingOnServer(WallRotation);
+}
+
+void AGame3dCharacter::StartClimbingOnServer(FRotator WallRotation)
+{
+	bIsClimbing = true;
+	GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Flying);
+	GetCharacterMovement()->bOrientRotationToMovement = false;
+	SetActorRotation(WallRotation, ETeleportType::None);
+	Multicast_PlayClimbingMontage();
+}
+
+void AGame3dCharacter::Multicast_PlayClimbingMontage_Implementation()
+{
+	if (ClimbingIdleMontage)
+	{
+		if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
+			AnimInstance->Montage_Play(ClimbingIdleMontage, 1.0f);
+	}
 }

@@ -15,6 +15,8 @@
 #include "WidgetMedkit/UWMedkitHUD.h"
 #include "Game3dCharacter.generated.h"
 
+class USpecialAbilityHUD;
+class UNiagaraSystem;
 class UMotionLinesWidget;
 class UMissionWidget;
 class UMiniMapWidget;
@@ -45,11 +47,15 @@ class AGame3dCharacter : public ACharacterBase, public ICombatAttacker, public I
 	UCameraComponent* FollowCamera;
 	
 protected:
-
+    UFUNCTION(Server, Reliable)
+    void Server_ClimbingMove(float Right, float Forward);
+	
 	/** Jump InputAction */
 	UPROPERTY(EditAnywhere, Category="Input")
 	UInputAction* JumpAction;
-	
+
+	UPROPERTY(EditAnywhere, Category="Input")
+	UInputAction* ClimbAction;
 	// Sensor del punto más alto del salto
 	virtual void NotifyJumpApex() override;
 
@@ -115,7 +121,7 @@ protected:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 protected:
-
+	void ExecuteSpecialAbility();
 	/** Called for movement input */
 	void Move(const FInputActionValue& Value);
 	void StopMove(const FInputActionValue& Value);
@@ -201,6 +207,12 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI")
 	UUWMedkitHUD* MedkitHUDInstance;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HUD")
+	TSubclassOf<USpecialAbilityHUD> SpecialAbilityHUDClass;
+ 
+	UPROPERTY()
+	USpecialAbilityHUD* SpecialAbilityHUDInstance;
+	
 	UPROPERTY()
 	UXpBar* XpWidget;
 
@@ -400,12 +412,15 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Fall Damage", meta = (ClampMin = "0.0", ClampMax = "1000.0", UIMin = "0.0", UIMax = "200.0"))
 	float MaxFallDamage = 100.f;
 
-	UPROPERTY(BlueprintReadOnly, Category = "Climb|Input")
+	UPROPERTY(Replicated, BlueprintReadOnly, Category = "Movement")
 	float MoveLeftRightAxis = 0.f;
 
-	UPROPERTY(BlueprintReadOnly, Category = "Climb|Input")
+	UPROPERTY(Replicated, BlueprintReadOnly, Category = "Movement")
 	float MoveUpDownAxis = 0.f;
 
+	UFUNCTION(Server, Unreliable)
+	void Server_UpdateMoveAxis(float Right, float Forward);
+	
 	UPROPERTY()
 	AActor* CurrentInteractableActor = nullptr;
 	// ---- Funciones ----
@@ -514,7 +529,100 @@ public:
 	UFUNCTION()
 	void HandleMissionUpdated(const FString& NewMission);
 	
+// ============================================================
+//  AGREGA ESTO EN Game3dCharacter.h
+//  Dentro de la clase AGame3dCharacter
+// ============================================================
 
+// ── Includes nuevos (arriba del .h, junto a los demás) ──────
+// #include "Engine/HitResult.h"         // ya suele estar incluido
+// #include "GameFramework/ProjectileMovementComponent.h"  // en BP_Bullet
+
+// ============================================================
+//  SECCIÓN: DISPARO (Fire System)
+// ============================================================
+
+// ---------- Input ----------
+UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+TObjectPtr<UInputAction> FireAction;
+
+// ---------- Assets asignados en BP ----------
+/** Montage que se reproduce al disparar */
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|Fire")
+TObjectPtr<UAnimMontage> FireMontage;
+
+/** Sonido 2D al disparar */
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|Fire")
+TObjectPtr<USoundBase> FireSound;
+
+/** Sistema de partículas que se spawnea en el socket "gun" */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|Fire")
+	TObjectPtr<UNiagaraSystem> MuzzleParticle;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|Fire")
+	TObjectPtr<UNiagaraSystem> ImpactParticle;
+
+/** Clase del proyectil a spawnear */
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|Fire")
+TSubclassOf<AActor> BulletClass;
+
+
+/** Delay entre disparos (Do Once cooldown) */
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|Fire")
+float FireCooldown = 0.5f;
+
+// ---------- Estado interno ----------
+bool bCanFire = true;
+FTimerHandle FireCooldownTimer;
+
+// ---------- Funciones públicas ----------
+public:
+
+	// Input
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+	TObjectPtr<UInputAction> SpecialAbilityAction;
+
+	// Cooldown
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|SpecialAbility")
+	float SpecialAbilityCooldown = 15.f;
+
+	// Para el HUD
+	UFUNCTION(BlueprintCallable, Category = "Combat|SpecialAbility")
+	float GetSpecialAbilityCooldownRemaining() const
+	{
+		if (bCanUseSpecialAbility) return 0.f;
+		return GetWorldTimerManager().GetTimerRemaining(SpecialAbilityCooldownTimer);
+	}
+	UPROPERTY(ReplicatedUsing = OnRep_CanUseSpecialAbility)
+	bool bCanUseSpecialAbility = true;
+	UFUNCTION()
+	void OnRep_CanUseSpecialAbility();
+private:
+	FTimerHandle SpecialAbilityCooldownTimer;	
+/** Llamado por el input IA_Fire */
+void Fire();
+
+// ---------- RPCs ----------
+protected:
+
+/** Cliente → Servidor: solicita el disparo */
+UFUNCTION(Server, Reliable)
+void Server_Fire(FVector TraceStart, FVector TraceEnd);
+void Server_Fire_Implementation(FVector TraceStart, FVector TraceEnd);
+
+/** Servidor → Todos: reproduce efectos visuales / audio */
+UFUNCTION(NetMulticast, Unreliable)
+void Multicast_FireFX(FVector MuzzleLocation, FVector ImpactPoint, bool bHit);
+void Multicast_FireFX_Implementation(FVector MuzzleLocation, FVector ImpactPoint, bool bHit);
+
+// ---------- Helpers privados ----------
+private:
+
+/** Construye el rayo desde el centro del viewport */
+void GetFireTraceVectors(FVector& OutStart, FVector& OutEnd) const;
+
+/** Lógica de daño + spawn proyectil — solo en servidor */
+void ProcessFireOnServer(const FVector& TraceStart, const FVector& TraceEnd);
 private:
 	UFUNCTION(NetMulticast, Reliable)
 	void Multicast_PlayRestingEnter();
@@ -526,4 +634,79 @@ private:
 	void OnAnyKeyPressed();
 
 	bool bIsExitingRest = false;
+
+	FTimerHandle SpecialAbilityDamageTimer;
+	FTimerHandle SpecialAbilityEndTimer;
+	int32        SpecialAbilityTickCount  = 0;
+	int32        SpecialAbilityMaxTicks   = 0;
+ 
+	void SpecialAbilityTick();   // se llama cada TickInterval
+	void SpecialAbilityEnd();    // se llama al terminar la duración
+ 
+	UFUNCTION(NetMulticast, Unreliable)
+	void Multicast_SpecialAbilityFX(FVector Location);
+	void Multicast_SpecialAbilityFX_Implementation(FVector Location);
+ 
+	UFUNCTION(NetMulticast, Unreliable)
+	void Multicast_SpecialAbilityEnd();
+	void Multicast_SpecialAbilityEnd_Implementation();
+public:
+	void UseSpecialAbility();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|SpecialAbility")
+	float SpecialAbilityKnockbackForce = 30000.f;  // fuerza horizontal
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|SpecialAbility")
+	float SpecialAbilityLaunchForce = 10000.f;     // fuerza vertical (hacia arriba)
+	UFUNCTION(Server, Reliable)
+	void Server_UseSpecialAbility();
+	void Server_UseSpecialAbility_Implementation();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|SpecialAbility")
+	TObjectPtr<UNiagaraSystem> SpecialAbilityFX;
+ 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|SpecialAbility")
+	TObjectPtr<USoundBase> SpecialAbilitySound;
+ 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|SpecialAbility")
+	TObjectPtr<UAnimMontage> SpecialAbilityMontage;
+ 
+	// ── Configuración del área ───────────────────────────────────
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|SpecialAbility")
+	float SpecialAbilityRadius = 400.f;
+ 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|SpecialAbility")
+	float SpecialAbilityDamagePerTick = 15.f;   // daño cada tick (cada 0.5s → 4 ticks en 2s)
+ 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|SpecialAbility")
+	float SpecialAbilityDuration = 2.f;
+ 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|SpecialAbility")
+	float SpecialAbilityTickInterval = 0.5f;    // cada cuántos segundos hace daño
+	
+ 
+	UPROPERTY(EditDefaultsOnly, Category = "Climbing")
+	UAnimMontage* ClimbingIdleMontage;   // climbing_idle_3
+ 
+	// ---------- Funciones ----------
+ 
+	 void TryStartClimbing();
+ 
+	UFUNCTION(BlueprintCallable, Category = "Climbing")
+	void StopClimbing();
+ 
+	bool ClimbingLineTrace(FHitResult& OutHit);
+
+	// Server RPCs
+	UFUNCTION(Server, Reliable)
+	void Server_StartClimbing(FRotator WallRotation);
+
+	UFUNCTION(Server, Reliable)
+	void Server_StopClimbing();
+
+	UFUNCTION(NetMulticast, Reliable)
+	void Multicast_PlayClimbingMontage();
+
+	// Helpers
+	void StartClimbingOnServer(FRotator WallRotation);
+	void StopClimbingOnServer();
+ 
 };
