@@ -55,6 +55,8 @@ void AMissionTrigger::NotifyActorBeginOverlap(AActor* OtherActor)
 		return;
 	}
 	
+	XPComp->IncreaseXp(Xp);
+	
 	bHasTriggered = true;
 
 

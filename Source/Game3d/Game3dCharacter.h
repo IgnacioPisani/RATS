@@ -474,6 +474,10 @@ public:
 	UPROPERTY(ReplicatedUsing = OnRep_IsSprinting)
 	bool bIsSprinting = false;
 
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Fall Damage", meta = (ClampMin = "0.0", ClampMax = "1000.0", UIMin = "0.0", UIMax = "200.0"))
+	bool bIsJumpingLaunchpad = false;
+
 	UFUNCTION()
 	void OnRep_IsSprinting();
 

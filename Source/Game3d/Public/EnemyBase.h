@@ -40,7 +40,14 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	
+	// EnemyBase.h
 
+	UPROPERTY()
+	AActor* LastDamageCauser;
+
+	UPROPERTY(EditAnywhere, Category = "XP")
+	float XpReward = 100.f;
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 

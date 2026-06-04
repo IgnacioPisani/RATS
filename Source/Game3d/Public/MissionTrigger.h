@@ -25,6 +25,9 @@ public:
 
 	// BP_MissionTrigger.h
 	virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;
+	
+	UPROPERTY(EditAnywhere, Category = "Mission")
+	float Xp = 0.f;
 private:
 	void ExecuteMissionUpdate();
 
@@ -43,6 +46,6 @@ private:
 	// Equivalente a Tiempo
 	UPROPERTY(EditAnywhere, Category = "Mission")
 	float Tiempo = 0.f;
-
+	
 	FTimerHandle DelayTimerHandle;
 };

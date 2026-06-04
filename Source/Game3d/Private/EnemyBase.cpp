@@ -5,6 +5,7 @@
 #include "Engine/DamageEvents.h"
 #include "HealthBar.h"
 #include "HealthComponent.h"
+#include "XpComponent.h"
 #include "Components/WidgetComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
@@ -62,9 +63,17 @@ void AEnemyBase::TakeDamageEffects()
 
 void AEnemyBase::HandleDeath()
 {
+	if (LastDamageCauser)
+	{
+		if (UXpComponent* XpComp =
+			LastDamageCauser->FindComponentByClass<UXpComponent>())
+		{
+			XpComp->IncreaseXp(XpReward);
+		}
+	}
+
 	Destroy();
 }
-
 
 // Called every frame
 void AEnemyBase::Tick(float DeltaTime)
@@ -80,29 +89,27 @@ void AEnemyBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 
 }
 
-void AEnemyBase::ApplyDamage(float Damage, AActor* DamageCauser, const FVector& DamageLocation,
-	const FVector& DamageImpulse)
+void AEnemyBase::ApplyDamage(float Damage, AActor* DamageCauser,
+	const FVector& DamageLocation, const FVector& DamageImpulse)
 {
-	// pass the damage event to the actor
+	LastDamageCauser = DamageCauser;
+
 	FDamageEvent DamageEvent;
 	const float ActualDamage = TakeDamage(Damage, DamageEvent, nullptr, DamageCauser);
 
-	// only process knockback and effects if we received nonzero damage
 	if (ActualDamage > 0.0f)
 	{
-		// apply the knockback impulse
 		GetCharacterMovement()->AddImpulse(DamageImpulse, true);
 
-		// is the character ragdolling?
 		if (GetMesh()->IsSimulatingPhysics())
 		{
-			// apply an impulse to the ragdoll
-			GetMesh()->AddImpulseAtLocation(DamageImpulse * GetMesh()->GetMass(), DamageLocation);
+			GetMesh()->AddImpulseAtLocation(
+				DamageImpulse * GetMesh()->GetMass(),
+				DamageLocation);
 		}
+
 		ReceivedDamage(ActualDamage, DamageLocation, DamageImpulse.GetSafeNormal());
-
 	}
-
 }
 
 void AEnemyBase::ApplyHealing(float Healing, AActor* Healer)

@@ -1,6 +1,8 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "Game3dCharacter.h"
+
+#include "Destroyable.h"
 #include "Engine/LocalPlayer.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -713,9 +715,21 @@ void AGame3dCharacter::Server_UpdateMoveAxis_Implementation(float Right, float F
 
 void AGame3dCharacter::Landed(const FHitResult& Hit)
 {
-    Super::Landed(Hit);
+	Super::Landed(Hit);
+
 	bHasDashed = false;
-    float FallVelocity = FMath::Abs(GetVelocity().Z);
+
+	if (bIsJumpingLaunchpad)
+	{
+		bIsJumpingLaunchpad = false;
+
+		GetCharacterMovement()->MaxWalkSpeed =
+			bIsSprinting ? SprintSpeed : WalkSpeed;
+
+		return;
+	}
+
+	float FallVelocity = FMath::Abs(GetVelocity().Z);
 
 	if (FallVelocity > SafeFallSpeed)
 	{
@@ -725,7 +739,6 @@ void AGame3dCharacter::Landed(const FHitResult& Hit)
 			return;
 		}
 
-
 		float Damage = FMath::GetMappedRangeValueClamped(
 			FVector2D(SafeFallSpeed, LethalFallSpeed),
 			FVector2D(MinFallDamage, MaxFallDamage),
@@ -733,19 +746,12 @@ void AGame3dCharacter::Landed(const FHitResult& Hit)
 		);
 
 		UGameplayStatics::ApplyDamage(
-			this,
-			Damage,
-			GetController(),
-			this,
-			nullptr
-		);
-
-		UE_LOG(LogTemp, Warning, TEXT("Fall damage: %f (speed: %f)"), Damage, FallVelocity);
+			this, Damage, GetController(), this, nullptr);
 	}
-	GetCharacterMovement()->MaxWalkSpeed = 500.f; 
 
+	GetCharacterMovement()->MaxWalkSpeed =
+		bIsSprinting ? SprintSpeed : WalkSpeed;
 }
-
 void AGame3dCharacter::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
@@ -1509,105 +1515,86 @@ void AGame3dCharacter::OnRep_CanUseSpecialAbility()
  }
   
   
- void AGame3dCharacter::ProcessFireOnServer(const FVector& TraceStart, const FVector& TraceEnd)
- {
-     // ── 1. Line Trace (equiv. "Line Trace By Channel" del BP) ──
-     FHitResult HitResult;
-     FCollisionQueryParams QueryParams;
-     QueryParams.AddIgnoredActor(this);
-  
-     const bool bHit = GetWorld()->LineTraceSingleByChannel(
-         HitResult,
-         TraceStart,
-         TraceEnd,
-         ECC_Visibility,   // "ProjectileTrace" en BP → Visibility es lo habitual
-         QueryParams
-     );
-  
-     const FVector ImpactPoint = bHit ? HitResult.ImpactPoint : TraceEnd;
-  
-     // ── 2. Spawn proyectil en la posición del personaje ─────────
-     if (BulletClass)
-     {
-         FActorSpawnParameters SpawnParams;
-         SpawnParams.Owner      = this;
-         SpawnParams.Instigator = GetInstigator();
-  
-         // Orientar la bala hacia el punto de impacto
-     	const FVector GunSocketLocation = GetMesh()->GetSocketLocation(TEXT("gun"));
-     	const FVector BulletDirection = (ImpactPoint - GunSocketLocation).GetSafeNormal();
-     	const FRotator BulletRotation = BulletDirection.Rotation();
-  
-         AActor* SpawnedBullet = GetWorld()->SpawnActor<AActor>(
-             BulletClass,
-             GetMesh()->GetSocketLocation(TEXT("gun")), // spawnear desde el cañón
-             BulletRotation,
-             SpawnParams
-         );
-  
-         // ── FIX: setear velocidad al ProjectileMovementComponent ──
-         // Sin esto el componente arranca con Velocity = 0 aunque tenga
-         // InitialSpeed configurado, porque SpawnActor no llama BeginPlay
-         // con la rotación correcta a tiempo en todos los casos.
-         if (SpawnedBullet)
-         {
-             if (UProjectileMovementComponent* ProjMove =
-                 SpawnedBullet->FindComponentByClass<UProjectileMovementComponent>())
-             {
-                 // Respetar la InitialSpeed definida en el BP del proyectil
-                 const float Speed = ProjMove->InitialSpeed > 0.f
-                     ? ProjMove->InitialSpeed
-                     : 3000.f; // fallback por si InitialSpeed es 0
-  
-                 ProjMove->Velocity = BulletDirection * Speed;
-  
-                 // Asegurarse de que el componente esté activo
-                 ProjMove->Activate();
-             }
-         }
-     }
-  
-     // ── 3. Apply Damage + Does Object Implement Interface ───────
-     if (bHit && HitResult.GetActor())
-     {
-         AActor* HitActor = HitResult.GetActor();
-  
-         // "Does Object Implement Interface → BP_DestroyTag" del BP
-         // Si el actor tiene la interfaz ICombatDamageable la usamos,
-         // si no, caemos al UGameplayStatics::ApplyDamage genérico.
-         ICombatDamageable* Damageable = Cast<ICombatDamageable>(HitActor);
-         if (Damageable)
-         {
-             // Daño escalado por distancia (variable DistanceDamage del BP)
-             const float Distance = FVector::Dist(GetActorLocation(), ImpactPoint);
-             const float ScaledDamage = DistanceDamage * FMath::Max(1.f, Distance / 100.f);
-  
-             Damageable->ApplyDamage(
-                 DistanceDamage,
-                 this,
-                 ImpactPoint,
-                 FVector::ZeroVector
-             );
-         }
-         else
-         {
-             // Fallback genérico (equivale al nodo "Apply Damage" final del BP)
-             UGameplayStatics::ApplyDamage(
-                 HitActor,
-                 DistanceDamage,
-                 GetController(),
-                 this,
-                 nullptr
-             );
-         }
-     }
-  
-     // ── 4. Notificar FX a todos los clientes ────────────────────
-     const FVector MuzzleLocation = GetMesh()->GetSocketLocation(TEXT("gun"));
-     Multicast_FireFX(MuzzleLocation, ImpactPoint, bHit);
- }
-  
-  
+void AGame3dCharacter::ProcessFireOnServer(const FVector& TraceStart, const FVector& TraceEnd)
+{
+    // ── 1. Line Trace ──
+    FHitResult HitResult;
+    FCollisionQueryParams QueryParams;
+    QueryParams.AddIgnoredActor(this);
+
+    const bool bHit = GetWorld()->LineTraceSingleByChannel(
+        HitResult, TraceStart, TraceEnd, ECC_Visibility, QueryParams);
+
+    const FVector ImpactPoint = bHit ? HitResult.ImpactPoint : TraceEnd;
+
+    // ── 2. Spawn proyectil — declarado fuera del if ──────────
+    AActor* SpawnedBullet = nullptr;  // ← acá arriba
+
+    if (BulletClass)
+    {
+        FActorSpawnParameters SpawnParams;
+        SpawnParams.Owner      = this;
+        SpawnParams.Instigator = GetInstigator();
+
+    	// En lugar de GetSocketLocation, usá la mano derecha como fallback
+    	const FVector GunSocketLocation = GetMesh()->GetSocketLocation(TEXT("gun")) 
+										 + FVector(0.f, 0.f, 80.f);
+    	const FVector BulletDirection   = (ImpactPoint - GunSocketLocation).GetSafeNormal();
+        const FRotator BulletRotation   = BulletDirection.Rotation();
+
+        SpawnedBullet = GetWorld()->SpawnActor<AActor>(
+            BulletClass,
+            GunSocketLocation,
+            BulletRotation,
+            SpawnParams
+        );
+
+        if (SpawnedBullet)
+        {
+            if (UProjectileMovementComponent* ProjMove =
+                SpawnedBullet->FindComponentByClass<UProjectileMovementComponent>())
+            {
+                const float Speed = ProjMove->InitialSpeed > 0.f
+                    ? ProjMove->InitialSpeed : 3000.f;
+                ProjMove->Velocity = BulletDirection * Speed;
+                ProjMove->Activate();
+            }
+        }
+    }
+
+    // ── 3. Apply Damage ──────────────────────────────────────
+    if (bHit && HitResult.GetActor())
+    {
+        AActor* HitActor = HitResult.GetActor();
+    	// ── Debug: ver qué actor está recibiendo el hit ──────
+
+    	if (HitActor->GetClass()->ImplementsInterface(UDestroyable::StaticClass()))
+    	{
+    		IDestroyable::Execute_OnHitByProjectile(HitActor, this, ImpactPoint);
+    	}
+        ICombatDamageable* Damageable = Cast<ICombatDamageable>(HitActor);
+        if (Damageable)
+        {
+            Damageable->ApplyDamage(
+                DistanceDamage, this, ImpactPoint, FVector::ZeroVector);
+        }
+        else
+        {
+            UGameplayStatics::ApplyDamage(
+                HitActor, DistanceDamage, GetController(), this, nullptr);
+        }
+
+        // ── Destroy la bala al impactar ──────────────────────
+        if (SpawnedBullet)
+        {
+            SpawnedBullet->Destroy();
+        }
+    }
+
+    // ── 4. FX ────────────────────────────────────────────────
+    const FVector MuzzleLocation = GetMesh()->GetSocketLocation(TEXT("gun"));
+    Multicast_FireFX(MuzzleLocation, ImpactPoint, bHit);
+}
  // ------------------------------------------------------------
  //  Multicast_FireFX_Implementation()
  //  Corre en TODOS (servidor + clientes).
@@ -1683,9 +1670,7 @@ bool AGame3dCharacter::ClimbingLineTrace(FHitResult& OutHit)
 	UE_LOG(LogTemp, Warning, TEXT("[CLT] Hit: %s | Actor: %s"),
 		bHit ? TEXT("SI") : TEXT("NO"),
 		*GetNameSafe(OutHit.GetActor()));
-
-	DrawDebugLine(GetWorld(), Start, End, bHit ? FColor::Green : FColor::Red, false, 2.f, 0, 2.f);
-
+	
 	return bHit;
 }
 
