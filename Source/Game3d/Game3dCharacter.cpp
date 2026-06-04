@@ -243,17 +243,20 @@ EnhancedInputComponent->BindAction(
 
 void AGame3dCharacter::UseSpecialAbility()
 {
-	// Guards
+	// Agregamos el freno acá: si no la desbloqueó, no hace nada.
+	if (!bHasUnlockedSpecialAbility) return;
+
+	// Tus guards anteriores
 	if (!bCanUseSpecialAbility) return;
 	if (bIsInDialogue || bIsClimbing || bIsAttacking) return;
 
 	// Activar cooldown
 	bCanUseSpecialAbility = false;
 	GetWorldTimerManager().SetTimer(
-		SpecialAbilityCooldownTimer,
-		[this]() { bCanUseSpecialAbility = true; },
-		SpecialAbilityCooldown,
-		false
+	   SpecialAbilityCooldownTimer,
+	   [this]() { bCanUseSpecialAbility = true; },
+	   SpecialAbilityCooldown,
+	   false
 	);
 
 	// TODO: implementar habilidad
@@ -265,6 +268,12 @@ void AGame3dCharacter::UseSpecialAbility()
 	{
 		Server_UseSpecialAbility();
 	}
+}
+
+void AGame3dCharacter::UnlockSpecialAbility()
+{
+	bHasUnlockedSpecialAbility = true;
+	// Acá más adelante podrías agregar un Debug Message o sonido para confirmar
 }
 
 void AGame3dCharacter::Server_UseSpecialAbility_Implementation()
