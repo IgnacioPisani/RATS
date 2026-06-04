@@ -119,8 +119,7 @@ protected:
 
 	/** Initialize input action bindings */
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
-protected:
+	
 	void ExecuteSpecialAbility();
 	/** Called for movement input */
 	void Move(const FInputActionValue& Value);
@@ -131,6 +130,9 @@ protected:
 
 	/** Called for dash input */
 	void Dash();
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Abilities")
+	bool bHasUnlockedSpecialAbility = false;
 
 	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* PickUpAction;
@@ -144,7 +146,7 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent, Category="Combat")
 	void ReceivedDamage(float Damage, const FVector& ImpactPoint, const FVector& DamageDirection);
 public:
-
+	
 	/** Handles move inputs from either controls or UI interfaces */
 	UFUNCTION(BlueprintCallable, Category="Input")
 	virtual void DoMove(float Right, float Forward);
@@ -250,6 +252,9 @@ public:
 	float DashSpeed = 1200.f;
 	
 	int32 MedkitCount = 0;
+
+	UFUNCTION(BlueprintCallable, Category = "Abilities")
+	void UnlockSpecialAbility();
 
 	/** Combo Attack Input Action */
 	UPROPERTY(EditAnywhere, Category = "Input")

@@ -22,6 +22,7 @@ public:
 	UTextBlock* TxtDialogue;
 
 	// 🔹 Función principal
+	UFUNCTION(BlueprintCallable, Category = "Dialogue")
 	void StartDialogueLine(const FDialogueLine& Line);
 
 	void StopTyping();
