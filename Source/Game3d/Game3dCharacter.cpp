@@ -1580,21 +1580,6 @@ if (bHit && HitResult.GetActor())
 {
     AActor* HitActor = HitResult.GetActor();
 
-    // ── Debug ─────────────────────────────────────────────
-    GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Green,
-        FString::Printf(TEXT("HIT ACTOR: %s"), *HitActor->GetName()));
-
-    GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Yellow,
-        FString::Printf(TEXT("CLASS: %s"), *HitActor->GetClass()->GetName()));
-
-    GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Cyan,
-        FString::Printf(TEXT("Implements Destroyable: %s | Implements Damageable: %s"),
-            HitActor->GetClass()->ImplementsInterface(UDestroyable::StaticClass())
-                ? TEXT("SI") : TEXT("NO"),
-            HitActor->GetClass()->ImplementsInterface(UCombatDamageable::StaticClass())
-                ? TEXT("SI") : TEXT("NO")
-        )
-    );
 
     // ── Si no hubo hit en absoluto ────────────────────────
     if (HitActor->GetClass()->ImplementsInterface(UDestroyable::StaticClass()))
@@ -1610,8 +1595,7 @@ if (bHit && HitResult.GetActor())
     }
     else
     {
-        GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red,
-            TEXT("NO es Damageable → usando ApplyDamage genérico"));
+
 
         UGameplayStatics::ApplyDamage(
             HitActor, DistanceDamage, GetController(), this, nullptr);
