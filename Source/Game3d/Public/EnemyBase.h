@@ -46,6 +46,9 @@ public:
 	UPROPERTY()
 	AActor* LastDamageCauser;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
+	float DeathDelay = 0.f;  // ajustable en BP
+	
 	UPROPERTY(EditAnywhere, Category = "XP")
 	float XpReward = 100.f;
 	// Called to bind functionality to input

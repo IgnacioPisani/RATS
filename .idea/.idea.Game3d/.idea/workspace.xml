@@ -13,7 +13,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="700cebab-63ab-47f1-8bec-c545c4c447ad" name="Changes" comment="Merge branch 'main' into MiniMapa&#10;&#10;# Conflicts:&#10;#&#9;.idea/.idea.Game3d/.idea/workspace.xml&#10;#&#9;Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset">
-      <change beforePath="$PROJECT_DIR$/Content/BP_EnemyMelee2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/BP_EnemyMelee2.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/BT_EnemyMixto.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/BT_EnemyMixto.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemies/BP_EnemyMixto.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemies/BP_EnemyMixto.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemies/Escorpion/ABP_Scorpion.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemies/Escorpion/ABP_Scorpion.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemies/IA/BT_Enemy.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemies/IA/BT_Enemy.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Gollem/Enemy_Golem_Anim_Armature_Attack.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Gollem/Enemy_Golem_Anim_Armature_Attack.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Gollem/Enemy_Golem_Anim_Armature_Attack_Montage.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Gollem/Enemy_Golem_Anim_Armature_Attack_Montage.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/NewAnimBlueprint2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/NewAnimBlueprint2.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Private/EnemyBase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Private/EnemyBase.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Private/EnemyDistance.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Private/EnemyDistance.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Private/HealthComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Private/HealthComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Public/EnemyBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Public/EnemyBase.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Public/EnemyDistance.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Public/EnemyDistance.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -181,7 +193,7 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Fujo",
+    "git-widget-placeholder": "alma",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
