@@ -56,7 +56,6 @@ void UHealthComponent::UpdateHealth(float HealthPoints)
 
 	if (Health <= 0.f)
 	{
-		bIsDeath=true;
 		OnDeath.Broadcast();
 	}
 }

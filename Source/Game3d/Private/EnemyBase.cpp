@@ -72,17 +72,7 @@ void AEnemyBase::HandleDeath()
 		}
 	}
 
-	// Delay antes de destruir
-	FTimerHandle DeathTimerHandle;
-	GetWorldTimerManager().SetTimer(
-		DeathTimerHandle,
-		[this]()
-		{
-			Destroy();
-		},
-		DeathDelay,
-		false
-	);
+	Destroy();
 }
 // Called every frame
 void AEnemyBase::Tick(float DeltaTime)
