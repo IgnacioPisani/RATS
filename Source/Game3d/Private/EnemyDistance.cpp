@@ -268,10 +268,11 @@ void AEnemyDistance::TryFire()
     if (FireCooldown > 0.f) return;
     if (!ProjectileClass) return;
     if (!TargetActor || !CanSeeTarget()) return;
-
+    
     // ── Reproducir montage de ataque ─────────────────────────────
     if (AttackMontage)
     {
+        bIsAttacking = true;
         UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
         if (AnimInstance)
         {
@@ -330,6 +331,8 @@ void AEnemyDistance::SpawnProjectile(const FVector& Origin, const FRotator& Rota
 
     UE_LOG(LogTemp, Log, TEXT("AEnemyDistance: Proyectil disparado hacia %s"),
            *TargetActor->GetName());
+    bIsAttacking = false;
+
 }
 
 // ─────────────────────────────────────────────────────────────────

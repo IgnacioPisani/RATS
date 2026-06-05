@@ -63,6 +63,9 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Flight")
     float HoverFrequency = 1.5f;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Flight")
+    bool bIsAttacking = false;
+    
     /** Velocidad máxima en vuelo */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Flight")
     float FlySpeed = 600.f;
