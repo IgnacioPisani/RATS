@@ -14,20 +14,6 @@
   <component name="ChangeListManager">
     <list default="true" id="700cebab-63ab-47f1-8bec-c545c4c447ad" name="Changes" comment="Merge branch 'main' into MiniMapa&#10;&#10;# Conflicts:&#10;#&#9;.idea/.idea.Game3d/.idea/workspace.xml&#10;#&#9;Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/BP_Diamond.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/BP_Diamond.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/BP_Diamond1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/BP_Diamond1.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/BP_Diamond2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/BP_Diamond2.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/BP_Mushroom.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/BP_Mushroom.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/BP_Mushroom12.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/BP_Mushroom12.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/BP_Mushroom13.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/BP_Mushroom13.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/MisionPuertaBunker/BP_Estatuas.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CosasDePrueba/MisionPuertaBunker/BP_Estatuas.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Item/Estatua_1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Item/Estatua_1.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Item/Estatua_2.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Item/PiedraL1.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Item/PiedraL2.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Item/PiedraL3.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Item/PiedraL5.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Item/PiedraL6.uasset" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
