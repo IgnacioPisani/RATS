@@ -123,6 +123,7 @@ void AGame3dCharacter::BeginPlay()
 		if (SpecialAbilityHUDInstance)
 		{
 			SpecialAbilityHUDInstance->AddToViewport();
+			SpecialAbilityHUDInstance->SetVisibility(ESlateVisibility::Hidden);
 			SpecialAbilityHUDInstance->SetOwnerCharacter(this);
 		}
 	}
@@ -273,6 +274,8 @@ void AGame3dCharacter::UseSpecialAbility()
 void AGame3dCharacter::UnlockSpecialAbility()
 {
 	bHasUnlockedSpecialAbility = true;
+	SpecialAbilityHUDInstance->SetVisibility(ESlateVisibility::Visible);
+
 	// Acá más adelante podrías agregar un Debug Message o sonido para confirmar
 }
 
@@ -1572,33 +1575,63 @@ void AGame3dCharacter::ProcessFireOnServer(const FVector& TraceStart, const FVec
     }
 
     // ── 3. Apply Damage ──────────────────────────────────────
-    if (bHit && HitResult.GetActor())
+// ── 3. Apply Damage ──────────────────────────────────────
+if (bHit && HitResult.GetActor())
+{
+    AActor* HitActor = HitResult.GetActor();
+
+    // ── Debug ─────────────────────────────────────────────
+    GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Green,
+        FString::Printf(TEXT("HIT ACTOR: %s"), *HitActor->GetName()));
+
+    GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Yellow,
+        FString::Printf(TEXT("CLASS: %s"), *HitActor->GetClass()->GetName()));
+
+    GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Cyan,
+        FString::Printf(TEXT("Implements Destroyable: %s | Implements Damageable: %s"),
+            HitActor->GetClass()->ImplementsInterface(UDestroyable::StaticClass())
+                ? TEXT("SI") : TEXT("NO"),
+            HitActor->GetClass()->ImplementsInterface(UCombatDamageable::StaticClass())
+                ? TEXT("SI") : TEXT("NO")
+        )
+    );
+
+    // ── Si no hubo hit en absoluto ────────────────────────
+    if (HitActor->GetClass()->ImplementsInterface(UDestroyable::StaticClass()))
     {
-        AActor* HitActor = HitResult.GetActor();
-    	// ── Debug: ver qué actor está recibiendo el hit ──────
-
-    	if (HitActor->GetClass()->ImplementsInterface(UDestroyable::StaticClass()))
-    	{
-    		IDestroyable::Execute_OnHitByProjectile(HitActor, this, ImpactPoint);
-    	}
-        ICombatDamageable* Damageable = Cast<ICombatDamageable>(HitActor);
-        if (Damageable)
-        {
-            Damageable->ApplyDamage(
-                DistanceDamage, this, ImpactPoint, FVector::ZeroVector);
-        }
-        else
-        {
-            UGameplayStatics::ApplyDamage(
-                HitActor, DistanceDamage, GetController(), this, nullptr);
-        }
-
-        // ── Destroy la bala al impactar ──────────────────────
-        if (SpawnedBullet)
-        {
-            SpawnedBullet->Destroy();
-        }
+        IDestroyable::Execute_OnHitByProjectile(HitActor, this, ImpactPoint);
     }
+
+    ICombatDamageable* Damageable = Cast<ICombatDamageable>(HitActor);
+    if (Damageable)
+    {
+        Damageable->ApplyDamage(
+            DistanceDamage, this, ImpactPoint, FVector::ZeroVector);
+    }
+    else
+    {
+        GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red,
+            TEXT("NO es Damageable → usando ApplyDamage genérico"));
+
+        UGameplayStatics::ApplyDamage(
+            HitActor, DistanceDamage, GetController(), this, nullptr);
+    }
+
+    if (SpawnedBullet)
+    {
+        SpawnedBullet->Destroy();
+    }
+}
+else
+{
+    // ── No golpeó nada ────────────────────────────────────
+    GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red,
+        FString::Printf(TEXT("NO HIT | bHit: %s | Actor: %s"),
+            bHit ? TEXT("SI") : TEXT("NO"),
+            HitResult.GetActor() ? *HitResult.GetActor()->GetName() : TEXT("nullptr")
+        )
+    );
+}
 
     // ── 4. FX ────────────────────────────────────────────────
     const FVector MuzzleLocation = GetMesh()->GetSocketLocation(TEXT("gun"));

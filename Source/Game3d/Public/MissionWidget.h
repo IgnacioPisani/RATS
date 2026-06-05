@@ -16,18 +16,22 @@ class GAME3D_API UMissionWidget : public UUserWidget
 {
 	GENERATED_BODY()
 
-public:
 
+public:
 	virtual bool Initialize() override;
 
 	UFUNCTION(BlueprintCallable)
 	void SetMissionText(const FString& NewMission);
 
+	void FadeWidget(UWidget* Widget, bool bFadeIn, float Duration, TFunction<void()> OnComplete = nullptr);
+
 protected:
+
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* MissionTitleText;
 
 	UPROPERTY(meta = (BindWidget))
 	UTextBlock* CurrentMissionText;
 
-	UPROPERTY(meta = (BindWidget))
-	UTextBlock* MissionTitleText;
+	FTimerHandle TimerHandle_HideMission;
 };
