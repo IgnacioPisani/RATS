@@ -52,6 +52,10 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Flight")
     float PreferredFlyHeight = 300.f;
 
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Audio")
+    USoundBase* ShootSound;
+    
     /** Qué tan fuerte se ajusta la altura cada frame */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Flight")
     float HeightCorrectionStrength = 5.f;

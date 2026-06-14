@@ -308,12 +308,14 @@ void AEnemyDistance::TryFire()
     FireCooldown = FireRate;
 }
 
+#include "Kismet/GameplayStatics.h"
+
 void AEnemyDistance::SpawnProjectile(const FVector& Origin, const FRotator& Rotation)
 {
     if (!GetWorld() || !ProjectileClass) return;
 
     FActorSpawnParameters SpawnParams;
-    SpawnParams.Owner   = this;
+    SpawnParams.Owner = this;
     SpawnParams.Instigator = GetInstigator();
     SpawnParams.SpawnCollisionHandlingOverride =
         ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
@@ -323,16 +325,20 @@ void AEnemyDistance::SpawnProjectile(const FVector& Origin, const FRotator& Rota
 
     if (!Projectile) return;
 
-    // Si tu proyectil tiene un componente de daño configurable, ponlo aquí.
-    // Ejemplo genérico con UProjectileMovementComponent:
-    //   UProjectileMovementComponent* ProjMove =
-    //       Projectile->FindComponentByClass<UProjectileMovementComponent>();
-    //   if (ProjMove) ProjMove->InitialSpeed = 1200.f;
+    // Reproducir sonido de disparo
+    if (ShootSound)
+    {
+        UGameplayStatics::PlaySoundAtLocation(
+            this,
+            ShootSound,
+            Origin
+        );
+    }
 
     UE_LOG(LogTemp, Log, TEXT("AEnemyDistance: Proyectil disparado hacia %s"),
            *TargetActor->GetName());
-    bIsAttacking = false;
 
+    bIsAttacking = false;
 }
 
 // ─────────────────────────────────────────────────────────────────

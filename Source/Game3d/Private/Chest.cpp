@@ -1,6 +1,8 @@
 // Chest.cpp
 #include "Chest.h"
 
+#include "Kismet/GameplayStatics.h"
+
 AChest::AChest()
 {
 	ItemData.Name = FName("Chest");
@@ -19,5 +21,13 @@ FItemStruct AChest::GetItemSpawn_Implementation()
 
 void AChest::OnActivated_Implementation(AActor* Interactor)
 {
+	if (ChestSound)
+	{
+		UGameplayStatics::PlaySoundAtLocation(
+			this,
+			ChestSound,
+			GetActorLocation()
+		);
+	} 
 	OpenChestUI(Contents);
 }

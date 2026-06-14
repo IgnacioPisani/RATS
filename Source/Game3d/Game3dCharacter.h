@@ -534,6 +534,8 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 	float AimYaw;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Audio")
+	USoundBase* DashSound;
 
 	UFUNCTION()
 	void HandleMissionUpdated(const FString& NewMission);

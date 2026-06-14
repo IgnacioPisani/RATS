@@ -22,6 +22,9 @@ public:
 	FItemStruct SpawnItemData;
 	
 	FItemStruct GetItemSpawn_Implementation() override;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Audio")
+	USoundBase* ChestSound;
 protected:
 
 	// Sobreescribe OnActivated para abrir la UI del cofre

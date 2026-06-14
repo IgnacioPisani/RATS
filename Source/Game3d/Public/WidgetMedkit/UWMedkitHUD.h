@@ -36,6 +36,5 @@ class GAME3D_API UUWMedkitHUD : public UUserWidget
     private:
     
     	// Colores predefinidos
-    	FLinearColor ColorActive = FLinearColor(0.2f, 0.9f, 0.2f, 1.0f); // Verde
-    	FLinearColor ColorInactive = FLinearColor(0.4f, 0.4f, 0.4f, 1.0f); // Gris
+    	FLinearColor ColorActive = FLinearColor(0.f, 0.479f, 0.875f, 1.0f); // Verde
 };

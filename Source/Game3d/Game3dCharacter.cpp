@@ -701,7 +701,14 @@ void AGame3dCharacter::Server_DoDash_Implementation()
 	GetCharacterMovement()->GravityScale = 0.0f;
 	GetCharacterMovement()->Velocity = FVector::ZeroVector;
 	LaunchCharacter(GetActorForwardVector() * DashSpeed, true, true);
-
+	if (DashSound)
+	{
+		UGameplayStatics::PlaySoundAtLocation(
+			this,
+			DashSound,
+			GetActorLocation()
+		);
+	}
 	// El servidor llama multicast → llega a TODOS correctamente
 	Multicast_PlayDashFX();
 }

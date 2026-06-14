@@ -13,15 +13,9 @@ void UUWMedkitHUD::UpdateMedkitBars(int32 CurrentMedkits)
 		return;
 	}
 
-	// Siempre llenas (solo cambia el color)
-	Bar_Medkit1->SetPercent(1.0f);
-	Bar_Medkit2->SetPercent(1.0f);
-	Bar_Medkit3->SetPercent(1.0f);
-
-	// Cambiar color según cantidad
-	Bar_Medkit1->SetFillColorAndOpacity(CurrentMedkits >= 1 ? ColorActive : ColorInactive);
-	Bar_Medkit2->SetFillColorAndOpacity(CurrentMedkits >= 2 ? ColorActive : ColorInactive);
-	Bar_Medkit3->SetFillColorAndOpacity(CurrentMedkits >= 3 ? ColorActive : ColorInactive);
+	Bar_Medkit1->SetVisibility(CurrentMedkits >= 1 ? ESlateVisibility::Visible : ESlateVisibility::Hidden);
+	Bar_Medkit2->SetVisibility(CurrentMedkits >= 2 ? ESlateVisibility::Visible : ESlateVisibility::Hidden);
+	Bar_Medkit3->SetVisibility(CurrentMedkits >= 3 ? ESlateVisibility::Visible : ESlateVisibility::Hidden);
 
 	UE_LOG(LogTemp, Log, TEXT("HUD actualizado: %d botiquines."), CurrentMedkits);
 }
