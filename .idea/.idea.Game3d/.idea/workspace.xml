@@ -16,31 +16,13 @@
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/BP_EnemyMelee2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/BP_EnemyMelee2.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Enemies/BP_EnemyDistance.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemies/BP_EnemyDistance.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Enemies/Escorpion/Scorpion_Anim_Armature_Attack.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemies/Escorpion/Scorpion_Anim_Armature_Attack.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Enemies/Escorpion/Scorpion_Anim_Armature_Walk.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemies/Escorpion/Scorpion_Anim_Armature_Walk.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Item/BP_Chest.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Item/BP_Chest.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Item/BP_Launchpad.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Item/BP_Launchpad.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemies/Escorpion/ABP_Scorpion.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemies/Escorpion/ABP_Scorpion.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/NewAnimBlueprint2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/NewAnimBlueprint2.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Widget/Hud/WBP_HealthBar.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Widget/Hud/WBP_HealthBar.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Widget/Hud/WBP_MedkitHUD.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Widget/Hud/WBP_MedkitHUD.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Widget/Hud/WBP_XpBar.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Widget/Hud/WBP_XpBar.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Widget/Inventory/WBP_Inventory.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Widget/Inventory/WBP_Inventory.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Widget/Inventory/WBP_Slot.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Widget/Inventory/WBP_Slot.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Widget/WBP_SpecialAbilityHUD.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Widget/WBP_SpecialAbilityHUD.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/S5/5UH59WHH20MWI5RRG9OPRN.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/S5/5UH59WHH20MWI5RRG9OPRN.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/P0/W2XJC6NETUADORL9JOLLK0.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/P0/W2XJC6NETUADORL9JOLLK0.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/7/C6/G6ILVIZYWZVWCJEKSAO74W.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/7/C6/G6ILVIZYWZVWCJEKSAO74W.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/C/ZZ/GNDRLZ466SPMG05KY08556.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/C/ZZ/GNDRLZ466SPMG05KY08556.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/ThirdPerson/Lvl_ThirdPerson/2/MJ/GFYNFZQGF3M8CZNL0HX7Z2.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Private/Chest.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Private/Chest.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Private/EnemyDistance.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Private/EnemyDistance.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Private/WidgetMedkit/UWMedkitHUD.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Private/WidgetMedkit/UWMedkitHUD.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Public/Chest.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Public/Chest.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Public/EnemyDistance.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Public/EnemyDistance.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Public/WidgetMedkit/UWMedkitHUD.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Public/WidgetMedkit/UWMedkitHUD.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Private/EnemyBase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Private/EnemyBase.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Public/EnemyBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Public/EnemyBase.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -452,7 +434,8 @@
       <workItem from="1780547786375" duration="748000" />
       <workItem from="1780583380046" duration="6431000" />
       <workItem from="1780636299421" duration="210000" />
-      <workItem from="1781400642349" duration="6873000" />
+      <workItem from="1781400642349" duration="7474000" />
+      <workItem from="1781489928650" duration="6903000" />
     </task>
     <servers />
   </component>

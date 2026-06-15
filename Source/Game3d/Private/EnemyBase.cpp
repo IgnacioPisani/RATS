@@ -9,6 +9,7 @@
 #include "Components/WidgetComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "Net/UnrealNetwork.h"
 
 // Sets default values
 AEnemyBase::AEnemyBase()
@@ -63,17 +64,31 @@ void AEnemyBase::TakeDamageEffects()
 
 void AEnemyBase::HandleDeath()
 {
+	bIsDead = true;
+	OnRep_IsDead();
+
+	// Reproducir animación de muerte
+	if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
+	{
+		AnimInstance->Montage_Play(DeathMontage); // declaralo en el .h
+	}
+
+	// XP
 	if (LastDamageCauser)
 	{
-		if (UXpComponent* XpComp =
-			LastDamageCauser->FindComponentByClass<UXpComponent>())
+		if (UXpComponent* XpComp = LastDamageCauser->FindComponentByClass<UXpComponent>())
 		{
 			XpComp->IncreaseXp(XpReward);
 		}
 	}
 
+}
+
+void AEnemyBase::OnDeathTimerExpired()
+{
 	Destroy();
 }
+
 // Called every frame
 void AEnemyBase::Tick(float DeltaTime)
 {
@@ -115,4 +130,41 @@ void AEnemyBase::ApplyHealing(float Healing, AActor* Healer)
 {
 }
 
+void AEnemyBase::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(AEnemyBase, bIsDead);
+}
 
+void AEnemyBase::OnRep_IsDead()
+{
+	UE_LOG(LogTemp, Warning, TEXT("[EnemyBase] OnRep_IsDead ejecutado en: %s"), *GetName());
+
+	SetActorEnableCollision(false);
+	UE_LOG(LogTemp, Warning, TEXT("[EnemyBase] Colisión deshabilitada"));
+
+	if (UCharacterMovementComponent* MoveComp = GetCharacterMovement())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("[EnemyBase] MovementMode antes: %d"), (int32)MoveComp->MovementMode);
+        
+		MoveComp->StopMovementImmediately();
+		UE_LOG(LogTemp, Warning, TEXT("[EnemyBase] StopMovementImmediately ejecutado"));
+        
+		MoveComp->DisableMovement();
+		UE_LOG(LogTemp, Warning, TEXT("[EnemyBase] DisableMovement ejecutado - MovementMode ahora: %d"), (int32)MoveComp->MovementMode);
+        
+		MoveComp->SetComponentTickEnabled(false);
+		UE_LOG(LogTemp, Warning, TEXT("[EnemyBase] Tick del MovementComponent deshabilitado"));
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("[EnemyBase] ERROR: No se encontró CharacterMovementComponent en %s"), *GetName());
+	}
+	GetWorldTimerManager().SetTimer(
+	DeathTimerHandle,
+	this,
+	&AEnemyBase::OnDeathTimerExpired,
+	DeathDelay,
+	false
+);
+}

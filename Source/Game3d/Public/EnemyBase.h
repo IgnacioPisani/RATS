@@ -59,5 +59,17 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent, Category="Combat")
 	void ReceivedDamage(float Damage, const FVector& ImpactPoint, const FVector& DamageDirection);
+	UPROPERTY(EditAnywhere, Category="Combat")
+	UAnimMontage* DeathMontage;
+	
+	UPROPERTY(ReplicatedUsing=OnRep_IsDead, BlueprintReadOnly, Category="Combat")
+	bool bIsDead = false;
 
+private:
+	FTimerHandle DeathTimerHandle;
+
+	UFUNCTION()
+	void OnDeathTimerExpired();
+	UFUNCTION()
+	void OnRep_IsDead();
 };
