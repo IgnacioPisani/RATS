@@ -60,6 +60,57 @@ void AEnemyBase::TakeDamageEffects()
 	Super::TakeDamageEffects();
 	GetMesh()->SetPhysicsBlendWeight(0.5f);
 	GetMesh()->SetBodySimulatePhysics(PelvisBoneName, false);
+	StartHitFlash();
+
+}
+
+void AEnemyBase::StartHitFlash()
+{
+	// Aplicar overlay rojo
+	if (HitFlashMaterial)
+	{
+		GetMesh()->SetOverlayMaterial(HitFlashMaterial);
+		UE_LOG(LogTemp, Warning, TEXT("Overlay: %s"),
+	GetMesh()->GetOverlayMaterial()
+	? *GetMesh()->GetOverlayMaterial()->GetName()
+	: TEXT("NULL"));
+	}
+
+	CurrentFlashCount = 0;
+
+	GetWorldTimerManager().SetTimer(
+		FlashTimerHandle,
+		this,
+		&AEnemyBase::UpdateHitFlash,
+		HitFlashDuration,
+		false  // no loop, solo espera y saca el overlay
+	);
+}
+
+void AEnemyBase::UpdateHitFlash()
+{
+	CurrentFlashCount++;
+
+	if (CurrentFlashCount >= HitFlashCount)
+	{
+		// Sacar overlay
+		GetMesh()->SetOverlayMaterial(nullptr);
+		GetWorldTimerManager().ClearTimer(FlashTimerHandle);
+	}
+	else
+	{
+		// Alternar overlay
+		UMaterialInterface* Current = GetMesh()->GetOverlayMaterial();
+		GetMesh()->SetOverlayMaterial(Current ? nullptr : HitFlashMaterial);
+
+		GetWorldTimerManager().SetTimer(
+			FlashTimerHandle,
+			this,
+			&AEnemyBase::UpdateHitFlash,
+			HitFlashDuration,
+			false
+		);
+	}
 }
 
 void AEnemyBase::HandleDeath()
