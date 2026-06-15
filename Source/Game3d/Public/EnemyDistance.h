@@ -52,7 +52,8 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Flight")
     float PreferredFlyHeight = 300.f;
 
-
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+    
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Audio")
     USoundBase* ShootSound;
     
@@ -73,6 +74,11 @@ public:
     /** Velocidad máxima en vuelo */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Flight")
     float FlySpeed = 600.f;
+
+    FTimerHandle AttackEndTimerHandle;
+
+    UFUNCTION()
+    void OnAttackEndTimerExpired();
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
     TObjectPtr<UAnimMontage> AttackMontage;
@@ -104,6 +110,11 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
     float DetectionRadius = 2000.f;
 
+    UFUNCTION()
+    void OnRep_IsAttacking();
+
+    UFUNCTION()
+    void OnAttackMontageEnded(UAnimMontage* Montage, bool bInterrupted);
     // ─────────────────────────────────────────
     //  Estado interno
     // ─────────────────────────────────────────
@@ -117,6 +128,8 @@ protected:
     float FireCooldown = 0.f;
     float HoverTimer   = 0.f;
 
+    UFUNCTION(BlueprintCallable, Category="Combat")
+    void SpawnProjectile(const FVector& Origin, const FRotator& Rotation);
     // ─────────────────────────────────────────
     //  Funciones privadas
     // ─────────────────────────────────────────
@@ -134,8 +147,6 @@ private:
     void FaceTarget(float DeltaTime);
 
     void TryFire();
-    void SpawnProjectile(const FVector& Origin, const FRotator& Rotation);
-
     bool CanSeeTarget() const;
     float GetDistanceToTarget() const;
     void OnTargetPerceived(AActor* Actor, FAIStimulus Stimulus);

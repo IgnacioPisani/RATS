@@ -8,6 +8,7 @@
 #include "Perception/AISenseConfig_Sight.h"
 #include "Perception/AISenseConfig_Hearing.h"
 #include "DrawDebugHelpers.h"
+#include "Net/UnrealNetwork.h"
 
 // ─────────────────────────────────────────────────────────────────
 //  Constructor
@@ -268,29 +269,6 @@ void AEnemyDistance::TryFire()
     if (FireCooldown > 0.f) return;
     if (!ProjectileClass) return;
     if (!TargetActor || !CanSeeTarget()) return;
-    
-    // ── Reproducir montage de ataque ─────────────────────────────
-    if (AttackMontage)
-    {
-        bIsAttacking = true;
-        UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
-        if (AnimInstance)
-        {
-            AnimInstance->Montage_Play(AttackMontage);
-            UE_LOG(LogTemp, Warning, TEXT("Montage reproducido"));
-        }
-        else
-        {
-            UE_LOG(LogTemp, Warning, TEXT("AnimInstance es null"));
-        }
-    }
-    else
-    {
-        UE_LOG(LogTemp, Warning, TEXT("AttackMontage no asignado en BP"));
-    }
-    
-    // ... resto del código
-
 
 
 
@@ -303,12 +281,61 @@ void AEnemyDistance::TryFire()
 
     FVector  TargetLoc = TargetActor->GetActorLocation();
     FRotator ShootRot  = (TargetLoc - Origin).Rotation();
-
+    bIsAttacking = true;
+    OnRep_IsAttacking();
     SpawnProjectile(Origin, ShootRot);
     FireCooldown = FireRate;
+
+    // Resetear bIsAttacking después del FireRate
+    GetWorldTimerManager().SetTimer(
+        AttackEndTimerHandle,
+        this,
+        &AEnemyDistance::OnAttackEndTimerExpired,
+        FireRate,
+        false
+    );
 }
 
-#include "Kismet/GameplayStatics.h"
+
+void AEnemyDistance::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME(AEnemyDistance, bIsAttacking);
+}
+
+
+
+void AEnemyDistance::OnRep_IsAttacking()
+{
+    // En el cliente, reproducir el montage visualmente
+    if (bIsAttacking && AttackMontage)
+    {
+        if (UAnimInstance* AnimInst = GetMesh()->GetAnimInstance())
+        {
+            AnimInst->Montage_Play(AttackMontage);
+        }
+    }
+}
+
+void AEnemyDistance::OnAttackMontageEnded(UAnimMontage* Montage, bool bInterrupted)
+{
+    // Usar la duración del montage como delay, o un valor fijo
+    float Delay = 10.5f;
+
+    GetWorldTimerManager().SetTimer(
+        AttackEndTimerHandle,
+        this,
+        &AEnemyDistance::OnAttackEndTimerExpired,
+        Delay,
+        false
+    );
+}
+
+void AEnemyDistance::OnAttackEndTimerExpired()
+{
+    bIsAttacking = false;   // <-- falta esto
+    OnRep_IsAttacking();
+}
 
 void AEnemyDistance::SpawnProjectile(const FVector& Origin, const FRotator& Rotation)
 {
@@ -338,7 +365,6 @@ void AEnemyDistance::SpawnProjectile(const FVector& Origin, const FRotator& Rota
     UE_LOG(LogTemp, Log, TEXT("AEnemyDistance: Proyectil disparado hacia %s"),
            *TargetActor->GetName());
 
-    bIsAttacking = false;
 }
 
 // ─────────────────────────────────────────────────────────────────

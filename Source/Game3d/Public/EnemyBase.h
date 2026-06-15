@@ -25,6 +25,8 @@ public:
 	virtual void HandleHit_Implementation() override;
 
 	virtual void TakeDamageEffects() override;
+	void StartHitFlash();
+	void UpdateHitFlash();
 
 	UPROPERTY(EditAnywhere, Category="Damage")
 	FName PelvisBoneName;
@@ -59,5 +61,31 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent, Category="Combat")
 	void ReceivedDamage(float Damage, const FVector& ImpactPoint, const FVector& DamageDirection);
+	UPROPERTY(EditAnywhere, Category="Combat")
+	UAnimMontage* DeathMontage;
+	
+	UPROPERTY(ReplicatedUsing=OnRep_IsDead, BlueprintReadOnly, Category="Combat")
+	bool bIsDead = false;
 
+	UPROPERTY(EditAnywhere, Category="Effects")
+	float HitFlashDuration = 0.1f;
+
+	UPROPERTY(EditAnywhere, Category="Effects")
+	int32 HitFlashCount = 3;
+
+	int32 CurrentFlashCount = 0;
+	bool bFlashOn = false;
+	FTimerHandle FlashTimerHandle;
+	TArray<UMaterialInterface*> OriginalMaterials;
+
+	UPROPERTY(EditAnywhere, Category="Effects")
+	UMaterialInterface* HitFlashMaterial;
+
+private:
+	FTimerHandle DeathTimerHandle;
+
+	UFUNCTION()
+	void OnDeathTimerExpired();
+	UFUNCTION()
+	void OnRep_IsDead();
 };
