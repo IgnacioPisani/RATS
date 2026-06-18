@@ -29,6 +29,10 @@ void AGemPedestal::OnRep_bIsActivated()
 	{
 		OnPedestalActivated();
 	}
+	else
+	{
+		OnPedestalDeactivated(); 
+	}
 }
 
 void AGemPedestal::Interact_Implementation(AActor* Interactor)
@@ -52,11 +56,19 @@ void AGemPedestal::Interact_Implementation(AActor* Interactor)
 	}
 
 	HeldGem->PlaceOnSupport(SupportPoint);
+	HeldGem->SetOwner(this);
 	IGemCarrierInterface::Execute_SetHeldGem(Interactor, nullptr);
 
 	bIsActivated = true;
-
-	// OnRep no corre en el servidor, así que lo disparamos manualmente acá también
-	// (importante en Listen Server: para que el host vea el efecto sin esperar el rep)
+	
 	OnPedestalActivated();
+}
+
+void AGemPedestal::DeactivatePedestal()
+{
+	if (!bIsActivated) return;
+
+	bIsActivated = false;
+	
+	OnPedestalDeactivated(); 
 }

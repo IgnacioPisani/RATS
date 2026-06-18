@@ -656,17 +656,9 @@ void AGame3dCharacter::HandleLevelChanged(int level)
 
 void AGame3dCharacter::DoPickUp()
 {
-	// Si ya lleva un diamante, E lo suelta
-	if (HeldGem)
-	{
-		DropGem();
-		return;
-	}
-
 	AActor* HitActor = FindInteractableActor();
-	if (!HitActor) return;
 
-	if (HitActor->GetClass()->ImplementsInterface(UInteractable::StaticClass()))
+	if (HitActor && HitActor->GetClass()->ImplementsInterface(UInteractable::StaticClass()))
 	{
 		FItemStruct ItemData = IInteractable::Execute_GetItem(HitActor);
 
@@ -678,16 +670,23 @@ void AGame3dCharacter::DoPickUp()
 		else
 		{
 			FItemStruct SpawnData = IInteractable::Execute_GetItemSpawn(HitActor);
-			IInteractable::Execute_Interact(HitActor, this);
+			
+			IInteractable::Execute_Interact(HitActor, this); 
+			
 			if (SpawnData.Mesh)
 			{
 				AddItemToInventory(SpawnData);
 			}
-
 		}
+		return; 
+	}
+
+	if (HeldGem)
+	{
+		DropGem();
+		return;
 	}
 }
-
 void AGame3dCharacter::AddItemToInventory(const FItemStruct& ItemData)
 {
 	if (InventoryComponent)
