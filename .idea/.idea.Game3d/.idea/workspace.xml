@@ -14,40 +14,17 @@
   <component name="ChangeListManager">
     <list default="true" id="700cebab-63ab-47f1-8bec-c545c4c447ad" name="Changes" comment="Merge branch 'main' into MiniMapa&#10;&#10;# Conflicts:&#10;#&#9;.idea/.idea.Game3d/.idea/workspace.xml&#10;#&#9;Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Item/Arbol1Grande_FoliageType.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Item/Arbol2Chico_FoliageType.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Item/Arbol2Grande_FoliageType.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Item/Cactus_01_FoliageType.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Item/Cactus_02_FoliageType.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Item/Cactus_03_FoliageType.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Item/Cactus_04_FoliageType.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Item/Cactus_05_FoliageType.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Item/Cactus_06_FoliageType.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Item/Cactus_07_FoliageType.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Item/Cactus_08_FoliageType.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Item/Cactus_09_FoliageType.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Item/Cactus_10_FoliageType.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Item/Folliage.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Item/Planta1_FoliageType.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Item/Planta1_FoliageType.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Item/Planta2_FoliageType.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Item/Planta2_FoliageType.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Item/cactus1_FoliageType.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Polygon-MedievalCamp/Models/Tent_01_FoliageType.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Polygon-MedievalCamp/Models/Tent_02_FoliageType.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Polygon-MedievalCamp/Models/Tent_03_FoliageType.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Polygon-MedievalCamp/Models/Tent_04_FoliageType.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Polygon-MedievalCamp/Models/Torus_01_FoliageType.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/ESTRUCTURA/Caktus1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/ESTRUCTURA/Caktus1.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/ESTRUCTURA/Caktus10.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/ESTRUCTURA/Caktus10.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/ESTRUCTURA/Caktus11.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/ESTRUCTURA/Caktus11.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/ESTRUCTURA/Caktus12.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/ESTRUCTURA/Caktus13.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/ESTRUCTURA/Caktus13.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/ESTRUCTURA/Caktus2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/ESTRUCTURA/Caktus2.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/ESTRUCTURA/Caktus3.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/ESTRUCTURA/Caktus3.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/ESTRUCTURA/Caktus4.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/ESTRUCTURA/Caktus4.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/ESTRUCTURA/Caktus5.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/ESTRUCTURA/Caktus5.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/ESTRUCTURA/Caktus7.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/ESTRUCTURA/Caktus8.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/ESTRUCTURA/Caktus8.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/ESTRUCTURA/Caktus9.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/1/3S/TEVM5YS0J9ZC3F7V4UF1N6.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/9P/YAL4GLYXCM1IBIQ9RE9EK7.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/QS/Z84F0O9P0845X3PZ1QOOA9.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/QS/Z84F0O9P0845X3PZ1QOOA9.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/UR/NKNJXBOC2HH167DRO0ISMV.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/UR/NKNJXBOC2HH167DRO0ISMV.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/7/PP/FB2SZ0AYQZKCS729C21R9F.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/9Z/9NU043GXS5LDI42CDD6L3V.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/9Z/9NU043GXS5LDI42CDD6L3V.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/7M/3V24C2DT57Q12YFPBL8OTQ.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/AK/KL9K7KW7UCWBRPU2CNCDJ4.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -462,7 +439,8 @@
       <workItem from="1781400642349" duration="7474000" />
       <workItem from="1781489928650" duration="10615000" />
       <workItem from="1781501877504" duration="1967000" />
-      <workItem from="1781732046214" duration="3109000" />
+      <workItem from="1781732046214" duration="5463000" />
+      <workItem from="1781741858740" duration="1628000" />
     </task>
     <servers />
   </component>
