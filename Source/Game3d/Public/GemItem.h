@@ -40,6 +40,12 @@ public:
 	void PickUp(AActor* NewHolder, USceneComponent* HoldPoint);
 	void PlaceOnSupport(USceneComponent* SupportPoint);
 
+	// Suelta el diamante en el piso (detach + física)
+	void Drop(const FVector& DropLocation);
+
+	// Lanza el diamante en parábola hacia adelante
+	void Throw(const FVector& LaunchVelocity, const FVector& SpawnLocation);
+
 protected:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 

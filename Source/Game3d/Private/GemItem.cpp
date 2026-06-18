@@ -82,3 +82,34 @@ void AGemItem::PlaceOnSupport(USceneComponent* SupportPoint)
 
 	AttachToComponent(SupportPoint, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
 }
+
+void AGemItem::Drop(const FVector& DropLocation)
+{
+	bIsHeld  = false;
+	bIsPlaced = false;
+	SetOwner(nullptr);
+
+	DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
+	SetActorLocation(DropLocation);
+
+	GemMesh->SetSimulatePhysics(true);
+	GemMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	SetReplicateMovement(true);
+}
+
+void AGemItem::Throw(const FVector& LaunchVelocity, const FVector& SpawnLocation)
+{
+	bIsHeld  = false;
+	bIsPlaced = false;
+	SetOwner(nullptr);
+
+	DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
+	SetActorLocation(SpawnLocation);
+
+	GemMesh->SetSimulatePhysics(true);
+	GemMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	SetReplicateMovement(true);
+
+	// Imprimimos la velocidad para que la física haga la parábola
+	GemMesh->SetPhysicsLinearVelocity(LaunchVelocity);
+}
