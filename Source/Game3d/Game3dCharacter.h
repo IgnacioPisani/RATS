@@ -13,8 +13,10 @@
 #include "Public/HealthBar.h"
 #include "Public/XpBar.h"
 #include "WidgetMedkit/UWMedkitHUD.h"
+#include "GemCarrierInterface.h"
 #include "Game3dCharacter.generated.h"
 
+class AGemItem;
 class USpecialAbilityHUD;
 class UNiagaraSystem;
 class UMotionLinesWidget;
@@ -34,7 +36,7 @@ DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
  *  Implements a controllable orbiting camera
  */
 UCLASS(abstract)
-class AGame3dCharacter : public ACharacterBase, public ICombatAttacker, public ICombatDamageable
+class AGame3dCharacter : public ACharacterBase, public ICombatAttacker, public ICombatDamageable, public IGemCarrierInterface
 {
 	GENERATED_BODY()
 
@@ -719,5 +721,24 @@ public:
 	// Helpers
 	void StartClimbingOnServer(FRotator WallRotation);
 	void StopClimbingOnServer();
- 
+
+	// ── Sistema de diamantes (IGemCarrierInterface) ──────────────
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Gem")
+	USceneComponent* GemHoldPoint;
+
+	UPROPERTY(ReplicatedUsing = OnRep_HeldGem)
+	AGemItem* HeldGem;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gem", meta = (ClampMin = "0.1", ClampMax = "1.0"))
+	float GemCarrySpeedMultiplier = 0.6f;
+
+	UFUNCTION()
+	void OnRep_HeldGem();
+
+	void RecalculateWalkSpeed();
+
+	virtual USceneComponent* GetGemHoldPoint_Implementation() override;
+	virtual AGemItem* GetHeldGem_Implementation() override;
+	virtual void SetHeldGem_Implementation(AGemItem* NewGem) override;
+
 };
