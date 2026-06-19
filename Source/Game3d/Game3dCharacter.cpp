@@ -14,6 +14,7 @@
 #include "InputActionValue.h"
 #include "Public/HealthBar.h"
 #include "Interactable.h"  
+#include "GemItem.h"
 #include "Public/XpBar.h"
 #include "Public/SpecialAbilityHUD.h"
 #include "Public/MiniMapWidget.h"
@@ -82,6 +83,11 @@ AGame3dCharacter::AGame3dCharacter()
 	FollowCamera->bUsePawnControlRotation = false;
 	XpComponent = CreateDefaultSubobject<UXpComponent>(TEXT("XpComponent"));
 	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("InventoryComponent"));
+
+	GemHoldPoint = CreateDefaultSubobject<USceneComponent>(TEXT("GemHoldPoint"));
+	GemHoldPoint->SetupAttachment(GetMesh());
+	GemHoldPoint->SetRelativeLocation(FVector(40.f, 0.f, 40.f)); // ajustá esto a ojo en el editor
+	HeldGem = nullptr;
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
 }
@@ -717,14 +723,14 @@ void AGame3dCharacter::AddItemToInventory(const FItemStruct& ItemData)
 
 void AGame3dCharacter::DoDash()
 {
-	if (bHasDashed) return;
+	if (bHasDashed || HeldGem) return;
 	// El cliente SOLO pide al servidor, nada más
 	Server_DoDash();
 }
 
 void AGame3dCharacter::Server_DoDash_Implementation()
 {
-	if (bHasDashed) return;
+	if (bHasDashed || HeldGem) return;
 
 	bIsDashing = true;
 	bHasDashed = true;
@@ -776,8 +782,7 @@ void AGame3dCharacter::Landed(const FHitResult& Hit)
 	{
 		bIsJumpingLaunchpad = false;
 
-		GetCharacterMovement()->MaxWalkSpeed =
-			bIsSprinting ? SprintSpeed : WalkSpeed;
+		RecalculateWalkSpeed();
 
 		return;
 	}
@@ -802,8 +807,7 @@ void AGame3dCharacter::Landed(const FHitResult& Hit)
 			this, Damage, GetController(), this, nullptr);
 	}
 
-	GetCharacterMovement()->MaxWalkSpeed =
-		bIsSprinting ? SprintSpeed : WalkSpeed;
+	RecalculateWalkSpeed();
 }
 void AGame3dCharacter::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
 {
@@ -822,6 +826,7 @@ void AGame3dCharacter::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty
 	DOREPLIFETIME(AGame3dCharacter, bCanUseSpecialAbility);
 	DOREPLIFETIME(AGame3dCharacter, MoveLeftRightAxis);
 	DOREPLIFETIME(AGame3dCharacter, MoveUpDownAxis);
+	DOREPLIFETIME(AGame3dCharacter, HeldGem);
 
 }
 
@@ -1067,7 +1072,7 @@ void AGame3dCharacter::AttackMontageEnded(UAnimMontage* Montage, bool bInterrupt
 		UE_LOG(LogTemp, Warning, TEXT("→ Fin de combo, reseteando"));
 		bIsAttacking = false;
 		ComboCount = 0; // ← asegurate que esto esté
-		GetCharacterMovement()->MaxWalkSpeed = bIsSprinting ? SprintSpeed : WalkSpeed;
+		RecalculateWalkSpeed();
 
 	}
 }
@@ -1481,14 +1486,14 @@ void AGame3dCharacter::Server_SetSprinting_Implementation(bool bNewSprinting)
 	}
 	bIsSprinting = bNewSprinting;
 	// Aplica velocidad en el servidor
-	GetCharacterMovement()->MaxWalkSpeed = bIsSprinting ? SprintSpeed : WalkSpeed;
+	RecalculateWalkSpeed();
 	// bIsSprinting replicado dispara OnRep en los clientes
 }
 
 void AGame3dCharacter::OnRep_IsSprinting()
 {
 	// Se ejecuta en cada cliente cuando recibe el valor replicado
-	GetCharacterMovement()->MaxWalkSpeed = bIsSprinting ? SprintSpeed : WalkSpeed;
+	RecalculateWalkSpeed();
 }
 
 void AGame3dCharacter::OnRep_CanUseSpecialAbility()
@@ -1819,4 +1824,37 @@ void AGame3dCharacter::Multicast_PlayClimbingMontage_Implementation()
 		if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
 			AnimInstance->Montage_Play(ClimbingIdleMontage, 1.0f);
 	}
+}
+
+// ── IGemCarrierInterface ──────────────────────────────────────
+USceneComponent* AGame3dCharacter::GetGemHoldPoint_Implementation()
+{
+	return GemHoldPoint;
+}
+
+AGemItem* AGame3dCharacter::GetHeldGem_Implementation()
+{
+	return HeldGem;
+}
+
+void AGame3dCharacter::SetHeldGem_Implementation(AGemItem* NewGem)
+{
+	HeldGem = NewGem;
+	RecalculateWalkSpeed();
+}
+
+void AGame3dCharacter::OnRep_HeldGem()
+{
+	// Se ejecuta en los clientes remotos cuando el servidor replica el cambio
+	RecalculateWalkSpeed();
+}
+
+void AGame3dCharacter::RecalculateWalkSpeed()
+{
+	float TargetSpeed = bIsSprinting ? SprintSpeed : WalkSpeed;
+	if (HeldGem)
+	{
+		TargetSpeed *= GemCarrySpeedMultiplier;
+	}
+	GetCharacterMovement()->MaxWalkSpeed = TargetSpeed;
 }
