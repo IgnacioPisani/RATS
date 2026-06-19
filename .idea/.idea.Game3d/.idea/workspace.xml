@@ -13,26 +13,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="700cebab-63ab-47f1-8bec-c545c4c447ad" name="Changes" comment="Merge branch 'main' into MiniMapa&#10;&#10;# Conflicts:&#10;#&#9;.idea/.idea.Game3d/.idea/workspace.xml&#10;#&#9;Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset">
-      <change beforePath="$PROJECT_DIR$/Content/BP_Escalera2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/BP_Escalera2.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/BP_Escalera3.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/BP_Escalera3.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/PuzzleParkour/BP_Pedestal_Blue.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CosasDePrueba/PuzzleParkour/BP_Pedestal_Blue.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/PuzzleParkour/BP_Pedestal_Red.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CosasDePrueba/PuzzleParkour/BP_Pedestal_Red.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Interfaces/BPI_Mecanic.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Interfaces/BPI_Mecanic.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/0/YJ/L6BHX4ODAKVK3MYQAOVKLL.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/0/YJ/L6BHX4ODAKVK3MYQAOVKLL.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/8/FH/ONODLCESO4YJNZJYKCYNR0.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/8/FH/ONODLCESO4YJNZJYKCYNR0.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/1Q/QERHSO2YOMY4DZ4KNZL7L6.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/1Q/QERHSO2YOMY4DZ4KNZL7L6.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/9Z/9NU043GXS5LDI42CDD6L3V.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/9Z/9NU043GXS5LDI42CDD6L3V.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/B/3J/8QTMELXN5H0DH2MY292WB5.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/B/3J/8QTMELXN5H0DH2MY292WB5.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/D/V3/MGX9DQ97HW12M6ZAB08DIX.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/D/V3/MGX9DQ97HW12M6ZAB08DIX.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/JP/8TO784D23JCM03OTOFPXQD.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/JP/8TO784D23JCM03OTOFPXQD.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/UO/VG5U5FZ6WE0HM6GVVFWB39.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/WJ/DPE8U24KN7JFSDAYRS4LGC.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/WJ/DPE8U24KN7JFSDAYRS4LGC.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/ZO/IDL2ATETDJQNXBQK0UWJ5T.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/ZO/IDL2ATETDJQNXBQK0UWJ5T.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Private/GemItem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Private/GemItem.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Private/GemPedestal.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Private/GemPedestal.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Public/GemItem.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Public/GemItem.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Public/GemPedestal.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Public/GemPedestal.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/3/3O/OLFH6MV1MUBUWMF35N6RJQ.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/3/3O/OLFH6MV1MUBUWMF35N6RJQ.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/CB/F0MT44S0QMC8L26T04UYE2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/CB/F0MT44S0QMC8L26T04UYE2.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/8/23/4BERRV0WR1VWKA3DSXVRUA.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/8/JF/F48UJR1ZJ0N6997MWM70AA.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/3H/MUD617N3WDU5BBDMVVV1IQ.uasset" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -454,6 +440,7 @@
       <workItem from="1781792887412" duration="988000" />
       <workItem from="1781794042555" duration="914000" />
       <workItem from="1781795343958" duration="3292000" />
+      <workItem from="1781821067281" duration="1738000" />
     </task>
     <servers />
   </component>
