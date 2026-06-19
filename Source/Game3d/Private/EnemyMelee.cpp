@@ -4,6 +4,7 @@
 #include "EnemyMelee.h"
 
 #include "Kismet/GameplayStatics.h"
+#include "Net/UnrealNetwork.h"
 
 // Sets default values
 AEnemyMelee::AEnemyMelee()
@@ -82,5 +83,16 @@ void AEnemyMelee::HandleHit_Implementation()
 			);
 		}
 	}
+}
+
+void AEnemyMelee::OnRep_IsAttacking()
+{
+	
+}
+
+void AEnemyMelee::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(AEnemyMelee, bIsAttacking);
 }
 

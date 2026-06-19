@@ -68,7 +68,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Flight")
     float HoverFrequency = 1.5f;
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Flight")
+    UPROPERTY(ReplicatedUsing=OnRep_IsAttacking, BlueprintReadWrite, Category="Combat")
     bool bIsAttacking = false;
     
     /** Velocidad máxima en vuelo */
@@ -98,6 +98,9 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
     float ProjectileDamage = 20.f;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tumbleweed") // o la categoría que uses
+    float MaxHeightCorrection = 400.f;
+    
     /** Distancia mínima; si el jugador se acerca más, retrocede */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
     float MinKeepDistance = 500.f;
@@ -106,6 +109,8 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
     float FireRate = 1.5f;
 
+    AActor* FindClosestPlayer() const;
+    
     /** Rango de detección inicial */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
     float DetectionRadius = 2000.f;
@@ -113,6 +118,9 @@ public:
     UFUNCTION()
     void OnRep_IsAttacking();
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
+    FName FloorTag = FName(TEXT("Floor"));
+    
     UFUNCTION()
     void OnAttackMontageEnded(UAnimMontage* Montage, bool bInterrupted);
     // ─────────────────────────────────────────

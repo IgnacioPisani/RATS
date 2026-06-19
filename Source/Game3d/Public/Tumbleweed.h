@@ -1,37 +1,50 @@
-// Fill out your copyright notice in the Description page of Project Settings.
 #pragma once
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Tumbleweed.generated.h"
 
+class UStaticMeshComponent;
+
 UCLASS()
-class GAME3D_API ATumbleweed : public AActor
+class ATumbleweed : public AActor
 {
 	GENERATED_BODY()
-	
+
 public:
-	void Tick(float DeltaTime);
 	ATumbleweed();
 
 protected:
 	virtual void BeginPlay() override;
-	
-	UPROPERTY(VisibleAnywhere)
+
+public:
+	virtual void Tick(float DeltaTime) override;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Tumbleweed")
 	UStaticMeshComponent* Mesh;
 
-	UPROPERTY(VisibleAnywhere)
-	class UProjectileMovementComponent* Movement;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tumbleweed")
+	float WindStrength = 2000.f;
 
-	UPROPERTY(EditAnywhere)
-	float InitialSpeed = 300.f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tumbleweed")
+	float TorqueStrength = 10000.f;
 
-	float GroundOffset = 20.f;
-	float TraceDistance = 200.f;
-	FTimerHandle DestroyTimer;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tumbleweed")
+	float InitialImpulse = 100.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tumbleweed")
+	float LifeSpan = 4.f;
+
+	// Implementar en el Blueprint. Se llama tanto al spawnear como al
+	// empezar la destruccion (para el FX de "desaparicion").
+	UFUNCTION(BlueprintImplementableEvent, Category = "Tumbleweed")
+	void PlaySpawnFX();
+
+private:
 	void HandleDestroy();
+
 	FVector WindDirection;
 
-	UFUNCTION(BlueprintImplementableEvent, Category="FX")
-	void PlaySpawnFX();
+	FTimerHandle DestroyTimer;
+	FTimerHandle DestroyDelayTimer;
 };

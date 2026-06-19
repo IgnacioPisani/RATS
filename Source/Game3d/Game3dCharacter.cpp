@@ -651,25 +651,59 @@ void AGame3dCharacter::DoPickUp()
 	AActor* HitActor = FindInteractableActor();
 	if (!HitActor) return;
 
-	if (HitActor->GetClass()->ImplementsInterface(UInteractable::StaticClass()))
-	{
-		FItemStruct ItemData = IInteractable::Execute_GetItem(HitActor);
+	if (!HitActor->GetClass()->ImplementsInterface(UInteractable::StaticClass())) return;
 
-		if (ItemData.Mesh)
+	FItemStruct ItemData = IInteractable::Execute_GetItem(HitActor);
+
+	if (ItemData.Mesh)
+	{
+		// Item de suelo — lógica de pickup existente
+		if (HasAuthority())
 		{
 			AddItemToInventory(ItemData);
 			HitActor->Destroy();
 		}
 		else
 		{
-			FItemStruct SpawnData = IInteractable::Execute_GetItemSpawn(HitActor);
+			Server_Interact(HitActor);
+		}
+	}
+	else
+	{
+		// Mecanismo (cofre, palanca, etc.)
+		FItemStruct SpawnData = IInteractable::Execute_GetItemSpawn(HitActor);
+        
+		if (HasAuthority())
+		{
 			IInteractable::Execute_Interact(HitActor, this);
 			if (SpawnData.Mesh)
-			{
 				AddItemToInventory(SpawnData);
-			}
-
 		}
+		else
+		{
+			Server_Interact(HitActor);
+		}
+	}
+}
+
+void AGame3dCharacter::Server_Interact_Implementation(AActor* Target)
+{
+	if (!Target) return;
+	if (!Target->GetClass()->ImplementsInterface(UInteractable::StaticClass())) return;
+
+	FItemStruct ItemData = IInteractable::Execute_GetItem(Target);
+
+	if (ItemData.Mesh)
+	{
+		AddItemToInventory(ItemData);
+		Target->Destroy();
+	}
+	else
+	{
+		FItemStruct SpawnData = IInteractable::Execute_GetItemSpawn(Target);
+		IInteractable::Execute_Interact(Target, this);
+		if (SpawnData.Mesh)
+			AddItemToInventory(SpawnData);
 	}
 }
 

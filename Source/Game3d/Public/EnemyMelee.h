@@ -28,4 +28,10 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	virtual void HandleHit_Implementation() override;
+
+	UPROPERTY(ReplicatedUsing=OnRep_IsAttacking, BlueprintReadWrite, Category="Combat")
+	bool bIsAttacking = false;
+
+	UFUNCTION()
+	void OnRep_IsAttacking();
 };

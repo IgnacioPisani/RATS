@@ -508,7 +508,7 @@ public:
     protected:
         /** Tiempo sin moverse para entrar en resting */
         UPROPERTY(EditDefaultsOnly, Category = "Resting")
-        float IdleTimeToRest = 10.f;
+        float IdleTimeToRest = 30.f;
     
     private:
         /** Handle del timer de idle */
@@ -539,6 +539,9 @@ public:
 
 	UFUNCTION()
 	void HandleMissionUpdated(const FString& NewMission);
+
+	UFUNCTION(Server, Reliable)
+	void Server_Interact(AActor* Target);
 	
 // ============================================================
 //  AGREGA ESTO EN Game3dCharacter.h
