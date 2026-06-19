@@ -15,7 +15,9 @@ class GAME3D_API AMechanism : public AActor, public IInteractable
 public:
 	AMechanism();
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite,  meta=(ExposeOnSpawn="true"),Category="Inventory")
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(ExposeOnSpawn="true"), Category="Inventory")
 	FItemStruct ItemData;
 
 protected:
@@ -23,19 +25,25 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
 	UStaticMeshComponent* StaticMesh;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Mechanism")
+	// Replicado — cuando cambia en server, OnRep lo propaga a clientes
+	UPROPERTY(ReplicatedUsing=OnRep_IsActivated, EditAnywhere, BlueprintReadWrite, Category="Mechanism")
 	bool bIsActivated = false;
 
-	// Devuelve struct vacío por defecto — subclases con ítems lo sobreescriben
-	virtual FItemStruct GetItem_Implementation() override;
+	UFUNCTION()
+	virtual void OnRep_IsActivated();
 
-	// Subclases implementan su propia lógica
+	virtual FItemStruct GetItem_Implementation() override;
 	virtual void Interact_Implementation(AActor* Interactor) override;
 
-	// Eventos implementables en Blueprint por cada subclase
+	// Llamado en server, ejecutado en todos los clientes (animación, sonido, VFX)
+	UFUNCTION(NetMulticast, Reliable)
+	void Multicast_PlayActivationEffects();
+
+	// Implementable en Blueprint por subclase (animación de apertura, etc.)
 	UFUNCTION(BlueprintImplementableEvent, Category="Mechanism")
 	void PlayActivationAnimation();
 
 	UFUNCTION(BlueprintNativeEvent, Category="Mechanism")
 	void OnActivated(AActor* Interactor);
+	virtual void OnActivated_Implementation(AActor* Interactor);
 };

@@ -75,15 +75,8 @@ void AEnemyDistance::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
     // Detección simple por distancia
-    AActor* Player = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
-    if (Player && FVector::Dist(GetActorLocation(), Player->GetActorLocation()) <= DetectionRadius)
-    {
-        TargetActor = Player;
-    }
-    else
-    {
-        TargetActor = nullptr;
-    }
+    // Ahora
+    TargetActor = FindClosestPlayer();
     // Cooldown de disparo
     if (FireCooldown > 0.f)
         FireCooldown -= DeltaTime;
@@ -219,24 +212,48 @@ void AEnemyDistance::RetreatFromTarget(float DeltaTime)
 
 void AEnemyDistance::MaintainFlyHeight(float DeltaTime)
 {
-    // Raycast hacia abajo para medir la distancia al suelo
-    FVector Start = GetActorLocation();
-    FVector End   = Start - FVector(0.f, 0.f, 2000.f);
+    const FVector Start = GetActorLocation();
+    const FVector End   = Start - FVector(0.f, 0.f, 2000.f);
 
-    FHitResult Hit;
+    TArray<FHitResult> Hits;
     FCollisionQueryParams Params;
     Params.AddIgnoredActor(this);
 
-    float CurrentHeight = PreferredFlyHeight;
+    const bool bAnyHit = GetWorld()->LineTraceMultiByChannel(Hits, Start, End, ECC_WorldStatic, Params);
 
-    if (GetWorld()->LineTraceSingleByChannel(Hit, Start, End, ECC_WorldStatic, Params))
+    bool  bFoundFloor   = false;
+    float CurrentHeight = 0.f;
+
+    if (bAnyHit)
     {
-        CurrentHeight = Start.Z - Hit.ImpactPoint.Z;
+        for (const FHitResult& Hit : Hits)
+        {
+            const bool bActorTagged = Hit.GetActor() && Hit.GetActor()->ActorHasTag(FloorTag);
+            const bool bCompTagged  = Hit.GetComponent() && Hit.GetComponent()->ComponentHasTag(FloorTag);
+
+            if (bActorTagged || bCompTagged)
+            {
+                CurrentHeight = Start.Z - Hit.ImpactPoint.Z;
+                bFoundFloor   = true;
+                break; // el primer "Floor" real que encontramos bajando
+            }
+        }
     }
 
-    float HeightError = PreferredFlyHeight - CurrentHeight;
-    FVector Correction(0.f, 0.f, HeightError * HeightCorrectionStrength * DeltaTime);
-    AddMovementInput(Correction.GetSafeNormal(), FMath::Abs(HeightError) * 0.01f);
+    if (!bFoundFloor)
+    {
+        // No hay nada tageado como Floor debajo: no corregimos este frame
+        // en vez de asumir una altura falsa que después genera un salto brusco.
+        return;
+    }
+
+    const float HeightError  = PreferredFlyHeight - CurrentHeight;
+    const float ClampedError = FMath::Clamp(HeightError, -MaxHeightCorrection, MaxHeightCorrection);
+
+    const FVector CorrectionDir(0.f, 0.f, FMath::Sign(ClampedError));
+    const float   InputScale  = FMath::Clamp(FMath::Abs(ClampedError) * 0.01f, 0.f, 1.f);
+
+    AddMovementInput(CorrectionDir, InputScale);
 }
 
 void AEnemyDistance::ApplyHoverEffect(float DeltaTime)
@@ -337,6 +354,33 @@ void AEnemyDistance::OnAttackEndTimerExpired()
     OnRep_IsAttacking();
 }
 
+AActor* AEnemyDistance::FindClosestPlayer() const
+{
+    UWorld* World = GetWorld();
+    if (!World) return nullptr;
+
+    AActor* ClosestPlayer = nullptr;
+    float ClosestDistSq = FMath::Square(DetectionRadius);
+
+    for (FConstPlayerControllerIterator It = World->GetPlayerControllerIterator(); It; ++It)
+    {
+        APlayerController* PC = It->Get();
+        if (!PC) continue;
+
+        APawn* PlayerPawn = PC->GetPawn();
+        if (!PlayerPawn) continue;
+
+        const float DistSq = FVector::DistSquared(GetActorLocation(), PlayerPawn->GetActorLocation());
+        if (DistSq <= ClosestDistSq)
+        {
+            ClosestDistSq = DistSq;
+            ClosestPlayer = PlayerPawn;
+        }
+    }
+
+    return ClosestPlayer;
+}
+
 void AEnemyDistance::SpawnProjectile(const FVector& Origin, const FRotator& Rotation)
 {
     if (!GetWorld() || !ProjectileClass) return;
@@ -426,7 +470,7 @@ void AEnemyDistance::OnTargetPerceived(AActor* Actor, FAIStimulus Stimulus)
 // ─────────────────────────────────────────────────────────────────
 void AEnemyDistance::HandleHit_Implementation()
 {
-    TargetActor = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
+    TargetActor = FindClosestPlayer();
 }
 
 void AEnemyDistance::HandleDeath()

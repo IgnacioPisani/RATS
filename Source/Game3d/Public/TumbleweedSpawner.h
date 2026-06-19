@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -9,33 +7,43 @@
 class ATumbleweed;
 
 UCLASS()
-class GAME3D_API ATumbleweedSpawner : public AActor
+class ATumbleweedSpawner : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
-	// Sets default values for this actor's properties
+
+public:
 	ATumbleweedSpawner();
 
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	void SpawnTumbleweed();
-	
 
-public:	
-	// Called every frame
+public:
 	virtual void Tick(float DeltaTime) override;
 
-	UPROPERTY(EditAnywhere)
+	// Clase Blueprint del Tumbleweed a spawnear (asignar en el editor)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tumbleweed")
 	TSubclassOf<ATumbleweed> TumbleweedClass;
 
-	UPROPERTY(EditAnywhere)
-	float SpawnRadius = 3000.f;
+	// Tiempo entre cada spawn, en segundos. OJO: si esto queda en 0 spawnea
+	// un actor por frame y eso es lo que rompe el juego.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tumbleweed", meta = (ClampMin = "0.05"))
+	float SpawnInterval = 4.0f;
 
-	UPROPERTY(EditAnywhere)
-	float SpawnInterval = 6.f;
+	// Radio de dispersion del spawn alrededor del spawner
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tumbleweed")
+	float SpawnRadius = 5000.f;
+
+	// Maximo de tumbleweeds vivos al mismo tiempo (evita que se acumulen para siempre)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tumbleweed")
+	int32 MaxTumbleweeds = 2;
+
+private:
+	void SpawnTumbleweed();
+
+	UFUNCTION()
+	void HandleTumbleweedDestroyed(AActor* DestroyedActor);
 
 	FTimerHandle SpawnTimer;
 
+	int32 CurrentTumbleweedCount = 0;
 };

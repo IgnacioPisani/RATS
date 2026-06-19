@@ -1,85 +1,106 @@
 #include "Tumbleweed.h"
 #include "Components/StaticMeshComponent.h"
+#include "TimerManager.h"
+#include "Engine/World.h"
+
 ATumbleweed::ATumbleweed()
 {
-	PrimaryActorTick.bCanEverTick = true;
+    PrimaryActorTick.bCanEverTick = true;
 
-	// 🧱 Mesh
-	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
-	RootComponent = Mesh;
+    // Mesh
+    Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+    RootComponent = Mesh;
 
-	// 🔥 FÍSICAS
-	Mesh->SetSimulatePhysics(true);
-	Mesh->SetEnableGravity(true);
+    // Fisicas
+    Mesh->SetSimulatePhysics(true);
+    Mesh->SetEnableGravity(true);
 
-	// 🧠 COLISIÓN (solo mundo)
-	Mesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
-	Mesh->SetCollisionResponseToAllChannels(ECR_Ignore);
-	Mesh->SetCollisionResponseToChannel(ECC_WorldStatic, ECR_Block);
+    // Colision (solo mundo)
+    Mesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+    Mesh->SetCollisionResponseToAllChannels(ECR_Ignore);
+    Mesh->SetCollisionResponseToChannel(ECC_WorldStatic, ECR_Block);
 
-	// 🎯 AJUSTES DE ESTABILIDAD (CLAVE)
-	Mesh->SetLinearDamping(0.05f);
-	Mesh->SetAngularDamping(0.2f);
+    // Ajustes de estabilidad
+    Mesh->SetLinearDamping(0.05f);
+    Mesh->SetAngularDamping(0.2f);
+
+    // Masa fija: asi las fuerzas de viento/torque dan un resultado
+    // predecible sin importar el mesh que se use.
+    Mesh->SetMassOverrideInKg(NAME_None, 5.f, true);
 }
 
 void ATumbleweed::BeginPlay()
 {
-	Super::BeginPlay();
+    Super::BeginPlay();
 
-	if (!Mesh) return;
+    if (!Mesh)
+    {
+        return;
+    }
+
     PlaySpawnFX();
-	// 🌬️ Dirección base del viento
-	WindDirection = FVector(1.f, 0.3f, 0.f).GetSafeNormal();
 
-	// 🚀 IMPULSO INICIAL (para arrancar)
-	float InitialImpulse = 800.f;
-	Mesh->AddImpulse(WindDirection * InitialImpulse, NAME_None, true);
+    // Direccion base del viento
+    WindDirection = FVector(1.f, 0.3f, 0.f).GetSafeNormal();
 
-	// ⏳ Autodestruir
-	GetWorld()->GetTimerManager().SetTimer(
-		DestroyTimer,
-		this,
-		&ATumbleweed::HandleDestroy,
-		12.f,
-		false
-	);}
+    // Impulso inicial (para arrancar)
+    Mesh->AddImpulse(WindDirection * InitialImpulse, NAME_None, true);
+
+    // Autodestruir
+    if (UWorld* World = GetWorld())
+    {
+        World->GetTimerManager().SetTimer(
+            DestroyTimer,
+            this,
+            &ATumbleweed::HandleDestroy,
+            LifeSpan,
+            false
+        );
+    }
+}
 
 void ATumbleweed::HandleDestroy()
 {
-	// 🔥 llamar FX en BP
-	PlaySpawnFX();
+    // FX antes de desaparecer
+    PlaySpawnFX();
 
-	// ⏳ esperar un toque para que se vea
-	FTimerHandle TempTimer;
+    // Usamos un weak pointer para no crashear si el actor ya fue
+    // destruido por otro lado antes de que dispare este timer.
+    TWeakObjectPtr<ATumbleweed> WeakThis(this);
 
-	GetWorld()->GetTimerManager().SetTimer(
-		TempTimer,
-		[this]()
-		{
-			Destroy();
-		},
-		0.2f, // 👈 ajustable (0.1 - 0.3 ideal)
-		false
-	);
+    if (UWorld* World = GetWorld())
+    {
+        World->GetTimerManager().SetTimer(
+            DestroyDelayTimer,
+            [WeakThis]()
+            {
+                if (WeakThis.IsValid())
+                {
+                    WeakThis->Destroy();
+                }
+            },
+            0.2f,
+            false
+        );
+    }
 }
 
 void ATumbleweed::Tick(float DeltaTime)
 {
-	Super::Tick(DeltaTime);
+    Super::Tick(DeltaTime);
 
-	if (!Mesh) return;
+    if (!Mesh)
+    {
+        return;
+    }
 
-	// 🌪️ VIENTO CONSTANTE (FUERTE)
-	float WindStrength = 90000.f;
+    // Viento constante
+    Mesh->AddForce(WindDirection * WindStrength);
 
-	Mesh->AddForce(WindDirection * WindStrength);
-
-	// 🌀 Torque para que ruede
-	float TorqueStrength = 100000.f;
-
-	Mesh->AddTorqueInDegrees(
-		FVector(0.f, 0.f, TorqueStrength),
-		NAME_None,
-		true
-	);
+    // Torque para que ruede
+    Mesh->AddTorqueInDegrees(
+        FVector(0.f, 0.f, TorqueStrength),
+        NAME_None,
+        true
+    );
 }

@@ -240,7 +240,6 @@ EnhancedInputComponent->BindAction(
 		EnhancedInputComponent->BindAction(UseMedkitAction, ETriggerEvent::Started, this, &AGame3dCharacter::DoUseMedkit);
 
 		EnhancedInputComponent->BindAction(AdvanceDialogueAction, ETriggerEvent::Started, this, &AGame3dCharacter::OnAdvanceDialogue);
-		EnhancedInputComponent->BindAction(ThrowGemAction, ETriggerEvent::Started, this, &AGame3dCharacter::ThrowGem);
 
 	}
 	else
@@ -550,7 +549,6 @@ void AGame3dCharacter::DoLook(float Yaw, float Pitch)
 void AGame3dCharacter::DoJumpStart()
 {
 	if (bIsInDialogue) return;
-	if (HeldGem) return;   // no saltar con el diamante equipado
 	Jump();
 }
 
@@ -657,36 +655,64 @@ void AGame3dCharacter::HandleLevelChanged(int level)
 void AGame3dCharacter::DoPickUp()
 {
 	AActor* HitActor = FindInteractableActor();
+	if (!HitActor) return;
 
-	if (HitActor && HitActor->GetClass()->ImplementsInterface(UInteractable::StaticClass()))
+	if (!HitActor->GetClass()->ImplementsInterface(UInteractable::StaticClass())) return;
+
+	FItemStruct ItemData = IInteractable::Execute_GetItem(HitActor);
+
+	if (ItemData.Mesh)
 	{
-		FItemStruct ItemData = IInteractable::Execute_GetItem(HitActor);
-
-		if (ItemData.Mesh)
+		// Item de suelo — lógica de pickup existente
+		if (HasAuthority())
 		{
 			AddItemToInventory(ItemData);
 			HitActor->Destroy();
 		}
 		else
 		{
-			FItemStruct SpawnData = IInteractable::Execute_GetItemSpawn(HitActor);
-			
-			IInteractable::Execute_Interact(HitActor, this); 
-			
-			if (SpawnData.Mesh)
-			{
-				AddItemToInventory(SpawnData);
-			}
+			Server_Interact(HitActor);
 		}
-		return; 
 	}
-
-	if (HeldGem)
+	else
 	{
-		DropGem();
-		return;
+		// Mecanismo (cofre, palanca, etc.)
+		FItemStruct SpawnData = IInteractable::Execute_GetItemSpawn(HitActor);
+        
+		if (HasAuthority())
+		{
+			IInteractable::Execute_Interact(HitActor, this);
+			if (SpawnData.Mesh)
+				AddItemToInventory(SpawnData);
+		}
+		else
+		{
+			Server_Interact(HitActor);
+		}
 	}
 }
+
+void AGame3dCharacter::Server_Interact_Implementation(AActor* Target)
+{
+	if (!Target) return;
+	if (!Target->GetClass()->ImplementsInterface(UInteractable::StaticClass())) return;
+
+	FItemStruct ItemData = IInteractable::Execute_GetItem(Target);
+
+	if (ItemData.Mesh)
+	{
+		AddItemToInventory(ItemData);
+		Target->Destroy();
+	}
+	else
+	{
+		FItemStruct SpawnData = IInteractable::Execute_GetItemSpawn(Target);
+		IInteractable::Execute_Interact(Target, this);
+		if (SpawnData.Mesh)
+			AddItemToInventory(SpawnData);
+	}
+}
+
 void AGame3dCharacter::AddItemToInventory(const FItemStruct& ItemData)
 {
 	if (InventoryComponent)
@@ -1441,7 +1467,7 @@ void AGame3dCharacter::OnRep_IsResting()
 
 void AGame3dCharacter::DoStartSprint()
 {
-	if (!bIsAttacking && !bIsAiming && !HeldGem)
+	if (!bIsAttacking && !bIsAiming)
 	{
 		Server_SetSprinting(true);
 	}
@@ -1831,75 +1857,4 @@ void AGame3dCharacter::RecalculateWalkSpeed()
 		TargetSpeed *= GemCarrySpeedMultiplier;
 	}
 	GetCharacterMovement()->MaxWalkSpeed = TargetSpeed;
-}
-
-// ── DropGem — suelta el diamante en el lugar del personaje ───────
-void AGame3dCharacter::DropGem()
-{
-	if (!HeldGem) return;
-
-	if (HasAuthority())
-	{
-		Server_DropGem_Implementation();
-	}
-	else
-	{
-		Server_DropGem();
-	}
-}
-
-void AGame3dCharacter::Server_DropGem_Implementation()
-{
-	if (!HeldGem) return;
-
-	// Posición un poco delante y abajo del personaje para no quedar dentro del capsule
-	const FVector DropLocation = GetActorLocation()
-		+ GetActorForwardVector() * 80.f
-		+ FVector(0.f, 0.f, -50.f);
-
-	HeldGem->Drop(DropLocation);
-	HeldGem = nullptr;
-
-	RecalculateWalkSpeed();
-
-	// Notificar BP para sonido/VFX de soltar
-	OnGemDropped();
-}
-
-// ── ThrowGem — lanza el diamante en parábola ─────────────────────
-void AGame3dCharacter::ThrowGem()
-{
-	if (!HeldGem) return;
-
-	// Dirección horizontal = la que mira el personaje
-	const FVector Forward       = GetActorForwardVector();
-	const FVector LaunchVelocity = Forward * GemThrowHorizontalSpeed
-								  + FVector(0.f, 0.f, GemThrowVerticalSpeed);
-
-	// Spawn un poco por delante para que no colisione con el capsule al salir
-	const FVector SpawnLocation  = GetActorLocation()
-								  + Forward * 80.f
-								  + FVector(0.f, 0.f, 20.f);
-
-	if (HasAuthority())
-	{
-		Server_ThrowGem_Implementation(LaunchVelocity, SpawnLocation);
-	}
-	else
-	{
-		Server_ThrowGem(LaunchVelocity, SpawnLocation);
-	}
-}
-
-void AGame3dCharacter::Server_ThrowGem_Implementation(FVector LaunchVelocity, FVector SpawnLocation)
-{
-	if (!HeldGem) return;
-
-	HeldGem->Throw(LaunchVelocity, SpawnLocation);
-	HeldGem = nullptr;
-
-	RecalculateWalkSpeed();
-
-	// Reutilizamos el mismo evento BP para VFX/sonido de lanzamiento
-	OnGemDropped();
 }
