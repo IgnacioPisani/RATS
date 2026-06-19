@@ -735,13 +735,45 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gem", meta = (ClampMin = "0.1", ClampMax = "1.0"))
 	float GemCarrySpeedMultiplier = 0.6f;
 
+	// ── Input para tirar el diamante ─────────────────────────────
+	UPROPERTY(EditAnywhere, Category = "Input")
+	UInputAction* ThrowGemAction;
+
+	// ── Configuración del lanzamiento ────────────────────────────
+	/** Velocidad horizontal del tiro (cm/s). Unos 600–800 da "unos metros adelante" */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gem|Throw",
+	          meta = (ClampMin = "100", ClampMax = "2000", Units = "cm/s"))
+	float GemThrowHorizontalSpeed = 700.f;
+
+	/** Velocidad vertical del tiro — controla el arco de la parábola */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gem|Throw",
+	          meta = (ClampMin = "0", ClampMax = "1500", Units = "cm/s"))
+	float GemThrowVerticalSpeed = 800.f;
+
+	// ── Funciones ────────────────────────────────────────────────
 	UFUNCTION()
 	void OnRep_HeldGem();
 
 	void RecalculateWalkSpeed();
 
+	/** Suelta el diamante (E con gema en mano) */
+	void DropGem();
+
+	/** Lanza el diamante en parábola (input ThrowGemAction) */
+	void ThrowGem();
+
+	/** Notifica en Blueprint que el personaje soltó la gema (para sonido/VFX) */
+	UFUNCTION(BlueprintImplementableEvent, Category = "Gem")
+	void OnGemDropped();
+
 	virtual USceneComponent* GetGemHoldPoint_Implementation() override;
 	virtual AGemItem* GetHeldGem_Implementation() override;
 	virtual void SetHeldGem_Implementation(AGemItem* NewGem) override;
 
+	// ── RPCs ─────────────────────────────────────────────────────
+	UFUNCTION(Server, Reliable)
+	void Server_DropGem();
+
+	UFUNCTION(Server, Reliable)
+	void Server_ThrowGem(FVector LaunchVelocity, FVector SpawnLocation);
 };

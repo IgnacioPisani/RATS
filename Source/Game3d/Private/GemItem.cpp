@@ -1,5 +1,6 @@
 #include "GemItem.h"
 #include "Net/UnrealNetwork.h"
+#include "GemPedestal.h"
 #include "GemCarrierInterface.h"
 
 AGemItem::AGemItem()
@@ -36,9 +37,7 @@ void AGemItem::OnRep_GemColor()
 
 void AGemItem::Interact_Implementation(AActor* Interactor)
 {
-	// Esto asume que tu sistema de Interact ya llega acá solo en el servidor
-	// (igual que tu Server_Fire para el disparo). Si no es así, avisame.
-	if (bIsHeld || bIsPlaced || !Interactor)
+	if (bIsHeld || !Interactor)
 	{
 		return;
 	}
@@ -47,8 +46,7 @@ void AGemItem::Interact_Implementation(AActor* Interactor)
 	{
 		return;
 	}
-
-	// No deja agarrar un segundo diamante si ya tiene uno en la mano
+	
 	if (IGemCarrierInterface::Execute_GetHeldGem(Interactor) != nullptr)
 	{
 		return;
@@ -66,7 +64,14 @@ void AGemItem::Interact_Implementation(AActor* Interactor)
 
 void AGemItem::PickUp(AActor* NewHolder, USceneComponent* HoldPoint)
 {
+	AGemPedestal* Pedestal = Cast<AGemPedestal>(GetOwner());
+	if (Pedestal)
+	{
+		Pedestal->DeactivatePedestal();
+	}
+	
 	bIsHeld = true;
+	bIsPlaced = false; // Reseteamos el estado al recogerla.
 	SetOwner(NewHolder);
 
 	GemMesh->SetSimulatePhysics(false);
@@ -81,4 +86,35 @@ void AGemItem::PlaceOnSupport(USceneComponent* SupportPoint)
 	bIsPlaced = true;
 
 	AttachToComponent(SupportPoint, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
+}
+
+void AGemItem::Drop(const FVector& DropLocation)
+{
+	bIsHeld  = false;
+	bIsPlaced = false;
+	SetOwner(nullptr);
+
+	DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
+	SetActorLocation(DropLocation);
+
+	GemMesh->SetSimulatePhysics(true);
+	GemMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	SetReplicateMovement(true);
+}
+
+void AGemItem::Throw(const FVector& LaunchVelocity, const FVector& SpawnLocation)
+{
+	bIsHeld  = false;
+	bIsPlaced = false;
+	SetOwner(nullptr);
+
+	DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
+	SetActorLocation(SpawnLocation);
+
+	GemMesh->SetSimulatePhysics(true);
+	GemMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	SetReplicateMovement(true);
+
+	// Imprimimos la velocidad para que la física haga la parábola
+	GemMesh->SetPhysicsLinearVelocity(LaunchVelocity);
 }

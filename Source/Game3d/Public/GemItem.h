@@ -34,19 +34,20 @@ public:
 
 	// TODO: ajustar la firma para que coincida exactamente con tu interfaz interactuable
 	virtual void Interact_Implementation(AActor* Interactor) override;
-
-	// Lo llama internamente el propio diamante al agarrarse / colocarse.
-	// Server-authoritative: solo debería ejecutarse en el servidor.
+	
 	void PickUp(AActor* NewHolder, USceneComponent* HoldPoint);
 	void PlaceOnSupport(USceneComponent* SupportPoint);
+	
+	void Drop(const FVector& DropLocation);
+	
+	void Throw(const FVector& LaunchVelocity, const FVector& SpawnLocation);
 
 protected:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 	UFUNCTION()
 	void OnRep_GemColor();
-
-	// Asigná estos en el editor (o en el constructor de la subclase BP) para el tinte visual
+	
 	UPROPERTY(EditDefaultsOnly, Category = "Gem")
 	UMaterialInterface* RedMaterial;
 
