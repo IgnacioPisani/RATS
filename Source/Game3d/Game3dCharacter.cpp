@@ -549,6 +549,7 @@ void AGame3dCharacter::DoLook(float Yaw, float Pitch)
 void AGame3dCharacter::DoJumpStart()
 {
 	if (bIsInDialogue) return;
+	if (HeldGem) return;
 	Jump();
 }
 
@@ -1467,7 +1468,7 @@ void AGame3dCharacter::OnRep_IsResting()
 
 void AGame3dCharacter::DoStartSprint()
 {
-	if (!bIsAttacking && !bIsAiming)
+	if (!bIsAttacking && !bIsAiming && !HeldGem)
 	{
 		Server_SetSprinting(true);
 	}
@@ -1480,6 +1481,11 @@ void AGame3dCharacter::DoStopSprint()
 
 void AGame3dCharacter::Server_SetSprinting_Implementation(bool bNewSprinting)
 {
+	if (bNewSprinting && HeldGem)
+	{
+		bNewSprinting = false;
+	}
+
 	if (MotionLinesWidget)
 	{
 		MotionLinesWidget->SetVisibility(bNewSprinting?ESlateVisibility::Visible:ESlateVisibility::Hidden);
@@ -1845,7 +1851,6 @@ void AGame3dCharacter::SetHeldGem_Implementation(AGemItem* NewGem)
 
 void AGame3dCharacter::OnRep_HeldGem()
 {
-	// Se ejecuta en los clientes remotos cuando el servidor replica el cambio
 	RecalculateWalkSpeed();
 }
 
@@ -1857,4 +1862,49 @@ void AGame3dCharacter::RecalculateWalkSpeed()
 		TargetSpeed *= GemCarrySpeedMultiplier;
 	}
 	GetCharacterMovement()->MaxWalkSpeed = TargetSpeed;
+}
+
+// ── Server_ThrowGem ───────────────────────────────────────────
+void AGame3dCharacter::Server_ThrowGem_Implementation(FVector StartLocation, FVector LaunchVelocity)
+{
+	if (!HeldGem) return;
+
+	AGemItem* GemToThrow = HeldGem;
+	SetHeldGem_Implementation(nullptr);
+
+	// Detach y reposicionamos donde el cliente tenía la gema
+	GemToThrow->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
+	GemToThrow->SetActorLocation(StartLocation, false, nullptr, ETeleportType::TeleportPhysics);
+
+	GemToThrow->bIsHeld = false;
+	GemToThrow->bIsPlaced = false;
+
+	// Activar física y aplicar velocidad para que vuele en parábola
+	UStaticMeshComponent* GemMesh = GemToThrow->FindComponentByClass<UStaticMeshComponent>();
+	if (GemMesh)
+	{
+		GemMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+		GemMesh->SetSimulatePhysics(true);
+		GemMesh->SetPhysicsLinearVelocity(LaunchVelocity);
+	}
+}
+
+// ── Server_DropGem ────────────────────────────────────────────
+void AGame3dCharacter::Server_DropGem_Implementation()
+{
+	if (!HeldGem) return;
+
+	AGemItem* GemToDrop = HeldGem;
+	SetHeldGem_Implementation(nullptr);
+
+	GemToDrop->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
+	GemToDrop->bIsHeld = false;
+	GemToDrop->bIsPlaced = false;
+
+	UStaticMeshComponent* GemMesh = GemToDrop->FindComponentByClass<UStaticMeshComponent>();
+	if (GemMesh)
+	{
+		GemMesh->SetSimulatePhysics(true);
+		GemMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	}
 }

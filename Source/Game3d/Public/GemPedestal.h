@@ -16,9 +16,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Pedestal")
 	UStaticMeshComponent* BaseMesh;
-
-	// Este es el "soporte" que pediste: el punto exacto donde encaja el diamante.
-	// Movelo en el editor (Viewport del actor/BP) a la zona exacta que quieras.
+	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Pedestal")
 	USceneComponent* SupportPoint;
 
@@ -28,6 +26,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, ReplicatedUsing = OnRep_bIsActivated, Category = "Pedestal")
 	bool bIsActivated;
 
+	UFUNCTION(BlueprintCallable, Category = "Pedestal")
+	void DeactivatePedestal();
+
 	// TODO: ajustar la firma para que coincida exactamente con tu interfaz interactuable
 	virtual void Interact_Implementation(AActor* Interactor) override;
 
@@ -36,12 +37,12 @@ protected:
 
 	UFUNCTION()
 	void OnRep_bIsActivated();
-
-	// ESTE es el "mensaje" que pediste para activar la escalera (o lo que quieras).
-	// Implementalo en el Blueprint hijo de esta clase: ahí movés la escalera con un Timeline,
-	// reproducís un sonido, lo que sea — sin tocar C++.
+	
 	UFUNCTION(BlueprintImplementableEvent, Category = "Pedestal")
 	void OnPedestalActivated();
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Pedestal")
+	void OnPedestalDeactivated();
 
 	// Opcional: feedback visual/sonoro cuando ponen el color que no es
 	UFUNCTION(BlueprintImplementableEvent, Category = "Pedestal")
