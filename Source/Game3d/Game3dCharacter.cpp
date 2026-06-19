@@ -236,6 +236,7 @@ EnhancedInputComponent->BindAction(
 		EnhancedInputComponent->BindAction(RunAction, ETriggerEvent::Started, this, &AGame3dCharacter::DoStartSprint);
 		EnhancedInputComponent->BindAction(RunAction, ETriggerEvent::Completed, this, &AGame3dCharacter::DoStopSprint);
 		EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Started,this, &AGame3dCharacter::Fire);
+		EnhancedInputComponent->BindAction(ThrowGemAction, ETriggerEvent::Started, this, &AGame3dCharacter::ThrowGem);
 		EnhancedInputComponent->BindAction(ComboAttackAction, ETriggerEvent::Started, this, &AGame3dCharacter::ComboAttackPressed);
 		EnhancedInputComponent->BindAction(UseMedkitAction, ETriggerEvent::Started, this, &AGame3dCharacter::DoUseMedkit);
 
@@ -656,7 +657,16 @@ void AGame3dCharacter::HandleLevelChanged(int level)
 void AGame3dCharacter::DoPickUp()
 {
 	AActor* HitActor = FindInteractableActor();
-	if (!HitActor) return;
+
+	// Si tiene diamante y no mira nada interactuable → soltarlo
+	if (!HitActor)
+	{
+		if (HeldGem)
+		{
+			DropGem();
+		}
+		return;
+	}
 
 	if (!HitActor->GetClass()->ImplementsInterface(UInteractable::StaticClass())) return;
 
@@ -1864,17 +1874,57 @@ void AGame3dCharacter::RecalculateWalkSpeed()
 	GetCharacterMovement()->MaxWalkSpeed = TargetSpeed;
 }
 
-// ── Server_ThrowGem ───────────────────────────────────────────
-void AGame3dCharacter::Server_ThrowGem_Implementation(FVector StartLocation, FVector LaunchVelocity)
+// ── DropGem (E sin interactuable en frente) ──────────────────
+void AGame3dCharacter::DropGem()
+{
+	if (!HeldGem) return;
+
+	if (HasAuthority())
+	{
+		Server_DropGem_Implementation();
+	}
+	else
+	{
+		Server_DropGem();
+	}
+}
+
+// ── ThrowGem (input ThrowGemAction) ──────────────────────────
+void AGame3dCharacter::ThrowGem()
+{
+	if (!HeldGem) return;
+
+	// Parábola: componente horizontal hacia adelante + vertical para el arco
+	FVector Forward = GetActorForwardVector();
+	FVector LaunchVelocity = Forward * GemThrowHorizontalSpeed
+		+ FVector(0.f, 0.f, GemThrowVerticalSpeed);
+
+	FVector SpawnLocation = GemHoldPoint
+		? GemHoldPoint->GetComponentLocation()
+		: GetActorLocation();
+
+	if (HasAuthority())
+	{
+		Server_ThrowGem_Implementation(LaunchVelocity, SpawnLocation);
+	}
+	else
+	{
+		Server_ThrowGem(LaunchVelocity, SpawnLocation);
+	}
+}
+
+void AGame3dCharacter::Server_ThrowGem_Implementation(FVector LaunchVelocity, FVector SpawnLocation)
 {
 	if (!HeldGem) return;
 
 	AGemItem* GemToThrow = HeldGem;
 	SetHeldGem_Implementation(nullptr);
 
-	// Detach y reposicionamos donde el cliente tenía la gema
+	// Detach del personaje
 	GemToThrow->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
-	GemToThrow->SetActorLocation(StartLocation, false, nullptr, ETeleportType::TeleportPhysics);
+	
+	// Movemos la gema a la posición correcta de la mano (SpawnLocation)
+	GemToThrow->SetActorLocation(SpawnLocation, false, nullptr, ETeleportType::TeleportPhysics);
 
 	GemToThrow->bIsHeld = false;
 	GemToThrow->bIsPlaced = false;
