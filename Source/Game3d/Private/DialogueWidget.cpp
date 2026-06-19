@@ -67,8 +67,12 @@ void UDialogueWidget::StopTyping()
 	{
 		GetWorld()->GetTimerManager().ClearTimer(TypingTimer);
 	}
-	// Mostrar texto completo (opcional)
-	TxtDialogue->SetText(FText::FromString(FullText));
-	bIsTyping = false;
 
+	if (TxtDialogue)
+	{
+		// Mostrar texto completo (opcional)
+		TxtDialogue->SetText(FText::FromString(FullText));
+	}
+
+	bIsTyping = false;
 }
