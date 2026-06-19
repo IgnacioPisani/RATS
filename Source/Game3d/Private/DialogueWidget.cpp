@@ -4,6 +4,7 @@
 #include "DialogueWidget.h"
 
 #include "Components/TextBlock.h"
+#include "Components/Image.h"
 
 void UDialogueWidget::StartDialogueLine(const FDialogueLine& Line)
 {
@@ -16,10 +17,33 @@ void UDialogueWidget::StartDialogueLine(const FDialogueLine& Line)
 	FullText = Line.Text.ToString();
 	CurrentCharIndex = 0;
 
-	// Nombre (hardcode o podés pasarlo después)
+	// Nombre del speaker — tomado del struct en vez de hardcodeado
 	if (TxtName)
 	{
-		TxtName->SetText(FText::FromString("NPC"));
+		if (Line.SpeakerName != NAME_None)
+		{
+			TxtName->SetText(FText::FromName(Line.SpeakerName));
+		}
+		else
+		{
+			TxtName->SetText(FText::GetEmpty());
+		}
+	}
+
+	// Retrato del speaker
+	if (ImgPortrait)
+	{
+		if (Line.Portrait)
+		{
+			ImgPortrait->SetBrushFromTexture(Line.Portrait);
+			ImgPortrait->SetVisibility(ESlateVisibility::Visible);
+		}
+		else
+		{
+			// Sin retrato para esta línea — ocultamos la imagen en vez de
+			// dejar el brush anterior pegado o un cuadro vacío visible.
+			ImgPortrait->SetVisibility(ESlateVisibility::Hidden);
+		}
 	}
 
 	// Limpiar texto
@@ -27,11 +51,11 @@ void UDialogueWidget::StartDialogueLine(const FDialogueLine& Line)
 
 	// Empezar animación
 	GetWorld()->GetTimerManager().SetTimer(
-		TypingTimer,
-		this,
-		&UDialogueWidget::TypeNextCharacter,
-		TypingSpeed,
-		true
+	   TypingTimer,
+	   this,
+	   &UDialogueWidget::TypeNextCharacter,
+	   TypingSpeed,
+	   true
 	);
 }
 
@@ -65,7 +89,7 @@ void UDialogueWidget::StopTyping()
 {
 	if (GetWorld())
 	{
-		GetWorld()->GetTimerManager().ClearTimer(TypingTimer);
+	   GetWorld()->GetTimerManager().ClearTimer(TypingTimer);
 	}
 
 	if (TxtDialogue)

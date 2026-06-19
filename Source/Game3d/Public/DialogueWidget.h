@@ -6,6 +6,7 @@
 #include "DialogueWidget.generated.h"
 
 class UTextBlock;
+class UImage;
 
 UCLASS()
 class GAME3D_API UDialogueWidget : public UUserWidget
@@ -21,12 +22,18 @@ public:
 	UPROPERTY(meta = (BindWidget))
 	UTextBlock* TxtDialogue;
 
+	// Retrato del speaker. BindWidgetOptional para no crashear si el UMG
+	// todavía no tiene la Image agregada (a diferencia de BindWidget, que
+	// no falla en compilación pero deja el puntero en null si falta).
+	UPROPERTY(meta = (BindWidgetOptional))
+	UImage* ImgPortrait;
+
 	// 🔹 Función principal
 	UFUNCTION(BlueprintCallable, Category = "Dialogue")
 	void StartDialogueLine(const FDialogueLine& Line);
 
 	void StopTyping();
-	
+
 	bool bIsTyping = false;
 
 	UFUNCTION(BlueprintCallable)
@@ -53,5 +60,5 @@ private:
 
 	// 🔹 Función interna
 	void TypeNextCharacter();
-	
+
 };
