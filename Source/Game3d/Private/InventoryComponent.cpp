@@ -184,6 +184,16 @@ int32 UInventoryComponent::GetItemQuantityByName(FName ItemName) const
 	return 0;
 }
 
+FCraftingRecipe UInventoryComponent::GetRecipeByName(FName RecipeName) const
+{
+	for (const FCraftingRecipe& Recipe : CraftingRecipes)
+	{
+		if (Recipe.ResultItemName == RecipeName)
+			return Recipe;
+	}
+	return FCraftingRecipe();
+}
+
 void UInventoryComponent::Internal_AddItem(FItemStruct ItemData)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Agregando item: %s, Cantidad: %d"), *ItemData.Name.ToString(), ItemData.Quantity);
