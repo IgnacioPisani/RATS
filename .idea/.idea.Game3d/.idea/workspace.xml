@@ -14,20 +14,8 @@
   <component name="ChangeListManager">
     <list default="true" id="700cebab-63ab-47f1-8bec-c545c4c447ad" name="Changes" comment="Merge branch 'main' into MiniMapa&#10;&#10;# Conflicts:&#10;#&#9;.idea/.idea.Game3d/.idea/workspace.xml&#10;#&#9;Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/BP_Npc1.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/DT_Dialogue_Npc1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/DT_Dialogue_Npc1.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Enemies/BP_Npc.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemies/BP_Npc.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Map/Blockout2.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Map/Blockout2.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/RobotitoGIOR.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/RobotitoGIOR.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Widget/WBP_DialogueWidget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Widget/WBP_DialogueWidget.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/1/F7/ROWITOX28MASK8KH2OFFF6.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/1/F7/ROWITOX28MASK8KH2OFFF6.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/5W/FNFEA03133U7Q80DS9GC70.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/5W/FNFEA03133U7Q80DS9GC70.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/U7/EE7V8AATB5CFIMV1BE7NEQ.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/U7/EE7V8AATB5CFIMV1BE7NEQ.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/C/6C/Q7QHCQR168SKGXVIZLRSC7.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/C/6C/Q7QHCQR168SKGXVIZLRSC7.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/npc/ORION/Pisani_Ignacio_Parcial2_Anim_rig_Char_Robot_anim_Char_Robot_Attack.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/npc/ORION/Pisani_Ignacio_Parcial2_Anim_rig_Char_Robot_anim_Char_Robot_Attack.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/npc/RobotitoGIOR_Anim_anim_Char_Robot_Idle.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/npc/RobotitoGIOR_Anim_anim_Char_Robot_Idle.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Private/DialogueWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Private/DialogueWidget.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Public/DialogueWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Public/DialogueWidget.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Widget/Inventory/WBP_Inventory.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Widget/Inventory/WBP_Inventory.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Widget/Inventory/WBP_Slot.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Widget/Inventory/WBP_Slot.uasset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -211,7 +199,7 @@
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Inventory&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -456,6 +444,8 @@
       <workItem from="1781749097225" duration="6645000" />
       <workItem from="1781818171685" duration="10265000" />
       <workItem from="1781832427150" duration="1081000" />
+      <workItem from="1781969914649" duration="4136000" />
+      <workItem from="1781996588293" duration="1197000" />
     </task>
     <servers />
   </component>
