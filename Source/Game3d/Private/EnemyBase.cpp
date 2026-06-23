@@ -2,6 +2,8 @@
 
 
 #include "EnemyBase.h"
+
+#include "BossHUD.h"
 #include "Engine/DamageEvents.h"
 #include "HealthBar.h"
 #include "HealthComponent.h"
@@ -39,14 +41,58 @@ void AEnemyBase::BeginPlay()
 			HealthBarWidget->SetBarColor(FLinearColor::Red);
 		}
 	}
-}
 
+	// ── UI de jefe ──────────────────────────────
+	if (bIsBoss && BossHUDWidgetClass)
+	{
+		// Ocultar la health bar flotante normal, el jefe usa su propio HUD
+		if (HealthBarWidgetComponent)
+		{
+			HealthBarWidgetComponent->SetVisibility(false);
+		}
+
+		BossHUDWidgetInstance = CreateWidget<UBossHUD>(GetWorld(), BossHUDWidgetClass);
+		if (BossHUDWidgetInstance)
+		{
+			BossHUDWidgetInstance->AddToViewport();
+		}
+	}
+}
 
 void AEnemyBase::HandleLifeChanged(float Health, float MaxHealth)
 {
 	if (HealthBarWidget)
 	{
 		HealthBarWidget->UpdateBar(Health, MaxHealth);
+	}
+
+	if (bIsBoss && BossHUDWidgetInstance)
+	{
+		BossHUDWidgetInstance->UpdateBar(Health, MaxHealth);
+	}
+}
+
+void AEnemyBase::HandleDeath()
+{
+	bIsDead = true;
+	OnRep_IsDead();
+
+	if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
+	{
+		AnimInstance->Montage_Play(DeathMontage);
+	}
+
+	if (LastDamageCauser)
+	{
+		if (UXpComponent* XpComp = LastDamageCauser->FindComponentByClass<UXpComponent>())
+		{
+			XpComp->IncreaseXp(XpReward);
+		}
+	}
+
+	if (bIsBoss && BossHUDWidgetInstance)
+	{
+		BossHUDWidgetInstance->RemoveFromParent();
 	}
 }
 
@@ -113,27 +159,6 @@ void AEnemyBase::UpdateHitFlash()
 	}
 }
 
-void AEnemyBase::HandleDeath()
-{
-	bIsDead = true;
-	OnRep_IsDead();
-
-	// Reproducir animación de muerte
-	if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
-	{
-		AnimInstance->Montage_Play(DeathMontage); // declaralo en el .h
-	}
-
-	// XP
-	if (LastDamageCauser)
-	{
-		if (UXpComponent* XpComp = LastDamageCauser->FindComponentByClass<UXpComponent>())
-		{
-			XpComp->IncreaseXp(XpReward);
-		}
-	}
-
-}
 
 void AEnemyBase::OnDeathTimerExpired()
 {

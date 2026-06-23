@@ -641,6 +641,55 @@ void AGame3dCharacter::HandleLifeChanged(float Health, float MaxHealth)
 
 void AGame3dCharacter::HandleDeath()
 {
+	if (!HasAuthority())
+	{
+		// el cliente no debería ejecutar esto directamente
+		return;
+	}
+
+	bIsDead = true;
+	OnRep_IsDead(); // ejecutar en servidor/standalone también
+
+	// Desactivar input y colisión
+	if (APlayerController* PC = Cast<APlayerController>(GetController()))
+	{
+		DisableInput(PC);
+	}
+
+	GetWorldTimerManager().SetTimer(
+		DeathTimerHandle,
+		this,
+		&AGame3dCharacter::OnDeathTimerExpired,
+		DeathRespawnDelay,
+		false
+	);
+}
+
+void AGame3dCharacter::OnRep_IsDead()
+{
+	if (!bIsDead) return;
+
+	SetActorEnableCollision(false);
+
+	if (UCharacterMovementComponent* MoveComp = GetCharacterMovement())
+	{
+		MoveComp->StopMovementImmediately();
+		MoveComp->DisableMovement();
+	}
+
+	if (DeathMontage)
+	{
+		if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
+		{
+			AnimInstance->Montage_Play(DeathMontage);
+		}
+	}
+}
+
+void AGame3dCharacter::OnDeathTimerExpired()
+{
+	// Acá podés respawnear en vez de destruir, ya que es el jugador
+	// Por ahora dejamos el comportamiento original:
 	Destroy();
 }
 
@@ -838,7 +887,7 @@ void AGame3dCharacter::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty
 	DOREPLIFETIME(AGame3dCharacter, MoveLeftRightAxis);
 	DOREPLIFETIME(AGame3dCharacter, MoveUpDownAxis);
 	DOREPLIFETIME(AGame3dCharacter, HeldGem);
-
+	DOREPLIFETIME(AGame3dCharacter, bIsDead);
 }
 
 void AGame3dCharacter::OnRep_IsAiming()

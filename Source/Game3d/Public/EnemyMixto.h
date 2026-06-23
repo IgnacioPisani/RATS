@@ -43,4 +43,5 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
 	float DetectionRadius = 1500.f;
+	
 };

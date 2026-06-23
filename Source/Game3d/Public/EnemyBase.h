@@ -9,6 +9,8 @@
 #include "GameFramework/Character.h"
 #include "EnemyBase.generated.h"
 
+class UBossHUD;
+
 UCLASS()
 class GAME3D_API AEnemyBase : public ACharacterBase, public ICombatDamageable
 {
@@ -81,6 +83,18 @@ public:
 	UPROPERTY(EditAnywhere, Category="Effects")
 	UMaterialInterface* HitFlashMaterial;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Boss")
+	bool bIsBoss = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Boss", meta=(EditCondition="bIsBoss"))
+	FText BossName;
+
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Boss", meta=(EditCondition="bIsBoss"))
+	TSubclassOf<UBossHUD> BossHUDWidgetClass;
+
+	UPROPERTY(BlueprintReadOnly, Category="Boss")
+	UBossHUD* BossHUDWidgetInstance;
 private:
 	FTimerHandle DeathTimerHandle;
 
