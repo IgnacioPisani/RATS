@@ -33,6 +33,4 @@ struct  FItemStruct: public FTableRowBase
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Item")
 	int32 MaxQuantity = 99;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Item")
-	FText Description;
 };
