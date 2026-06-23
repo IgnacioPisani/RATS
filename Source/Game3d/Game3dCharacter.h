@@ -427,6 +427,24 @@ public:
 
 	UFUNCTION(Server, Unreliable)
 	void Server_UpdateMoveAxis(float Right, float Forward);
+
+
+	UPROPERTY(ReplicatedUsing=OnRep_IsDead, BlueprintReadOnly, Category="Combat")
+	bool bIsDead = false;
+
+	UPROPERTY(EditAnywhere, Category="Combat")
+	UAnimMontage* DeathMontage;
+
+	UPROPERTY(EditAnywhere, Category="Combat")
+	float DeathRespawnDelay = 3.f;
+
+	UFUNCTION()
+	void OnRep_IsDead();
+
+	FTimerHandle DeathTimerHandle;
+
+	UFUNCTION()
+	void OnDeathTimerExpired();
 	
 	UPROPERTY()
 	AActor* CurrentInteractableActor = nullptr;
