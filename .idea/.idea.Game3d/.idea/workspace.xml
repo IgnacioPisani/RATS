@@ -14,20 +14,19 @@
   <component name="ChangeListManager">
     <list default="true" id="700cebab-63ab-47f1-8bec-c545c4c447ad" name="Changes" comment="Merge branch 'main' into MiniMapa&#10;&#10;# Conflicts:&#10;#&#9;.idea/.idea.Game3d/.idea/workspace.xml&#10;#&#9;Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/BP_Npc1.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/DT_Dialogue_Npc1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/DT_Dialogue_Npc1.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Enemies/BP_Npc.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemies/BP_Npc.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Map/Blockout2.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Map/Blockout2.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/RobotitoGIOR.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/RobotitoGIOR.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Widget/WBP_DialogueWidget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Widget/WBP_DialogueWidget.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/1/F7/ROWITOX28MASK8KH2OFFF6.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/1/F7/ROWITOX28MASK8KH2OFFF6.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/5W/FNFEA03133U7Q80DS9GC70.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/5W/FNFEA03133U7Q80DS9GC70.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/U7/EE7V8AATB5CFIMV1BE7NEQ.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/U7/EE7V8AATB5CFIMV1BE7NEQ.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/C/6C/Q7QHCQR168SKGXVIZLRSC7.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/C/6C/Q7QHCQR168SKGXVIZLRSC7.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/npc/ORION/Pisani_Ignacio_Parcial2_Anim_rig_Char_Robot_anim_Char_Robot_Attack.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/npc/ORION/Pisani_Ignacio_Parcial2_Anim_rig_Char_Robot_anim_Char_Robot_Attack.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/npc/RobotitoGIOR_Anim_anim_Char_Robot_Idle.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/npc/RobotitoGIOR_Anim_anim_Char_Robot_Idle.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Private/DialogueWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Private/DialogueWidget.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Public/DialogueWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Public/DialogueWidget.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ABP_Or10n.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ABP_Or10n.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemies/BP_EnemyMixto.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemies/BP_EnemyMixto.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Item/OR10N.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Item/OR10N.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/3/HL/3ILTLOHHIA8TDXV9F9RZNM.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/3/HL/3ILTLOHHIA8TDXV9F9RZNM.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/3/M7/A5UXFXZ3DTFWR7FVV75VOP.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/SU/GB5NCBTS6GP23ZZYHQ0VA2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/SU/GB5NCBTS6GP23ZZYHQ0VA2.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/0S/L6T3NHN9937KSOSOTV2CK8.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/C/HL/695ITHP2XX621YCKZ2PMO9.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Private/EnemyBase.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Private/EnemyBase.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Public/EnemyBase.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Public/EnemyBase.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Public/EnemyMixto.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Public/EnemyMixto.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,6 +135,7 @@
     <setting file="file://$PROJECT_DIR$/Plugins/MultiplayerSessionOW/Source/MultiplayerSessionOW/Public/WidgetSessionSerch.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Game3dCharacter.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/Game3d/Private/BossHUD.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Private/BrokenItem.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Private/CharacterBase.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Private/Chest.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -164,6 +164,7 @@
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Private/UpdateMission.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Private/WidgetLan/MenuLan.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Private/XpBar.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/Game3d/Public/BossHUD.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Public/BrokenItem.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Public/CharacterBase.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Game3d/Public/Chest.h" root0="FORCE_HIGHLIGHTING" />
@@ -456,6 +457,9 @@
       <workItem from="1781749097225" duration="6645000" />
       <workItem from="1781818171685" duration="10265000" />
       <workItem from="1781832427150" duration="1081000" />
+      <workItem from="1781891878583" duration="717000" />
+      <workItem from="1782172692387" duration="8795000" />
+      <workItem from="1782186917056" duration="293000" />
     </task>
     <servers />
   </component>
