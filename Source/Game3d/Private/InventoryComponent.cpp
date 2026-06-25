@@ -23,7 +23,7 @@ UInventoryComponent::UInventoryComponent()
 void UInventoryComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-\
+
 	// Replicate Items to every connected client unconditionally.
 	// Swap COND_None for COND_OwnerOnly if you want the inventory
 	// to be private (only the owning player receives updates).
@@ -182,6 +182,16 @@ int32 UInventoryComponent::GetItemQuantityByName(FName ItemName) const
 			return Item.Quantity;
 	}
 	return 0;
+}
+
+FCraftingRecipe UInventoryComponent::GetRecipeByName(FName RecipeName) const
+{
+	for (const FCraftingRecipe& Recipe : CraftingRecipes)
+	{
+		if (Recipe.ResultItemName == RecipeName)
+			return Recipe;
+	}
+	return FCraftingRecipe();
 }
 
 void UInventoryComponent::Internal_AddItem(FItemStruct ItemData)
