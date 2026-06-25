@@ -272,7 +272,7 @@ public:
 
 	/** Combo input tolerance (time between hits) */
 	UPROPERTY(EditAnywhere, Category = "Combat|Combo", meta = (ClampMin = 0.1f, ClampMax = 2.0f, Units = "s"))
-	float ComboInputCacheTimeTolerance = 0.6f;
+	float ComboInputCacheTimeTolerance = 0.3f;
 
 	/** Cached time of last combo input */
 	float CachedAttackInputTime = 0.0f;
