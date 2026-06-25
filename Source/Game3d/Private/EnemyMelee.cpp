@@ -71,15 +71,16 @@ void AEnemyMelee::HandleHit_Implementation()
 	if (bHit)
 	{
 		AActor* HitActor = OutHit.GetActor();
-		if (HitActor && HitActor->IsA(ACharacter::StaticClass()))
+
+		// Evitar friendly fire: no golpear a otros enemigos
+		if (HitActor && HitActor->IsA(ACharacter::StaticClass()) && !HitActor->IsA(AEnemyBase::StaticClass()))
 		{
-			// Aplica daño al jugador
 			UGameplayStatics::ApplyDamage(
-				HitActor,           // Actor que recibe daño
-				AttackDamage,       // Cantidad de daño
-				GetController(),    // Instigador (controlador del enemigo)
-				this,               // Causante del daño
-				nullptr             // Tipo de daño (puede ser nullptr o una clase de DamageType)
+			   HitActor,
+			   AttackDamage,
+			   GetController(),
+			   this,
+			   nullptr
 			);
 		}
 	}
