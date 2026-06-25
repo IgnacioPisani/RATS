@@ -43,5 +43,29 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
 	float DetectionRadius = 1500.f;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Combat")
+	class UBoxComponent* MeleeHitBox;
+
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	float MeleeHitBoxDuration = 0.3f;
+
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	float MeleeDamage = 10.f;
+
+	FTimerHandle MeleeHitBoxTimerHandle;
 	
+	virtual void HandleHit_Implementation() override;
+
+	
+	UFUNCTION()
+	void ActivateMeleeHitBox();
+
+	UFUNCTION()
+	void DeactivateMeleeHitBox();
+
+	UFUNCTION()
+	void OnMeleeHitBoxOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+		UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,
+		bool bFromSweep, const FHitResult& SweepResult);
 };

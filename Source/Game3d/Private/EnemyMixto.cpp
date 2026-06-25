@@ -3,6 +3,7 @@
 
 #include "EnemyMixto.h"
 
+#include "Components/BoxComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -11,7 +12,12 @@ AEnemyMixto::AEnemyMixto()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
+	MeleeHitBox = CreateDefaultSubobject<UBoxComponent>(TEXT("MeleeHitBox"));
+	MeleeHitBox->SetupAttachment(GetMesh(), TEXT("hand_r")); // o el socket que corresponda
+	MeleeHitBox->SetBoxExtent(FVector(30.f, 30.f, 30.f));
+	MeleeHitBox->SetCollisionEnabled(ECollisionEnabled::NoCollision); // arranca apagada
+	MeleeHitBox->SetCollisionProfileName(TEXT("Trigger")); // o un profile custom
+	MeleeHitBox->OnComponentBeginOverlap.AddDynamic(this, &AEnemyMixto::OnMeleeHitBoxOverlap);
 }
 
 // Called when the game starts or when spawned
@@ -79,4 +85,43 @@ void AEnemyMixto::ShootInDirection(FVector Direction)
 	FireCooldown = FireRate;
 	UE_LOG(LogTemp, Log, TEXT("AEnemyMixto: Proyectil disparado hacia %s"),
 		*TargetActor->GetName());
+}
+
+void AEnemyMixto::ActivateMeleeHitBox()
+{
+	if (!MeleeHitBox) return;
+
+	MeleeHitBox->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+
+	GetWorld()->GetTimerManager().SetTimer(
+		MeleeHitBoxTimerHandle,
+		this,
+		&AEnemyMixto::DeactivateMeleeHitBox,
+		MeleeHitBoxDuration,
+		false);
+}
+
+void AEnemyMixto::DeactivateMeleeHitBox()
+{
+	if (!MeleeHitBox) return;
+	MeleeHitBox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+}
+
+void AEnemyMixto::OnMeleeHitBoxOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,
+	bool bFromSweep, const FHitResult& SweepResult)
+{
+	if (!OtherActor || OtherActor == this) return;
+
+	UGameplayStatics::ApplyDamage(
+		OtherActor,
+		MeleeDamage,
+		GetController(),
+		this,
+		UDamageType::StaticClass());
+}
+
+void AEnemyMixto::HandleHit_Implementation()
+{
+	ActivateMeleeHitBox();
 }
