@@ -182,6 +182,22 @@ void AEnemyBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 void AEnemyBase::ApplyDamage(float Damage, AActor* DamageCauser,
 	const FVector& DamageLocation, const FVector& DamageImpulse)
 {
+	UE_LOG(LogTemp, Warning, TEXT("[EnemyBase] ApplyDamage llamado en: %s | DamageCauser: %s | Clase DamageCauser: %s"),
+		*GetName(),
+		DamageCauser ? *DamageCauser->GetName() : TEXT("NULL"),
+		DamageCauser ? *DamageCauser->GetClass()->GetName() : TEXT("NULL"));
+
+	if (AEnemyBase* OtherEnemy = Cast<AEnemyBase>(DamageCauser))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("[EnemyBase] Cast a AEnemyBase EXITOSO -> %s es enemigo, se ignora el daño"),
+			*OtherEnemy->GetName());
+		return;
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("[EnemyBase] Cast a AEnemyBase FALLIDO para DamageCauser: %s -> se aplica daño"),
+			DamageCauser ? *DamageCauser->GetName() : TEXT("NULL"));
+	}
 	LastDamageCauser = DamageCauser;
 
 	FDamageEvent DamageEvent;
