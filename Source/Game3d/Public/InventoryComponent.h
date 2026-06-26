@@ -10,7 +10,7 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnItemsChanged);
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent, BlueprintType) )
 class GAME3D_API UInventoryComponent : public UActorComponent
 {
 	GENERATED_BODY()
@@ -62,6 +62,15 @@ public:
 	int32 GetItemQuantityByName(FName ItemName) const;
 
 	const FItemStruct* FindRecipe(FName ItemNameToCraft) const;
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Inventory")
+	TArray<FItemStruct> GetItems() const { return Items; }
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Inventory")
+	int32 GetInventorySize() const { return Items.Num(); }
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Crafting")
+	FCraftingRecipe GetRecipeByName(FName RecipeName) const;
 
 	// -------------------------------------------------------
 	// Mutating actions: call the Server_ RPC from a client.
