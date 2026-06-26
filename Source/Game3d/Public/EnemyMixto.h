@@ -48,7 +48,7 @@ public:
 	class UBoxComponent* MeleeHitBox;
 
 	UPROPERTY(EditAnywhere, Category = "Combat")
-	float MeleeHitBoxDuration = 0.3f;
+	float MeleeHitBoxDuration = 0.2f;
 
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	float MeleeDamage = 10.f;
