@@ -653,7 +653,6 @@ void AGame3dCharacter::HandleDeath()
 	}
 
 	// Mostrar Game Over a todos
-	Multicast_ShowGameOver();
 
 	GetWorldTimerManager().SetTimer(
 		DeathTimerHandle,
@@ -687,6 +686,7 @@ void AGame3dCharacter::OnRep_IsDead()
 
 void AGame3dCharacter::OnDeathTimerExpired()
 {
+	Multicast_ShowGameOver();
 
 }
 
