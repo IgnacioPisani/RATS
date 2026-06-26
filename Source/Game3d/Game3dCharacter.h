@@ -692,6 +692,11 @@ private:
 	UFUNCTION(NetMulticast, Unreliable)
 	void Multicast_SpecialAbilityEnd();
 	void Multicast_SpecialAbilityEnd_Implementation();
+
+	virtual void PossessedBy(AController* NewController) override;
+	virtual void OnRep_Controller() override;
+
+	void InitializeLocalHUD();
 public:
 	void UseSpecialAbility();
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|SpecialAbility")
@@ -724,7 +729,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|SpecialAbility")
 	float SpecialAbilityTickInterval = 0.5f;    // cada cuántos segundos hace daño
 	
-	virtual void PossessedBy(AController* NewController) override;
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Climbing")
 	UAnimMontage* ClimbingIdleMontage;   // climbing_idle_3
