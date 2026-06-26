@@ -202,6 +202,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
 	TSubclassOf<UXpBar> XpBarWidgetClass;
 
+	UFUNCTION(NetMulticast, Reliable)
+	void Multicast_ShowGameOver();
+	void Multicast_ShowGameOver_Implementation();
+
+	UFUNCTION(NetMulticast, Reliable)
+	void Multicast_HideGameOver();
+	void Multicast_HideGameOver_Implementation();
+
 	
 	/** Clase del HUD de botiquines (Blueprint derivado de UWMedkitHUD) */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")

@@ -32,6 +32,7 @@
 #include "Net/UnrealNetwork.h"
 #include "GameFramework/PlayerState.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "Game3dPlayerController.h"
 #include "Kismet/KismetMathLibrary.h"
 class UProjectileMovementComponent;
 class AMissionGameState;
@@ -641,20 +642,18 @@ void AGame3dCharacter::HandleLifeChanged(float Health, float MaxHealth)
 
 void AGame3dCharacter::HandleDeath()
 {
-	if (!HasAuthority())
-	{
-		// el cliente no debería ejecutar esto directamente
-		return;
-	}
+	if (!HasAuthority()) return;
 
 	bIsDead = true;
-	OnRep_IsDead(); // ejecutar en servidor/standalone también
+	OnRep_IsDead();
 
-	// Desactivar input y colisión
 	if (APlayerController* PC = Cast<APlayerController>(GetController()))
 	{
 		DisableInput(PC);
 	}
+
+	// Mostrar Game Over a todos
+	Multicast_ShowGameOver();
 
 	GetWorldTimerManager().SetTimer(
 		DeathTimerHandle,
@@ -688,9 +687,28 @@ void AGame3dCharacter::OnRep_IsDead()
 
 void AGame3dCharacter::OnDeathTimerExpired()
 {
-	// Acá podés respawnear en vez de destruir, ya que es el jugador
-	// Por ahora dejamos el comportamiento original:
-	Destroy();
+
+}
+
+void AGame3dCharacter::Multicast_ShowGameOver_Implementation()
+{
+	// Solo el cliente local muestra su propio Game Over
+	if (!IsLocallyControlled()) return;
+
+	if (AGame3dPlayerController* PC = Cast<AGame3dPlayerController>(GetController()))
+	{
+		PC->ShowGameOver();
+	}
+}
+
+void AGame3dCharacter::Multicast_HideGameOver_Implementation()
+{
+	if (!IsLocallyControlled()) return;
+
+	if (AGame3dPlayerController* PC = Cast<AGame3dPlayerController>(GetController()))
+	{
+		PC->HideGameOver();
+	}
 }
 
 void AGame3dCharacter::HandleXpChanged(float Xp, float MaxXp)
