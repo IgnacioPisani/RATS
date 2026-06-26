@@ -22,6 +22,16 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Companion Hint")
 	void RequestHideHint();
 
+	UFUNCTION(BlueprintCallable, Category = "Game Over")
+	void ShowGameOver();
+
+	UFUNCTION(BlueprintCallable, Category = "Game Over")
+	void HideGameOver();
+
+	UFUNCTION(BlueprintCallable, Category = "Game Over")
+	void RequestRespawn();
+
+
 protected:
 	/** Input Mapping Contexts */
 	UPROPERTY(EditAnywhere, Category ="Input|Input Mappings")
@@ -47,6 +57,13 @@ protected:
 	virtual void BeginPlay() override;
 	virtual void SetupInputComponent() override;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Game Over")
+	TSubclassOf<UUserWidget> GameOverWidgetClass;
+
+	UPROPERTY()
+	TObjectPtr<UUserWidget> GameOverWidget;
+
+
 private:
 	UFUNCTION(Server, Reliable)
 	void Server_ShowHint(const FText& HintText);
@@ -59,4 +76,13 @@ private:
 
 	UFUNCTION(Client, Reliable)
 	void Client_HideHint();
+	
+	UFUNCTION(Server, Reliable)
+	
+	void Server_Respawn();
+	
+	void Server_Respawn_Implementation();
+
+	UFUNCTION(Client, Reliable)
+	void Client_HideGameOverAfterRespawn();
 };

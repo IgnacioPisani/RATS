@@ -14,162 +14,23 @@
   <component name="ChangeListManager">
     <list default="true" id="700cebab-63ab-47f1-8bec-c545c4c447ad" name="Changes" comment="Merge branch 'main' into MiniMapa&#10;&#10;# Conflicts:&#10;#&#9;.idea/.idea.Game3d/.idea/workspace.xml&#10;#&#9;Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/bateria/LS_Bateria1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CosasDePrueba/bateria/LS_Bateria1.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/0/NT/LBQFRA5ARABBAH47J9BLWP.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/0/NT/LBQFRA5ARABBAH47J9BLWP.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/1/F7/ROWITOX28MASK8KH2OFFF6.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/1/F7/ROWITOX28MASK8KH2OFFF6.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/1/IQ/EN69HS9DI5C5XJPX00NZOS.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/1/IQ/EN69HS9DI5C5XJPX00NZOS.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/1/M1/EFREESOUX0GA65GBCOW59R.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/1/M1/EFREESOUX0GA65GBCOW59R.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/1/MK/CAHEY05UDPODEAFVSZFV89.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/1/MK/CAHEY05UDPODEAFVSZFV89.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/21/UPLQPPGHT0MFO1ZH5NN72V.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/21/UPLQPPGHT0MFO1ZH5NN72V.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/7Z/GD65D007APLVUNTF46IZS5.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/7Z/GD65D007APLVUNTF46IZS5.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/8K/EW9DKFMUSMFUV0MDFWVX3I.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/8K/EW9DKFMUSMFUV0MDFWVX3I.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/IH/WGZ7K9125N1NTUWMGA6YLG.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/IH/WGZ7K9125N1NTUWMGA6YLG.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/3/1M/F9GUJY3SM5K1X8WBUIQJPJ.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/3/1M/F9GUJY3SM5K1X8WBUIQJPJ.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/3/B7/PX0DLACSEQDBEE2ZB6RVD4.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/3/ZO/OHH5399U2NIRYXJZIIG79U.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/3/ZO/OHH5399U2NIRYXJZIIG79U.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/44/RKABTL6HWUOA76XFTMY72W.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/91/6HCDROEC6CDDMD37FYRUYL.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/91/6HCDROEC6CDDMD37FYRUYL.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/NI/DSE1TK3QVV9PW4Y6HZY2OH.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/NI/DSE1TK3QVV9PW4Y6HZY2OH.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/XI/IMJ2Y31PAHCTJACYDQ43LT.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/XI/IMJ2Y31PAHCTJACYDQ43LT.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/0N/0CNN0IEOOGLKP1YTOQVMGQ.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/0N/0CNN0IEOOGLKP1YTOQVMGQ.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/6H/2ZFDL4KDMXAPKSOXJBASDP.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/LO/TIETKPZ9AC8OSDNMKWZ126.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/LO/TIETKPZ9AC8OSDNMKWZ126.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/WM/NKLIXW7UVAHYT8X9E367JP.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/QS/Z84F0O9P0845X3PZ1QOOA9.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/QS/Z84F0O9P0845X3PZ1QOOA9.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/UR/NKNJXBOC2HH167DRO0ISMV.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/6/UR/NKNJXBOC2HH167DRO0ISMV.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/7/B3/D9OXEYJ9FORQ48UQSFK6G0.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/7/B3/D9OXEYJ9FORQ48UQSFK6G0.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/8/7M/UEO5CJTLZEI9H3I3RX1FFQ.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/8/7M/UEO5CJTLZEI9H3I3RX1FFQ.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/8/BM/16XPOHW11ZEAEQAWPR7X4Y.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/8/BM/16XPOHW11ZEAEQAWPR7X4Y.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/9/EC/SARLWJL1C2PSSJ4SGG8HE5.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/9/EC/SARLWJL1C2PSSJ4SGG8HE5.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/9/G8/TDMRVY1OV1JJ8SFQS0U07R.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/9/G8/TDMRVY1OV1JJ8SFQS0U07R.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/9/OW/3Q85HZF29JKQ5JE9NQ42OO.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/9/OW/3Q85HZF29JKQ5JE9NQ42OO.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/DQ/248870T9DMWT0UM9NEXNW5.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/DQ/248870T9DMWT0UM9NEXNW5.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/bateria/BP_Bateria.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CosasDePrueba/bateria/BP_Bateria.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemies/BP_EnemyMixto.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemies/BP_EnemyMixto.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonPlayerController.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonPlayerController.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/0/NT/LBQFRA5ARABBAH47J9BLWP.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/1/4C/T8F8LY1WQDPTELZUK1MHH6.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/1/4C/T8F8LY1WQDPTELZUK1MHH6.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/09/DE3PRW9NWEODW8EO8GPH0S.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/3/JV/LD4MH7M97J6WKJBX9ZCE13.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/SU/GB5NCBTS6GP23ZZYHQ0VA2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/SU/GB5NCBTS6GP23ZZYHQ0VA2.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/O8/7FWYV3WPBT06I3KJ0859J6.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/O8/7FWYV3WPBT06I3KJ0859J6.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/8/1L/69PP02EDC31BL5VPXAG28J.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/8/GW/H2J2M0NEGUVQKSPKPC7CSW.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/8/GW/H2J2M0NEGUVQKSPKPC7CSW.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/B/BM/SKJUD98NIRGN3ZUAD6TXHA.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/B/BM/SKJUD98NIRGN3ZUAD6TXHA.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/B/EK/NJV967COSDQ9K2H1PD0CY0.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/C/70/B6DYS1NTII4FNF5Q25ZES2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/C/70/B6DYS1NTII4FNF5Q25ZES2.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/C/AY/N2UR4VLDXOMZAFHKFD3JYS.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/C/AY/N2UR4VLDXOMZAFHKFD3JYS.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/C/ON/W2QJQKI6O4H2IL0VED4PX0.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/C/ON/W2QJQKI6O4H2IL0VED4PX0.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/D/GW/KH7EV40ZZCB4IT1KJXCXKX.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/D/GW/KH7EV40ZZCB4IT1KJXCXKX.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/D/T5/NCSYZUUXKTVXZLLHU3HC0T.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/D/T5/NCSYZUUXKTVXZLLHU3HC0T.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/13/QGZ385BWTUTYYLKSPT3PXK.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/13/QGZ385BWTUTYYLKSPT3PXK.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/SE/F817KJJ0C3MF7PN84S1XW8.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/SE/F817KJJ0C3MF7PN84S1XW8.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/YZ/E0UXPVLIF7PO3NF45QEE93.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/YZ/E0UXPVLIF7PO3NF45QEE93.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/F/4T/7Z086EYN3V0N3X392XZDXI.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Gior/BP_Palestra.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Gior/BP_Palestra.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Gior/Montana_90grados.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Gior/Montana_90grados.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada1.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada1_001.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada1_001.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada1_002.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada1_002.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada1_003.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada1_003.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada1_004.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada1_004.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada1_005.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada1_005.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada1_006.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada1_006.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada1_007.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada1_007.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada1_008.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada1_008.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada2.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada2_001.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada2_001.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada2_002.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada2_002.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada2_003.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada2_003.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/Entrada.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/Entrada.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/Entrada_001.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/Entrada_001.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/Entrada_002.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/Entrada_002.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/Entrepanes.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/Entrepanes.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/Escaleritas.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/Escaleritas.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/MedioColiseo.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/MedioColiseo.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/Paredhueca2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/Paredhueca2.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/Paredhueca2_001.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/Paredhueca2_001.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/Paredhueca2_002.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/Paredhueca2_002.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/Paredhueca2_003.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/Paredhueca2_003.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/PuertaBarrotes.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/PuertaBarrotes.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_001.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_001.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_002.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_002.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_003.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_003.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_004.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_004.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_005.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_005.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_006.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_006.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_007.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_007.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_008.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_008.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_009.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_009.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_010.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_010.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_011.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_011.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_012.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_012.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_013.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_013.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_014.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_014.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_015.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_015.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_016.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_016.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_017.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_017.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_018.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_018.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_019.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_019.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_020.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_020.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_021.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_021.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_022.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_022.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_023.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_023.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_024.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_024.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_025.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_025.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_026.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_026.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_027.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_027.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_028.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_028.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_029.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_029.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_030.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_030.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_031.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_031.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_032.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_032.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_033.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_033.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_034.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_034.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_035.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_035.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_036.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_036.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_037.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_037.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_038.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_038.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_039.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_039.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_040.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_040.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_041.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_041.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_042.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_042.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_043.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_043.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_044.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_044.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_045.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_045.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_046.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_046.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_047.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_047.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_048.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_048.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_049.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_049.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_050.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_050.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_051.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_051.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_052.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_052.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_053.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_053.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_054.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_054.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_055.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_055.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_056.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_056.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_057.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_057.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_058.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_058.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_059.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_059.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_060.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_060.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_061.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_061.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_062.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_062.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_063.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_063.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_064.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_064.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_065.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_065.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_066.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_066.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_067.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_067.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_068.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_068.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_069.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_069.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_070.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_070.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_071.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_071.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_072.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_072.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_073.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_073.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_074.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_074.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_075.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_075.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_076.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_076.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_077.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_077.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_078.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_078.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_079.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_079.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_080.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_080.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_081.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_081.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_082.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_082.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_083.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_083.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_084.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_084.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_085.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_085.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_086.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_086.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_087.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_087.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_088.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/RocasMisoginas_088.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/B0/V9OIRVTCMUDKKPN6UL87C0.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/E/B0/V9OIRVTCMUDKKPN6UL87C0.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3dPlayerController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3dPlayerController.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3dPlayerController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3dPlayerController.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -350,22 +211,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;C/C++ Project.Game3d.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Fujo&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;UnrealLinkOptionsId&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "C/C++ Project.Game3d.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "SistemaDeDialogMsiones",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "UnrealLinkOptionsId",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="C/C++ Project.Game3d">
     <configuration name="Game3d" type="CppProject" factoryName="C++ Project">
       <configuration_1 setup="1">
