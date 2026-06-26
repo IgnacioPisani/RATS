@@ -7,6 +7,7 @@
 #include "Blueprint/UserWidget.h"
 #include "Game3d.h"
 #include "Widgets/Input/SVirtualJoystick.h"
+#include "GameFramework/GameModeBase.h"
 #include "CompanionHintWidget.h"
 
 void AGame3dPlayerController::BeginPlay()
@@ -100,4 +101,58 @@ void AGame3dPlayerController::Client_HideHint_Implementation()
 {
     if (CompanionHintWidget)
         CompanionHintWidget->HideHint();
+}
+
+void AGame3dPlayerController::ShowGameOver()
+{
+    if (GameOverWidgetClass && !GameOverWidget)
+    {
+        GameOverWidget = CreateWidget<UUserWidget>(this, GameOverWidgetClass);
+    }
+
+    if (GameOverWidget)
+    {
+        GameOverWidget->AddToViewport(20);
+        bShowMouseCursor = true;
+        SetInputMode(FInputModeUIOnly());
+    }
+}
+
+void AGame3dPlayerController::HideGameOver()
+{
+    if (GameOverWidget)
+    {
+        GameOverWidget->RemoveFromParent();
+        bShowMouseCursor = false;
+        SetInputMode(FInputModeGameOnly());
+    }
+}
+
+void AGame3dPlayerController::RequestRespawn()
+{
+    Server_Respawn();
+}
+
+void AGame3dPlayerController::Server_Respawn_Implementation()
+{
+    AActor* SpawnPoint = GetWorld()->GetAuthGameMode()->FindPlayerStart(this);
+
+    if (GetPawn())
+    {
+        GetPawn()->Destroy();
+    }
+
+    GetWorld()->GetAuthGameMode()->RestartPlayerAtPlayerStart(this, SpawnPoint);
+
+    Client_HideGameOverAfterRespawn();
+}
+
+// Agregá este RPC también:
+// En el .h dentro de private:
+// UFUNCTION(Client, Reliable)
+// void Client_HideGameOverAfterRespawn();
+
+void AGame3dPlayerController::Client_HideGameOverAfterRespawn_Implementation()
+{
+    HideGameOver();
 }
