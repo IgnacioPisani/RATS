@@ -14,33 +14,9 @@
   <component name="ChangeListManager">
     <list default="true" id="700cebab-63ab-47f1-8bec-c545c4c447ad" name="Changes" comment="Merge branch 'main' into MiniMapa&#10;&#10;# Conflicts:&#10;#&#9;.idea/.idea.Game3d/.idea/workspace.xml&#10;#&#9;Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/TN/W12BENQ8VLZQ81T4N5REIY.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/TN/W12BENQ8VLZQ81T4N5REIY.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/X8/D4SXJ6RCIB6YXRSL24YD3T.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/X8/D4SXJ6RCIB6YXRSL24YD3T.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/3/KK/EZT0J70K05WHM66O3KXZ1R.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/3/KK/EZT0J70K05WHM66O3KXZ1R.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/D9/S37W24C15O95DEAZ2UATC3.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/A/D9/S37W24C15O95DEAZ2UATC3.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada1.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada1_001.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada1_001.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada1_002.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada1_002.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada1_003.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada1_003.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada1_004.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada1_004.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada1_005.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada1_005.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada1_006.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada1_006.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada1_007.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada1_007.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada1_008.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada1_008.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada2.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada2_001.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada2_001.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada2_002.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada2_002.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada2_003.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/ColumnaEntrada2_003.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/Entrada.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/Entrada.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/Entrada_001.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/Entrada_001.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/Entrada_002.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/Entrada_002.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/Paredhueca2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/Paredhueca2.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/Paredhueca2_001.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/Paredhueca2_001.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/Paredhueca2_002.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/Paredhueca2_002.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/Paredhueca2_003.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/artistas/Tefi/Coliseo/Paredhueca2_003.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game3d.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/Game3d.sln.DotSettings.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game3d.uproject" beforeDir="false" afterPath="$PROJECT_DIR$/Game3d.uproject" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Private/Tumbleweed.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Private/Tumbleweed.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,6 +56,7 @@
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/AutomationTool/AutomationUtils/P4Utils.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/AutomationTool/Gauntlet/Gauntlet.Automation.csproj" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/AutomationTool/Gauntlet/SelfTest/TestData/LogParser/Win64FatalError.txt" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/AutomationTool/Gauntlet/SelfTest/TestData/LogParser/Win64NormalExit.txt" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/AutomationTool/IOS/ExportOptions.plist.template" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/AutomationTool/IOS/IOS.Automation.csproj" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/AutomationTool/IOS/IOSPlatform.Automation.cs" root0="FORCE_HIGHLIGHTING" />
@@ -98,6 +75,7 @@
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/Shared/EpicGames.Core/CertificateUtils.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/Shared/EpicGames.Core/StringView.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/Shared/EpicGames.IoHash/EpicGames.IoHash.csproj" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/Shared/EpicGames.Perforce.Managed/StreamTree.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/Shared/EpicGames.Perforce/NativePerforceConnection.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/Shared/EpicGames.Perforce/PerforceChildProcess.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/Shared/EpicGames.Perforce/PerforceConnection.cs" root0="FORCE_HIGHLIGHTING" />
@@ -125,6 +103,9 @@
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Classes/GameFramework/GameState.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Classes/GameFramework/Pawn.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Classes/Kismet/KismetMathLibrary.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Classes/PhysicsEngine/BodyInstance.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Classes/PhysicsEngine/ClusterUnionComponent.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Classes/PhysicsEngine/PhysicsBodyInstanceOwnerInterface.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/Animation/AnimInstance.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/BlueprintGeneratedClass.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/Character.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -229,7 +210,7 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "gameover",
+    "git-widget-placeholder": "main",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -480,6 +461,7 @@
       <workItem from="1782340398534" duration="1201000" />
       <workItem from="1782351906193" duration="9279000" />
       <workItem from="1782480179697" duration="4924000" />
+      <workItem from="1782495846684" duration="998000" />
     </task>
     <servers />
   </component>

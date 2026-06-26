@@ -26,7 +26,6 @@ ATumbleweed::ATumbleweed()
 
     // Masa fija: asi las fuerzas de viento/torque dan un resultado
     // predecible sin importar el mesh que se use.
-    Mesh->SetMassOverrideInKg(NAME_None, 5.f, true);
 }
 
 void ATumbleweed::BeginPlay()
