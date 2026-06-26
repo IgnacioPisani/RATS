@@ -1,6 +1,7 @@
 // EnemyProjectile.cpp
 #include "EnemyProjectile.h"
 
+#include "EnemyBase.h"
 #include "Components/SphereComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
@@ -58,6 +59,7 @@ void AEnemyProjectile::BeginPlay()
         NiagaraTrail->SetAsset(TrailEffect);
         NiagaraTrail->Activate();
     }
+    
 }
 
 void AEnemyProjectile::Tick(float DeltaTime)
@@ -75,6 +77,7 @@ void AEnemyProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherAct
     // Ignorar si choca consigo mismo o con el que lo disparó
     AActor* MyOwner = GetOwner();
     if (!OtherActor || OtherActor == this || OtherActor == MyOwner) return;
+    if (OtherActor->IsA(AEnemyBase::StaticClass())) return;
 
     // Aplicar daño
     AController* OwnerInstigator = MyOwner ? MyOwner->GetInstigatorController() : nullptr;
