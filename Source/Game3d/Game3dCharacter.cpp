@@ -1286,6 +1286,7 @@ void AGame3dCharacter::ComboAttack()
 	if (bIsClimbing) return;
 	bIsAttacking = true;
 	ComboCount = 0;
+	CachedAttackInputTime = -1000.f;
 	Multicast_PlayComboAttack();
 }
 
