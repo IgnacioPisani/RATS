@@ -15,8 +15,11 @@
     <list default="true" id="700cebab-63ab-47f1-8bec-c545c4c447ad" name="Changes" comment="Merge branch 'main' into MiniMapa&#10;&#10;# Conflicts:&#10;#&#9;.idea/.idea.Game3d/.idea/workspace.xml&#10;#&#9;Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Enemies/BP_EnemyMixto.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemies/BP_EnemyMixto.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Gollem/Enemy_Golem_Anim_Armature_Attack.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Gollem/Enemy_Golem_Anim_Armature_Attack.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/SU/GB5NCBTS6GP23ZZYHQ0VA2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/SU/GB5NCBTS6GP23ZZYHQ0VA2.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Item/BP_HudVisib.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Item/BP_HudVisib.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Widget/WBP_BossHUD.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Widget/WBP_BossHUD.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/B/QW/SXJ5NOWUNZVVSL44HBQDAX.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Private/EnemyMixto.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Private/EnemyMixto.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Game3d/Private/EnemyProjectile.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Private/EnemyProjectile.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Game3d/Public/EnemyMixto.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Public/EnemyMixto.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
