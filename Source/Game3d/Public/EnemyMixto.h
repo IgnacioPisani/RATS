@@ -7,6 +7,8 @@
 #include "GameFramework/Character.h"
 #include "EnemyMixto.generated.h"
 
+class AEnemyDistance;
+
 UCLASS()
 class GAME3D_API AEnemyMixto : public AEnemyMelee
 {
@@ -33,6 +35,33 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|Fire")
 	TSubclassOf<AActor> BulletClass;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|Summon")
+	TSubclassOf<AEnemyDistance> DistanceEnemyClass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|Summon")
+	float SummonSpawnRadius = 200.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|Enrage")
+	float Tier1SpeedMultiplier = 1.3f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|Enrage")
+	float Tier2SpeedMultiplier = 1.6f;
+
+	float BaseWalkSpeed = 0.f; // cacheada en BeginPlay
+
+	void ApplyEnrageSpeed(float SpeedMultiplier);
+	
+	UPROPERTY()
+	TArray<AEnemyDistance*> SummonedAllies;
+
+	// Cuántos umbrales de tercio ya gatillaron invocación (0,1,2)
+	int32 ThirdsTriggered = 0;
+	
+	void TrySummonDistanceAllies(int32 Count);
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|Summon")
+	int32 MaxSummonedAllies = 5;
+
 	UPROPERTY(BlueprintReadWrite, Category = "Combat")
 	AActor* TargetActor = nullptr;
 
@@ -43,5 +72,30 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
 	float DetectionRadius = 1500.f;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Combat")
+	class UBoxComponent* MeleeHitBox;
+
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	float MeleeHitBoxDuration = 0.2f;
+
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	float MeleeDamage = 10.f;
+
+	FTimerHandle MeleeHitBoxTimerHandle;
 	
+	virtual void HandleHit_Implementation() override;
+
+	
+	void HandleLifeChanged(float NewHealth, float NewMaxHealth);
+	UFUNCTION()
+	void ActivateMeleeHitBox();
+
+	UFUNCTION()
+	void DeactivateMeleeHitBox();
+
+	UFUNCTION()
+	void OnMeleeHitBoxOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+		UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,
+		bool bFromSweep, const FHitResult& SweepResult);
 };
