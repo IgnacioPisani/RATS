@@ -20,80 +20,66 @@ bool UMissionWidget::Initialize()
 
 	return bSuccess;
 }
-void UMissionWidget::FadeWidget(UWidget* Widget, bool bFadeIn, float Duration, TFunction<void()> OnComplete)
+void UMissionWidget::FadeWidget(UWidget* Widget, bool bFadeIn, float Duration,
+								FTimerHandle& OutHandle, TFunction<void()> OnComplete)
 {
-	if (!Widget) return;
+	if (!Widget || !GetWorld()) return;
 
-	float StartAlpha = bFadeIn ? 0.f : 1.f;
-	float EndAlpha = bFadeIn ? 1.f : 0.f;
+	// Cancelá cualquier fade en curso sobre este widget
+	GetWorld()->GetTimerManager().ClearTimer(OutHandle);
+
+	float StartAlpha  = bFadeIn ? 0.f : 1.f;
+	float EndAlpha    = bFadeIn ? 1.f : 0.f;
 
 	Widget->SetRenderOpacity(StartAlpha);
 	Widget->SetVisibility(ESlateVisibility::Visible);
 
-	const int32 Steps = 30;
-	const float StepTime = Duration / Steps;
+	const int32 Steps     = 30;
+	const float StepTime  = Duration / Steps;
 	const float AlphaStep = (EndAlpha - StartAlpha) / Steps;
 
 	TSharedPtr<int32> CurrentStep = MakeShared<int32>(0);
-	TSharedPtr<FTimerHandle> Handle = MakeShared<FTimerHandle>();
-
-	TWeakObjectPtr<UWidget> WeakWidget(Widget);
+	TWeakObjectPtr<UWidget>        WeakWidget(Widget);
 	TWeakObjectPtr<UMissionWidget> WeakThis(this);
 
 	GetWorld()->GetTimerManager().SetTimer(
-		*Handle,
-		[WeakThis, WeakWidget, CurrentStep, Steps, StartAlpha, AlphaStep, EndAlpha, Handle, OnComplete, bFadeIn]()
+		OutHandle,
+		[WeakThis, WeakWidget, CurrentStep, Steps, StartAlpha, AlphaStep, EndAlpha, bFadeIn, OnComplete]()
 		{
-			if (!WeakThis.IsValid() || !WeakWidget.IsValid())
-				return;
+			if (!WeakThis.IsValid() || !WeakWidget.IsValid()) return;
 
 			(*CurrentStep)++;
-
-			float NewAlpha = StartAlpha + AlphaStep * (*CurrentStep);
-			NewAlpha = FMath::Clamp(NewAlpha, 0.f, 1.f);
-
+			float NewAlpha = FMath::Clamp(StartAlpha + AlphaStep * (*CurrentStep), 0.f, 1.f);
 			WeakWidget->SetRenderOpacity(NewAlpha);
 
 			if (*CurrentStep >= Steps)
 			{
-				WeakThis->GetWorld()->GetTimerManager().ClearTimer(*Handle);
-
 				WeakWidget->SetRenderOpacity(EndAlpha);
-
 				if (!bFadeIn)
-				{
 					WeakWidget->SetVisibility(ESlateVisibility::Hidden);
-				}
-
 				if (OnComplete)
-				{
 					OnComplete();
-				}
 			}
 		},
-		StepTime,
-		true);
+		StepTime, true);
 }
 
 void UMissionWidget::SetMissionText(const FString& NewMission)
 {
-	if (!CurrentMissionText || !MissionTitleText)
-		return;
+	if (!CurrentMissionText || !MissionTitleText || !GetWorld()) return;
 
 	CurrentMissionText->SetText(FText::FromString(NewMission));
 
-	FadeWidget(MissionTitleText, true, 0.5f);
-	FadeWidget(CurrentMissionText, true, 0.5f);
+	FadeWidget(MissionTitleText,   true, 0.5f, TimerHandle_TitleFade);
+	FadeWidget(CurrentMissionText, true, 0.5f, TimerHandle_MissionFade);
 
 	GetWorld()->GetTimerManager().ClearTimer(TimerHandle_HideMission);
-
 	GetWorld()->GetTimerManager().SetTimer(
 		TimerHandle_HideMission,
 		[this]()
 		{
-			FadeWidget(MissionTitleText, false, 0.5f);
-			FadeWidget(CurrentMissionText, false, 0.5f);
+			FadeWidget(MissionTitleText,   false, 0.5f, TimerHandle_TitleFade);
+			FadeWidget(CurrentMissionText, false, 0.5f, TimerHandle_MissionFade);
 		},
-		3.0f,
-		false);
+		3.0f, false);
 }

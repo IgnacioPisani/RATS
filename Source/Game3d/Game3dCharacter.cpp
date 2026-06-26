@@ -102,38 +102,7 @@ void AGame3dCharacter::BeginPlay()
 	{
 		StartIdleCheck();
 	}
-	if (!IsLocallyControlled()) return;
-	if (APlayerController* PC = Cast<APlayerController>(GetController()))
-	{
-		PC->InputComponent->BindKey(
-			EKeys::AnyKey,
-			IE_Pressed,
-			this,
-			&AGame3dCharacter::OnAnyKeyPressed
-		);
-	}
-	if (MissionWidgetClass)
-	{
-		// Crear el widget
-		MissionWidget = CreateWidget<UMissionWidget>(GetWorld(), MissionWidgetClass);
 
-		if (MissionWidget)
-		{
-			MissionWidget->AddToViewport();
-		}
-	}
-	 
-	if (SpecialAbilityHUDClass)
-	{
-		SpecialAbilityHUDInstance = CreateWidget<USpecialAbilityHUD>(GetWorld(), SpecialAbilityHUDClass);
- 
-		if (SpecialAbilityHUDInstance)
-		{
-			SpecialAbilityHUDInstance->AddToViewport();
-			SpecialAbilityHUDInstance->SetVisibility(ESlateVisibility::Hidden);
-			SpecialAbilityHUDInstance->SetOwnerCharacter(this);
-		}
-	}
 	AMissionGameState* GS =
 	GetWorld()->GetGameState<AMissionGameState>();
 
@@ -146,58 +115,12 @@ void AGame3dCharacter::BeginPlay()
 
 		HandleMissionUpdated(GS->GetCurrentMission());
 	}
-	if (HealthBarWidgetClass)
-	{
-		HealthBarWidget = CreateWidget<UHealthBar>(GetWorld(), HealthBarWidgetClass);
-		if (HealthBarWidget)
-		{
-			HealthBarWidget->AddToViewport();
-		}
-	}
-	if (MotionLinesWidgetClass)
-	{
-		MotionLinesWidget = CreateWidget<UMotionLinesWidget>(GetWorld(), MotionLinesWidgetClass);
-		if (MotionLinesWidget)
-		{
-			MotionLinesWidget->AddToViewport();
-			MotionLinesWidget->SetVisibility(ESlateVisibility::Hidden);
-		}
-	}
+
 	if (XpComponent)
 	{
 		// Suscripci�n a los eventos del componente
 		XpComponent->OnXpChanged.AddDynamic(this, &AGame3dCharacter::HandleXpChanged);
 		XpComponent->OnLevelChanged.AddDynamic(this, &AGame3dCharacter::HandleLevelChanged);
-	} 
- 	if (XpBarWidgetClass)
-	{
-		// Crear el widget
-		XpWidget = CreateWidget<UXpBar>(GetWorld(), XpBarWidgetClass);
-
-		if (XpWidget)
-		{
-			XpWidget->AddToViewport();
-		}
-	}
-	if (MinimapWidgetClass)
-	{
-		// Crear el widget
-		MiniMapWidget = CreateWidget<UMiniMapWidget>(GetWorld(), MinimapWidgetClass);
-
-		if (MiniMapWidget)
-		{
-			MiniMapWidget->AddToViewport();
-		}
-	}
-
-	if (MedkitHUDClass)
-	{
-		MedkitHUDInstance = CreateWidget<UUWMedkitHUD>(GetWorld(), MedkitHUDClass);
-		if (MedkitHUDInstance)
-		{
-			MedkitHUDInstance->AddToViewport();
-			MedkitHUDInstance->UpdateMedkitBars(0);
-		}
 	}
 }
 
@@ -653,7 +576,6 @@ void AGame3dCharacter::HandleDeath()
 	}
 
 	// Mostrar Game Over a todos
-	Multicast_ShowGameOver();
 
 	GetWorldTimerManager().SetTimer(
 		DeathTimerHandle,
@@ -683,10 +605,56 @@ void AGame3dCharacter::OnRep_IsDead()
 			AnimInstance->Montage_Play(DeathMontage);
 		}
 	}
+	// Limpiar widgets del viewport solo en el cliente local del jugador que murió
+	if (IsLocallyControlled())
+	{
+		if (HealthBarWidget)
+		{
+			HealthBarWidget->RemoveFromParent();
+			HealthBarWidget = nullptr;
+		}
+
+		if (MedkitHUDInstance)
+		{
+			MedkitHUDInstance->RemoveFromParent();
+			MedkitHUDInstance = nullptr;
+		}
+
+		if (MotionLinesWidget)
+		{
+			MotionLinesWidget->RemoveFromParent();
+			MotionLinesWidget = nullptr;
+		}
+
+		if (MiniMapWidget)
+		{
+			MiniMapWidget->RemoveFromParent();
+			MiniMapWidget = nullptr;
+		}
+
+		if (XpWidget)
+		{
+			XpWidget->RemoveFromParent();
+			XpWidget = nullptr;
+		}
+
+		if (MissionWidget)
+		{
+			MissionWidget->RemoveFromParent();
+			MissionWidget = nullptr;
+		}
+
+		if (SpecialAbilityHUDInstance)
+		{
+			SpecialAbilityHUDInstance->RemoveFromParent();
+			SpecialAbilityHUDInstance = nullptr;
+		}
+	}
 }
 
 void AGame3dCharacter::OnDeathTimerExpired()
 {
+	Multicast_ShowGameOver();
 
 }
 
@@ -701,6 +669,93 @@ void AGame3dCharacter::Multicast_ShowGameOver_Implementation()
 	}
 }
 
+void AGame3dCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	if (!IsLocallyControlled()) return;
+
+	if (APlayerController* PC = Cast<APlayerController>(GetController()))
+	{
+		PC->InputComponent->BindKey(
+			EKeys::AnyKey,
+			IE_Pressed,
+			this,
+			&AGame3dCharacter::OnAnyKeyPressed
+		);
+	}
+
+	if (MissionWidgetClass && !MissionWidget)
+	{
+		MissionWidget = CreateWidget<UMissionWidget>(GetWorld(), MissionWidgetClass);
+
+		if (MissionWidget)
+		{
+			MissionWidget->AddToViewport();
+		}
+	}
+
+	if (SpecialAbilityHUDClass && !SpecialAbilityHUDInstance)
+	{
+		SpecialAbilityHUDInstance = CreateWidget<USpecialAbilityHUD>(GetWorld(), SpecialAbilityHUDClass);
+
+		if (SpecialAbilityHUDInstance)
+		{
+			SpecialAbilityHUDInstance->AddToViewport();
+			SpecialAbilityHUDInstance->SetVisibility(ESlateVisibility::Hidden);
+			SpecialAbilityHUDInstance->SetOwnerCharacter(this);
+		}
+	}
+
+	if (HealthBarWidgetClass && !HealthBarWidget)
+	{
+		HealthBarWidget = CreateWidget<UHealthBar>(GetWorld(), HealthBarWidgetClass);
+		if (HealthBarWidget)
+		{
+			HealthBarWidget->AddToViewport();
+		}
+	}
+
+	if (MotionLinesWidgetClass && !MotionLinesWidget)
+	{
+		MotionLinesWidget = CreateWidget<UMotionLinesWidget>(GetWorld(), MotionLinesWidgetClass);
+		if (MotionLinesWidget)
+		{
+			MotionLinesWidget->AddToViewport();
+			MotionLinesWidget->SetVisibility(ESlateVisibility::Hidden);
+		}
+	}
+
+	if (XpBarWidgetClass && !XpWidget)
+	{
+		XpWidget = CreateWidget<UXpBar>(GetWorld(), XpBarWidgetClass);
+
+		if (XpWidget)
+		{
+			XpWidget->AddToViewport();
+		}
+	}
+
+	if (MinimapWidgetClass && !MiniMapWidget)
+	{
+		MiniMapWidget = CreateWidget<UMiniMapWidget>(GetWorld(), MinimapWidgetClass);
+
+		if (MiniMapWidget)
+		{
+			MiniMapWidget->AddToViewport();
+		}
+	}
+
+	if (MedkitHUDClass && !MedkitHUDInstance)
+	{
+		MedkitHUDInstance = CreateWidget<UUWMedkitHUD>(GetWorld(), MedkitHUDClass);
+		if (MedkitHUDInstance)
+		{
+			MedkitHUDInstance->AddToViewport();
+			MedkitHUDInstance->UpdateMedkitBars(0);
+		}
+	}
+}
 void AGame3dCharacter::Multicast_HideGameOver_Implementation()
 {
 	if (!IsLocallyControlled()) return;

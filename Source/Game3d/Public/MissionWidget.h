@@ -23,8 +23,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SetMissionText(const FString& NewMission);
 
-	void FadeWidget(UWidget* Widget, bool bFadeIn, float Duration, TFunction<void()> OnComplete = nullptr);
-
+void FadeWidget(UWidget* Widget, bool bFadeIn, float Duration, FTimerHandle& OutHandle, TFunction<void()> OnComplete = nullptr);
 protected:
 
 	UPROPERTY(meta = (BindWidget))
@@ -33,5 +32,6 @@ protected:
 	UPROPERTY(meta = (BindWidget))
 	UTextBlock* CurrentMissionText;
 
-	FTimerHandle TimerHandle_HideMission;
-};
+	FTimerHandle TimerHandle_TitleFade;
+	FTimerHandle TimerHandle_MissionFade;
+	FTimerHandle TimerHandle_HideMission; };

@@ -724,7 +724,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat|SpecialAbility")
 	float SpecialAbilityTickInterval = 0.5f;    // cada cuántos segundos hace daño
 	
- 
+	virtual void PossessedBy(AController* NewController) override;
+	
 	UPROPERTY(EditDefaultsOnly, Category = "Climbing")
 	UAnimMontage* ClimbingIdleMontage;   // climbing_idle_3
  
