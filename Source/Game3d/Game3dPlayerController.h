@@ -4,22 +4,25 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+#include "CompanionHintWidget.h"
 #include "Game3dPlayerController.generated.h"
 
 class UInputMappingContext;
 class UUserWidget;
 
-/**
- *  Basic PlayerController class for a third person game
- *  Manages input mappings
- */
 UCLASS(abstract)
 class AGame3dPlayerController : public APlayerController
 {
 	GENERATED_BODY()
-	
-protected:
+    
+public:
+	UFUNCTION(BlueprintCallable, Category = "Companion Hint")
+	void RequestShowHint(const FText& HintText);
 
+	UFUNCTION(BlueprintCallable, Category = "Companion Hint")
+	void RequestHideHint();
+
+protected:
 	/** Input Mapping Contexts */
 	UPROPERTY(EditAnywhere, Category ="Input|Input Mappings")
 	TArray<UInputMappingContext*> DefaultMappingContexts;
@@ -35,10 +38,25 @@ protected:
 	/** Pointer to the mobile controls widget */
 	TObjectPtr<UUserWidget> MobileControlsWidget;
 
-	/** Gameplay initialization */
-	virtual void BeginPlay() override;
+	UPROPERTY(BlueprintReadOnly, Category = "Companion Hint")
+	TObjectPtr<UCompanionHintWidget> CompanionHintWidget;
 
-	/** Input mapping context setup */
+	UPROPERTY(EditDefaultsOnly, Category = "Companion Hint")
+	TSubclassOf<UCompanionHintWidget> CompanionHintWidgetClass;
+
+	virtual void BeginPlay() override;
 	virtual void SetupInputComponent() override;
 
+private:
+	UFUNCTION(Server, Reliable)
+	void Server_ShowHint(const FText& HintText);
+
+	UFUNCTION(Server, Reliable)
+	void Server_HideHint();
+
+	UFUNCTION(Client, Reliable)
+	void Client_ShowHint(const FText& HintText);
+
+	UFUNCTION(Client, Reliable)
+	void Client_HideHint();
 };

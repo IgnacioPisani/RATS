@@ -1,6 +1,5 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
-
 #include "Game3dPlayerController.h"
 #include "EnhancedInputSubsystems.h"
 #include "Engine/LocalPlayer.h"
@@ -8,54 +7,97 @@
 #include "Blueprint/UserWidget.h"
 #include "Game3d.h"
 #include "Widgets/Input/SVirtualJoystick.h"
+#include "CompanionHintWidget.h"
 
 void AGame3dPlayerController::BeginPlay()
 {
-	Super::BeginPlay();
+    Super::BeginPlay();
 
-	// only spawn touch controls on local player controllers
-	if (SVirtualJoystick::ShouldDisplayTouchInterface() && IsLocalPlayerController())
-	{
-		// spawn the mobile controls widget
-		MobileControlsWidget = CreateWidget<UUserWidget>(this, MobileControlsWidgetClass);
+    // Mobile controls
+    if (SVirtualJoystick::ShouldDisplayTouchInterface() && IsLocalPlayerController())
+    {
+        MobileControlsWidget = CreateWidget<UUserWidget>(this, MobileControlsWidgetClass);
 
-		if (MobileControlsWidget)
-		{
-			// add the controls to the player screen
-			MobileControlsWidget->AddToPlayerScreen(0);
+        if (MobileControlsWidget)
+        {
+            MobileControlsWidget->AddToPlayerScreen(0);
+        }
+        else
+        {
+            UE_LOG(LogGame3d, Error, TEXT("Could not spawn mobile controls widget."));
+        }
+    }
 
-		} else {
-
-			UE_LOG(LogGame3d, Error, TEXT("Could not spawn mobile controls widget."));
-
-		}
-
-	}
+    // Companion hint widget
+    if (IsLocalController() && CompanionHintWidgetClass)
+    {
+        CompanionHintWidget = CreateWidget<UCompanionHintWidget>(this, CompanionHintWidgetClass);
+        if (CompanionHintWidget)
+        {
+            CompanionHintWidget->AddToViewport(10);
+            CompanionHintWidget->HideHint();  // directo, sin interfaz
+        }
+    }
 }
 
 void AGame3dPlayerController::SetupInputComponent()
 {
-	Super::SetupInputComponent();
+    Super::SetupInputComponent();
 
-	// only add IMCs for local player controllers
-	if (IsLocalPlayerController())
-	{
-		// Add Input Mapping Contexts
-		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
-		{
-			for (UInputMappingContext* CurrentContext : DefaultMappingContexts)
-			{
-				Subsystem->AddMappingContext(CurrentContext, 0);
-			}
+    if (IsLocalPlayerController())
+    {
+        if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
+        {
+            for (UInputMappingContext* CurrentContext : DefaultMappingContexts)
+            {
+                Subsystem->AddMappingContext(CurrentContext, 0);
+            }
 
-			// only add these IMCs if we're not using mobile touch input
-			if (!SVirtualJoystick::ShouldDisplayTouchInterface())
-			{
-				for (UInputMappingContext* CurrentContext : MobileExcludedMappingContexts)
-				{
-					Subsystem->AddMappingContext(CurrentContext, 0);
-				}
-			}
-		}
-	}
+            if (!SVirtualJoystick::ShouldDisplayTouchInterface())
+            {
+                for (UInputMappingContext* CurrentContext : MobileExcludedMappingContexts)
+                {
+                    Subsystem->AddMappingContext(CurrentContext, 0);
+                }
+            }
+        }
+    }
+}
+
+void AGame3dPlayerController::RequestShowHint(const FText& HintText)
+{
+    if (HasAuthority())
+        Client_ShowHint(HintText);
+    else
+        Server_ShowHint(HintText);
+}
+
+void AGame3dPlayerController::RequestHideHint()
+{
+    if (HasAuthority())
+        Client_HideHint();
+    else
+        Server_HideHint();
+}
+
+void AGame3dPlayerController::Server_ShowHint_Implementation(const FText& HintText)
+{
+    Client_ShowHint(HintText);
+}
+
+void AGame3dPlayerController::Server_HideHint_Implementation()
+{
+    Client_HideHint();
+}
+
+void AGame3dPlayerController::Client_ShowHint_Implementation(const FText& HintText)
+{
+    if (CompanionHintWidget)
+        CompanionHintWidget->ShowHint(HintText);
+}
+
+void AGame3dPlayerController::Client_HideHint_Implementation()
+{
+    if (CompanionHintWidget)
+        CompanionHintWidget->HideHint();
 }
