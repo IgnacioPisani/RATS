@@ -13,13 +13,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2f7e8cf2-6266-4f2d-b99f-9bcefd71daf6" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game3d/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/BP_PueraColiseo.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/BP_PueraColiseo.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/BP_PueraColiseoSalida.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CosasDePrueba/BP_PueraColiseoSalida.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/MisionPuertaBunker/BP_Estatuas.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CosasDePrueba/MisionPuertaBunker/BP_Estatuas.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/Misiones/MisionPuertaBunker/BP_PuertaBunker.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CosasDePrueba/Misiones/MisionPuertaBunker/BP_PuertaBunker.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/Misiones/TorreElevador/BP_Control.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CosasDePrueba/Misiones/TorreElevador/BP_Control.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/CosasDePrueba/bateria/BP_Bateria.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/CosasDePrueba/bateria/BP_Bateria.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Rock_1_Big149_Blueprint.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Rock_1_Big149_Blueprint.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/ML/5VQA5T68ETCMKJ6V6KES3J.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/ML/5VQA5T68ETCMKJ6V6KES3J.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/3/O3/AICHZY025E84KQPMFLEPNK.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/4/JL/R0WG8Q4G2E3Q9ZVKT47NCB.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/7/MV/ARBGBRL4NQI7KTBPTGHKAJ.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Game3d/Game3dCharacter.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/1/38/AWNAHI5UU14V7CDJT5XH2L.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/1/38/AWNAHI5UU14V7CDJT5XH2L.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/SW/YKXKQO8J8I2W5B5OHCQ2Z2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/2/SW/YKXKQO8J8I2W5B5OHCQ2Z2.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/O8/7FWYV3WPBT06I3KJ0859J6.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/5/O8/7FWYV3WPBT06I3KJ0859J6.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/B/BM/SKJUD98NIRGN3ZUAD6TXHA.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Map/Blockout2/B/BM/SKJUD98NIRGN3ZUAD6TXHA.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/npc/ORION/MAT/mat_Prop_Buster.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/npc/ORION/MAT/mat_Prop_Buster.uasset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,41 +39,41 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "IgnacioPisani"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;IgnacioPisani&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/IgnacioPisani/RATS.git",
-    "accountId": "62797f13-4b97-49d2-ad2a-7c3c981f0e68"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/IgnacioPisani/RATS.git&quot;,
+    &quot;accountId&quot;: &quot;62797f13-4b97-49d2-ad2a-7c3c981f0e68&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 5
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="3FgzQsBRjKoneN194s5Wefo14iU" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "C/C++ Project.Game3d.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;C/C++ Project.Game3d.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="C/C++ Project.Game3d">
     <configuration name="Game3d" type="CppProject" factoryName="C++ Project">
       <configuration_1 setup="1">
@@ -170,7 +177,10 @@
       <method v="2" />
     </configuration>
     <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
-      <deployment type="dockerfile" />
+      <deployment type="dockerfile">
+        <settings />
+      </deployment>
+      <EXTENSION ID="com.jetbrains.rider.docker.debug" isFastModeEnabled="true" isSslEnabled="false" />
       <method v="2" />
     </configuration>
   </component>
